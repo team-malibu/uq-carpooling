@@ -1,0 +1,42 @@
+.Background {
+    position: absolute;
+    width: 375px;
+    height: 812px;
+    left: 0px;
+    top: 0px;
+}
+
+.Backgorund_bn {
+    position: absolute;
+    overflow: visible;
+    width: 375px;
+    height: 812px;
+    left: 0px;
+    top: 0px;
+	fill: url(#Backgorund_bn);
+}
+
+#Top {
+    position: static;
+    width: 375px;
+    height: 110px;
+    left: 0px;
+    top: 0px;
+    overflow: visible;
+}
+
+#Body {
+    position: static;
+    width: 375px;
+    height: 630px;
+    left: 0px;
+    top: 110px;
+}
+
+#Navbar {
+    position: static;
+    width: 321px;
+    height: 53px;
+    left: 27px;
+    top: 13px;
+}

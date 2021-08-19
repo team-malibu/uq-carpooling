@@ -1,9 +1,17 @@
+import React from "react";
 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import BlankDefaultPage from "./components/BlankDefaultPage";
 function App() {
   return (
-    <div className="App">
-      <h1>Header</h1>
-    </div>
+    <>
+      <Router>
+        <Switch>
+        <Route path='/' exact component={BlankDefaultPage} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
