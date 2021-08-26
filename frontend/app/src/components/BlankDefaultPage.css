@@ -16,6 +16,18 @@
 	fill: url(#Backgorund_bn);
 }
 
+
+.Rectangle_314 {
+    position: absolute;
+    overflow: visible;
+    width: 375px;
+    height: 741px;
+    left: 0px;
+    top: 0px;
+    opacity: 0.42;
+    fill: rgba(255,255,255,1);
+}
+
 #Top {
     position: static;
     width: 375px;

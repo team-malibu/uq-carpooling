@@ -1,0 +1,28 @@
+.navbar-link {
+    position: static;
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bottom {
+    position: static;
+    display: block;
+    width: 375px;
+    height: 72px;
+    text-align: center;
+}
+
+.body {
+    position: static;
+    width: 375px;
+    height: 630px;
+}
+
+.top {
+    position: static;
+    width: 375px;
+    height: 110px;
+}
