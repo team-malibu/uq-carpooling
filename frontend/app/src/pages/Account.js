@@ -1,11 +1,10 @@
 import React from 'react'
+import BlankDefaultPage from '../components/BlankDefaultPage'
 import Navbar from '../components/Navbar'
 
 function Account() {
     return (
-        <div>
-            <Navbar currentlySelected={3}/>
-        </div>
+        <BlankDefaultPage currentlySelected={3}/>
     )
 }
 

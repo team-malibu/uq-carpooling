@@ -57,7 +57,7 @@ function NavbarButtonV3({ icon, color, index, page}) {
     }
 return (
     <Link to={icon.path} className='navbar-link'>
-        <svg
+        <svg className='icon' 
         xmlns={icon.xmlns}
         width={icon.width}
         height={icon.height}
@@ -81,7 +81,7 @@ return (
 const unSelectedColor = "#7a599b";
 const selectedColor = "#554ff1";
 
-function Navbar(currentlySelected) {
+function Navbar(props) {
     const [button, setButton] = useState(defaultNavbar);
     /**const [buttonColor, setButtonColor] = useState({0:unSelectedColor,1:unSelectedColor,2:unSelectedColor,3:unSelectedColor});*/
     
@@ -90,9 +90,6 @@ function Navbar(currentlySelected) {
 
     return (
         <>
-        <div className='top'></div>
-        <div className='body'></div>
-        <div className='bottom'>
             {button.map((ic,i) => {
                 return (
                     <>
@@ -100,14 +97,12 @@ function Navbar(currentlySelected) {
                         key={i}
                         index={i}
                         icon={ic}
-                        page={currentlySelected}
+                        page={props}
                     />
                     </>
                     
                 );
             })}
-            
-        </div>
         
         </>
         

@@ -1,12 +1,10 @@
 import React from 'react'
 import './BlankDefaultPage.css'
 import Navbar from './Navbar.js'
-function BlankDefaultPage() {
+
+function BlankDefaultPage(props) {
     return (
-        <div>
-            <div className='Navbar'>
-                <Navbar />
-            </div>
+        <>
             <div className='Background'>
                 <svg class="Backgorund_bn">
                     <linearGradient id="Backgorund_bn" spreadMethod="pad" x1="1.309" x2="-0.034" y1="-0.434" y2="1.038">
@@ -22,14 +20,16 @@ function BlankDefaultPage() {
                     </rect>
                 </svg>
             </div>
-            <div className='Top'>
+            <div className='top'>
 
             </div>
-            <div className='Body'>
+            <div className='body'>
 
             </div>
-            
-        </div>
+            <div className='bottom'>
+                <Navbar currentlySelected={props.currentlySelected} />
+            </div>
+        </>
     )
 }
 

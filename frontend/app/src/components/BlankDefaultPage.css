@@ -6,6 +6,7 @@
     top: 0px;
 }
 
+
 .Backgorund_bn {
     position: absolute;
     overflow: visible;
@@ -28,27 +29,22 @@
     fill: rgba(255,255,255,1);
 }
 
-#Top {
+.bottom {
     position: static;
+    display: block;
     width: 375px;
-    height: 110px;
-    left: 0px;
-    top: 0px;
-    overflow: visible;
+    height: 72px;
+    text-align: center;
 }
 
-#Body {
+.body {
     position: static;
     width: 375px;
     height: 630px;
-    left: 0px;
-    top: 110px;
 }
 
-#Navbar {
-    position: static;
-    width: 321px;
-    height: 53px;
-    left: 27px;
-    top: 13px;
+.top {
+    position: relative;
+    width: 375px;
+    height: 110px;
 }

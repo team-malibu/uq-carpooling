@@ -1,11 +1,11 @@
 import React from 'react'
+import BlankDefaultPage from '../components/BlankDefaultPage'
 import Navbar from '../components/Navbar'
 
 function Calender() {
     return (
-        <div>
-            <Navbar currentlySelected={1}/>
-        </div>
+        <BlankDefaultPage currentlySelected={1}/>
+
     )
 }
 

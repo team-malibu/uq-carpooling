@@ -1,11 +1,11 @@
 import React from 'react'
+import BlankDefaultPage from '../components/BlankDefaultPage'
 import Navbar from '../components/Navbar'
 
 function Book() {
     return (
-        <div>
-            <Navbar currentlySelected={0}/>
-        </div>
+        <BlankDefaultPage currentlySelected={0}/>
+        
     )
 }
 

@@ -1,12 +1,12 @@
 import React from 'react'
+import BlankDefaultPage from '../components/BlankDefaultPage'
 import Navbar from '../components/Navbar'
 
 
 function Search() {
     return (
-        <div>
-            <Navbar currentlySelected={2}/>
-        </div>
+        <BlankDefaultPage currentlySelected={2}/>
+
     )
 }
 

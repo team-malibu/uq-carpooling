@@ -1,18 +1,15 @@
 .navbar-link {
-    position: static;
+    position: relative;
     display: inline-block;
     width: 25%;
     height: 100%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .bottom {
     position: static;
-    display: block;
+    display: inline-block;
     width: 375px;
     height: 72px;
-    text-align: center;
 }
 
 .body {
@@ -25,4 +22,17 @@
     position: static;
     width: 375px;
     height: 110px;
+}
+
+.icon{
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+  
 }
