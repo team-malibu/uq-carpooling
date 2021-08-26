@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 
 function Calender() {
     return (
-        <BlankDefaultPage currentlySelected={1}/>
+        <BlankDefaultPage currentlySelected={1} name='Calendar'/>
 
     )
 }

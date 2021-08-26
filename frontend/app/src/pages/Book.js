@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 
 function Book() {
     return (
-        <BlankDefaultPage currentlySelected={0}/>
+        <BlankDefaultPage currentlySelected={0} name='Book'/>
         
     )
 }
