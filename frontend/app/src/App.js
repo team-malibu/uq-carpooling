@@ -16,7 +16,6 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route path='/test' exact component={BlankDefaultPage} />
           <Route path='/Buttons' exact component={ButtonDisplayPage} />
           <Route path='/TripTile' exact component={() => <TripTile class_name='DECO3801 Build Studio 3' address="Test Address" />} />
           <Route path='/' exact component={BlankDefaultPage} />

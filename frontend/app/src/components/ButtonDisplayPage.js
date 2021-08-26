@@ -5,14 +5,14 @@ function ButtonDisplayPage() {
   return (
     <div>
       <div>
-        <Buttons.SmallConfirmButton />
+        <Buttons.SmallConfirmButton name='Small'/>
       </div>
       <div>
-        <Buttons.MediumConfirmButton />
+        <Buttons.MediumConfirmButton name='Medium'/>
       </div>
 
       <div>
-        <Buttons.LargeConfirmButton />
+        <Buttons.LargeConfirmButton name='Large'/>
       </div>
       <div>
         <Buttons.SquareButton />

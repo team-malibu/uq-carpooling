@@ -1,25 +1,25 @@
 import React from 'react'
 import './Button.css'
 
-function SmallConfirmButton() {
+function SmallConfirmButton(props) {
   return (
     <button class='button_small green'>
-      Small Confirm
+      {props.name}
     </button>);
 }
 
-function MediumConfirmButton() {
+function MediumConfirmButton(props) {
   return (
     <button class="button_medium green">
-      Medium Confirm
+      {props.name}
     </button>
   );
 }
 
-function LargeConfirmButton() {
+function LargeConfirmButton(props) {
   return (
     <button class="button_large green">
-      Large Confirm
+      {props.name}
     </button>
   );
 }
