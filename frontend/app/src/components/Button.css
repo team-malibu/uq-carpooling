@@ -1,10 +1,10 @@
 /* GREEN_COLOR_UNACTIVE = #62E974 */
 /* GREEN_COLOR_ACTIVE =  #4CB55A */
 /* TEXT_COLOR =  #462963 */
-div {
+/* div {
   padding-top: 8px;
   padding-bottom: 8px;
-}
+} */
 
 .green {
   background-color: #62E974;
@@ -14,7 +14,6 @@ div {
   background-color: #4CB55A;
   transition: background-color 100ms linear;
 }
-
 
 .button_small {
   border: none;

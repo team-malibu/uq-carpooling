@@ -1,3 +1,16 @@
+* {
+  padding:0;
+  margin: 0;
+  top:0;
+  left:0;
+}
+
+.wrapper {
+  position: relative;
+  width: 375px;
+  height: 812px;
+}
+
 .Background {
     position: absolute;
     width: 375px;
@@ -13,28 +26,29 @@
     height: 812px;
     left: 0px;
     top: 0px;
-	fill: url(#Backgorund_bn);
+	  fill: url(#Backgorund_bn);
 }
 
-#Top {
-    position: static;
+.Top {
+    position: absolute;
     width: 375px;
     height: 110px;
     left: 0px;
-    top: 0px;
+    top: 0x;
     overflow: visible;
+
 }
 
-#Body {
-    position: static;
+.Body {
+    position: absolute;
     width: 375px;
     height: 630px;
     left: 0px;
     top: 110px;
 }
 
-#Navbar {
-    position: static;
+.Navbar {
+    position: absolute;
     width: 321px;
     height: 53px;
     left: 27px;
