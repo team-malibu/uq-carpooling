@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 
 function Account() {
     return (
-        <BlankDefaultPage currentlySelected={3}/>
+        <BlankDefaultPage currentlySelected={3} name='Account'/>
     )
 }
 
