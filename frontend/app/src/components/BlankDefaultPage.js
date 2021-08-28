@@ -3,6 +3,8 @@ import './BlankDefaultPage.css'
 import Navbar from './Navbar.js'
 
 function BlankDefaultPage(props) {
+    console.log('test')
+    console.log(props.body)
     return (
         <>
             <div className='Background'>
@@ -24,7 +26,7 @@ function BlankDefaultPage(props) {
 
             </div>
             <div className='body'>
-
+                {props.body}
             </div>
             <div className='bottom'>
                 <Navbar currentlySelected={props.currentlySelected} />
