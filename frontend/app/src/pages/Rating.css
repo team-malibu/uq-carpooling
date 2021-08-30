@@ -1,0 +1,47 @@
+.page{
+    position:fixed
+}
+.header {  
+    font-weight: bold;
+    margin-top: 30px;
+    padding-top: 40px;
+    font-family: 'Lato', sans-serif;
+    position:relative;
+    text-align: center;
+    font-size:35px;
+    color: #322d95
+}
+
+.driver {
+    margin-top: 10px;
+    padding-top: 50px;
+    font-family: 'Lato', sans-serif;
+    position:relative;
+    text-align: center;
+    font-size:25px;
+    color: #322d95
+}
+
+.rating_stars {
+    padding-bottom: 20px;
+}
+
+.submitButton {
+    margin-top: 30px;
+    margin-left: 130px;
+}
+
+.LaterButton {
+    margin-top: 30px;
+    margin-left: 105px;
+}
+
+.driver_score{
+    margin-top: 10px;
+    font-family: 'Lato', sans-serif;
+    position:relative;
+    text-align: center;
+    font-size:25px;
+    color: #322d95;
+    margin-right: 100px;
+}
