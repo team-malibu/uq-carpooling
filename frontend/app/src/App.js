@@ -15,6 +15,8 @@ import ConfirmDriver from "./pages/Confirm";
 import Rating from "./pages/Rating";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Timetable from "./pages/Timetable";
+import TimeTile from "./components/TimeTile";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
           <Route path='/Confirm' exact component={ConfirmDriver} />
           <Route path='/SignUp' exact component={SignUp}/>
           <Route path='/Rating' exact component={Rating}/>
+          <Route path='/Timetable' exact component={Timetable} />
+          <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
       </Router>
     </>

@@ -1,30 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-.cwrapper {
+.ttimetable {
   display: flex;
   flex-direction: column;
-
   width: 100%;
   height: 100%;
 
-  overflow: scroll;
-
 
   align-items: center;
   justify-items: center;
+
 }
 
-.ccontainer {
-  margin-top: 40px;
-  margin-bottom: 40px;
+.tscrollable {
+  width: 100%;
+  height: 80px;
+
+
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
-  align-items: center;
-  justify-items: center;
+  align-items: center;  
+  overflow: scroll;
+}
 
+.tdatetext {
   font-family: 'Lato', sans-serif;
   font-size: x-large;
   color: #462963
-
 }
+
