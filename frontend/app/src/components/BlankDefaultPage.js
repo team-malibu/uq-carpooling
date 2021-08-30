@@ -1,6 +1,7 @@
 import React from 'react'
 import './BlankDefaultPage.css'
 import Navbar from './Navbar.js'
+import { Link } from "react-router-dom";
 
 function BackgroundContainer() {
     return (
@@ -25,7 +26,13 @@ function BackgroundContainer() {
 function TopSection(props) {
     return (
         <div className='top'>
-            <h1 className='page-title'>{props.name}</h1>
+            <svg xmlns="http://www.w3.org/2000/svg"  className='back-arrow' width="25" height="25" viewBox="0 0 25 25">
+                <Link to={props.previousPage} className='back-arrow'>
+                <path id="Path_27" data-name="Path 27" d="M29,14.937H9.984L18.719,6.2,16.5,4,4,16.5,16.5,29l2.2-2.2L9.984,18.062H29Z" transform="translate(-4 -4)" fill="#462963"/>
+                </Link>
+            </svg>
+            
+            <h1 className='page-title'>{props.name}</h1> 
         </div>
     );
 }
@@ -34,7 +41,7 @@ function BlankDefaultPage(props) {
     return (
         <>
             <BackgroundContainer />
-            <TopSection name={props.name}/>
+            <TopSection name={props.name} previousPage={props.previousPage}/>
             <div className='body'>
             </div>
             <div className='bottom'>
