@@ -6,7 +6,7 @@
 }
 
 .wrapper {
-  position: absolute;
+  position: static;
   background-color: #37A7F2;
   width: 327px;
   height: 104px;
@@ -25,7 +25,7 @@
   justify-content: space-between;
   position: relative;
   left: 16px;
-  top: 8px;
+  top: 16px;
   width: 295px;
   border-bottom: 1px white solid;
 

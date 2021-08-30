@@ -11,6 +11,7 @@ import Book from "./pages/Book";
 import Calender from "./pages/Calender";
 import Search from "./pages/Search";
 import SelectDriver from "./pages/SelectDriver";
+import ConfirmDriver from "./pages/Confirm";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/Search' exact component={Search} />
           <Route path='/Calendar' exact component={Calender} />
           <Route path='/Select' exact component={SelectDriver} />
+          <Route path='/Confirm' exact component={ConfirmDriver} />
         </Switch>
       </Router>
     </>
