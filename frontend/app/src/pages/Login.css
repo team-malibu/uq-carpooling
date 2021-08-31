@@ -2,6 +2,18 @@
     position:relative
 }
 
+.thistitle {
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 10px;
+    padding-top: 40px;
+    font-family: 'Lato', sans-serif;
+    position:relative;
+    text-align: center;
+    font-size:35px;
+    color: #322d95
+}
+
 .loginButton {
     margin-top: 60px;
     margin-left: 75px;
