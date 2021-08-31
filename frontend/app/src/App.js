@@ -12,6 +12,9 @@ import Calender from "./pages/Calender";
 import Search from "./pages/Search";
 import SelectDriver from "./pages/SelectDriver";
 import ConfirmDriver from "./pages/Confirm";
+import Rating from "./pages/Rating";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import Timetable from "./pages/Timetable";
 import TimeTile from "./components/TimeTile";
 
@@ -30,6 +33,8 @@ function App() {
           <Route path='/Calendar' exact component={Calender} />
           <Route path='/Select' exact component={SelectDriver} />
           <Route path='/Confirm' exact component={ConfirmDriver} />
+          <Route path='/SignUp' exact component={SignUp}/>
+          <Route path='/Rating' exact component={Rating}/>
           <Route path='/Timetable' exact component={Timetable} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
