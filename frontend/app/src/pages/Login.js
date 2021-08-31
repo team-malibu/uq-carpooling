@@ -9,13 +9,12 @@ function Login() {
     return (
         <div>
             <PlainBackground />
-            <div class='thiswrapper'>
-            
+            <div class='wrapper'>
                 <div className="background">
-                
+
                 </div>
                 <div className="top" >
-                <h2 className="thistitle">UQ Carpooling</h2>
+
                 </div>
                 <div className='body'>
 

@@ -9,7 +9,7 @@ function SignUp() {
     return (
         <div>
             <PlainBackground />
-            <div class='Wrapper'>
+            <div class='wrapper'>
                 <div className="background">
 
                 </div>

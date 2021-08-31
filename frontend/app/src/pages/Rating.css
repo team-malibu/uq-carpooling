@@ -4,7 +4,6 @@
 .header {  
     font-weight: bold;
     margin-top: 30px;
-    margin-left: 80px;
     padding-top: 40px;
     font-family: 'Lato', sans-serif;
     position:relative;
@@ -13,7 +12,7 @@
     color: #322d95
 }
 
-/* .driver {
+.driver {
     margin-top: 10px;
     padding-top: 50px;
     font-family: 'Lato', sans-serif;
@@ -21,7 +20,7 @@
     text-align: center;
     font-size:25px;
     color: #322d95
-} */
+}
 
 .rating_stars {
     padding-bottom: 20px;
@@ -34,10 +33,10 @@
 
 .LaterButton {
     margin-top: 30px;
-    margin-left: 85px;
+    margin-left: 105px;
 }
 
-/* .driver_score{
+.driver_score{
     margin-top: 10px;
     font-family: 'Lato', sans-serif;
     position:relative;
@@ -45,4 +44,4 @@
     font-size:25px;
     color: #322d95;
     margin-right: 100px;
-} */
+}
