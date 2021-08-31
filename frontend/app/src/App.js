@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Timetable from "./pages/Timetable";
 import TimeTile from "./components/TimeTile";
+import { Example } from "./animations/Example";
 
 function App() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
           <Route path='/SignUp' exact component={SignUp}/>
           <Route path='/Rating' exact component={Rating}/>
           <Route path='/Timetable' exact component={Timetable} />
+          <Route path='/test' exact component={Example} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
 
