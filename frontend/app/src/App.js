@@ -12,8 +12,13 @@ import Book from "./pages/Book";
 import Calender from "./pages/Calender";
 import Search from "./pages/Search";
 import SelectDriver from "./pages/SelectDriver";
-import DefaultPage from "./defaults/DefaultPage";
-import HeaderTest from "./defaults/HeaderTest";
+
+import ConfirmDriver from "./pages/Confirm";
+import Rating from "./pages/Rating";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Timetable from "./pages/Timetable";
+import TimeTile from "./components/TimeTile";
 
 function App() {
   const location = useLocation();
@@ -25,14 +30,18 @@ function App() {
         <Switch location={location} key={location.key}>
           <Route path='/Buttons' exact component={ButtonDisplayPage} />
           <Route path='/TripTile' exact component={() => <TripTile class_name='DECO3801 Build Studio 3' address="Test Address" />} />
-          <Route path='/' exact component={BlankDefaultPage} />
+          <Route path='/' exact component={Book} /> {/* JUST PUTTING BOOK HERE FOR TESTING*/}
           <Route path='/navbar' exact component={Navbar} />
           <Route path='/Account' exact component={Account} />
           <Route path='/Book' exact component={Book} />
-          <Route path='/Search' exact component={Search} />
+          <Route path='/Search' exact component={ButtonDisplayPage} />
           <Route path='/Calendar' exact component={Calender} />
           <Route path='/Select' exact component={SelectDriver} />
-          <Route path='/Header' exact component={HeaderTest} />
+          <Route path='/Confirm' exact component={ConfirmDriver} />
+          <Route path='/SignUp' exact component={SignUp}/>
+          <Route path='/Rating' exact component={Rating}/>
+          <Route path='/Timetable' exact component={Timetable} />
+          <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
 
     </>

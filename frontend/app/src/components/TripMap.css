@@ -1,0 +1,18 @@
+.map {
+    z-index: 200;
+    position: absolute;
+    width: 375px;
+    height: 600px;
+    opacity: 0.75;
+    top: 100px;
+    left: 0;
+    
+}
+.mapboxgl-marker {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border:1px solid gray;
+    background-color:yellow;
+}
+.mapboxgl-ctrl-attrib-inner { display: none; }
