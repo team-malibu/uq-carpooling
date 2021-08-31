@@ -1,3 +1,4 @@
+import { yellow } from '@material-ui/core/colors';
 import React from 'react'
 import './Button.css'
 
@@ -9,8 +10,19 @@ function SmallConfirmButton(props) {
 }
 
 function MediumConfirmButton(props) {
+  async function logthisApiBitch (z) {
+      let x = "not here yet"
+      await fetch("https://deco3801-teammalibu.uqcloud.net/test")
+      // .then(result => result.json())
+      .then(data => {
+          x = data;
+          console.log("binData", x);
+      });
+      console.log("Fetched " + x)
+  }
+
   return (
-    <button class="button_medium green">
+    <button class="button_medium green" onClick={() => logthisApiBitch("Motherfucker")} >
       {props.name}
     </button>
   );

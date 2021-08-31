@@ -26,7 +26,7 @@ function App() {
           <Route path='/navbar' exact component={Navbar} />
           <Route path='/Account' exact component={Account} />
           <Route path='/Book' exact component={Book} />
-          <Route path='/Search' exact component={Search} />
+          <Route path='/Search' exact component={ButtonDisplayPage} />
           <Route path='/Calendar' exact component={Calender} />
           <Route path='/Select' exact component={SelectDriver} />
           <Route path='/Confirm' exact component={ConfirmDriver} />
