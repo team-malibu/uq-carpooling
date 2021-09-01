@@ -14,7 +14,11 @@ function SignUp() {
             <PlainBackground />
 
                 <div className='subody'>
-
+                    <div className="login-top">
+                        <h1>
+                            UQ Student Pool SignUp
+                        </h1>
+                    </div>
 
                     <div className="inputName">
                         <UserInfoInput type="text"

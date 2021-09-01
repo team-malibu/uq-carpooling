@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 import TripMap from '../components/TripMap'
 import TripTile from '../components/TripTile'
 import {useHistory} from 'react-router-dom'
-import { SquareButton } from '../components/Button'
+import { LargeConfirmButton, SquareButton } from '../components/Button'
 import './Book.css'
 
 function Book() {
@@ -18,7 +18,7 @@ function Book() {
       </div>
       <TripMap />
       <div class='bbbutton' onClick={() => history.push('/select')}>
-        <SquareButton/>
+        <LargeConfirmButton name = "Find trips"/>
       </div>
     </div>
 

@@ -6,6 +6,18 @@
   height: 812px;
 }
 
+.login-top {
+  z-index: 20;
+  font-size: 20;
+  font-weight: bold;
+  text-align: center;
+  word-wrap: normal;
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  top: -10%;
+}
+
 .subody {
     position: relative;
     top: 150px;

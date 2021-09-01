@@ -16,7 +16,6 @@ function Timetable() {
   for (var i =0; i < 30; i++) {
     var newDate = new Date()
     newDate.setDate(selectedDate.getDate() + i)
-    console.log(sameDay(selectedDate, newDate))
     dates.push(<TimeTile date={newDate} isSelected={sameDay(selectedDate, newDate)}/>)
   }
 

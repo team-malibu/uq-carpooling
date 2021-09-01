@@ -36,7 +36,7 @@ function LargeConfirmButton(props) {
   );
 }
 
-function SquareButton() {
+function SquareButton(props) {
   return (
     <button class="button_square green">
       Find<br />Driver
