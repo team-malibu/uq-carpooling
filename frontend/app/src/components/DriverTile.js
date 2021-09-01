@@ -8,7 +8,7 @@ function DriverTile(props) {
     <div>
       <div class='dwrapper'>
         <div class='davatar'>
-          <Avatar variant='circle' style={{ height: '75px', width: '75px' }} src='https://randomuser.me/api/portraits/men/54.jpg' />
+          <Avatar variant='circle' style={{ height: '75px', width: '75px' }} src={props.src} />
         </div>
 
 
@@ -18,7 +18,7 @@ function DriverTile(props) {
           <div class='dline'>
             <div>
               <PersonOutlined className='place-outlined' />
-              John Smith
+              {props.name}
             </div>
 
             <div class='drating'>
@@ -28,7 +28,7 @@ function DriverTile(props) {
           <div class='dline'>
             <div>
               <ScheduleOutlined className='place-outlined' />
-              Arrive by 11:45 AM
+              Arrive by {props.arrive} AM
 
             </div>
 
