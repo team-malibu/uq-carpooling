@@ -21,7 +21,6 @@ function Book() {
         <LargeConfirmButton name = "Find trips"/>
       </div>
     </div>
-
   )
 }
 

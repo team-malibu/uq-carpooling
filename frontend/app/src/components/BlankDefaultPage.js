@@ -84,6 +84,9 @@ function TopSection(props) {
     
     const [direction, setDirection] = useState([0,0])
 
+    // const setDirection(newPage, oldPage) {
+    //     useState()
+    // }
     return (
         <>
         
@@ -127,7 +130,7 @@ function BlankDefaultPage(props) {
         <>
             <BackgroundContainer />
             <div className='page-wrapper'>
-            <TopSection name={props.name} previousPage={props.previousPage} hide={props.hide} />
+            <TopSection name={props.name} previousPage={props.previousPage} hide={props.hide} currentlySelected={props.currentlySelected}/>
             <div className='body'>
               {props.body}
             </div>
