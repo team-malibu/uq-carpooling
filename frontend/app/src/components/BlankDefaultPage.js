@@ -61,7 +61,7 @@ function BackgroundContainer() {
 
 function TopSection(props) {
     const variants = {
-        exit: (direction: number) => {
+        exit: (direction) => {
           return {
             x: direction > 0 ? 1000 : -1000,
             opacity: 0
@@ -72,7 +72,7 @@ function TopSection(props) {
           x: 0,
           opacity: 1
         },
-        enter: (direction: number) => {
+        enter: (direction) => {
           return {
             zIndex: 0,
             x: direction < 0 ? 1000 : -1000,
@@ -95,7 +95,7 @@ function TopSection(props) {
     const [[page, direction], setPage] = useState([0, 0])
     const pageIndex = wrap(0, pages.length, page);
 
-    const paginate = (newDirection: number) => {
+    const paginate = (newDirection) => {
         setPage([page + newDirection, newDirection]);
     };
 
@@ -136,16 +136,19 @@ function TopSection(props) {
     );
 }
 
+
 function BlankDefaultPage(props) {
     return (
         <>
             <BackgroundContainer />
+            <div className='page-wrapper'>
             <TopSection name={props.name} previousPage={props.previousPage} />
             <div className='body'>
               {props.body}
             </div>
             <div className='bottom'>
                 <Navbar currentlySelected={props.currentlySelected} />
+            </div>
             </div>
         </>
     )

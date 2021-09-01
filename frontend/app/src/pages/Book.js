@@ -20,7 +20,6 @@ function Book() {
       <div class='bbbutton' onClick={() => history.push('/select')}>
         <SquareButton/>
       </div>
-
     </div>
 
   )

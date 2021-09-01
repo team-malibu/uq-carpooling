@@ -43,6 +43,7 @@ function App() {
           <Route path='/Rating' exact component={Rating}/>
           <Route path='/Timetable' exact component={Timetable} />
           <Route path='/test' exact component={Example} />
+          <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
 
