@@ -25,17 +25,26 @@
 }
 
 .reviewSubmitButton {
-  margin-top: 15%;
+  margin-top: 20%;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+}
+.star_rating {
+  z-index: 10;
+}
+.page {
+  position: absolute;
+  top: 40%;
+  left: 5%;
 }
 
+.ReviewdriverAvatar {
+  text-align: center;
+}
 .review-stars {
   align-items: center;
   display: grid;
-}
-
-.review-submit-button {
-  display: flex;
-  justify-content: center;
 }
 
 .later-button {

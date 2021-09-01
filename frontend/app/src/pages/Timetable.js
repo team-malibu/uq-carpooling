@@ -38,7 +38,7 @@ function Timetable() {
   }
 
   return (
-    <BlankDefaultPage name={'Timetable'} currentlySelected={1} body={createBody()} />
+    <BlankDefaultPage name={'Timetable'} currentlySelected={1} hide={true}  body={createBody()} />
   )
 }
 

@@ -31,7 +31,7 @@ function ConfirmDriver() {
 
   return (
 
-    <BlankDefaultPage name={"Confirm Driver"} body={createBody()} currentlySelected={0} />
+    <BlankDefaultPage name={"Confirm Driver"} body={createBody()} currentlySelected={0} previousPage='/Select' />
 
   )
 

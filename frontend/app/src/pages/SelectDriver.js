@@ -39,7 +39,7 @@ function SelectDriver() {
 
   return (
 
-    <BlankDefaultPage name={"Select Driver"} body={createTiles()} currentlySelected={0} />
+    <BlankDefaultPage name={"Select Driver"} body={createTiles()} currentlySelected={0} previousPage='/book'/>
 
   )
 

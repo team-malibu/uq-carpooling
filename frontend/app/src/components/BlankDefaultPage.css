@@ -54,7 +54,7 @@
   align-items: center;
   justify-content: center;
   grid-row: 1;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 5fr 1fr;
   grid-row: 1;
 }
 
@@ -67,12 +67,8 @@
   vertical-align: middle;
   grid-column: 2;
   grid-row: 1;
-}
-.back-arrow {
-  left: 35px;
-  position: absolute;
-  vertical-align: middle;
-  top: auto;
+  text-align: center;
+  width: 100%;
 }
 
 .navbar-link {
@@ -84,7 +80,8 @@
 
 .back-arrow {
   position: relative;
-  left: 10%;
+  left: 25%;
+  top: 3%;
   grid-column: 1;
   grid-row: 1;
 }

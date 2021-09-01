@@ -3,7 +3,7 @@ import BlankDefaultPage from '../components/BlankDefaultPage'
 
 function Account() {
     return (
-        <BlankDefaultPage currentlySelected={3} name='Account' />
+        <BlankDefaultPage currentlySelected={3} name='Account' hide={true}/>
     )
 }
 
