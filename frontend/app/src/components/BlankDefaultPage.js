@@ -80,32 +80,15 @@ function TopSection(props) {
           };
         }
       };
-     const images = [
-        "Book",
-        "Select",
-        "Confirm"
-      ];
-    
-    const pages = [
-        <BlankDefaultPage currentlySelected={3} name='Book' previousPage='/Account'/>,
-        <BlankDefaultPage currentlySelected={3} name='Timetable' previousPage='/Book'/>,
-        <BlankDefaultPage currentlySelected={3} name='Explore' previousPage='/Timetable'/>,
-        <BlankDefaultPage currentlySelected={3} name='Account' previousPage='/Explore'/>
-    ]
-    const [[page, direction], setPage] = useState([0, 0])
-    const pageIndex = wrap(0, pages.length, page);
 
-    const paginate = (newDirection) => {
-        setPage([page + newDirection, newDirection]);
-    };
+    
+    const [direction, setDirection] = useState([0,0])
 
     return (
         <>
         
         <AnimatePresence initial={true} custom={headerVariants}> 
         <motion.div className='top' key={uuidv4}
-            key={page}
-            src={page[pageIndex]}
             custom={direction}
             variants={variants}
             initial="enter"
@@ -122,16 +105,16 @@ function TopSection(props) {
                         variants={headerVariants} exit='hidden' />
                 </motion.svg>
             </Link>
+            <Link to={props.previousPage} className='forward-arrow' variants={headerVariants} >
+                <motion.svg xmlns="http://www.w3.org/2000/svg" className='forward-arrow' width="25" height="25" viewBox="0 0 25 25" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+                    <path id="Path_27" data-name="Path 27" d="M29,14.937H9.984L18.719,6.2,16.5,4,4,16.5,16.5,29l2.2-2.2L9.984,18.062H29Z" transform="translate(-4 -4)" fill="#462963"
+                        variants={headerVariants} exit='hidden' />
+                </motion.svg>
+            </Link>
 
             <h1 className='page-title'>{props.name}</h1>
         </motion.div>
         </AnimatePresence>
-        <div className="next" onClick={() => paginate(-1)}>
-        {"‣"}
-      </div>
-      <div className="prev" onClick={() => paginate(1)}>
-        {"‣"}
-      </div>
       </>
     );
 }
