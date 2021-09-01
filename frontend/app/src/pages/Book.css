@@ -1,0 +1,15 @@
+.bbtile {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+
+  z-index: 20;
+}
+
+.bbbutton {
+  position: absolute;
+  top: 600px;
+  left: 150px;
+
+  z-index: 20;
+}

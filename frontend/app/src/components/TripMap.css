@@ -1,5 +1,5 @@
 .map {
-    z-index: 200;
+    z-index: 10;
     position: absolute;
     width: 375px;
     height: 640px;
@@ -14,6 +14,6 @@
     border-radius: 50%;
     border:1px solid gray;
     background-color:yellow;
-    z-index: 200;
+    z-index: 10;
 }
 .mapboxgl-ctrl-attrib-inner { display: none; }
