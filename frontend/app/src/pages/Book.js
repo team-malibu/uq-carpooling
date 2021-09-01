@@ -14,7 +14,7 @@ function Book() {
     <div>
       <BlankDefaultPage currentlySelected={0} name='Book' />
       <div class='bbtile'>
-        <TripTile />
+        <TripTile class_name='DECO3801 Build Studio 3' address='University of Queensland'/>
       </div>
       <TripMap />
       <div class='bbbutton' onClick={() => history.push('/select')}>
