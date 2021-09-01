@@ -4,8 +4,10 @@ import BlankDefaultPage from '../components/BlankDefaultPage'
 import DriverTile from '../components/DriverTile'
 import TripTile from '../components/TripTile'
 import './ConfirmDriver.css'
+import {useHistory} from 'react-router-dom'
 
 function ConfirmDriver() {
+  const history = useHistory();
 
   function createBody() {
     return (
@@ -19,7 +21,7 @@ function ConfirmDriver() {
           <DriverTile />
         </div>
 
-        <div class= 'ccontainer'>
+        <div class= 'ccontainer' onClick={() => history.push('/rating')}>
           <MediumConfirmButton name='Confirm' />
         </div>
         

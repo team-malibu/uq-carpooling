@@ -15,19 +15,14 @@ function Rating() {
                 <h2 className="header">Leave a rating</h2>
 
                 <h3 className="driver">Your Driver: </h3>
-
+                <h3 className="driver"> {"<DriverName>"} </h3>
                 <div className="rating_stars">
                     <StarRating />
                 </div>
 
-                <div className="submitButton">
+                <div className="reviewSubmitButton">
 
                     <Buttons.MediumConfirmButton name="Submit" />
-                </div>
-
-                <div className="LaterButton">
-
-                    <Buttons.MediumConfirmButton name="Maybe Later" />
                 </div>
             </div>
         </div>

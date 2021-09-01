@@ -35,14 +35,15 @@ function App() {
           <Route path='/navbar' exact component={Navbar} />
           <Route path='/Account' exact component={Account} />
           <Route path='/Book' exact component={Book} />
-          <Route path='/Search' exact component={ButtonDisplayPage} />
-          <Route path='/Calendar' exact component={Calender} />
+          <Route path='/Search' exact component={Search} />
+          <Route path='/Calendar' exact component={Timetable} />
           <Route path='/Select' exact component={SelectDriver} />
           <Route path='/Confirm' exact component={ConfirmDriver} />
           <Route path='/SignUp' exact component={SignUp}/>
           <Route path='/Rating' exact component={Rating}/>
           <Route path='/Timetable' exact component={Timetable} />
           <Route path='/test' exact component={Example} />
+          <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
 

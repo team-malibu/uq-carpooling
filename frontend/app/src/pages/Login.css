@@ -2,6 +2,12 @@
     position:relative
 }
 
+.login-top {
+    z-index: 20;
+    font-size: 20;
+    font-weight: bold;
+}
+
 .loginButton {
     margin-top: 60px;
     margin-left: 75px;

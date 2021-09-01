@@ -37,12 +37,14 @@
   width: 375px;
   height: 72px;
   text-align: center;
+  grid-row: 3;
 }
 
 .body {
   position: static;
   width: 375px;
   height: 630px;
+  grid-row: 2;
 }
 
 .top {
@@ -51,6 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  grid-row: 1;
 }
 
 .page-title {
@@ -79,4 +82,11 @@
 .back-arrow {
   position: relative;
   left: -40px;
+}
+
+.page-wrapper {
+  top: 0px;
+  marign: 0px;
+  display: grid;
+  grid-template-rows: 110px 630px 72px;
 }

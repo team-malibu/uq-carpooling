@@ -136,16 +136,19 @@ function TopSection(props) {
     );
 }
 
+
 function BlankDefaultPage(props) {
     return (
         <>
             <BackgroundContainer />
+            <div className='page-wrapper'>
             <TopSection name={props.name} previousPage={props.previousPage} />
             <div className='body'>
               {props.body}
             </div>
             <div className='bottom'>
                 <Navbar currentlySelected={props.currentlySelected} />
+            </div>
             </div>
         </>
     )
