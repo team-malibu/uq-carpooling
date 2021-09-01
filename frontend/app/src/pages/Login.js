@@ -13,11 +13,9 @@ function Login() {
                 <div className="background">
 
                 </div>
-                <div className="top" >
-
-                </div>
+                
                 <div className='body'>
-
+                    
                     <div className="inputEmail">
                         <UserInfoInput type="email"
                             className="form-control"

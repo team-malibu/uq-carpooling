@@ -1,9 +1,7 @@
 .wrapper {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
   text-align: center;
   align-items: center;
-  padding: 10px;
+  vertical-align: middle;
 }
 
 .header {
@@ -12,32 +10,37 @@
   font-family: "Lato", sans-serif;
   position: relative;
   text-align: center;
+  vertical-align: middle;
   font-size: 35px;
   color: #322d95;
-  padding: 10px;
 }
 
 .driver {
   font-family: "Lato", sans-serif;
   position: relative;
   text-align: center;
+  vertical-align: middle;
   font-size: 25px;
   color: #322d95;
-  padding: 10px;
+}
+
+.reviewSubmitButton {
+  margin-top: 15%;
 }
 
 .review-stars {
-  padding: 20px;
   align-items: center;
   display: grid;
 }
 
 .review-submit-button {
-  padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .later-button {
-  padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .driver_score {
