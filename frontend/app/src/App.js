@@ -31,12 +31,12 @@ function App() {
         <Switch location={location} key={location.key}>
           <Route path='/Buttons' exact component={ButtonDisplayPage} />
           <Route path='/TripTile' exact component={() => <TripTile class_name='DECO3801 Build Studio 3' address="Test Address" />} />
-          <Route path='/' exact component={Book} /> {/* JUST PUTTING BOOK HERE FOR TESTING*/}
+          <Route path='/' exact component={SignUp} /> {/* JUST PUTTING BOOK HERE FOR TESTING*/}
           <Route path='/navbar' exact component={Navbar} />
-          <Route path='/Account' exact component={Account} />
+          <Route path='/Account' exact component={Rating} />
           <Route path='/Book' exact component={Book} />
           <Route path='/Search' exact component={ButtonDisplayPage} />
-          <Route path='/Calendar' exact component={Calender} />
+          <Route path='/Calendar' exact component={Timetable} />
           <Route path='/Select' exact component={SelectDriver} />
           <Route path='/Confirm' exact component={ConfirmDriver} />
           <Route path='/SignUp' exact component={SignUp}/>
