@@ -22,6 +22,8 @@ margin-top:25px;
 padding-top: 10px;
 padding-bottom: 10px;
 padding-left: 50px;
+font-family: 'Lato', sans-serif;
+color:DeepSkyBlue;
 ::placeholder,
 ::-webkit-input-placeholder {
     font-family: 'Lato', sans-serif;

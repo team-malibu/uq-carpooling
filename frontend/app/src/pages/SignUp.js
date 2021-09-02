@@ -16,7 +16,7 @@ function SignUp() {
                 <div className='subody'>
                     <div className="login-top">
                         <h1>
-                            UQ Student Pool SignUp
+                            UQ Student Pool Login
                         </h1>
                     </div>
 
@@ -26,7 +26,7 @@ function SignUp() {
                             id="name"
                             //value={email}
                             //onChange={}
-                            placeholder="Name"
+                            placeholder="Student ID"
 
                         />
                     </div>
