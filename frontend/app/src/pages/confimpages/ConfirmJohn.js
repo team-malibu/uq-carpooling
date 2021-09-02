@@ -1,12 +1,13 @@
 import React from 'react'
-import { MediumConfirmButton } from '../components/Button'
-import BlankDefaultPage from '../components/BlankDefaultPage'
-import DriverTile from '../components/DriverTile'
-import TripTile from '../components/TripTile'
-import './ConfirmDriver.css'
+import { MediumConfirmButton } from '../../components/Button'
+import BlankDefaultPage from '../../components/BlankDefaultPage'
+import DriverTile from '../../components/DriverTile'
+import TripTile from '../../components/TripTile'
+import '../ConfirmDriver.css'
 import {useHistory} from 'react-router-dom'
 
-function ConfirmDriver() {
+
+function ConfirmJohn(rops) {
   const history = useHistory();
 
   function createBody() {
@@ -40,4 +41,4 @@ function ConfirmDriver() {
 
 
 
-export default ConfirmDriver
+export default ConfirmJohn

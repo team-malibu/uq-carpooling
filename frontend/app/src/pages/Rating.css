@@ -1,47 +1,67 @@
-.page{
-    position:fixed
+.wrapper {
+  text-align: center;
+  align-items: center;
+  vertical-align: middle;
 }
-.header {  
-    font-weight: bold;
-    margin-top: 30px;
-    padding-top: 40px;
-    font-family: 'Lato', sans-serif;
-    position:relative;
-    text-align: center;
-    font-size:35px;
-    color: #322d95
+
+.header {
+  font-weight: bold;
+  text-align: center;
+  font-family: "Lato", sans-serif;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 35px;
+  color: #322d95;
 }
 
 .driver {
-    margin-top: 10px;
-    padding-top: 50px;
-    font-family: 'Lato', sans-serif;
-    position:relative;
-    text-align: center;
-    font-size:25px;
-    color: #322d95
+  font-family: "Lato", sans-serif;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 25px;
+  color: #322d95;
 }
 
-.rating_stars {
-    padding-bottom: 20px;
+.reviewSubmitButton {
+  margin-top: 20%;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+}
+.star_rating {
+  z-index: 10;
+}
+.page {
+  position: absolute;
+  top: 20%;
+  left: 5%;
 }
 
-.submitButton {
-    margin-top: 30px;
-    margin-left: 130px;
+.ReviewdriverAvatar {
+  text-align: center;
+}
+.review-stars {
+  align-items: center;
+  display: grid;
 }
 
-.LaterButton {
-    margin-top: 30px;
-    margin-left: 105px;
+.later-button {
+  display: flex;
+  justify-content: center;
 }
 
-.driver_score{
-    margin-top: 10px;
-    font-family: 'Lato', sans-serif;
-    position:relative;
-    text-align: center;
-    font-size:25px;
-    color: #322d95;
-    margin-right: 100px;
+.driver_score {
+  margin-top: 10px;
+  font-family: "Lato", sans-serif;
+  position: relative;
+  text-align: center;
+  font-size: 25px;
+  color: #322d95;
+  margin-right: 100px;
+}
+
+.driver-avatar {
+  margin-left: 50%;
 }
