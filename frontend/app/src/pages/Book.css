@@ -1,0 +1,18 @@
+.bbtile {
+  position: absolute;
+  top: 130px;
+  left: 20px;
+  z-index: 20;
+}
+
+.bkwrapper {
+  width: 375px;
+  height: 812px;
+}
+
+.bbbutton {
+  position: relative;
+  top: 600px;
+  left: 25%;
+  z-index: 20;
+}
