@@ -47,7 +47,7 @@ const defaultNavbar = [
 
 
 
-function NavbarButtonV3({ icon, color, index, page }) {
+function NavbarButton({ icon, color, index, page }) {
   const unSelectedColor = "#7a599b";
   const selectedColor = "#554ff1";
   if (page.currentlySelected == index) {
@@ -83,17 +83,12 @@ const selectedColor = "#554ff1";
 
 function Navbar(props) {
   const [button, setButton] = useState(defaultNavbar);
-  /**const [buttonColor, setButtonColor] = useState({0:unSelectedColor,1:unSelectedColor,2:unSelectedColor,3:unSelectedColor});*/
-
-
-
-
   return (
     <>
       {button.map((ic, i) => {
         return (
           <>
-            <NavbarButtonV3
+            <NavbarButton
               key={i}
               index={i}
               icon={ic}
