@@ -18,8 +18,8 @@ function Timetable() {
 
   for (var i = 0; i < 30; i++) {
     var newDate = new Date()
-    newDate.setDate(selectedDate.getDate() + i)
-    dates.push(<TimeTile date={newDate} isSelected={sameDay(selectedDate, newDate)}/>)
+    newDate.setDate(todaysDate.getDate() + i)
+    dates.push(<TimeTile date={newDate} updateSelected={(date) => setSelectedDate(date)} isSelected={sameDay(selectedDate, newDate)}/>)
   }
 
   function createBody() {
