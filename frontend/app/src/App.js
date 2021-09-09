@@ -20,7 +20,9 @@ import SignUp from "./pages/SignUp";
 import Timetable from "./pages/Timetable";
 import TimeTile from "./components/TimeTile";
 import { Example } from "./animations/Example";
-
+import Swipe_Mobile_Test from "./animations/Swipe_Mobile_Test";
+import ConfirmJohn from "./pages/confimpages/ConfirmJohn";
+import ConfirmAllen from "./pages/confimpages/ConfirmAllen";
 function App() {
   const location = useLocation();
 
@@ -35,14 +37,17 @@ function App() {
           <Route path='/navbar' exact component={Navbar} />
           <Route path='/Account' exact component={Account} />
           <Route path='/Book' exact component={Book} />
-          <Route path='/Search' exact component={ButtonDisplayPage} />
-          <Route path='/Calendar' exact component={Calender} />
+          <Route path='/Search' exact component={Search} />
+          <Route path='/Calendar' exact component={Timetable} />
           <Route path='/Select' exact component={SelectDriver} />
           <Route path='/Confirm' exact component={ConfirmDriver} />
+          <Route path='/confirm/allen' exact component={ConfirmAllen} />
+          <Route path='/confirm/john' exact component={ConfirmJohn} />
           <Route path='/SignUp' exact component={SignUp}/>
-          <Route path='/Rating' exact component={Rating}/>
+          <Route path='/Rating' exact component={() => <Rating name='Allen Walters' src='https://randomuser.me/api/portraits/men/52.jpg' />}/>
           <Route path='/Timetable' exact component={Timetable} />
-          <Route path='/test' exact component={Example} />
+          <Route path='/test' exact component={Swipe_Mobile_Test} />
+          <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
 

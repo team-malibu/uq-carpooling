@@ -3,21 +3,22 @@ import './SignUp.css'
 import * as Buttons from '../components/Button';
 import { UserInfoInput } from '../components/UserInfoInput';
 import PlainBackground from '../components/PlainBackground';
+import {useHistory} from 'react-router-dom'
 
 
 function SignUp() {
+  const history = useHistory();
+
     return (
-        <div>
+        <div class='suwrapper'>
             <PlainBackground />
-            <div class='wrapper'>
-                <div className="background">
 
-                </div>
-                <div className="top" >
-
-                </div>
-                <div className='body'>
-
+                <div className='subody'>
+                    <div className="login-top">
+                        <h1>
+                            UQ Student Pool Login
+                        </h1>
+                    </div>
 
                     <div className="inputName">
                         <UserInfoInput type="text"
@@ -25,7 +26,7 @@ function SignUp() {
                             id="name"
                             //value={email}
                             //onChange={}
-                            placeholder="Name"
+                            placeholder="Student ID"
 
                         />
                     </div>
@@ -49,14 +50,14 @@ function SignUp() {
 
                         />
                     </div>
-                    <div className="submitButton">
+                    <div className="submitButton" onClick = {() => history.push('/book')}>
 
                         <Buttons.MediumConfirmButton name="Submit" />
                     </div>
 
                 </div>
             </div>
-        </div>
+
 
 
     )

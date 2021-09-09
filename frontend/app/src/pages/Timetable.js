@@ -18,8 +18,8 @@ function Timetable() {
 
   for (var i = 0; i < 30; i++) {
     var newDate = new Date()
-    newDate.setDate(todaysDate.getDate() + i)
-    dates.push(<TimeTile date={newDate} updateSelected={(date) => { setSelectedDate(date) }} isSelected={sameDay(newDate, selectedDate)} />)
+    newDate.setDate(selectedDate.getDate() + i)
+    dates.push(<TimeTile date={newDate} isSelected={sameDay(selectedDate, newDate)}/>)
   }
 
   function createBody() {
@@ -47,7 +47,7 @@ function Timetable() {
   }
 
   return (
-    <BlankDefaultPage name={'Timetable'} currentlySelected={1} hide={true} body={createBody()} />
+    <BlankDefaultPage name={'Timetable'} currentlySelected={1} hide={true}  body={createBody()} />
   )
 }
 

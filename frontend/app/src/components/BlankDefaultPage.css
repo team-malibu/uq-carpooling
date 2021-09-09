@@ -37,36 +37,38 @@
   width: 375px;
   height: 72px;
   text-align: center;
+  grid-row: 3;
 }
 
 .body {
   position: static;
   width: 375px;
   height: 630px;
+  grid-row: 2;
 }
 
 .top {
   height: 110px;
   width: 100%;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
+  grid-row: 1;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-row: 1;
 }
 
 .page-title {
-  display: inline;
   font-family: "Karla", sans-serif;
   font-style: bold;
   font-style: 43;
   fill: #462963;
   color: #462963;
   vertical-align: middle;
-}
-.back-arrow {
-  left: 35px;
-  position: absolute;
-  vertical-align: middle;
-  top: auto;
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+  width: 100%;
 }
 
 .navbar-link {
@@ -78,9 +80,6 @@
 
 .back-arrow {
   position: relative;
-<<<<<<< Updated upstream
-  left: -40px;
-=======
   left: 25%;
   top: 3%;
   grid-column: 1;
@@ -95,10 +94,9 @@
 }
 
 .page-wrapper {
-  position: absolute;
+
   top: 0px;
-  left: 0px;
   display: grid;
   grid-template-rows: 110px 630px 72px;
->>>>>>> Stashed changes
+
 }
