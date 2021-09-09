@@ -14,7 +14,7 @@ function Login() {
 
                 </div>
                 
-                <div className='body'>
+                <div className='loginbody'>
                     
                     <div className="inputEmail">
                         <UserInfoInput type="email"
