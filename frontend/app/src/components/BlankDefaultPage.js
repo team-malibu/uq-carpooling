@@ -113,7 +113,6 @@ function TopSection(props) {
     return (
         <>
         
-        <AnimatePresence initial={true} custom={headerVariants}> 
         <motion.div className='top' key={uuidv4}
             custom={direction}
             variants={variants}
@@ -142,7 +141,6 @@ function TopSection(props) {
 
             <h1 className='page-title'>{props.name}</h1>
         </motion.div>
-        </AnimatePresence>
       </>
     );
 }
@@ -242,14 +240,14 @@ function BlankDefaultPage(props) {
     const [[page, direction], setPage] = useState([0, 0]);
 
     const paginate = (newPage) => {
-        if (page < newPage) {
+        if (props.currentlySelected < newPage) {
           setPage([newPage, 1]);
           var message = 'counter is at ${page}'
           console.log(message);
-          console.log("Forward Page:" + page + "  " + "newPage:" + newPage + " direciton:" + direction)
-        } else if (page > newPage){
+          console.log("Forward props:" + props.currentlySelected + "  " + "newPage:" + newPage + " direciton:" + direction)
+        } else if (props.currentlySelected > newPage){
           setPage([newPage, -1]);
-          console.log("Back Page:" + page + "  " + "newPage:" + newPage);
+          console.log("Back props:" + props.currentlySelected + "  " + "newPage:" + newPage);
         } else {
             setPage([newPage, 0]);
             console.log("no page movement")

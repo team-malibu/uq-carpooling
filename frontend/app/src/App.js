@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       
-
+      <AnimatePresence>
         <Switch location={location} key={location.key}>
           <Route path='/' exact component={Book} />
 
@@ -42,6 +42,7 @@ function App() {
           <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
+      </AnimatePresence>
 
     </>
   );
