@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import BlankDefaultPage from "./components/BlankDefaultPage";
 import ButtonDisplayPage from "./components/ButtonDisplayPage";
@@ -20,18 +20,38 @@ import SignUp from "./pages/SignUp";
 import Timetable from "./pages/Timetable";
 import TimeTile from "./components/TimeTile";
 import { Example } from "./animations/Example";
-import Swipe_Mobile_Test from "./animations/Swipe_Mobile_Test";
 import ConfirmJohn from "./pages/confimpages/ConfirmJohn";
 import ConfirmAllen from "./pages/confimpages/ConfirmAllen";
+import SimpleNavbar from './components/SimpleNavbar';
+
 function App() {
   const location = useLocation();
 
+  const [[page, direction], setPage] = useState([0, 0]);
+
+    const paginate = (newPage) => {
+        if (page < newPage) {
+          setPage([newPage, 1]);
+          var message = 'counter is at ${page}'
+        } else if (page > newPage){
+          setPage([newPage, -1]);
+        } else {
+            setPage([newPage, 0]);
+        }
+      };
 
   return (
     <>
+      <h1>page = {page}</h1>
+      <h1>direction = {direction}</h1>
+      <SimpleNavbar onClick={(newPage) => paginate(newPage)} currentPage={page}/>
+      {/* <Navbar onClick={(newPage) => paginate(newPage)} currentPage={page}/> */}
       
+      <h1>page = {page}</h1>
+      <h1>direction = {direction}</h1>
       <AnimatePresence>
         <Switch location={location} key={location.key}>
+        
           <Route path='/' exact component={Book} />
 
           <Route path='/Account' exact component={Account} />
@@ -43,6 +63,7 @@ function App() {
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
       </AnimatePresence>
+      
 
     </>
   );

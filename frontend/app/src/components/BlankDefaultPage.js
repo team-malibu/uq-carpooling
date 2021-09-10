@@ -42,21 +42,18 @@ const variants = {
     enter: (direction) => {
       return {
         x: direction > 0 ? 1000 : -1000,
-        y: 0,
         opacity: 0
       };
     },
     center: {
       zIndex: 1,
       x: 0,
-      y: 0,
       opacity: 1
     },
     exit: (direction) => {
       return {
         zIndex: 0,
         x: direction < 0 ? 1000 : -1000,
-        y: 0,
         opacity: 0
       };
     }
@@ -219,21 +216,6 @@ const defaultNavbar = [
   
     )
   }
-  
-  
-  const unSelectedColor = "#7a599b";
-  const selectedColor = "#554ff1";
-  
-  function Navbar(props) {
-    
-    return (
-      <>
-        
-  
-      </>
-  
-    )
-  }
 
 function BlankDefaultPage(props) {
     const [button, setButton] = useState(defaultNavbar);
@@ -261,35 +243,37 @@ function BlankDefaultPage(props) {
             <BackgroundContainer />
             <div className='page-wrapper'>
             <TopSection name={props.name} previousPage={props.previousPage} hide={props.hide} currentlySelected={props.currentlySelected}/>
-            <AnimatePresence initial={false}>
-                <motion.div className='body'
-                    key={page}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{
-                    x: { type: "spring", stiffness: 300, damping: 20 }
-                    }}>
+            
+            <motion.div className='body'
+                key={page}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                x: { type: "spring", stiffness: 300, damping: 20 }
+                }}>
                 {props.body}
-                </motion.div>
-                <div className='bottom'>
-                    {button.map((ic, i) => {
-                        return (
-                            <>
-                            <NavbarButton
-                                key={i}
-                                index={i}
-                                icon={ic}
-                                page={props}
-                                onClick={() => paginate(i)}
-                            />
-                            </>
-                        );
-                    })}
-                </div>
-            </AnimatePresence>
+                
+            </motion.div>
+
+            {/* <div className='bottom'>
+                {button.map((ic, i) => {
+                    return (
+                        <>
+                        <NavbarButton
+                            key={i}
+                            index={i}
+                            icon={ic}
+                            page={props}
+                            onClick={() => paginate(i)}
+                        />
+                        </>
+                    );
+                })}
+            </div> */}
+            
             </div>
         </>
     )
