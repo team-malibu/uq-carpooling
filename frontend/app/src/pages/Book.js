@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { LargeConfirmButton, SquareButton } from '../components/Button'
 import './Book.css'
 
-function Book() {
+function Book(props) {
 
   const history = useHistory();
 
@@ -29,7 +29,7 @@ function Book() {
 
   return (
 
-    <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} />
+    <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} direction={props.direction}/>
 
   )
 

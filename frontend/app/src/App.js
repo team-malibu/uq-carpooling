@@ -54,10 +54,10 @@ function App() {
         
           <Route path='/' exact component={Book} />
 
-          <Route path='/Account' exact component={Account} />
-          <Route path='/Book' exact component={Book} />
-          <Route path='/Search' exact component={Search} />
-          <Route path='/Calendar' exact component={Timetable} />
+          <Route path='/Account' exact component={() => <Account direction={direction}/>} />
+          <Route path='/Book' exact component={() => <Book direction={direction} />} />
+          <Route path='/Search' exact component={() => <Search direction={direction} />} />
+          <Route path='/Calendar' exact component={() => <Timetable direction={direction} />} />
             
           <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />

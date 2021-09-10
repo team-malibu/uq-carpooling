@@ -2,9 +2,9 @@ import React from 'react'
 import BlankDefaultPage from '../components/BlankDefaultPage'
 import Navbar from '../components/Navbar'
 
-function Calender() {
+function Calender(props) {
     return (
-        <BlankDefaultPage currentlySelected={1} name='Calendar' hide={true}/>
+        <BlankDefaultPage currentlySelected={1} name='Calendar' hide={true} direction={props.direction}/>
 
     )
 }

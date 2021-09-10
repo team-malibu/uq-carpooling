@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const defaultNavbar = [
     {
@@ -79,22 +80,77 @@ function NavbarButton(props) {
     // // const [buttonColor, setButtonColor] = useState(isSelected ? "#7a599b" : "#554ff1");
     const [buttonColor, setButtonColor] = useState(isSelected ? "primary" : "secondary");
     
+    const updateButtonColor = (isSelected) => {
+        if (isSelected) {
+            setButtonColor("primary");
+        } else {
+            setButtonColor("secondary");
+        }
+      };
     // const isSelected = (props.currentPage == props.index);
     // const color = isSelected ? "#7a599b" : "#554ff1";
     
     return (
-        <Button variant="contained" color={buttonColor} onClick={(newPage) => props.onClick(props.index)} key={props.key}>
+        <>
+        {/* <Button variant="contained" color={props.color} 
+            onClick={(newPage) => props.onClick(props.index)}
+                key={props.key}>
             {props.icon.name}
-        </Button>
+        </Button> */}
+        <Link to={props.icon.path} className='navbar-link' onClick={(newPage) => props.onClick(props.index)}
+                key={props.key}>
+            <svg className='icon'
+                xmlns={props.icon.xmlns}
+                width={props.icon.width}
+                height={props.icon.height}
+                viewBox={props.icon.viewBox}
+                transform={props.icon.transform}
+                color={props.color}
+                index={props.index}
+                name={props.icon.name}
+            >
+                <path
+                d={props.icon.d}
+                transform={props.icon.transform}
+                fill={props.color} 
+                />
+            </svg>
+        </Link>
+        </>
+
 
     )
 }
 function SimpleNavbar(props) {
     const unselected = "#7a599b";
     const selected = "#554ff1";
-    const [[color0, color1, color2, color3], setButtonColor] = useState([unselected, unselected, unselected, unselected])
+    // const [[color0, color1, color2, color3], setButtonColor] = useState([unselected, unselected, unselected, unselected])
     const [button, setButton] = useState(defaultNavbar)
     
+    // const [buttonColors, setButtonColor] = useState(["primary", "secondary", "secondary", "secondary"])
+    // const updateButtonColor = (newPage) => {
+    //     if (newPage == 0) {
+    //         setButtonColor(["primary", "secondary", "secondary", "secondary"]);
+    //     } else if (newPage == 1) {
+    //         setButtonColor(["secondary", "primary", "secondary", "secondary"]);
+    //     } else if (newPage == 2) {
+    //         setButtonColor(["secondary", "secondary", "primary", "secondary"]);
+    //     } else {
+    //         setButtonColor(["secondary", "secondary", "secondary", "primary"]);
+    //     }
+    //   };
+    const [buttonColors, setButtonColor] = useState(["#554ff1", "#7a599b", "#7a599b", "#7a599b"])
+    const updateButtonColor = (newPage) => {
+        if (newPage == 0) {
+            setButtonColor(["#554ff1", "#7a599b", "#7a599b", "#7a599b"]);
+        } else if (newPage == 1) {
+            setButtonColor(["#7a599b", "#554ff1", "#7a599b", "#7a599b"]);
+        } else if (newPage == 2) {
+            setButtonColor(["#7a599b", "#7a599b", "#554ff1", "#7a599b"]);
+        } else {
+            setButtonColor(["#7a599b", "#7a599b", "#7a599b", "#554ff1"]);
+        }
+    };
     return (
         
         <div className='bottom'>
@@ -105,26 +161,19 @@ function SimpleNavbar(props) {
                         currentPage={props.currentPage}
                         index={i}
                         variant="contained"
-                        color={unselected}
-                        onClick={(newPage) => props.onClick(newPage)}
+                        color={buttonColors[i]}
+                        onClick={(newPage) => {
+                            props.onClick(newPage)
+                            updateButtonColor(newPage)
+                            }}
+                            key={props.key}
                         icon={ic}
                         />
                     </>
                 )
             })}
 
-            {/* <Button variant="contained" color={color0} onClick={(page) => props.onClick(0)}>
-            Page 0
-            </Button>
-            <Button variant="contained" color={color1} onClick={(page) => props.onClick(1)}>
-            Page 1
-            </Button>
-            <Button variant="contained" color={color2} onClick={(page) => props.onClick(2)}>
-            Page 2
-            </Button>
-            <Button variant="contained" color={color3} onClick={(page) => props.onClick(3)}>
-            Page 3
-            </Button> */}
+            {/* <h1> currentPage:{props.currentPage}</h1> */}
         </div>
     )
 }

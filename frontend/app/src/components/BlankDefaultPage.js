@@ -246,7 +246,7 @@ function BlankDefaultPage(props) {
             
             <motion.div className='body'
                 key={page}
-                custom={direction}
+                custom={props.direction}
                 variants={variants}
                 initial="enter"
                 animate="center"
