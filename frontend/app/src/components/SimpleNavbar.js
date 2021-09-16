@@ -151,6 +151,12 @@ function SimpleNavbar(props) {
             setButtonColor(["#7a599b", "#7a599b", "#7a599b", "#554ff1"]);
         }
     };
+
+    if (props.location.pathname === '/') {
+        console.log("returnign null for pathname: " + props.location.pathname)
+        return null;
+    }
+
     return (
         
         <div className='bottom'>

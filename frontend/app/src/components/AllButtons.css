@@ -1,0 +1,124 @@
+.green {
+  background-color: #62e974;
+}
+
+.green:active {
+  background-color: #4cb55a;
+  transition: background-color 100ms linear;
+}
+
+.button_small {
+  border: none;
+  color: #462963;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
+  display: inline-block;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 4px;
+  font-size: small;
+}
+
+.button_medium {
+  border: none;
+  color: #462963;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
+  display: inline-block;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 4px;
+  font-size: medium;
+}
+
+.button_large {
+  border: none;
+  color: #462963;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
+  display: inline-block;
+  padding-left: 48px;
+  padding-right: 48px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-radius: 4px;
+  font-size: large;
+}
+
+.button_square {
+  height: 90px;
+  width: 90px;
+  display: table-cell;
+  vertical-align: middle;
+  border: none;
+  color: #462963;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
+  display: inline-block;
+  border-radius: 4px;
+  font-size: medium;
+}
+
+.button_login {
+  background-color: #1164ee;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
+  display: inline-block;
+  padding-left: 88px;
+  padding-right: 88px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-radius: 20px;
+  font-size: large;
+}
+
+.button_login:active {
+  background-color: #377cf1;
+}
+
+.button_createAccount {
+  background-color: #2cdd8c;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
+  display: inline-block;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  border-radius: 20px;
+  font-size: 15px;
+}
+
+.button_createAccount:active {
+  background-color: #7dd8af;
+}

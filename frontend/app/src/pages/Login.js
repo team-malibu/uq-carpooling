@@ -1,6 +1,6 @@
 import React from 'react';
 import './Login.css'
-import {LoginButton, CreateAccountButton} from '../components/SignInButtons';
+import {LoginButton, CreateAccountButton} from '../components/AllButtons';
 import { UserInfoInput } from '../components/UserInfoInput';
 import PlainBackground from '../components/PlainBackground';
 

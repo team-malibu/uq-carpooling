@@ -30,6 +30,7 @@ function App() {
   const location = useLocation();
 
   const [[page, direction], setPage] = useState([0, 0]);
+  const [isNavbarVisible, setNavbarVisibility] = useState(false);
 
     const paginate = (newPage) => {
         if (page < newPage) {
@@ -42,12 +43,17 @@ function App() {
         }
       };
 
+    const changeNavbarVisibility = (visibility) => {
+      setNavbarVisibility(visibility);
+    }
+
   return (
     <>
       {/* <Navbar onClick={(newPage) => paginate(newPage)} currentPage={page}/> */}
       <AnimatePresence  exitBeforeEnter custom={direction}>
         <Switch location={location} key={location.key}>
-          <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} />
+          <Route path='/' exact component={() => <SignUp key={location.key} />} />
+          {/* <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} /> */}
           <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} />
           <Route path='/Account' exact component={() => <Account name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={true} direction={direction} key={location.key} custom={direction}/>} />
@@ -56,7 +62,7 @@ function App() {
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
       </AnimatePresence>
-      <SimpleNavbar onClick={(newPage) => paginate(newPage)} currentPage={page}/>
+      <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page}/>
 
 
     </>
