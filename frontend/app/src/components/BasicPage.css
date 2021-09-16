@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap");
+
+.Background {
+  z-index: -1;
+  position: absolute;
+  width: 375px;
+  height: 812px;
+  left: 0px;
+  top: 0px;
+}
+
+.Backgorund_bn {
+  z-index: -1;
+  position: absolute;
+  overflow: visible;
+  width: 375px;
+  height: 812px;
+  left: 0px;
+  top: 0px;
+  fill: url(#Backgorund_bn);
+}
+
+.Rectangle_314 {
+  position: absolute;
+  overflow: visible;
+  width: 375px;
+  height: 741px;
+  left: 0px;
+  top: 0px;
+  opacity: 0.42;
+  fill: rgba(255, 255, 255, 1);
+}
+
+#red {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  margin: auto;
+}
+
+#blue {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  margin: auto;
+}
+
+#green {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  margin: auto;
+}
+
+#orange {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  margin: auto;
+}
+
+.body {
+  position: static;
+  width: 375px;
+  height: 630px;
+  grid-row: 2;
+}

@@ -23,6 +23,8 @@ import { Example } from "./animations/Example";
 import ConfirmJohn from "./pages/confimpages/ConfirmJohn";
 import ConfirmAllen from "./pages/confimpages/ConfirmAllen";
 import SimpleNavbar from './components/SimpleNavbar';
+import BasicPage from './components/BasicPage';
+
 
 function App() {
   const location = useLocation();
@@ -42,28 +44,20 @@ function App() {
 
   return (
     <>
-      <h1>page = {page}</h1>
-      <h1>direction = {direction}</h1>
-      <SimpleNavbar onClick={(newPage) => paginate(newPage)} currentPage={page}/>
       {/* <Navbar onClick={(newPage) => paginate(newPage)} currentPage={page}/> */}
-      
-      <h1>page = {page}</h1>
-      <h1>direction = {direction}</h1>
-      <AnimatePresence>
+      <AnimatePresence  exitBeforeEnter custom={direction}>
         <Switch location={location} key={location.key}>
-        
-          <Route path='/' exact component={Book} />
-
-          <Route path='/Account' exact component={() => <Account direction={direction}/>} />
-          <Route path='/Book' exact component={() => <Book direction={direction} />} />
-          <Route path='/Search' exact component={() => <Search direction={direction} />} />
-          <Route path='/Calendar' exact component={() => <Timetable direction={direction} />} />
-            
+          <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} />
+          <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} />
+          <Route path='/Account' exact component={() => <Account name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
+          <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={true} direction={direction} key={location.key} custom={direction}/>} />
+          <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
         </Switch>
       </AnimatePresence>
-      
+      <SimpleNavbar onClick={(newPage) => paginate(newPage)} currentPage={page}/>
+
 
     </>
   );
