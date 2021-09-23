@@ -8,6 +8,7 @@ import ButtonDisplayPage from "./components/ButtonDisplayPage";
 import TripTile from "./components/TripTile";
 import Navbar from "./components/Navbar";
 import Account from "./pages/Account";
+import AccountDetails from "./pages/AccountDetails";
 import Book from "./pages/Book";
 import Calender from "./pages/Calender";
 import Search from "./pages/Search";
@@ -36,6 +37,8 @@ function App() {
           <Route path='/' exact component={SignUp} /> {/* JUST PUTTING BOOK HERE FOR TESTING*/}
           <Route path='/navbar' exact component={Navbar} />
           <Route path='/Account' exact component={Account} />
+          <Route path='/AccountDetails' exact component={AccountDetails} />
+          <Route path='/Login' exact component={Login} />
           <Route path='/Book' exact component={Book} />
           <Route path='/Search' exact component={Search} />
           <Route path='/Calendar' exact component={Timetable} />

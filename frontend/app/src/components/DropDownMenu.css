@@ -1,0 +1,62 @@
+.dropdown {
+    margin-top:5%;
+    width:90%;
+    border-radius: 20px;
+    background-color: #0568ca;
+    border-radius:  18px;
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+  }
+  
+  .dd-main-default {
+    margin-left: 25%;
+    color: white;
+    height: 2.65rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+
+  }
+  
+  .dd-main {
+    color: white;
+    height: 2.65rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+  }
+  
+  .dd-option {
+    color: white;
+    height: 2.65rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+  }
+
+  .dd-option:hover {
+    background-color: #798fe7;
+  }
+  
+  .dd-option .icon-button {
+    margin-right: 0.5rem;
+    margin-top:0.25rem;
+  }
+
+  .dd-main .icon-button {
+    margin-right: 0.5rem;
+    margin-top:0.25rem;
+  }
+      
+  .dd-main .icon-right {
+    margin-left: auto;
+    margin-top:0.25rem;
+    margin-right: 0.5rem;
+  }
+  
+  .dd-list {
+    list-style-type: none;
+  }
+
+

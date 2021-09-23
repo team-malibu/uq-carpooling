@@ -1,7 +1,11 @@
-.wrapper {
+.rating-wrapper {
   text-align: center;
   align-items: center;
   vertical-align: middle;
+}
+
+.rating-driver-avatar {
+  margin-left: 20%;
 }
 
 .header {
@@ -23,7 +27,6 @@
   font-size: 25px;
   color: #322d95;
 }
-
 .reviewSubmitButton {
   margin-top: 20%;
   z-index: 200;
@@ -35,7 +38,7 @@
 }
 .page {
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 5%;
 }
 
@@ -60,8 +63,4 @@
   font-size: 25px;
   color: #322d95;
   margin-right: 100px;
-}
-
-.driver-avatar {
-  margin-left: 50%;
 }
