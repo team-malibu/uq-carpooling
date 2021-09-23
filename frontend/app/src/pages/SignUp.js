@@ -3,7 +3,7 @@ import './SignUp.css'
 import * as Buttons from '../components/Button';
 import { UserInfoInput } from '../components/UserInfoInput';
 import PlainBackground from '../components/PlainBackground';
-import {useHistory} from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 
 function SignUp() {
@@ -50,10 +50,14 @@ function SignUp() {
 
                         />
                     </div>
-                    <div className="submitButton" onClick = {() => history.push('/book')}>
-
+                    <Link to='/Book' className="submitButton" onClick = {() => {
+                        history.push('/book')
+                        console.log("link clicked")
+                    }}>
+                        
                         <Buttons.MediumConfirmButton name="Submit" />
-                    </div>
+                        
+                    </Link>
 
                 </div>
             </div>

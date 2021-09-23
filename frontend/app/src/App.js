@@ -52,7 +52,7 @@ function App() {
       {/* <Navbar onClick={(newPage) => paginate(newPage)} currentPage={page}/> */}
       <AnimatePresence  exitBeforeEnter custom={direction}>
         <Switch location={location} key={location.key}>
-          <Route path='/' exact component={() => <SignUp key={location.key} />} />
+          <Route exact path='/' component={() => <SignUp key={location.key} />} />
           {/* <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} /> */}
           <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} />
           <Route path='/Account' exact component={() => <Account name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
