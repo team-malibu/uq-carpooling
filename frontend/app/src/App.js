@@ -4,10 +4,8 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-route
 import { motion, AnimatePresence } from 'framer-motion';
 
 import BlankDefaultPage from "./components/BlankDefaultPage";
-import ButtonDisplayPage from "./components/ButtonDisplayPage";
-import TripTile from "./components/TripTile";
-import Navbar from "./components/Navbar";
-import Account from "./pages/accountpages/Account";
+
+import AccountDetails from "./pages/accountpages/AccountDetails";
 import Book from "./pages/bookingpages/Book";
 import Search from "./pages/Search";
 import SelectDriver from "./pages/bookingpages/SelectDriver";
@@ -18,7 +16,6 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Timetable from "./pages/timetablepages/Timetable";
 import TimeTile from "./components/TimeTile";
-import { Example } from "./animations/Example";
 import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
 import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
 import SimpleNavbar from './components/SimpleNavbar';
@@ -56,7 +53,7 @@ function App() {
         <Switch location={location} key={location.key}>
           {/* <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} /> */}
           <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
-          <Route path='/Account' exact component={() => <Account name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
+          <Route path='/Account' exact component={() => <AccountDetails name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={true} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
@@ -67,7 +64,7 @@ function App() {
           <Route path='/confirm/allen' exact component={() => <ConfirmAllen direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/confirm/john' exact component={() => <ConfirmJohn direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/Rating' exact component={() => <Rating name='Allen Walters' src='https://randomuser.me/api/portraits/men/52.jpg' direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>}/>
-
+          <Route path='/Login' exact component={Login}/>
         </Switch>
       </AnimatePresence>
       <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page}/>
