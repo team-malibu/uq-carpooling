@@ -6,8 +6,9 @@ import TripTile from '../components/TripTile'
 import { useHistory } from 'react-router-dom'
 import { LargeConfirmButton, SquareButton } from '../components/Button'
 import './Book.css'
+import BasicPage from '../components/BasicPage'
 
-function Book() {
+function Book(props) {
 
   const history = useHistory();
 
@@ -29,7 +30,8 @@ function Book() {
 
   return (
 
-    <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} />
+    // <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} direction={props.direction}/>
+    <BasicPage name={"Book"} body={createBook()} currentlySelected={0} hide={true} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
 
   )
 

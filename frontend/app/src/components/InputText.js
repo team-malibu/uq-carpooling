@@ -17,9 +17,9 @@ function InputSignUpText(props) {
         <div className="itext">
             <form onSubmit={handleSubmit}>
                 <span className="itext-icon-left">{props.iconLeft}</span>
-                <input className="itext-form" 
-                placeholder={props.placeholder} 
-                value={input}
+                <input className="itext-form"
+                    placeholder={props.placeholder}
+                    value={input}
                     onChange={handleInputChange} />
                 <span className="itext-icon-right">{props.iconRight}</span>
             </form>

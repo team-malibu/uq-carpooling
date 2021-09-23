@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import BlankDefaultPage from '../components/BlankDefaultPage'
 import TimeTile from '../components/TimeTile'
+import BasicPage from '../components/BasicPage';
 import './Timetable.css'
 
 function sameDay(d1, d2) {
@@ -9,7 +10,7 @@ function sameDay(d1, d2) {
     d1.getDate() === d2.getDate();
 }
 
-function Timetable() {
+function Timetable(props) {
 
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   var dates = [];
@@ -38,7 +39,8 @@ function Timetable() {
   }
 
   return (
-    <BlankDefaultPage name={'Timetable'} currentlySelected={1} hide={true}  body={createBody()} />
+    <BasicPage name={'Timetable'} currentlySelected={1} body={createBody() } hide={props.hide} default={props.default} direction={props.direction} key={props.key} custom={props.custom} />
+
   )
 }
 

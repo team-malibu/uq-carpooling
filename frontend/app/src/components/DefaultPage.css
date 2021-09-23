@@ -96,5 +96,5 @@
 .page-wrapper {
   top: 0px;
   display: grid;
-  grid-template-rows: 110px 630px;
+  grid-template-rows: 110px 630px 72px;
 }

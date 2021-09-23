@@ -47,16 +47,16 @@ const defaultNavbar = [
 
 
 
-function NavbarButtonV3({ icon, color, index, page }) {
+function NavbarButton(props, { icon, color, index}) {
   const unSelectedColor = "#7a599b";
   const selectedColor = "#554ff1";
-  if (page.currentlySelected == index) {
+  if (props.currentPage == index) {
     color = selectedColor;
   } else {
     color = unSelectedColor;
   }
   return (
-    <Link to={icon.path} className='navbar-link'>
+    <div to={icon.path} className='navbar-link' onClick={(index) => props.onClick(index)}>
       <svg className='icon'
         xmlns={icon.xmlns}
         width={icon.width}
@@ -72,7 +72,7 @@ function NavbarButtonV3({ icon, color, index, page }) {
           transform={icon.transform}
           fill={color} />
       </svg>
-    </Link>
+    </div>
 
   )
 }
@@ -83,27 +83,24 @@ const selectedColor = "#554ff1";
 
 function Navbar(props) {
   const [button, setButton] = useState(defaultNavbar);
-  /**const [buttonColor, setButtonColor] = useState({0:unSelectedColor,1:unSelectedColor,2:unSelectedColor,3:unSelectedColor});*/
-
-
-
-
   return (
     <>
-      {button.map((ic, i) => {
-        return (
-          <>
-            <NavbarButtonV3
-              key={i}
-              index={i}
-              icon={ic}
-              page={props}
-            />
-          </>
+      <div className='bottom'>
+        {button.map((ic, i) => {
+          return (
+            <>
+            
+              <NavbarButton
+                key={i}
+                index={i}
+                icon={ic}
+                onClick={(newPage) => props.onClick(newPage)}
+              />
+            </>
 
-        );
-      })}
-
+          );
+        })}
+      </div>
     </>
 
   )

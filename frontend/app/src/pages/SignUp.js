@@ -1,9 +1,8 @@
 import React from 'react';
 import './SignUp.css'
 import * as Buttons from '../components/Button';
-import { UserInfoInput } from '../components/UserInfoInput';
 import PlainBackground from '../components/PlainBackground';
-import {useHistory} from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom';
 import { InputPasswordText, InputSignUpText } from '../components/InputText';
 import { MdLockOutline } from 'react-icons/md';
 
@@ -40,10 +39,15 @@ function SignUp() {
                             iconLeft={<MdLockOutline />}
                         />
                     </div>
-                    <div className="submitButton" onClick = {() => history.push('/book')}>
+                <Link to='/Book' className="submitButton"
+                    onClick={() => {
+                        history.push('/book')
+                        console.log("link clicked")
+                    }}>
 
                         <Buttons.MediumConfirmButton name="Submit" />
-                    </div>
+                        
+                    </Link>
 
                 </div>
             </div>

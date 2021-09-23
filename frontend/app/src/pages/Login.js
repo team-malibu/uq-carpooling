@@ -1,6 +1,6 @@
 import React from 'react';
 import './Login.css'
-import { LoginButton, CreateAccountButton } from '../components/Button';
+import {LoginButton, CreateAccountButton} from '../components/AllButtons';
 import PlainBackground from '../components/PlainBackground';
 import { InputPasswordText, InputSignUpText } from '../components/InputText';
 import { MdLockOutline } from 'react-icons/md';
@@ -45,8 +45,6 @@ function Login() {
 
             </div>
         </div>
-
-
     )
 }
 
