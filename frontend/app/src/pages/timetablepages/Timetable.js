@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import BlankDefaultPage from '../components/BlankDefaultPage'
-import TimeTile from '../components/TimeTile'
-import BasicPage from '../components/BasicPage';
+import BlankDefaultPage from '../../components/BlankDefaultPage'
+import TimeTile from '../../components/TimeTile'
+import BasicPage from '../../components/BasicPage';
 import './Timetable.css'
 
 function sameDay(d1, d2) {

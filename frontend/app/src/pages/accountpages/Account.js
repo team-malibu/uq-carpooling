@@ -1,6 +1,5 @@
 import React from 'react'
-import BlankDefaultPage from '../components/BlankDefaultPage'
-import BasicPage from '../components/BasicPage'
+import BasicPage from '../../components/BasicPage'
 
 function Account(props) {
     return (

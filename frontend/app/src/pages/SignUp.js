@@ -59,6 +59,8 @@ function SignUp() {
                         
                     </Link>
 
+                    
+
                 </div>
             </div>
 
