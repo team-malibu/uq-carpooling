@@ -16,19 +16,46 @@ function Timetable() {
   const [isFIlePicked, setIsFilePicked] = useState(false);
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   var dates = [];
-  for (var i =0; i < 30; i++) {
+  for (var i = 0; i < 30; i++) {
     var newDate = new Date()
     newDate.setDate(selectedDate.getDate() + i)
-    dates.push(<TimeTile date={newDate} isSelected={sameDay(selectedDate, newDate)}/>)
+    dates.push(<TimeTile date={newDate} isSelected={sameDay(selectedDate, newDate)} />)
   }
+
+  const handleFile = (e) => {
+    const content = e.target.result;
+    const events = ical.parseICS(content);
+      console.log(events)
+      for (const event of Object.values(events)) {
+        console.log(
+          'Summary: ' + event.summary.val +
+          '\nDescription: ' + event.description +
+          '\nBuiling Location: UQ ' + event.location +
+          '\nStart Date: ' + event.start.toDateString() + ' ' + event.start.toLocaleTimeString() +
+          '\nEnd Date: ' + event.end.toDateString() + ' ' + event.end.toLocaleTimeString() +
+          '\n'
+        );
+      }
+
+    // You can set content in state and show it in render.
+  }
+  
+  const handleChangeFile = (file) => {
+    let fileData = new FileReader();
+    fileData.onloadend = handleFile;
+    fileData.readAsText(file);
+  }
+
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
   };
-  const handleSubmission = () => {
+  const handleSubmission = async () => {
     const fileReader = new FileReader();
-    fileReader.onload = async(e) => {
+    fileReader.onload = async (e) => {
       const data = (e.target.result);
+      console.log('1')
       const events = ical.parseICS(data);
+      console.log('2')
       for (const event of Object.values(events)) {
         console.log(
           'Summary: ' + event.summary +
@@ -37,6 +64,7 @@ function Timetable() {
           '\n'
         );
       }
+      console.log('3')
     }
   };
 
@@ -54,10 +82,8 @@ function Timetable() {
           {dates}
         </div>
         <div>
-          <input type="file" name="file" onChange={changeHandler} />
-          <div>
-            <button onClick={handleSubmission}>Submit</button>
-          </div>
+          <input type="file" accept=".ics" onChange={e =>
+            handleChangeFile(e.target.files[0])} />
         </div>
       </div>
 
@@ -65,7 +91,7 @@ function Timetable() {
   }
 
   return (
-    <BlankDefaultPage name={'Timetable'} currentlySelected={1} hide={true}  body={createBody()} />
+    <BlankDefaultPage name={'Timetable'} currentlySelected={1} hide={true} body={createBody()} />
   )
 }
 
