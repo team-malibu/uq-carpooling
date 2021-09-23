@@ -2,7 +2,8 @@
   position: absolute;
   top: 130px;
   left: 20px;
-
+  width: 90%;
+  height: 15%;
   z-index: 20;
 }
 
