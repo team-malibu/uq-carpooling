@@ -10,7 +10,10 @@ function sameDay(d1, d2) {
 }
 
 function Timetable() {
-
+  const ical = require('node-ical');
+  const fs = require('fs');
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFIlePicked, setIsFilePicked] = useState(false);
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   var dates = [];
   for (var i =0; i < 30; i++) {
@@ -18,6 +21,24 @@ function Timetable() {
     newDate.setDate(selectedDate.getDate() + i)
     dates.push(<TimeTile date={newDate} isSelected={sameDay(selectedDate, newDate)}/>)
   }
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleSubmission = () => {
+    const fileReader = new FileReader();
+    fileReader.onload = async(e) => {
+      const data = (e.target.result);
+      const events = ical.parseICS(data);
+      for (const event of Object.values(events)) {
+        console.log(
+          'Summary: ' + event.summary +
+          '\nDescription: ' + event.description +
+          '\nStart Date: ' + event.start.toISOString() +
+          '\n'
+        );
+      }
+    }
+  };
 
   function createBody() {
     var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
@@ -31,6 +52,12 @@ function Timetable() {
         </div>
         <div class='tscrollable'>
           {dates}
+        </div>
+        <div>
+          <input type="file" name="file" onChange={changeHandler} />
+          <div>
+            <button onClick={handleSubmission}>Submit</button>
+          </div>
         </div>
       </div>
 
