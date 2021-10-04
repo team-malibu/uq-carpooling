@@ -5,13 +5,14 @@ import PlainBackground from '../components/PlainBackground';
 import { useHistory, Link } from 'react-router-dom';
 import { InputPasswordText, InputSignUpText } from '../components/InputText';
 import { MdLockOutline } from 'react-icons/md';
+import { motion } from 'framer-motion';
 
 
-function SignUp() {
+function SignUp(props) {
   const history = useHistory();
 
     return (
-        <div class='suwrapper'>
+        <motion.div class='suwrapper'>
             <PlainBackground />
 
                 <div className='subody'>
@@ -41,7 +42,7 @@ function SignUp() {
                     </div>
                 <Link to='/Book' className="submitButton"
                     onClick={() => {
-                        history.push('/book')
+                        history.push('/Login')
                         console.log("link clicked")
                     }}>
 
@@ -52,7 +53,7 @@ function SignUp() {
                     
 
                 </div>
-            </div>
+            </motion.div>
 
 
 

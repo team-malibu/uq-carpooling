@@ -19,7 +19,7 @@ import TimeTile from "./components/TimeTile";
 import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
 import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
 import SimpleNavbar from './components/SimpleNavbar';
-
+import CreateAccount2 from './pages/CreateAccount2';
 
 function App() {
   const location = useLocation();
@@ -58,13 +58,15 @@ function App() {
           <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
-          <Route exact path='/' component={() => <SignUp key={location.key} />} />
+          <Route exact path='/' component={() => <CreateAccount2 name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction} />} />
           <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/Confirm' exact component={() => <ConfirmDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/confirm/allen' exact component={() => <ConfirmAllen direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/confirm/john' exact component={() => <ConfirmJohn direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/Rating' exact component={() => <Rating name='Allen Walters' src='https://randomuser.me/api/portraits/men/52.jpg' direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>}/>
           <Route path='/Login' exact component={Login}/>
+          <Route exact path='/SignUp' component={() => <SignUp name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction} />} />
+
         </Switch>
       </AnimatePresence>
       <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page}/>
