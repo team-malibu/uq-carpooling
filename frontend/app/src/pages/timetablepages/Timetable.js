@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import BlankDefaultPage from '../../components/BlankDefaultPage'
+import BasicPage from '../../components/BasicPage'
+import TimetableTile from '../../components/TimetableTile';
 import TimeTile from '../../components/TimeTile'
-import BasicPage from '../../components/BasicPage';
 import './Timetable.css'
 
 function sameDay(d1, d2) {
@@ -11,19 +11,21 @@ function sameDay(d1, d2) {
 }
 
 function Timetable(props) {
+  const todaysDate = new Date()
 
-  const [selectedDate, setSelectedDate] = useState(() => new Date())
+  const [selectedDate, setSelectedDate] = useState(todaysDate)
   var dates = [];
-  for (var i =0; i < 30; i++) {
+
+  for (var i = 0; i < 30; i++) {
     var newDate = new Date()
-    newDate.setDate(selectedDate.getDate() + i)
-    dates.push(<TimeTile date={newDate} isSelected={sameDay(selectedDate, newDate)}/>)
+    newDate.setDate(todaysDate.getDate() + i)
+    dates.push(<TimeTile date={newDate} updateSelected={(date) => setSelectedDate(date)} isSelected={sameDay(selectedDate, newDate)}/>)
   }
 
   function createBody() {
     var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     var dateString = selectedDate.toLocaleString("en-US", options)
-    console.log(dateString)
+
 
     return (
       <div>
@@ -33,7 +35,13 @@ function Timetable(props) {
         <div class='tscrollable'>
           {dates}
         </div>
+        <div class='timeitems'>
+          <TimetableTile />
+        </div>
+
+
       </div>
+
 
     )
   }
