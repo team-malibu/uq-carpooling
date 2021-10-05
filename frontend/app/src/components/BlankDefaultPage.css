@@ -1,35 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap");
 
-.Background {
-  z-index: -1;
-  position: absolute;
-  width: 375px;
-  height: 812px;
-  left: 0px;
-  top: 0px;
-}
-
-.Backgorund_bn {
-  z-index: -1;
-  position: absolute;
-  overflow: visible;
-  width: 375px;
-  height: 812px;
-  left: 0px;
-  top: 0px;
-  fill: url(#Backgorund_bn);
-}
-
-.Rectangle_314 {
-  position: absolute;
-  overflow: visible;
-  width: 375px;
-  height: 741px;
-  left: 0px;
-  top: 0px;
-  opacity: 0.42;
-  fill: rgba(255, 255, 255, 1);
-}
 
 .bottom {
   position: static;
@@ -38,7 +8,14 @@
   height: 72px;
   text-align: center;
   grid-row: 3;
+  top: -100%;
 }
+
+.page-wrapper {
+    display: grid;
+    grid-template-rows: 110px 630px;
+  }
+  
 
 .body {
   position: static;
@@ -91,10 +68,4 @@
   left: 15%;
   grid-column: 3;
   grid-row: 1;
-}
-
-.page-wrapper {
-  top: 0px;
-  display: grid;
-  grid-template-rows: 110px 630px;
 }

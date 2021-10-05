@@ -47,7 +47,7 @@ function App() {
     }
 
   return (
-    <>
+    <div class="everything-wrapper">
       {/* <Navbar onClick={(newPage) => paginate(newPage)} currentPage={page}/> */}
       <AnimatePresence  exitBeforeEnter custom={direction}>
         <Switch location={location} key={location.key}>
@@ -72,7 +72,7 @@ function App() {
       <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page}/>
 
 
-    </>
+    </div>
   );
 }
 
