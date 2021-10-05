@@ -12,13 +12,18 @@ function SmallConfirmButton(props) {
 function MediumConfirmButton(props) {
   async function logthisApiBitch (z) {
       let x = "not here yet"
-      await fetch("https://deco3801-teammalibu.uqcloud.net/test")
+      try {
+        await fetch("https://deco3801-teammalibu.uqcloud.net/test")
       .then(result => result.json())
       .then(data => {
           x = data;
           console.log("binData", x);
       });
       console.log("Fetched " + x)
+      } catch (e) {
+        console.log(e)
+      }
+      
   }
 
   return (
