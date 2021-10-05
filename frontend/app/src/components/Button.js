@@ -16,12 +16,24 @@ function MediumConfirmButton(props) {
       
   }
 
-  return (
-    <button class="button_medium green" onClick={() => logthisApiBitch("Motherfucker")} >
-      {props.name}
-      <img src={EditOutlined}/>
-    </button>
-  );
+  if (props.margin != true) {
+
+    return (
+    
+      <button class="button_medium green" onClick={() => logthisApiBitch("Motherfucker")} >
+        {props.name}
+      </button>
+    );
+    } else {
+
+      return (
+    
+        <button class="button_medium_margin green" onClick={() => logthisApiBitch("Motherfucker")} >
+          {props.name}
+        </button>
+      );
+    }
+  
 }
 
 function LargeConfirmButton(props) {
