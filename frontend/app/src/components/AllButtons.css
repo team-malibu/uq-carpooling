@@ -1,17 +1,9 @@
-/* GREEN_COLOR_UNACTIVE = #62E974 */
-/* GREEN_COLOR_ACTIVE =  #4CB55A */
-/* TEXT_COLOR =  #462963 */
-/* div {
-  padding-top: 8px;
-  padding-bottom: 8px;
-} */
-
 .green {
-  background-color: #62E974;
+  background-color: #62e974;
 }
 
 .green:active {
-  background-color: #4CB55A;
+  background-color: #4cb55a;
   transition: background-color 100ms linear;
 }
 
@@ -21,9 +13,9 @@
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   letter-spacing: 2px;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
   display: inline-block;
   padding-left: 12px;
   padding-right: 12px;
@@ -39,9 +31,9 @@
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   letter-spacing: 2px;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
   display: inline-block;
   padding-left: 24px;
   padding-right: 24px;
@@ -57,9 +49,9 @@
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   letter-spacing: 2px;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
   display: inline-block;
   padding-left: 48px;
   padding-right: 48px;
@@ -79,52 +71,11 @@
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   letter-spacing: 2px;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
   display: inline-block;
   border-radius: 4px;
-  font-size: medium;
-}
-
-.button_account_update {
-  border: none;
-  color:aliceblue;
-  border-radius: 20px;
-  background-color: #2b72ce;
-  height: 20%;
-  width: 90%;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-family: 'Lato', sans-serif;
-  letter-spacing: 2px;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
-  display: inline-block;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  font-size: medium;
-}
-  
-.button_account_update:active {
-    background-color:#0d4dbb; 
-}
-
-.button_account_update:hover {
-  background-color: #798fe7; 
-}
-
-.button_edit_circle {
-  border: none;
-  color:aliceblue;
-  border-radius: 100%;
-  background-color: #2b72ce;
-  height: 3.75rem;
-  width: 4rem;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
-  display: inline-block;
-  padding-top: 5%;
-  padding-bottom: 5%;
   font-size: medium;
 }
 
@@ -132,11 +83,11 @@
   background-color: #1164ee;
   border: none;
   color: white;
-  text-align: center;  
+  text-align: center;
   text-decoration: none;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   letter-spacing: 2px;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
   display: inline-block;
   padding-left: 88px;
   padding-right: 88px;
@@ -145,29 +96,29 @@
   border-radius: 20px;
   font-size: large;
 }
-  
+
 .button_login:active {
-    background-color:#377cf1; 
+  background-color: #377cf1;
 }
 
 .button_createAccount {
   background-color: #2cdd8c;
   border: none;
   color: white;
-  text-align: center;  
+  text-align: center;
   text-decoration: none;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   letter-spacing: 2px;
-  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
   display: inline-block;
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 14px;
   padding-bottom: 14px;
   border-radius: 20px;
-  font-size:15px;
+  font-size: 15px;
 }
-  
+
 .button_createAccount:active {
-    background-color:#7dd8af
+  background-color: #7dd8af;
 }

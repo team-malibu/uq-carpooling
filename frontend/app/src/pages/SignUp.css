@@ -6,7 +6,7 @@
   height: 812px;
 }
 
-.login-top {
+.signup-top {
   z-index: 20;
   font-size: 20;
   font-weight: bold;
@@ -30,4 +30,9 @@
 .submitButton {
     margin-top: 60px;
     margin-left: 110px;
+}
+
+.signup-link {
+  width: 100px;
+  height: 100px
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import BlankDefaultPage from '../components/BlankDefaultPage'
-import TimeTile from '../components/TimeTile'
-import TimetableTile from '../components/TimetableTile'
+import BasicPage from '../../components/BasicPage'
+import TimetableTile from '../../components/TimetableTile';
+import TimeTile from '../../components/TimeTile'
 import './Timetable.css'
 
 function sameDay(d1, d2) {
@@ -12,7 +12,7 @@ function sameDay(d1, d2) {
 
 var classes = new Map();
 
-function Timetable() {
+function Timetable(props) {
   const ical = require('node-ical');
   const fs = require('fs');
   const [selectedFile, setSelectedFile] = useState();
@@ -99,7 +99,8 @@ function Timetable() {
   }
 
   return (
-    <BlankDefaultPage name={'Timetable'} currentlySelected={1} hide={true} body={createBody()} />
+    <BasicPage name={'Timetable'} currentlySelected={1} body={createBody() } hide={props.hide} default={props.default} direction={props.direction} key={props.key} custom={props.custom} />
+
   )
 }
 
