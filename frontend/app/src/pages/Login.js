@@ -7,8 +7,18 @@ import { MdLockOutline } from 'react-icons/md';
 
 
 function Login() {
- 
+    const[isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
 
+    function handleEmail(thisEmail) {
+        setUserEmail(thisEmail)
+    }
+
+    function handlePassword(thisPassword) {
+        setUserPassword(thisPassword)
+    }
+ 
     return (
         <div>
             <div class='login-wrapper'>
@@ -22,13 +32,17 @@ function Login() {
                     <form method="post"> 
                     <div className="inputEmail">
                         <InputEmail
+                            value = {userEmail}
+                            onChange = {handleEmail}
                             placeholder="Student Email"
                             iconLeft={<MdLockOutline />}
-                            iconRight={<MdLockOutline />}
+                            
                         />
                     </div>
                     <div className="inputPassword">
                         <InputPassword
+                            value = {userPassword}
+                            onChange = {handlePassword}
                             placeholder="Password"
                             iconLeft={<MdLockOutline />}
                         />
