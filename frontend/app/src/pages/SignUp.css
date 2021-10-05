@@ -2,9 +2,11 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 375px;
-  height: 812px;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
 }
+
 
 .signup-top {
   z-index: 20;
@@ -15,21 +17,20 @@
   position: absolute;
   width: 80%;
   left: 10%;
-  top: -10%;
+  top: -25%;
 }
 
 .subody {
     position: relative;
-    top: 150px;
-
+    top: 25%;
     width: 100%;
-    height: 630px;
-
+    height: 55%;
 }
 
 .submitButton {
-    margin-top: 60px;
-    margin-left: 110px;
+  
+  margin-left: 40%;
+    
 }
 
 .signup-link {

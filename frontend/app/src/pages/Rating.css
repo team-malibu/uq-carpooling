@@ -1,66 +1,45 @@
-.rating-wrapper {
+.rating-page {
+  height: 100%;
+  width: 100%;
   text-align: center;
-  align-items: center;
-  vertical-align: middle;
+  font-family: "Lato", sans-serif;
+    
 }
 
 .rating-driver-avatar {
-  margin-left: 20%;
+  top: 0%;
+  left: 22%;
+  
+}
+
+.rating-wrapper {
+   
 }
 
 .header {
   font-weight: bold;
-  text-align: center;
-  font-family: "Lato", sans-serif;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 35px;
+  width: 100%;
+  font-size: xx-large;
   color: #322d95;
 }
 
 .driver {
-  font-family: "Lato", sans-serif;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 25px;
+  font-size: x-large;
   color: #322d95;
 }
+
+.review-stars {
+  
+}
+
 .reviewSubmitButton {
-  margin-top: 20%;
-  z-index: 200;
-  display: flex;
-  justify-content: center;
-}
-.star_rating {
-  z-index: 10;
-}
-.page {
-  position: absolute;
-  top: 15%;
-  left: 5%;
+  margin-top: 25%;
+  
 }
 
 .ReviewdriverAvatar {
   text-align: center;
 }
-.review-stars {
-  align-items: center;
-  display: grid;
-}
 
-.later-button {
-  display: flex;
-  justify-content: center;
-}
 
-.driver_score {
-  margin-top: 10px;
-  font-family: "Lato", sans-serif;
-  position: relative;
-  text-align: center;
-  font-size: 25px;
-  color: #322d95;
-  margin-right: 100px;
-}
+

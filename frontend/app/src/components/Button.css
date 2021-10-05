@@ -123,9 +123,16 @@
   width: 4rem;
   box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
   display: inline-block;
-  padding-top: 5%;
-  padding-bottom: 5%;
   font-size: medium;
+  position: absolute;
+  margin-left: 55%;
+  margin-top: 50%;
+  align-items: center;
+  scale:1.5;
+}
+
+.button_edit_circle:hover {
+  background-color: #71a7ee;
 }
 
 .button_login {

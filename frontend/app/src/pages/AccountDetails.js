@@ -6,18 +6,21 @@ import {InputStandardText} from '../components/InputText';
 import {FaPen} from 'react-icons/fa';
 import { CircleEditButton } from '../components/Button'
 import {DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu} from '../components/DropDownMenu';
+import "./AccountDetails.css";
 
 function AccountDetails(props) {
 
     function createAccountBody() {
+        
         return(
-        <div class='acc-detail-wrapper'>
-            <div class="acc-detail-image-container">
-            <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px'}} src={props.src} />
-            <CircleEditButton className= "acc-detail-circle-btn" icon={<FaPen/>} />
+        <div className='acc-detail-wrapper'>
+            <div className="acc-detail-image-container">
+            <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', marginLeft: '15%', position: "relative"}} src={props.src} />
+            <CircleEditButton className="acc-detail-circle-btn" icon={<FaPen/>} />
             </div>
-            DisplayName:
-            <div class='acontainer'>
+            
+            <div className='ad-container'>
+            Display Name:
 
             <InputStandardText placeholder='Enter your name' iconRight={<FaPen/>}/>
            
@@ -29,7 +32,7 @@ function AccountDetails(props) {
            
             <DriverDropDownMenu />
             
-            School:
+           School:
             
             <SchoolDropDownMenu />
 

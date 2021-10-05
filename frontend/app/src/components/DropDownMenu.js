@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { CgGenderFemale, CgGenderMale } from 'react-icons/cg';
 import { IoMdTransgender } from 'react-icons/io';
 import { BsFillCaretDownFill, BsPeopleFill, BsPersonFill } from 'react-icons/bs';
