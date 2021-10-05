@@ -4,40 +4,39 @@ import './TripTile.css'
 
 function TripTile(props) {
   return (
-    <div>
-      <div class='wrapper'>
-        <div class='info_line'>
-          <div class='content'>
+      <div class='trip_wrapper'>
+        <div class='trip_info_line'>
+          <div class='trip_content'>
             <div>
               <SchoolOutlined />
             </div>
-            <div class='input_text'>
-              {props.class_name}
-            </div>
+            <input class='trip_input_text' value={props.className} 
+            placeholder={props.className} ref={props.startInputLoc}
+            onChange={event => {
+              props.updateLocation(event.target.value, "start");
+            }}/>
+            
           </div>
 
-          <div class='edit'>
+          <div class='trip_edit'>
             <EditOutlined />
           </div>
         </div>
 
-        <div class='info_line'>
-          <div class='content'>
+        <div class='trip_info_line'>
+          <div class='trip_content'>
             <div >
               <PlaceOutlined />
             </div>
-            <div class='input_text'>
-              {props.address}
-            </div>
+            <input class='trip_input_text' placeholder={props.address} ref={props.endInputLoc}/>
           </div>
 
-          <div class='edit'>
+          <div class='trip_edit'>
             <EditOutlined />
           </div>
         </div>
 
       </div>
-    </div>
 
   )
 }

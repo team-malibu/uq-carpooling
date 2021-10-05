@@ -2,6 +2,7 @@ import React from 'react'
 import './BasicPage.css'
 import { motion } from 'framer-motion';
 import { BrowserRouter as Link } from 'react-router-dom';
+import {useHistory} from 'react-router-dom'
 
 const variants = {
   enter: (direction) => {
@@ -43,16 +44,24 @@ function BackgroundContainer() {
 }
 
 function TopSection(props) {
+  const history = useHistory();
   return (
       <>
       
       <div className='top'>
           {!props.hide && 
-          <Link to={props.previousPage} className='back-arrow' >
-              <svg xmlns="http://www.w3.org/2000/svg" className='back-arrow' width="25" height="25" viewBox="0 0 25 25">
-                  <path id="Path_27" data-name="Path 27" d="M29,14.937H9.984L18.719,6.2,16.5,4,4,16.5,16.5,29l2.2-2.2L9.984,18.062H29Z" transform="translate(-4 -4)" fill="#462963" />
-              </svg>
-          </Link>
+          <div className='back-arrow' onClick={() => {
+            props.update_direction(-1)
+            history.push(props.previousPage)
+            console.log('back arrow pushed')
+            console.log('Current direction:' + props.direction)
+            }}>
+            <Link to={props.previousPage} className='back-arrow' >
+                <svg xmlns="http://www.w3.org/2000/svg" className='back-arrow' width="25" height="25" viewBox="0 0 25 25">
+                    <path id="Path_27" data-name="Path 27" d="M29,14.937H9.984L18.719,6.2,16.5,4,4,16.5,16.5,29l2.2-2.2L9.984,18.062H29Z" transform="translate(-4 -4)" fill="#462963" />
+                </svg>
+            </Link>
+          </div>
           }
           <h1 className='page-title'>{props.name}</h1>
       </div>
@@ -76,7 +85,7 @@ function BasicPage(props) {
                       transition={{
                       x: { type: "spring", stiffness: 300, damping: 20 }
                       }, { duration: 0.2 }}>
-            <TopSection name={props.name} previousPage={props.previousPage} hide={props.hide} currentlySelected={props.currentlySelected}/>
+            <TopSection name={props.name} previousPage={props.previousPage} hide={props.hide} direction={props.direction} currentlySelected={props.currentlySelected} update_direction={props.update_direction}/>
             {props.default && 
               <div className='body' id={props.className} />
             }

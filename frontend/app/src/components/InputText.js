@@ -103,7 +103,7 @@ function InputPassword(props) {
 
 function InputStandardText(props) {
 
-    const [input, setInput] = useState(null);
+    const [input, setInput] = useState("");
 
     function handleInputChange(e) {
         setInput(e.target.value)

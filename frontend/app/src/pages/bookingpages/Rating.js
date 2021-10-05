@@ -1,10 +1,11 @@
-import React from 'react';
-import StarRating from '../components/StarRating';
-import * as Buttons from '../components/Button';
+import React, { useState, Component } from 'react';
+import StarRating from '../../components/StarRating';
+import * as Buttons from '../../components/Button';
 import './Rating.css'
-import BlankDefaultPage from '../components/BlankDefaultPage';
 import { Link } from 'react-router-dom'
 import { Avatar } from '@material-ui/core';
+import BasicPage from '../../components/BasicPage';
+
 function Rating(props) {
 
     function createRating() {
@@ -38,7 +39,7 @@ function Rating(props) {
 
     return (
 
-        <BlankDefaultPage name={"Leave a rating"} body={createRating()} currentlySelected={0} previousPage='/Confirm' />
+        <BasicPage name={"Leave a rating"} body={createRating()} currentlySelected={0} previousPage='/Confirm' direction={props.direction} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
 
     )
 

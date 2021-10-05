@@ -6,14 +6,14 @@ border-radius: 20px;
 font-family: 'Lato', sans-serif;
 border:none;
 outline:none;
-color:DeepSkyBlue;
-margin-top:10%;
+color:#37A7F2;
+margin-top:7%;
 margin-left: 5%;
 }
 
 .itext-form {
     background-color: #ddedfd;
-    color:DeepSkyBlue;
+    color:#37A7F2;
     border:none;
     outline:none;
     font-size: 20px;
@@ -27,7 +27,7 @@ margin-left: 5%;
 }
 
 .itext-form::placeholder {
-    color:DeepSkyBlue;
+    color:#37A7F2;
 }
 .itext-icon-left {   
     margin-left: 3%;
@@ -43,8 +43,8 @@ margin-left: 5%;
     margin-top: 5%;
 }
 
-.itext-other {
-    background-color: #2b72ce;
+.itext-db {
+    background-color: #37A7F2;
     width:90%;
     height:25%;
     border-radius: 20px;
@@ -57,8 +57,8 @@ margin-left: 5%;
     margin-left: 5%;
     }
     
-    .itext-other-form {
-        background-color: #2b72ce;
+    .itext-db-form {
+        background-color: #37A7F2;
         color:White;
         border:none;
         outline:none;

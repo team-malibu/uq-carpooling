@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import './Login.css'
 import {LoginButton, CreateAccountButton} from '../components/AllButtons';
-import PlainBackground from '../components/PlainBackground';
+import { useHistory, Link } from 'react-router-dom';
 import { InputPassword, InputEmail } from '../components/InputText';
 import { MdLockOutline } from 'react-icons/md';
+import BasicPage from '../components/BasicPage';
 
+function Login(props) {
+    const history = useHistory();
 
-function Login() {
     const[isLoggedIn, setIsLoggedIn] = useState(false);
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
@@ -18,18 +20,11 @@ function Login() {
     function handlePassword(thisPassword) {
         setUserPassword(thisPassword)
     }
- 
-    return (
-        <div>
-            <div class='login-wrapper'>
-                <PlainBackground />
+
+    function createLogin() {
+        return (
+            <>
                 <div className='login-body'>
-                    <div className="login-title">
-                        <h1>
-                            Login
-                        </h1>
-                    </div>
-                    <form method="post"> 
                     <div className="inputEmail">
                         <InputEmail
                             value = {userEmail}
@@ -47,22 +42,24 @@ function Login() {
                             iconLeft={<MdLockOutline />}
                         />
                     </div>
-
-                    <div className="loginButton">
+                    <div className="loginButton" onClick={() => {
+                        history.push('/Book')}}>
                         <LoginButton name="Login" />
                     </div>
-                    </form>
-                   
-                    <div className="createAccountButton">
-
+                    <div class='loginButton' onClick={() => {
+                        history.push('/Signup')}}>
                         <CreateAccountButton name="Create Account" />
                     </div>
-
                 </div>
+            </>
+        )
+    }
 
-            </div>
-        </div>
-    )
+    
+    return (
+    <BasicPage name={"UQ carpool login"} body={createLogin(props)} currentlySelected={0} hide={props.hide} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+
+  )
 }
 
 export default Login
