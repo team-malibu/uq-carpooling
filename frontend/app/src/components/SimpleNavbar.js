@@ -151,8 +151,8 @@ function SimpleNavbar(props) {
             setButtonColor(["#7a599b", "#7a599b", "#7a599b", "#554ff1"]);
         }
     };
-
-    if (props.location.pathname === '/') {
+    console.log(props.location.pathname === '/Login')
+    if (props.location.pathname === '/' || props.location.pathname === '/Signup' || props.location.pathname === '/Login') {
         console.log("returnign null for pathname: " + props.location.pathname)
         return null;
     }

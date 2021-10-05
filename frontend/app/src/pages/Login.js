@@ -1,25 +1,18 @@
 import React from 'react';
 import './Login.css'
 import {LoginButton, CreateAccountButton} from '../components/AllButtons';
-import PlainBackground from '../components/PlainBackground';
+import { useHistory, Link } from 'react-router-dom';
 import { InputPasswordText, InputSignUpText } from '../components/InputText';
 import { MdLockOutline } from 'react-icons/md';
+import BasicPage from '../components/BasicPage';
 
+function Login(props) {
+    const history = useHistory();
 
-function Login() {
-    return (
-        <div>
-            <div class='login-wrapper'>
-                <PlainBackground />
+    function createLogin() {
+        return (
+            <>
                 <div className='login-body'>
-                    <div className="login-top">
-                        <h1>
-                            Login
-                        </h1>
-                    </div>
-
-
-
                     <div className="inputEmail">
                         <InputSignUpText
                             placeholder="Student Email"
@@ -36,16 +29,20 @@ function Login() {
 
                         <LoginButton name="Login" />
                     </div>
-                    <div className="createAccountButton">
-
+                    <div class='createAccountButton' onClick={() => {
+                        history.push('/Signup')}}>
                         <CreateAccountButton name="Create Account" />
                     </div>
-
                 </div>
+            </>
+        )
+    }
 
-            </div>
-        </div>
-    )
+    
+    return (
+    <BasicPage name={"UQ carpool login"} body={createLogin(props)} currentlySelected={0} hide={props.hide} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+
+  )
 }
 
 export default Login
