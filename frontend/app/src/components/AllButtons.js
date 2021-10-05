@@ -1,6 +1,5 @@
 import { yellow } from '@material-ui/core/colors';
 import React from 'react'
-import {EditOutlined} from '@material-ui/icons/'
 import './Button.css'
 
 function SmallConfirmButton(props) {
@@ -13,24 +12,18 @@ function SmallConfirmButton(props) {
 function MediumConfirmButton(props) {
   async function logthisApiBitch (z) {
       let x = "not here yet"
-      try {
-        await fetch("https://deco3801-teammalibu.uqcloud.net/test")
+      await fetch("https://deco3801-teammalibu.uqcloud.net/test")
       .then(result => result.json())
       .then(data => {
           x = data;
           console.log("binData", x);
       });
       console.log("Fetched " + x)
-      } catch (e) {
-        console.log(e)
-      }
-      
   }
 
   return (
     <button class="button_medium green" onClick={() => logthisApiBitch("Motherfucker")} >
       {props.name}
-      <img src={EditOutlined}/>
     </button>
   );
 }
@@ -51,40 +44,40 @@ function SquareButton(props) {
   )
 }
 
-function AccountUpdateButton(props) {
-  return (
-   
-    <button class='button_account_update'>
-      {props.name}
-      
-    </button>
-   
-  );
-}
-
-function CircleEditButton(props) {
-  return (
-   
-    <button class='button_edit_circle'>
-      {props.icon}
-      
-    </button>
-   
-  );
-}
+function ButtonDisplayPage(props) {
+    return (
+      <div>
+        <div>
+          <SmallConfirmButton name='Small'/>
+        </div>
+        <div>
+          <MediumConfirmButton name='Medium'/>
+        </div>
+  
+        <div>
+          <LargeConfirmButton name='Large'/>
+        </div>
+        <div>
+          <SquareButton />
+        </div>
+      </div>
+    )
+  }
 
 function LoginButton(props) {
-  return (
-    <button class='button_login'>
-      {props.name}
-    </button>);
+    return (
+        <button class='button_login'>
+        {props.name}
+        </button>
+    );
 }
 
 function CreateAccountButton(props) {
-  return (
-    <button class='button_createAccount'>
-      {props.name}
-    </button>);
+    return (
+        <button class='button_createAccount'>
+        {props.name}
+        </button>
+    );
 }
 
-export {SmallConfirmButton, MediumConfirmButton, LargeConfirmButton, SquareButton, AccountUpdateButton, CircleEditButton, LoginButton, CreateAccountButton}
+export {SmallConfirmButton, MediumConfirmButton, LargeConfirmButton, SquareButton, ButtonDisplayPage, LoginButton, CreateAccountButton}

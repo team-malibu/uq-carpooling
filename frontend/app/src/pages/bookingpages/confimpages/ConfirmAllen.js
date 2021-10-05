@@ -1,0 +1,48 @@
+import React from 'react'
+import { MediumConfirmButton } from '../../../components/Button'
+import BlankDefaultPage from '../../../components/BlankDefaultPage'
+import DriverTile from '../../../components/DriverTile'
+import TripTile from '../../../components/TripTile'
+import './ConfirmDriver.css'
+import {useHistory} from 'react-router-dom'
+import BasicPage from '../../../components/BasicPage'
+
+
+function ConfirmAllen(props) {
+  const history = useHistory();
+
+  function createBody(props) {
+    return (
+      <div class='cwrapper'>
+        <div class= 'ccontainer'>
+          Trip
+          <TripTile class_name='DECO3801 Build Studio 3' address="Test Address" />
+        </div>
+        <div class= 'ccontainer'>
+          Driver
+          <DriverTile name='Allen Walters' src='https://randomuser.me/api/portraits/men/52.jpg' arrive='10:42'/>
+        </div>
+
+        <div class= 'ccontainer' onClick={() => {
+            history.push('/rating')
+            props.update_direction(1)
+          }}>
+          <MediumConfirmButton name='Confirm' />
+        </div>
+        
+      </div>
+    )
+  }
+
+  return (
+
+    <BasicPage name={"Confirm Driver"} body={createBody(props)} currentlySelected={0} previousPage='/Select' direction={props.direction} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
+
+  )
+
+
+}
+
+
+
+export default ConfirmAllen

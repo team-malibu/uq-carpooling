@@ -46,8 +46,8 @@ function TripMap(props) {
           zoom: 12
         });
         console.log(" test")
-        console.log(props.locations[0])
-        console.log(props.locations[1])
+        // console.log(props.locations[0])
+        // console.log(props.locations[1])
 
         map.on('load', () => {
           const mark = document.createElement('div');

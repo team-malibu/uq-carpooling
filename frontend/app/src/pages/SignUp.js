@@ -1,62 +1,59 @@
 import React from 'react';
 import './SignUp.css'
 import * as Buttons from '../components/Button';
-import { UserInfoInput } from '../components/UserInfoInput';
 import PlainBackground from '../components/PlainBackground';
-import {useHistory} from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom';
+import { InputPasswordText, InputSignUpText } from '../components/InputText';
+import { MdLockOutline } from 'react-icons/md';
+import { motion } from 'framer-motion';
 
 
-function SignUp() {
+function SignUp(props) {
   const history = useHistory();
 
     return (
-        <div class='suwrapper'>
+        <motion.div class='suwrapper'>
             <PlainBackground />
 
                 <div className='subody'>
-                    <div className="login-top">
+                    <div className="signup-top">
                         <h1>
-                            UQ Student Pool Login
+                            UQ Student Pool SignUp
                         </h1>
                     </div>
 
                     <div className="inputName">
-                        <UserInfoInput type="text"
-                            className="form-control"
-                            id="name"
-                            //value={email}
-                            //onChange={}
-                            placeholder="Student ID"
-
+                        <InputSignUpText
+                            placeholder="Name"
+                            iconLeft={<MdLockOutline />}
                         />
                     </div>
                     <div className="inputEmail">
-                        <UserInfoInput type="email"
-                            className="form-control"
-                            id="email"
-                            //value={email}
-                            //onChange={}
-                            placeholder="Student Email"
-
+                    <InputSignUpText
+                            placeholder="Email"
+                            iconLeft={<MdLockOutline />}
                         />
                     </div>
                     <div className="inputPassword">
-                        <UserInfoInput type="password"
-                            className="form-control"
-                            id="email"
-                            //value={email}
-                            //onChange={}
+                        <InputPasswordText
                             placeholder="Password"
-
+                            iconLeft={<MdLockOutline />}
                         />
                     </div>
-                    <div className="submitButton" onClick = {() => history.push('/book')}>
+                <Link to='/Book' className="submitButton"
+                    onClick={() => {
+                        history.push('/Login')
+                        console.log("link clicked")
+                    }}>
 
                         <Buttons.MediumConfirmButton name="Submit" />
-                    </div>
+                        
+                    </Link>
+
+                    
 
                 </div>
-            </div>
+            </motion.div>
 
 
 
