@@ -39,7 +39,7 @@ function Timetable(props) {
         'desc': event.description,
         'location': event.location,
         'start': event.start.toDateString().split(' ')[0] + ', ' + event.start.toDateString().split(' ')[1] + ' ' + event.start.toDateString().split(' ')[2]  + ', '  + event.start.toLocaleTimeString().split(':')[0] + ':' + event.start.toLocaleTimeString().split(':')[1] + ' ' + event.start.toLocaleTimeString().split(' ')[1],
-        'end': event.end.toDateString() + ' ' + event.end.toLocaleTimeString(),
+        'end': event.end.toDateString().split(' ')[0] + ', ' + event.end.toDateString().split(' ')[1] + ' ' + event.end.toDateString().split(' ')[2]  + ', '  + event.end.toLocaleTimeString().split(':')[0] + ':' + event.end.toLocaleTimeString().split(':')[1] + ' ' + event.end.toLocaleTimeString().split(' ')[1],
       })
 
     }
