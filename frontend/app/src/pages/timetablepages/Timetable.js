@@ -29,6 +29,7 @@ function Timetable(props) {
 
 
   const handleFile = (e) => {
+    
     const content = e.target.result;
     const events = ical.parseICS(content);
     console.log(events)
@@ -37,7 +38,7 @@ function Timetable(props) {
         'name': event.summary.val,
         'desc': event.description,
         'location': event.location,
-        'start': event.start.toDateString() + ' ' + event.start.toLocaleTimeString(),
+        'start': event.start.toDateString().split(' ')[0] + ', ' + event.start.toDateString().split(' ')[1] + ' ' + event.start.toDateString().split(' ')[2]  + ', '  + event.start.toLocaleTimeString().split(':')[0] + ':' + event.start.toLocaleTimeString().split(':')[1] + ' ' + event.start.toLocaleTimeString().split(' ')[1],
         'end': event.end.toDateString() + ' ' + event.end.toLocaleTimeString(),
       })
 
@@ -88,7 +89,7 @@ function Timetable(props) {
         </div>
         <div class='timeitems'>
 
-          {unit == null ? <div /> : unit}
+          {unit}
         </div>
 
 
