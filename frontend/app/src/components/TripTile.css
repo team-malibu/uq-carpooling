@@ -5,7 +5,7 @@
   top:0;
 }
 
-.wrapper {
+.trip_wrapper {
   background-color: #37A7F2;
   width: 100%;
   height: 100%;
@@ -17,14 +17,14 @@
   flex-grow: 1;
 }
 
-.content {
+.trip_content {
   display: flex;
   justify-content: center;
   vertical-align: middle;
   width: 100%;
 }
 
-.info_line {
+.trip_info_line {
   align-items: stretch;
   display: flex;
   flex-grow: 1;
@@ -34,7 +34,7 @@
   color: white;   
 }
 
-.input_text {
+.trip_input_text {
   font-family: 'Lato', sans-serif;
   font-size: medium;
   position: relative;
@@ -46,7 +46,7 @@
   margin-right: 2.5%;
 }
 
-.edit {
+.trip_edit {
   position: relative;
   align-self: flex-end;
 }

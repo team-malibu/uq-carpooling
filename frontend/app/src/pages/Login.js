@@ -25,11 +25,11 @@ function Login(props) {
                             iconLeft={<MdLockOutline />}
                         />
                     </div>
-                    <div className="loginButton">
-
+                    <div className="loginButton" onClick={() => {
+                        history.push('/Book')}}>
                         <LoginButton name="Login" />
                     </div>
-                    <div class='createAccountButton' onClick={() => {
+                    <div class='loginButton' onClick={() => {
                         history.push('/Signup')}}>
                         <CreateAccountButton name="Create Account" />
                     </div>

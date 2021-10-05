@@ -19,15 +19,5 @@
       position: relative;
       height: 100%;
       width: 100%;
-  
+      
   }
-
-.loginButton {
-    margin-top: 60px;
-    margin-left: 75px;
-}
-
-.createAccountButton {
-    margin-top: 60px;
-    margin-left: 85px;
-}
