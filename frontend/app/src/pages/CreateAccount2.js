@@ -12,19 +12,19 @@ function CreateAccount2(props) {
     function createBook2(props) {
         return (
           <>
-          <div className="inputName">
+          <div className="input-field-sign-up">
                 <InputSignUpText
                     placeholder="Name"
                     iconLeft={<MdLockOutline />}
                 />
             </div>
-            <div className="inputEmail">
+            <div className="input-field-sign-up">
                 <InputSignUpText
                         placeholder="Email"
                         iconLeft={<MdLockOutline />}
                     />
             </div>
-            <div className="inputPassword">
+            <div className="input-field-sign-up">
                 <InputPasswordText
                     placeholder="Password"
                     iconLeft={<MdLockOutline />}
