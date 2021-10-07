@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 
 import { Avatar } from '@material-ui/core';
-import { InputStandardText } from '../../components/InputText';
+import { InputName } from '../../components/InputText';
 import { FaPen } from 'react-icons/fa';
+import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
 import { CircleEditButton, MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
 import { DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
@@ -11,6 +12,41 @@ import "./AccountDetails.css";
 const ical = require('node-ical');
 
 function AccountDetails(props) {
+
+  const [userName, setUserName] = useState("");
+  const [validName, setValidName] = useState(false);
+  const [nameIcon, setNameIcon] = useState(<BsExclamationCircle/>);
+
+  const[userGender, setUserGender] = useState("")
+  const[driverPref, setDriverPref] = useState("")
+  const[userSchool, setUserSchool] = useState("")
+  
+ 
+  function handleName(thisName, nameBool) {
+    setUserName(thisName)
+    setValidName(nameBool)
+    if(nameBool) {
+        setNameIcon(<BsCheckCircle/>)
+    } else {
+      setNameIcon(<BsExclamationCircle/>)
+    }
+  }
+
+  function handleGender(thisGender) {
+    setUserGender(thisGender);
+  }
+
+  function handleDriverPref(thisDriverPref) {
+    setDriverPref(thisDriverPref);
+  }
+
+  function handleSchool(thisSchool) {
+    setUserSchool(thisSchool);
+    console.log(thisSchool)
+  }
+
+
+
 
   var classes = new Map();
 
@@ -56,19 +92,30 @@ function AccountDetails(props) {
         <div className='ad-container'>
           Display Name:
 
-          <InputStandardText placeholder='Enter your name' iconRight={<FaPen />} />
+          <InputName 
+          placeholder='Enter your name' 
+          value = {userName}
+          onChange = {handleName}
+          iconLeft={<FaPen />}
+          iconRight={nameIcon} />
 
           Gender:
 
-          <GenderDropDownMenu />
+          <GenderDropDownMenu
+          value = {userGender}
+          handleChange = {handleGender} />
 
           Preference:
 
-          <DriverDropDownMenu />
+          <DriverDropDownMenu
+          value = {driverPref}
+          handleChange = {handleDriverPref} />
 
           School:
 
-          <SchoolDropDownMenu />
+          <SchoolDropDownMenu
+          value = {userSchool}
+          handleChange = {handleSchool} />
 
           Timetable:
           <div>

@@ -3,6 +3,7 @@ import './Login.css'
 import {LoginButton, CreateAccountButton} from '../components/AllButtons';
 import { useHistory, Link } from 'react-router-dom';
 import { InputPassword, InputEmail } from '../components/InputText';
+import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
 import { MdLockOutline } from 'react-icons/md';
 import BasicPage from '../components/BasicPage';
 
@@ -10,15 +11,33 @@ function Login(props) {
     const history = useHistory();
 
     const[isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const[validEmail, setValidEmail] = useState(false)
+
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
-    function handleEmail(thisEmail) {
-        setUserEmail(thisEmail)
+    const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle/>)
+    const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle/>)
+
+    function handleEmail(thisEmail, emailBool) {
+          setUserEmail(thisEmail)
+          setValidEmail(emailBool)
+          if(emailBool) {
+              setEmailIcon(<BsCheckCircle/>)
+          } else {
+            setEmailIcon(<BsExclamationCircle/>)
+          }
     }
 
     function handlePassword(thisPassword) {
         setUserPassword(thisPassword)
+        
+        if(thisPassword.length >= 1) {
+            setPasswordIcon(null)
+        } else {
+          setPasswordIcon(<BsExclamationCircle/>)
+        }
     }
 
     function createLogin() {
@@ -29,8 +48,9 @@ function Login(props) {
                         <InputEmail
                             value = {userEmail}
                             onChange = {handleEmail}
-                            placeholder="Student Email"
+                            placeholder="Student Email (uq.net.au)"
                             iconLeft={<MdLockOutline />}
+                            iconRight={emailIcon}
                             
                         />
                     </div>
@@ -40,6 +60,7 @@ function Login(props) {
                             onChange = {handlePassword}
                             placeholder="Password"
                             iconLeft={<MdLockOutline />}
+                            iconRight={passwordIcon}
                         />
                     </div>
                     <div className="loginButton" onClick={() => {

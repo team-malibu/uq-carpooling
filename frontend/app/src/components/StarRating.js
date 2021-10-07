@@ -3,9 +3,14 @@ import { RiStarFill, RiStarHalfFill, RiStarLine } from 'react-icons/ri';
 import { motion } from "framer-motion"
 import './StarRating.css';
 
-export default function StarRating() {
+export default function StarRating(props) {
 
     const [rating, setRating] = useState(3);
+
+    function handleRatingChange(e) {
+        setRating(e.target.value)
+        props.onChange(e.target.value);
+    }
 
     return (
         <div className="star-rating">
@@ -69,7 +74,8 @@ export default function StarRating() {
                 max="5"
                 step="1"
                 value={rating}
-                onChange={(e) => setRating(e.target.value)}>
+                onChange={handleRatingChange}
+                >
             </input>
             </div>
            

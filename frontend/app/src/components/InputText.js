@@ -4,17 +4,25 @@ import "./InputText.css";
 
 function InputName(props) {
 
-    const [name, setName] = useState("");
-
     const handleName = (e) => {
-        props.onChange(e.target.value)   
+
+        const thisName = e.target.value
+
+        //characters not allowed within student's name
+        const reg = /[~`!0123456789@#$%\^&*+=\\[\]\\';,/{}|\\":<>\?]/g
+
+        if(thisName.length >= 2 && !reg.test(String(thisName))) {
+            props.onChange(thisName, true) 
+        } else {
+            props.onChange(thisName, false) 
+        }  
         
     }
 
     return (
         <div className="itext">
            
-                <span className="itext-icon-left">{props.iconLeft}</span>
+                <span className="itext-icon-left" style={{"font-size": "20px"}}>{props.iconLeft}</span>
                 <input className="itext-form"
                     type="text"
                     placeholder={props.placeholder}
@@ -26,27 +34,24 @@ function InputName(props) {
     )
 }
 
-function InputEmail (props) {
-
-    const [email, setEmail] = useState("");
-    const [emailIcon, setEmailIcon] = useState(<BsExclamationCircle/>)
-    const [validEmail, setValidEmail] = useState(false);
+function InputEmail(props) {
 
     const handleEmail = (e) => {
         const thisEmail = e.target.value;
-        
+
         //checks for firstname.lastnamexx@uq.net.au
         const reg = /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@uq([\.])net([\.])au$/g
 
-        if((reg.test(String(thisEmail)))) {
-             setValidEmail(true); 
-             setEmailIcon(<BsCheckCircle/>)
-             props.onChange(e.target.value)      
+        if ((reg.test(String(thisEmail)))) {
+            props.onChange(thisEmail, true);
+
+
         } else {
-             setValidEmail(false)
-             setEmailIcon(<BsExclamationCircle/>)
-             props.onChange(e.target.value)   
+            props.onChange(thisEmail, false);
+
         }
+
+
     }
 
     return (
@@ -60,7 +65,7 @@ function InputEmail (props) {
                     value={props.value}
                     onChange={handleEmail}
                    />
-                <span className="itext-icon-right" >{emailIcon}</span>
+                <span className="itext-icon-right" >{props.iconRight}</span>
            
         </div>
     )
@@ -68,7 +73,6 @@ function InputEmail (props) {
 
 function InputPassword(props) {
 
-    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false)
 
     const togglePassword = () => {
@@ -78,8 +82,11 @@ function InputPassword(props) {
 
     const handlePassword = (e) => {
         const thisPassword = e.target.value;
-        props.onChange(e.target.value)   
-        setPassword(thisPassword)
+        if(thisPassword.length >= 7) {
+            props.onChange(thisPassword, true) 
+        } else {
+            props.onChange(thisPassword, false) 
+        }
     }
 
 
@@ -95,7 +102,7 @@ function InputPassword(props) {
                     onChange={handlePassword}
                     type={showPassword ? "text" : "password"}
                     />
-                
+                 <span className="itext-other-icon-right">{props.iconRight}</span>
             </form>
         </div>
     )

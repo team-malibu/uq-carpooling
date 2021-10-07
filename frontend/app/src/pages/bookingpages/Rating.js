@@ -8,6 +8,13 @@ import BasicPage from '../../components/BasicPage';
 
 function Rating(props) {
 
+    const [ratingValue, setRatingValue] = useState(3)
+
+    function handleRatingChange(thisValue) {
+        setRatingValue(thisValue);
+        //console.log(thisValue);
+    }
+
     function createRating() {
         return (
             <>
@@ -21,7 +28,9 @@ function Rating(props) {
                         <h3 className="driver">Your Driver: {props.name} </h3>
                         
                         <div className="review-stars">
-                            <StarRating />
+                            <StarRating
+                            value = {ratingValue}
+                            onChange = {handleRatingChange} />
                         </div>
                         <Link to='/Book'>
                             <div className="reviewSubmitButton" >
