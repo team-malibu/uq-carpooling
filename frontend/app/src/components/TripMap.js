@@ -135,6 +135,8 @@ function TripMap(props) {
         console.log(secondCo)
         markers[1].setLngLat(firstCo)
         markers[0].setLngLat(secondCo)
+        map.fitBounds([firstCo, secondCo])
+        map.setZoom(12)
         addRoute(map)
       }
     });
