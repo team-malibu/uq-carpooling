@@ -8,16 +8,19 @@ import BasicPage from '../../components/BasicPage'
 
 function Book(props) {
   const history = useHistory();
-  let [startLoc, setStartLoc] = useState("");
-  let [endLoc, setEndLoc] = useState("");
+  let [startLoc, setStartLoc] = useState(0);
+  let [endLoc, setEndLoc] = useState(0);
   
-  let updateLocation = ((location, flag) => {
+  function updateLocation(flag, locationProps) {
+   
     if (flag.match("start")) {
-      setStartLoc(location); 
+
+      setStartLoc([locationProps.longitude, locationProps.latitude]); 
     } else {
-      setEndLoc(location);
+      
+      setEndLoc([locationProps.longitude, locationProps.latitude]);
     }
-  })
+  }
 
   function createBook(props) {
     return (
@@ -28,7 +31,7 @@ function Book(props) {
           updateLocation={updateLocation}/>
         </div>
         <div class="bookmap">
-          <TripMap locations={startLoc, endLoc} /> 
+          <TripMap locations={[startLoc, endLoc]} /> 
         </div>
           <div class='bookbutton' onClick={() => {
           history.push('/select')

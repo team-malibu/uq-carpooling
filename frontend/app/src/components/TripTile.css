@@ -50,3 +50,34 @@
   position: relative;
   align-self: flex-end;
 }
+
+.react-geocoder > input{
+  font-family: 'Lato', sans-serif;
+  font-size: medium;
+  position: relative;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px white solid;
+  width: 100%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+.react-geocoder{
+  width: 80%;
+}
+
+.react-geocoder-results{
+  overflow: scroll;
+  height: 30%;
+  opacity: 0.9;
+  padding-bottom: 2.5%;
+}
+
+.react-geocoder-item {
+  padding: 2%;
+  background-color: whitesmoke;
+  color: black;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
