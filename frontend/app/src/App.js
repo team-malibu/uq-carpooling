@@ -11,14 +11,10 @@ import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
 import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
 import Rating from "./pages/bookingpages/Rating";
 import SelectDriver from "./pages/bookingpages/SelectDriver";
-import CreateAccount2 from './pages/CreateAccount2';
 import Login from "./pages/Login";
-import Search from "./pages/Search";
-import SignUp from "./pages/SignUp";
 import Timetable from "./pages/timetablepages/Timetable";
-
-
-
+import CreateAccount from './pages/CreateAccount';
+import Search from "./pages/Search";
 
 function App() {
   const location = useLocation();
@@ -35,14 +31,13 @@ function App() {
         } else {
             setPage([newPage, 0]);
         }
+        
+        console.log(isNavbarVisible)
+
       };
 
     const update_direction = (newDirection) => {
       setPage([page, newDirection]);
-    }
-
-    const changeNavbarVisibility = (visibility) => {
-      setNavbarVisibility(visibility);
     }
 
   return (
@@ -56,14 +51,14 @@ function App() {
           <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={true} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
-          <Route exact path='/' component={() => <CreateAccount2 name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction} />} />
+          <Route exact path='/' component={() => <Login name='Login' hide={true} default={false} direction={direction} key={location.key} custom={direction} />} />
           <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/Confirm' exact component={() => <ConfirmDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/confirm/allen' exact component={() => <ConfirmAllen direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/confirm/john' exact component={() => <ConfirmJohn direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
-          <Route path='/Rating' exact component={() => <Rating name='Allen Walters' src='https://randomuser.me/api/portraits/men/52.jpg' direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>}/>
-          <Route path='/Login' exact component={Login}/>
-          <Route exact path='/SignUp' component={() => <SignUp name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction} />} />
+          <Route path='/Rating' exact component={() => <Rating name='Rating' src='https://randomuser.me/api/portraits/men/52.jpg' direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>}/>
+          <Route path='/Login' exact component={() => <Login name='Login' hide={false} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} />}/>
+          <Route exact path='/Signup' component={() => <CreateAccount name='Signup' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction}/>} />
 
         </Switch>
       </AnimatePresence>

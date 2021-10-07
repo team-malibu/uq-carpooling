@@ -1,35 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
 import "./InputText.css";
 
-function InputSignUpText(props) {
+function InputName(props) {
 
-    const [input, setInput] = useState(null);
+    const handleName = (e) => {
 
-    function handleInputChange(e) {
-        setInput(e.target.value)
-    }
+        const thisName = e.target.value
 
-    function handleSubmit(e) {
-        e.preventDefault()
+        //characters not allowed within student's name
+        const reg = /[~`!0123456789@#$%\^&*+=\\[\]\\';,/{}|\\":<>\?]/g
+
+        if(thisName.length >= 2 && !reg.test(String(thisName))) {
+            props.onChange(thisName, true) 
+        } else {
+            props.onChange(thisName, false) 
+        }  
+        
     }
 
     return (
         <div className="itext">
-            <form onSubmit={handleSubmit}>
-                <span className="itext-icon-left">{props.iconLeft}</span>
+           
+                <span className="itext-icon-left" style={{"font-size": "20px"}}>{props.iconLeft}</span>
                 <input className="itext-form"
+                    type="text"
                     placeholder={props.placeholder}
-                    value={input}
-                    onChange={handleInputChange} />
+                    value={props.value}
+                    onChange={handleName} />
                 <span className="itext-icon-right">{props.iconRight}</span>
-            </form>
+            
         </div>
     )
 }
 
-function InputPasswordText(props) {
+function InputEmail(props) {
 
-    const [input, setInput] = useState(null);
+    const handleEmail = (e) => {
+        const thisEmail = e.target.value;
+
+        //checks for firstname.lastnamexx@uq.net.au
+        const reg = /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@uq([\.])net([\.])au$/g
+
+        if ((reg.test(String(thisEmail)))) {
+            props.onChange(thisEmail, true);
+
+
+        } else {
+            props.onChange(thisEmail, false);
+
+        }
+
+
+    }
+
+    return (
+        <div className="itext">
+           
+                <span className="itext-icon-left">{props.iconLeft}</span>
+                <input className="itext-form"
+                    type="email"
+                    name="email"
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    onChange={handleEmail}
+                   />
+                <span className="itext-icon-right" >{props.iconRight}</span>
+           
+        </div>
+    )
+}
+
+function InputPassword(props) {
+
     const [showPassword, setShowPassword] = useState(false)
 
     const togglePassword = () => {
@@ -37,24 +80,29 @@ function InputPasswordText(props) {
 
     }
 
-    function handleInputChange(e) {
-        setInput(e.target.value)
+    const handlePassword = (e) => {
+        const thisPassword = e.target.value;
+        if(thisPassword.length >= 7) {
+            props.onChange(thisPassword, true) 
+        } else {
+            props.onChange(thisPassword, false) 
+        }
     }
 
-    function handleSubmit(e) {
-        e.preventDefault()
-    }
 
     return (
         <div className="itext">
-            <form onSubmit={handleSubmit}>
+            <form>
                 <span className="itext-icon-left">{props.iconLeft}</span>
                 <input className="itext-form"
                     placeholder={props.placeholder}
-                    value={input}
+                    type="password"
+                    name="password"
+                    value={props.value}
+                    onChange={handlePassword}
                     type={showPassword ? "text" : "password"}
-                    onChange={handleInputChange} />
-                <span className="itext-icon-right" onClick={togglePassword}></span>
+                    />
+                 <span className="itext-other-icon-right">{props.iconRight}</span>
             </form>
         </div>
     )
@@ -73,21 +121,22 @@ function InputStandardText(props) {
     }
 
     return (
-        <div className="itext-db">
+        <div className="itext-other">
             <form onSubmit={handleSubmit}>
-                <span className="itext-db-icon-left">{props.iconLeft}</span>
-                <input className="itext-db-form"
+                <span className="itext-other-icon-left">{props.iconLeft}</span>
+                <input className="itext-other-form"
                     placeholder={props.placeholder}
                     value={input}
                     onChange={handleInputChange} />
-                <span className="itext-db-icon-right">{props.iconRight}</span>
+                <span className="itext-other-icon-right">{props.iconRight}</span>
             </form>
         </div>
     )
 }
 
 export {
-    InputPasswordText,
-    InputSignUpText,
+    InputPassword,
+    InputName,
+    InputEmail,
     InputStandardText
 }

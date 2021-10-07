@@ -3,13 +3,18 @@ import { RiStarFill, RiStarHalfFill, RiStarLine } from 'react-icons/ri';
 import { motion } from "framer-motion"
 import './StarRating.css';
 
-export default function StarRating() {
+export default function StarRating(props) {
 
     const [rating, setRating] = useState(3);
 
+    function handleRatingChange(e) {
+        setRating(e.target.value)
+        props.onChange(e.target.value);
+    }
+
     return (
         <div className="star-rating">
-
+            <div className= "star-items-wrapper">
             <div className="stars-aligned">
                 {rating >= 1
                     ? <motion.div className="star-appears"
@@ -60,7 +65,20 @@ export default function StarRating() {
                         transition={{ duration: 0.75 }}>
                         <RiStarLine /> </motion.div>}
 
+               
+
             </div>
+            <input className="rating-selector"
+                type="range"
+                min="1"
+                max="5"
+                step="1"
+                value={rating}
+                onChange={handleRatingChange}
+                >
+            </input>
+            </div>
+           
 
             <motion.div className="rating-text">
                 {rating == 1 && <motion.div className="rating-text"
@@ -93,16 +111,10 @@ export default function StarRating() {
             </motion.div>
 
 
-            <input className="rating-selector"
-                type="range"
-                min="1"
-                max="5"
-                step="1"
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}>
-            </input>
+    
 
         </div>
+        
 
     )
 };

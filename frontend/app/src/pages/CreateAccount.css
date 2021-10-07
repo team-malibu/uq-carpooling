@@ -1,0 +1,24 @@
+.input-field-sign-up {
+  position: relative;
+  margin: 0 auto;
+  width: max(calc(100vh - 100px), 285px);
+}
+
+.button_large {
+  font-size: 3vh;
+}
+
+.itext-form {
+  font-size: min(max(16px, 4vw), 22px);
+}
+
+.submitButton {
+  position: relative;
+  top: 10%;
+  width: 50%;
+  z-index: 20;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

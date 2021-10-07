@@ -1,33 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
-.acc-detail-avatar {
-  margin-left: 20%;
-}
-
-.acc-detail-circle-btn{
-  align-items: center;
-}
-
 .acc-detail-wrapper {
-  float:initial;
-  display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   overflow: scroll;
-
+  align-items: center;
 }
 
-.acontainer {
-  margin-top: 40%;
-  margin-bottom: 40%;
-  margin-left: 50%;
+.acc-detail-image-container {
+ position: relative;
+ margin-bottom: 3%;
+}
+
+.ad-container {
+  align-items: inherit;
   display: flex;
+  row-gap: 20px;
   flex-direction: column;
- 
   font-family: 'Lato', sans-serif;
   font-size: x-large;
   color: #462963;
-  overflow: scroll;
-
 }

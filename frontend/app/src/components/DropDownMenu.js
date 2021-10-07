@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { CgGenderFemale, CgGenderMale } from 'react-icons/cg';
 import { IoMdTransgender } from 'react-icons/io';
 import { BsFillCaretDownFill, BsPeopleFill, BsPersonFill } from 'react-icons/bs';
@@ -12,9 +12,14 @@ import './DropDownMenu.css';
 
 function GenderDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    const [gender, setGender] = useState('Male');
+    const [gender, setGender] = useState("Male");
     const [genderIcon, setGenderIcon] = useState(<CgGenderMale />)
 
+    function handleGender() {
+        props.handleChange(gender)
+    }
+
+   
     if (!isOpen) {
         return (
             <motion.div className="dropdown"
@@ -44,17 +49,17 @@ function GenderDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setGender('Male'); setGenderIcon(<CgGenderMale />) }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setGender('Male'); setGenderIcon(<CgGenderMale />); handleGender() }}>
                         <span className="icon-button">{<CgGenderMale />}</span>
                         Male
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setGender('Female'); setGenderIcon(<CgGenderFemale />) }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setGender('Female'); setGenderIcon(<CgGenderFemale />); handleGender() }}>
                         <span className="icon-button">{<CgGenderFemale />}</span>
                         Female
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setGender('Gender Diverse'); setGenderIcon(<IoMdTransgender />) }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setGender('Gender Diverse'); setGenderIcon(<IoMdTransgender />); handleGender() }}>
                         <span className="icon-button">{<IoMdTransgender />}</span>
                         Gender Diverse
                     </motion.li>
@@ -68,6 +73,10 @@ function DriverDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
     const [driverPref, setDriverPref] = useState("Any Driver");
     const [driverIcon, setDriverIcon] = useState(<BsPeopleFill />);
+
+    function handleDriverPref() {
+        props.handleChange(driverPref);
+      }
 
 
     if (!isOpen) {
@@ -98,12 +107,12 @@ function DriverDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setDriverPref("Any Driver"); setDriverIcon(<BsPeopleFill />) }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setDriverPref("Any Driver"); setDriverIcon(<BsPeopleFill />); handleDriverPref() }}>
                         <span className="icon-button">{<BsPeopleFill />}</span>
                         Any driver
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setDriverPref('My Gender'); setDriverIcon(<BsPersonFill />) }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setDriverPref('My Gender'); setDriverIcon(<BsPersonFill />); handleDriverPref() }}>
                         <span className="icon-button">{<BsPersonFill />}</span>
                         My gender only
                     </motion.li>
@@ -117,6 +126,10 @@ function SchoolDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
     const [school, setSchool] = useState("EAIT");
     const [schoolIcon, setSchoolIcon] = useState(<TiSpanner />);
+
+    function handleSchool() {
+        props.handleChange(school);
+      }
 
     if (!isOpen) {
         return (
@@ -146,7 +159,7 @@ function SchoolDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool("Business/Law/Economics"); setSchoolIcon(<MdBusinessCenter />) }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool("Business/Law/Economics"); setSchoolIcon(<MdBusinessCenter />); handleSchool() }}>
                         <span className="icon-button">{<MdBusinessCenter />}</span>
                         Business/Law/Economics
                     </motion.li>
@@ -156,7 +169,7 @@ function SchoolDropDownMenu(props) {
                         EAIT
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool('Health/Behavourial Sciences'); setSchoolIcon(<RiMentalHealthFill />) }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool('Health/Behavourial Sciences'); setSchoolIcon(<RiMentalHealthFill />); handleSchool() }}>
                         <span className="icon-button">{<RiMentalHealthFill />}</span>
                         Health/Behavourial Sciences
                     </motion.li>

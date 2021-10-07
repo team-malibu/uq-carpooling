@@ -13,26 +13,27 @@ function SmallConfirmButton(props) {
 function MediumConfirmButton(props) {
   async function logthisApiBitch (z) {
       let x = "not here yet"
-      try {
-        await fetch("https://deco3801-teammalibu.uqcloud.net/test")
-      .then(result => result.json())
-      .then(data => {
-          x = data;
-          console.log("binData", x);
-      });
-      console.log("Fetched " + x)
-      } catch (e) {
-        console.log(e)
-      }
       
   }
 
-  return (
-    <button class="button_medium green" onClick={() => logthisApiBitch("Motherfucker")} >
-      {props.name}
-      <img src={EditOutlined}/>
-    </button>
-  );
+  if (props.margin != true) {
+
+    return (
+    
+      <button class="button_medium green" onClick={() => logthisApiBitch("Motherfucker")} >
+        {props.name}
+      </button>
+    );
+    } else {
+
+      return (
+    
+        <button class="button_medium_margin green" onClick={() => logthisApiBitch("Motherfucker")} >
+          {props.name}
+        </button>
+      );
+    }
+  
 }
 
 function LargeConfirmButton(props) {

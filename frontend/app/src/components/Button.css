@@ -51,6 +51,25 @@
   font-size: medium;
 }
 
+.button_medium_margin {
+  border: none;
+  color: #462963;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
+  display: inline-block;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 4px;
+  font-size: medium;
+  margin: 10%;
+}
+
 .button_large {
   border: none;
   color: #462963;
@@ -123,9 +142,16 @@
   width: 4rem;
   box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
   display: inline-block;
-  padding-top: 5%;
-  padding-bottom: 5%;
   font-size: medium;
+  position: absolute;
+  margin-left: 55%;
+  margin-top: 50%;
+  align-items: center;
+  scale:1.5;
+}
+
+.button_edit_circle:hover {
+  background-color: #71a7ee;
 }
 
 .button_login {
@@ -137,11 +163,12 @@
   font-family: 'Lato', sans-serif;
   letter-spacing: 2px;
   box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
-  display: inline-block;
-  padding-left: 88px;
-  padding-right: 88px;
-  padding-top: 18px;
-  padding-bottom: 18px;
+  position: absolute;
+  left: 25%;
+  top: 35%;
+  width: 50%;
+  padding-top: 5%;
+  padding-bottom: 5%;
   border-radius: 20px;
   font-size: large;
 }
@@ -159,11 +186,12 @@
   font-family: 'Lato', sans-serif;
   letter-spacing: 2px;
   box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
-  display: inline-block;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  position: absolute;
+  left: 25%;
+  top: 55%;
+  width: 50%;
+  padding-top: 5%;
+  padding-bottom: 5%;
   border-radius: 20px;
   font-size:15px;
 }

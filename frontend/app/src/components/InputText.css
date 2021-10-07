@@ -1,23 +1,24 @@
 .itext {
 background-color: #ddedfd;
 width:90%;
-height:25%;
+height:auto;
 border-radius: 20px;
 font-family: 'Lato', sans-serif;
 border:none;
 outline:none;
-color:DeepSkyBlue;
+color:#37A7F2;
 margin-top:7%;
 margin-left: 5%;
 }
 
 .itext-form {
     background-color: #ddedfd;
-    color:DeepSkyBlue;
+    color:#37A7F2;
     border:none;
     outline:none;
     font-size: 20px;
     max-width: 100%;
+    border-radius: 20px;
     height: 100%;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -26,7 +27,7 @@ margin-left: 5%;
 }
 
 .itext-form::placeholder {
-    color:DeepSkyBlue;
+    color:#37A7F2;
 }
 .itext-icon-left {   
     margin-left: 3%;
@@ -43,19 +44,21 @@ margin-left: 5%;
 }
 
 .itext-db {
-    background-color: #2b72ce;
+    background-color: #37A7F2;
     width:90%;
     height:25%;
     border-radius: 20px;
     font-family: 'Lato', sans-serif;
     border:none;
     outline:none;
-    font-family: 'Lato', sans-serif;
     color:White;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 5%;
     }
     
     .itext-db-form {
-        background-color: #2b72ce;
+        background-color: #37A7F2;
         color:White;
         border:none;
         outline:none;
@@ -68,17 +71,17 @@ margin-left: 5%;
         align-items: center;
     }
     
-    .itext-db-form::placeholder {
+    .itext-other-form::placeholder {
         color:White;
     }
-    .itext-db-icon-left {   
+    .itext-other-icon-left {   
         margin-left: 3%;
         font-size: 25px;
         float: left;
         margin-top: 5%;
     }
     
-    .itext-db-icon-right {
+    .itext-other-icon-right {
         margin-right: 5%;
         font-size: 25px;
         float: right;
