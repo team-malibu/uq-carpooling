@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react'
-import './App.css'
-import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-
-import BlankDefaultPage from "./components/BlankDefaultPage";
-
+import { AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import './App.css';
+import SimpleNavbar from './components/SimpleNavbar';
+import TimeTile from "./components/TimeTile";
 import AccountDetails from "./pages/accountpages/AccountDetails";
 import Book from "./pages/bookingpages/Book";
-import Search from "./pages/Search";
-import SelectDriver from "./pages/bookingpages/SelectDriver";
-
 import ConfirmDriver from "./pages/bookingpages/confimpages/Confirm";
+import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
+import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
 import Rating from "./pages/bookingpages/Rating";
+import SelectDriver from "./pages/bookingpages/SelectDriver";
+import CreateAccount2 from './pages/CreateAccount2';
 import Login from "./pages/Login";
+import Search from "./pages/Search";
 import SignUp from "./pages/SignUp";
 import Timetable from "./pages/timetablepages/Timetable";
-import TimeTile from "./components/TimeTile";
-import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
-import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
-import SimpleNavbar from './components/SimpleNavbar';
-import CreateAccount2 from './pages/CreateAccount2';
+
+
+
 
 function App() {
   const location = useLocation();
@@ -56,7 +55,6 @@ function App() {
           <Route path='/Account' exact component={() => <AccountDetails name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={true} direction={direction} key={location.key} custom={direction}/>} />
           <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
-          <Route path='/test2' exact component={() => <BlankDefaultPage name='test-2' address="Test Address" />} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
           <Route exact path='/' component={() => <CreateAccount2 name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction} />} />
           <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />

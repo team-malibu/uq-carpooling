@@ -32,11 +32,11 @@ function BackgroundContainer() {
                   <stop offset="0.6054" stop-color="#37a7f2" stop-opacity="1"></stop>
                   <stop offset="1" stop-color="#4ce2e2" stop-opacity="1"></stop>
               </linearGradient>
-              <rect id="Backgorund_bn" rx="0" ry="0" x="0" y="0" width="375" height="812">
+              <rect id="Backgorund_bn" rx="0" ry="0" x="0" y="0" width="100%" height="100%">
               </rect>
           </svg>
           <svg class="Rectangle_314">
-              <rect id="Rectangle_314" rx="0" ry="0" x="0" y="0" width="375" height="741">
+              <rect id="Rectangle_314" rx="0" ry="0" x="0" y="0" width="100%" height="100%">
               </rect>
           </svg>
       </div>
@@ -74,30 +74,29 @@ function BasicPage(props) {
   return (
     <>
       <BackgroundContainer />
-        <div className='page-wrapper'>
-          <motion.div
-                      key={props.key}
-                      custom={props.direction}
-                      variants={variants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{
-                      x: { type: "spring", stiffness: 300, damping: 20 }
-                      }, { duration: 0.2 }}>
-            <TopSection name={props.name} previousPage={props.previousPage} hide={props.hide} direction={props.direction} currentlySelected={props.currentlySelected} update_direction={props.update_direction}/>
-            {props.default && 
-              <div className='body' id={props.className} />
+      <motion.div className='page-wrapper'
+        key={props.key}
+        custom={props.direction}
+        variants={variants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        transition={{
+        x: { type: "spring", stiffness: 300, damping: 20 }
+        }, { duration: 0.2 }}>
+                    
+          <TopSection name={props.name} previousPage={props.previousPage} hide={props.hide} direction={props.direction} currentlySelected={props.currentlySelected} update_direction={props.update_direction}/>
+          {props.default && 
+            <div className='body' id={props.className} />
+          }
+          {!props.default &&
+            <div className='body'>
+            {props.body}
+            </div>
             }
-            {!props.default &&
-              <div className='body'>
-              {props.body}
-              </div>
-              }
-            
-            
-            </motion.div>
-          </div>
+          
+          
+        </motion.div>
     </>
 )
 }

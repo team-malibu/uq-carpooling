@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import BlankDefaultPage from '../../components/BlankDefaultPage'
-import TimeTile from '../../components/TimeTile'
+import React, { useState } from 'react';
 import BasicPage from '../../components/BasicPage';
-import './Timetable.css'
+import TimeTile from '../../components/TimeTile';
+import './Timetable.css';
 
 function sameDay(d1, d2) {
   return d1.getFullYear() === d2.getFullYear() &&

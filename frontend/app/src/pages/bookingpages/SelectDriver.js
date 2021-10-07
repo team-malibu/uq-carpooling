@@ -1,9 +1,8 @@
 import React from 'react'
-import BlankDefaultPage from '../../components/BlankDefaultPage'
+import { useHistory } from 'react-router-dom'
+import BasicPage from '../../components/BasicPage'
 import DriverTile from '../../components/DriverTile'
 import './SelectDriver.css'
-import {useHistory} from 'react-router-dom'
-import BasicPage from '../../components/BasicPage'
 
 function SelectDriver(props) {
   const history = useHistory();

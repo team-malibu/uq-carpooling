@@ -1,6 +1,5 @@
 import React from 'react'
 import { MediumConfirmButton } from '../../../components/Button'
-import BlankDefaultPage from '../../../components/BlankDefaultPage'
 import DriverTile from '../../../components/DriverTile'
 import TripTile from '../../../components/TripTile'
 import './ConfirmDriver.css'

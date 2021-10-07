@@ -3,24 +3,28 @@
 .Background {
   z-index: -1;
   position: absolute;
-  width: 375px;
-  height: 812px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .Backgorund_bn {
   z-index: -1;
   position: absolute;
   overflow: visible;
-  width: 375px;
-  height: 812px;
+  width: 100%;
+  height: 100%;
   fill: url(#Backgorund_bn);
 }
 
 .Rectangle_314 {
   position: absolute;
   overflow: visible;
-  width: 375px;
-  height: 741px;
+  width: 100%;
+  height: calc(100% - 72px);
   opacity: 0.42;
   fill: rgba(255, 255, 255, 1);
 }
@@ -53,9 +57,102 @@
   margin: auto;
 }
 
+.page-wrapper {
+  position: relative;
+  height: calc(100% - 72px);
+  width: 100%;
+  display: grid;
+  grid-template-rows: 110fr 630fr;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.top {
+  position: relative;
+
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-row: 1;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-row: 1;
+}
+
 .body {
-  position: static;
-  width: 375px;
-  height: 630px;
+  position: relative;
+  width: 100%;
+  height: 100%;
   grid-row: 2;
+}
+
+.bottom {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 72px;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.navbar-link {
+  position: relative;
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+.page-title {
+  font-family: "Karla", sans-serif;
+  font-style: bold;
+  font-style: 43;
+  fill: #462963;
+  color: #462963;
+  vertical-align: middle;
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+  width: 100%;
+}
+
+.back-arrow {
+  position: relative;
+  left: 25%;
+  top: 3%;
+  grid-column: 1;
+  grid-row: 1;
+}
+.forward-arrow {
+  position: relative;
+  left: 15%;
+  grid-column: 3;
+  grid-row: 1;
+}
+
+#Rectangle_489_bo {
+  fill: url(#Rectangle_489_bo);
+}
+.Rectangle_489_bo {
+  position: absolute;
+  overflow: visible;
+  width: 100%;
+  height: 75px;
 }

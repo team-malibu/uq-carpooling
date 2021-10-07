@@ -45,35 +45,6 @@ const defaultNavbar = [
     }
   ]
 
-// function NavbarButton(props, { icon, color, index}) {
-//     const unSelectedColor = "#7a599b";
-//     const selectedColor = "#554ff1";
-//     if (props.currentPage == index) {
-//         color = selectedColor;
-//     } else {
-//         color = unSelectedColor;
-//     }
-//     return (
-//         <div to={icon.path} className='navbar-link' onClick={(index) => props.onClick(index)}>
-//         <svg className='icon'
-//             xmlns={icon.xmlns}
-//             width={icon.width}
-//             height={icon.height}
-//             viewBox={icon.viewBox}
-//             transform={icon.transform}
-//             color={color}
-//             index={index}
-//             name={icon.name}
-//         >
-//             <path
-//             d={icon.d}
-//             transform={icon.transform}
-//             fill={color} />
-//         </svg>
-//         </div>
-
-//     )
-// }
 
 function NavbarButton(props) {
     const isSelected = (props.currentPage == props.index);
@@ -124,21 +95,9 @@ function NavbarButton(props) {
 function SimpleNavbar(props) {
     const unselected = "#7a599b";
     const selected = "#554ff1";
-    // const [[color0, color1, color2, color3], setButtonColor] = useState([unselected, unselected, unselected, unselected])
     const [button, setButton] = useState(defaultNavbar)
     
-    // const [buttonColors, setButtonColor] = useState(["primary", "secondary", "secondary", "secondary"])
-    // const updateButtonColor = (newPage) => {
-    //     if (newPage == 0) {
-    //         setButtonColor(["primary", "secondary", "secondary", "secondary"]);
-    //     } else if (newPage == 1) {
-    //         setButtonColor(["secondary", "primary", "secondary", "secondary"]);
-    //     } else if (newPage == 2) {
-    //         setButtonColor(["secondary", "secondary", "primary", "secondary"]);
-    //     } else {
-    //         setButtonColor(["secondary", "secondary", "secondary", "primary"]);
-    //     }
-    //   };
+
     const [buttonColors, setButtonColor] = useState(["#554ff1", "#7a599b", "#7a599b", "#7a599b"])
     const updateButtonColor = (newPage) => {
         if (newPage == 0) {
@@ -158,8 +117,19 @@ function SimpleNavbar(props) {
     }
 
     return (
+        <>
+        
         
         <div className='bottom'>
+        <svg class="Rectangle_489_bo">
+            <linearGradient id="Rectangle_489_bo" spreadMethod="pad" x1="0.534" x2="0" y1="-4.404" y2="1.373">
+                <stop offset="0" stop-color="#37a7f2" stop-opacity="1"></stop>
+                <stop offset="1" stop-color="#4ce2e2" stop-opacity="1"></stop>
+            </linearGradient>
+            <rect id="Rectangle_489_bo" rx="0" ry="0" x="0" y="0" width="100%" height="75">
+            </rect>
+        </svg>
+                        
             {button.map((ic,i) => {
                 return (
                     <>
@@ -178,71 +148,8 @@ function SimpleNavbar(props) {
                     </>
                 )
             })}
-
-            {/* <h1> currentPage:{props.currentPage}</h1> */}
         </div>
+        </>
     )
 }
-
-
-// function SimpleNavbar(props) {
-//     const unselected = "#7a599b";
-//     const selected = "#554ff1";
-//     const [[color0, color1, color2, color3], setButtonColor] = useState([unselected, unselected, unselected, unselected])
-    
-    
-//     return (
-        
-//         <div className='bottom'>
-//             <Button variant="contained" color={color0} onClick={(page) => props.onClick(0)}>
-//             Page 0
-//             </Button>
-//             <Button variant="contained" color={color1} onClick={(page) => props.onClick(1)}>
-//             Page 1
-//             </Button>
-//             <Button variant="contained" color={color2} onClick={(page) => props.onClick(2)}>
-//             Page 2
-//             </Button>
-//             <Button variant="contained" color={color3} onClick={(page) => props.onClick(3)}>
-//             Page 3
-//             </Button>
-//         </div>
-//     )
-// }
-
-// function SimpleNavbar(props) {
-//     const unselected = "#7a599b";
-//     const selected = "#554ff1";
-//     const [[color0, color1, color2, color3], setButtonColor] = useState([unselected, unselected, unselected, unselected])
-    
-//     switch (props.currentlySelected) {
-//         case 0:
-//             setButtonColor([selected, unselected, unselected, unselected]);
-//         case 1:
-//             setButtonColor([unselected, selected, unselected, unselected]);
-//         case 2:
-//             setButtonColor([unselected, unselected, selected, unselected]);
-//         case 3:
-//             setButtonColor([unselected, unselected, unselected, selected]);
-//         default:
-//             setButtonColor([unselected, unselected, unselected, unselected]);
-//     }
-    
-//     return (
-//         <div className='bottom'>
-//             <Button variant="contained" color={color0} onClick={(page) => props.onClick(0)}>
-//             Page 0
-//             </Button>
-//             <Button variant="contained" color={color1} onClick={(page) => props.onClick(1)}>
-//             Page 1
-//             </Button>
-//             <Button variant="contained" color={color2} onClick={(page) => props.onClick(2)}>
-//             Page 2
-//             </Button>
-//             <Button variant="contained" color={color3} onClick={(page) => props.onClick(3)}>
-//             Page 3
-//             </Button>
-//         </div>
-//     )
-// }
 export default SimpleNavbar
