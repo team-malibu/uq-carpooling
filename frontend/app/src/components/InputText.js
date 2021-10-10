@@ -22,12 +22,42 @@ function InputName(props) {
     return (
         <div className="itext">
            
-                <span className="itext-icon-left" style={{"font-size": "20px"}}>{props.iconLeft}</span>
+                <span className="itext-icon-left">{props.iconLeft}</span>
                 <input className="itext-form"
                     type="text"
                     placeholder={props.placeholder}
                     value={props.value}
                     onChange={handleName} />
+                <span className="itext-icon-right">{props.iconRight}</span>
+            
+        </div>
+    )
+}
+
+function InputStudentId(props) {
+    
+    const handleStudentId = (e) => {
+
+        const thisStudentId = e.target.value
+
+        const reg = /\b\d{7}\b/g
+
+        if (thisStudentId.length == 8 && !reg.test(String(thisStudentId))) {
+            props.onChange(thisStudentId, true)
+        } else {
+            props.onChange(thisStudentId, false)
+        }
+    }
+
+    return (
+        <div className="itext">
+           
+                <span className="itext-icon-left">{props.iconLeft}</span>
+                <input className="itext-form"
+                    type="number"
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    onChange={handleStudentId} />
                 <span className="itext-icon-right">{props.iconRight}</span>
             
         </div>
@@ -102,7 +132,7 @@ function InputPassword(props) {
                     onChange={handlePassword}
                     type={showPassword ? "text" : "password"}
                     />
-                 <span className="itext-other-icon-right">{props.iconRight}</span>
+                 <span className="itext-icon-right">{props.iconRight}</span>
             </form>
         </div>
     )
@@ -137,6 +167,7 @@ function InputStandardText(props) {
 export {
     InputPassword,
     InputName,
+    InputStudentId,
     InputEmail,
     InputStandardText
 }
