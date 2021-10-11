@@ -112,9 +112,33 @@ function CreateAccount2(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/sign-up", requestOptions)
       .then(result => result.json())
       .then(data => {
-        console.log(data);
-        history.push('/Login');
+        if (data.result) {
+          history.push('/Login');
+        } else {
+          alert(data.message);
+        }
       });
+    } else {
+      var errormsg = '';
+      if (!validFirstName) {
+        errormsg += 'First name is invalid\n';
+      }
+      if (!validLastName) {
+        errormsg += 'Last name is invalid\n';
+      }
+      if (!validEmail) {
+        errormsg += 'Email is invalid\n';
+      }
+      if (!validStudentId) {
+        errormsg += 'Student Id is invalid\n';
+      }
+      if (!validPassword) {
+        errormsg += 'Password is invalid\n';
+      }
+      if (!validPassword2) {
+        errormsg += 'Password does not match\n';
+      }
+      alert(errormsg);
     }
   }
 
