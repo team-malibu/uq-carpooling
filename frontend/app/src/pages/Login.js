@@ -17,27 +17,47 @@ function Login(props) {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
-    const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle/>)
-    const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle/>)
+    const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
+    const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
 
     function handleEmail(thisEmail, emailBool) {
           setUserEmail(thisEmail)
           setValidEmail(emailBool)
           if(emailBool) {
-              setEmailIcon(<BsCheckCircle/>)
+            setEmailIcon(<BsCheckCircle/>)
           } else {
-            setEmailIcon(<BsExclamationCircle/>)
+            setEmailIcon(<BsExclamationCircle style={{color: 'red'}}/>)
           }
     }
 
     function handlePassword(thisPassword) {
         setUserPassword(thisPassword)
-        
-        if(thisPassword.length >= 1) {
-            setPasswordIcon(null)
+        if(thisPassword.length >= 7) {
+            setPasswordIcon(<BsCheckCircle/>)
         } else {
-          setPasswordIcon(<BsExclamationCircle/>)
+            setPasswordIcon(<BsExclamationCircle style={{color: 'red'}}/>)
         }
+    }
+
+    function handleSubmission(event) {
+        event.preventDefault();
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              'email': userEmail,
+              'password': userPassword
+            })
+          };
+          fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/login", requestOptions)
+          .then(result => result.json())
+          .then(data => {
+            if (data.result) {
+              history.push('/Book');
+            } else {
+              alert(data.message);
+            }
+          });
     }
 
     function createLogin() {
@@ -51,7 +71,6 @@ function Login(props) {
                             placeholder="Student Email (uq.net.au)"
                             iconLeft={<MdLockOutline />}
                             iconRight={emailIcon}
-                            
                         />
                     </div>
                     <div className="inputPassword">
@@ -63,8 +82,7 @@ function Login(props) {
                             iconRight={passwordIcon}
                         />
                     </div>
-                    <div className="loginButton" onClick={() => {
-                        history.push('/Book')}}>
+                    <div className="loginButton" onClick={handleSubmission}>
                         <LoginButton name="Login" />
                     </div>
                     <div class='loginButton' onClick={() => {
