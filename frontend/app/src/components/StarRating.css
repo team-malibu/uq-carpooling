@@ -1,26 +1,27 @@
 .star-rating {
   transform: scale(4.5);
-  padding-left: 30px;
-  padding-right: 20px;
-  padding-top: 14px;
-  margin-top: 15%;
-  margin-right: 10%;
-  align-items: center;
+  text-align: center;
+  margin-top: 20%;   
+}
+
+.star-items-wrapper {
+   left:0;
 }
 
 .stars-aligned {
-  font-family: "Lato", sans-serif;
   font-size: medium;
   color: #322d95;
   position: relative;
+  z-index: -1;
+  width: 100%;
 }
 
 .rating-selector {
-background: #322d95;
-color:black;
-width:30%;
-
-position: relative;
+  position: absolute;
+  z-index: 9;
+  opacity: 0; 
+  width:20%;
+  left: 40%;
 }
 
 .rating-text {
