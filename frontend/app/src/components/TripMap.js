@@ -20,7 +20,7 @@ let proximParam = [153.01182776135374,-27.500061086853854]
 let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + location +".json?" +
 "access_token=" + mapboxgl.accessToken + "&proximity="+String(proximParam[0]) + "%2C" + String(proximParam[1]) + "&bbox="
 + String(topLeftBox[0]) + "%2C" + String(bottomRightBox[1]) + "%2C" + String(bottomRightBox[0]) + "%2C" + String(topLeftBox[1]) + "&limit=5";
-console.log(locationSearchUrl)
+//console.log(locationSearchUrl)
 
 function TripMap(props) {
     const ref = useRef(null);
@@ -35,16 +35,14 @@ function TripMap(props) {
     useEffect(() => {
       
       if (props.locations[0] != 0 && props.locations[1] != 0) {
-        console.log("Coords updated")
+        //console.log("Coords updated")
         firstCo = props.locations[0]
         secondCo = props.locations[1]
       }
       
-      console.log(props.locations)
       let call = "https://api.mapbox.com/directions/v5/mapbox/driving/" + firstCo + ";" + secondCo
       + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q";
-      console.log("Call")
-      console.log(call)
+      
       async function addRoute(map) {
         let des = {}
 
@@ -80,8 +78,8 @@ function TripMap(props) {
             });
           //console.log(des)
           } else {
-            console.log("Updating data")
-            console.log(map.getSource('route'))
+            //console.log("Updating data")
+            //console.log(map.getSource('route'))
             map.getSource('route').setData({
               'type': 'Feature',
               'properties': {},
@@ -131,8 +129,6 @@ function TripMap(props) {
       } else {
         const mark = document.createElement('div');
         mark.className = 'custom-marker';
-        console.log(firstCo)
-        console.log(secondCo)
         markers[1].setLngLat(firstCo)
         markers[0].setLngLat(secondCo)
         map.fitBounds([firstCo, secondCo])
