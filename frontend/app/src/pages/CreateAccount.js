@@ -113,7 +113,8 @@ function CreateAccount2(props) {
       .then(result => result.json())
       .then(data => {
         if (data.result) {
-          history.push('/Login');
+          history.push('/Account');
+          alert("Change your preferences!");
         } else {
           alert(data.message);
         }

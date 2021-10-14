@@ -6,21 +6,12 @@ import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import './TripMap.css'
+import './TripMap.css';
 
 const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q"
 
 mapboxgl.accessToken = access_token;
 mapboxgl.workerClass = MapboxWorker;
-
-let location = "Brisbane"
-let topLeftBox = [152.91750879139477,-27.33132423232297]
-let bottomRightBox = [153.20513988226412,-27.670452156811677]
-let proximParam = [153.01182776135374,-27.500061086853854]
-let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + location +".json?" +
-"access_token=" + mapboxgl.accessToken + "&proximity="+String(proximParam[0]) + "%2C" + String(proximParam[1]) + "&bbox="
-+ String(topLeftBox[0]) + "%2C" + String(bottomRightBox[1]) + "%2C" + String(bottomRightBox[0]) + "%2C" + String(topLeftBox[1]) + "&limit=5";
-//console.log(locationSearchUrl)
 
 function TripMap(props) {
     const ref = useRef(null);
@@ -50,7 +41,7 @@ function TripMap(props) {
         then(response => response.json()).
         then(data => {
         des = data
-
+        console.log(des)
         if (!map.getSource('route')) {
           map.addSource('route', {
             'type': 'geojson',
@@ -72,7 +63,7 @@ function TripMap(props) {
             'line-cap': 'round'
             },
             'paint': {
-            'line-color': '#888',
+            'line-color': "purple",
             'line-width': 8
             }
             });
@@ -88,6 +79,7 @@ function TripMap(props) {
               'coordinates': des.routes[0].geometry.coordinates
               }})
           }
+          props.updateBookTrip("duration", des.routes[0].duration)
         });
       };
       
@@ -131,8 +123,10 @@ function TripMap(props) {
         mark.className = 'custom-marker';
         markers[1].setLngLat(firstCo)
         markers[0].setLngLat(secondCo)
-        map.fitBounds([firstCo, secondCo])
-        map.setZoom(12)
+        map.fitBounds([firstCo, secondCo], {padding: 125})
+        map.getCenter();
+
+        
         addRoute(map)
       }
     });

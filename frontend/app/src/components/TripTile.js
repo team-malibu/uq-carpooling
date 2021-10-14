@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { SchoolOutlined, PlaceOutlined, EditOutlined } from '@material-ui/icons/'
+import DateTimePicker from 'react-datetime-picker'
 import './TripTile.css'
 import Geocoder from 'react-mapbox-gl-geocoder'
 
@@ -9,42 +10,62 @@ let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/Brisb
 
 function TripTile(props) {
 
-  function updateMarker(startFlag, markerProps) {
-    props.updateLocation(startFlag, markerProps)
+  function updateBooking(propFlag, bookingProps) {
+    props.updateBookTrip(propFlag, bookingProps)
   }
+
+  const [departDate, setDepartDate] = useState(new Date());
 
   return (
       <div class='trip_wrapper'>
         <div class='trip_info_line'>
-          <div class='trip_content'>
+          <div class='trip_content' id="startingGeo">
             <div>
               <SchoolOutlined />
             </div>
             <Geocoder
-                    mapboxApiAccessToken={access_token} onSelected={(markerProps) => {updateMarker("start", markerProps)}} hideOnSelect={true}
-                    queryParams={locationSearchUrl}
+                    mapboxApiAccessToken={access_token} onSelected={(markerProps) => {updateBooking("startMarker", markerProps)}} hideOnSelect={true}
+                    queryParams={locationSearchUrl} initialInputValue={"Regatta"} id="startingGeo"
                 />
+            <div class='trip_edit'>
+              <EditOutlined onClick={() => {
+                let input = document.getElementById("startingGeo").childNodes[1].childNodes[0];
+                input.focus();
+              }} />
+            </div>
           </div>
 
-          <div class='trip_edit'>
-            <EditOutlined />
-          </div>
+         
         </div>
 
         <div class='trip_info_line'>
-          <div class='trip_content'>
+          <div class='trip_content' id="endingGeo">
             <div >
               <PlaceOutlined />
             </div>
             <Geocoder
-                    mapboxApiAccessToken={access_token} onSelected={(markerProps) => {updateMarker("end", markerProps)}} hideOnSelect={true}
-                    queryParams={locationSearchUrl} initialInputValue={"University of Queensland"}
+                    mapboxApiAccessToken={access_token} onSelected={(markerProps) => {updateBooking("endMarker", markerProps)}} hideOnSelect={true}
+                    queryParams={locationSearchUrl} initialInputValue={"University of Queensland"} 
                 />
+            <div class='trip_edit'>
+              <EditOutlined onClick={() => {
+                let input = document.getElementById("endingGeo").childNodes[1].childNodes[0];
+                input.focus();
+              }}/>
+            </div>
           </div>
 
-          <div class='trip_edit'>
-            <EditOutlined />
+        
+        </div>
+
+        <div class='trip_info_line'>
+          <div class='trip_content'>
+            <DateTimePicker onChange={(dateProps) => {
+              setDepartDate(dateProps); //Necessary to update Time table DateTimePicker Value
+              updateBooking("date", dateProps)
+              }} value={departDate} />
           </div>
+                
         </div>
 
       </div>
