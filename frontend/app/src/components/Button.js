@@ -11,16 +11,12 @@ function SmallConfirmButton(props) {
 }
 
 function MediumConfirmButton(props) {
-  async function logthisApiBitch (z) {
-      let x = "not here yet"
-      
-  }
 
   if (props.margin != true) {
 
     return (
     
-      <button class="button_medium green" onClick={() => logthisApiBitch("Motherfucker")} >
+      <button class="button_medium green" onClick={props.onClick}>
         {props.name}
       </button>
     );
@@ -28,7 +24,7 @@ function MediumConfirmButton(props) {
 
       return (
     
-        <button class="button_medium_margin green" onClick={() => logthisApiBitch("Motherfucker")} >
+        <button class="button_medium_margin green" onClick={props.onClick}>
           {props.name}
         </button>
       );
