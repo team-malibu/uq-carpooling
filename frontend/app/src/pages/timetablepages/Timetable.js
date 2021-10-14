@@ -31,8 +31,9 @@ fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", g
       'name': event.name,
       'desc': event.description,
       'location': event.location,
-      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1] + ' ' + start.toLocaleTimeString().split(' ')[1],
-      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1] + ' ' + end.toLocaleTimeString().split(' ')[1],
+      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1],
+      'start_date': start,
+      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1],
     })
   }
   

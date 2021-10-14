@@ -63,7 +63,7 @@ function TripTile(props) {
             <DateTimePicker onChange={(dateProps) => {
               setDepartDate(dateProps); //Necessary to update Time table DateTimePicker Value
               updateBooking("date", dateProps)
-              }} value={departDate} />
+              }} value={props.start_date == '' ? departDate: props.start_date} />
           </div>
                 
         </div>
