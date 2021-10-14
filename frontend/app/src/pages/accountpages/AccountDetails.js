@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 
 import { Avatar } from '@material-ui/core';
 import { InputName } from '../../components/InputText';
 import { FaPen } from 'react-icons/fa';
-import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
+import { BsExclamationCircle, BsCheckCircle } from "react-icons/bs"
 import { CircleEditButton, MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
 import { DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
@@ -15,20 +15,20 @@ function AccountDetails(props) {
 
   const [userName, setUserName] = useState("");
   const [validName, setValidName] = useState(false);
-  const [nameIcon, setNameIcon] = useState(<BsExclamationCircle/>);
+  const [nameIcon, setNameIcon] = useState(<BsExclamationCircle />);
 
-  const[userGender, setUserGender] = useState("Male")
-  const[driverPref, setDriverPref] = useState("")
-  const[userSchool, setUserSchool] = useState("")
-  
- 
+  const [userGender, setUserGender] = useState("Male")
+  const [driverPref, setDriverPref] = useState("")
+  const [userSchool, setUserSchool] = useState("")
+
+
   function handleName(thisName, nameBool) {
     setUserName(thisName)
     setValidName(nameBool)
-    if(nameBool) {
-        setNameIcon(<BsCheckCircle/>)
+    if (nameBool) {
+      setNameIcon(<BsCheckCircle />)
     } else {
-      setNameIcon(<BsExclamationCircle/>)
+      setNameIcon(<BsExclamationCircle />)
     }
   }
 
@@ -58,21 +58,22 @@ function AccountDetails(props) {
 
 
   const handleFile = (e) => {
+    console.log(userGender)
 
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         'student_id': '12345678',
-        'gender': userGender
+        'gender': userGender,
       })
     };
 
     fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/update-gender", requestOptions)
-    .then(result => result.json())
-    .then(data => {
-      console.log(data);
-    });
+      .then(result => result.json())
+      .then(data => {
+        console.log(data);
+      });
 
     // // Delete old timetable events
     // const deleteOptions = {
@@ -100,7 +101,7 @@ function AccountDetails(props) {
     //   var end_date = event.end.toISOString().split('T')[0];
     //   var end_time = event.end.toLocaleTimeString();
 
-      
+
     //   const postOptions = {
     //     method: 'POST',
     //     headers: { 'Content-Type': 'application/json' },
@@ -141,30 +142,30 @@ function AccountDetails(props) {
         <div className='ad-container'>
           Display Name:
 
-          <InputName 
-          placeholder='Enter your name' 
-          value = {userName}
-          onChange = {handleName}
-          iconLeft={<FaPen />}
-          iconRight={nameIcon} />
+          <InputName
+            placeholder='Enter your name'
+            value={userName}
+            onChange={handleName}
+            iconLeft={<FaPen />}
+            iconRight={nameIcon} />
 
           Gender:
 
           <GenderDropDownMenu
-          value = {userGender}
-          handleChange = {handleGender} />
+            value={userGender}
+            handleChange={handleGender} />
 
           Preference:
 
           <DriverDropDownMenu
-          value = {driverPref}
-          handleChange = {handleDriverPref} />
+            value={driverPref}
+            handleChange={handleDriverPref} />
 
           School:
 
           <SchoolDropDownMenu
-          value = {userSchool}
-          handleChange = {handleSchool} />
+            value={userSchool}
+            handleChange={handleSchool} />
 
           Timetable:
           {/*  TODO:  Change it so on changeFile it saves it to the State and on Save it sends to the DB*/}
@@ -173,8 +174,10 @@ function AccountDetails(props) {
               handleChangeFile(e.target.files[0])} />
           </div>
 
+          <div onClick={handleFile}>
+            <MediumConfirmButton margin={true} name={'SAVE'} />
 
-          <MediumConfirmButton margin={true} onClick={handleFile} name={'SAVE'} />
+          </div>
 
         </div>
 
