@@ -10,7 +10,7 @@ function Book(props) {
   const location = useLocation();
   var start = '';
   console.warn(props)
-  if (location.state) {
+  if (location.state.props) {
     console.warn(location.state)
     console.log('Start time ' + location.state.props.start_date)
     start = location.state.props.start_date
@@ -18,6 +18,9 @@ function Book(props) {
   } else {
     console.log('undefined')
   }
+
+  console.error('FCUK')
+  console.log(location.state)
   
   const history = useHistory();
   const [startLoc, setStartLoc] = useState(0);
@@ -129,7 +132,7 @@ function Book(props) {
   return (
 
     // <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} direction={props.direction}/>
-    <BasicPage name={"Book"} body={createBook(props)} currentlySelected={0} hide={props.hide} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage name={"Book"} studentId = {location.state.id} body={createBook(props)} currentlySelected={0} hide={props.hide} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
 
   )
 

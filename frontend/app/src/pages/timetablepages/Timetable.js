@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import TimetableTile from '../../components/TimetableTile';
-import TimeTile from '../../components/TimeTile'
+import TimeTile from '../../components/TimeTile';
+import { useLocation } from 'react-router-dom';
 import './Timetable.css'
 
 function sameDay(d1, d2) {
@@ -12,39 +13,48 @@ function sameDay(d1, d2) {
 
 var classes = new Map();
 
-const getOptions = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    'student_id': '12345678',
-  })
-};
-
-fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", getOptions)
-.then(result => result.json())
-.then(data => {
-  for (const event of Object.values(data)) {
-    var start = new Date(event.start.replace('Z',''))
-    var end = new Date(event.end.replace('Z',''))
 
 
-    var new_start = event.start.split('T')
-    var new_end = event.end.split('T')
-    
-    classes.set(new_start[0], {
-      'name': event.name,
-      'desc': event.description,
-      'location': event.location,
-      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', ' + new_start[1].split('.')[0],
-      'start_date': start,
-      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + new_end[1].split('.')[0],
-    })
-  }
-  
-});
+
 
 
 function Timetable(props) {
+
+  const location = useLocation();
+  var student_id = props.studentId
+  console.warn(props)
+
+  const getOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      'student_id': student_id,
+    })
+  };
+
+  fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", getOptions)
+  .then(result => result.json())
+  .then(data => {
+    for (const event of Object.values(data)) {
+      var start = new Date(event.start.replace('Z',''))
+      var end = new Date(event.end.replace('Z',''))
+  
+  
+      var new_start = event.start.split('T')
+      var new_end = event.end.split('T')
+      
+      classes.set(new_start[0], {
+        'name': event.name,
+        'desc': event.description,
+        'location': event.location,
+        'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', ' + new_start[1].split('.')[0],
+        'start_date': start,
+        'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + new_end[1].split('.')[0],
+      })
+    }
+    
+  });
+
   const ical = require('node-ical');
   const fs = require('fs');
   const [selectedFile, setSelectedFile] = useState();

@@ -20,6 +20,8 @@ function AccountDetails(props) {
   const [userGender, setUserGender] = useState("")
   const [driverPref, setDriverPref] = useState("")
   const [userSchool, setUserSchool] = useState("")
+  var student_id = props.studentId
+  console.error("STUDENT ID " + student_id)
 
 
   function handleName(thisName, nameBool) {
@@ -64,7 +66,7 @@ function AccountDetails(props) {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'student_id': '12345678',
+        'student_id': student_id,
       })
     };
 
@@ -97,7 +99,7 @@ function AccountDetails(props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'student_id': '12345678',
+          'student_id': student_id,
           'name': event.summary.val,
           'description': event.description,
           'location': event.location,
