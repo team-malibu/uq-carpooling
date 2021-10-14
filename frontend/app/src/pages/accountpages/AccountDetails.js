@@ -21,7 +21,7 @@ function AccountDetails(props) {
   const [driverPref, setDriverPref] = useState("")
   const [userSchool, setUserSchool] = useState("")
   var student_id = props.studentId
-  console.error("STUDENT ID " + student_id)
+
 
 
   function handleName(thisName, nameBool) {
@@ -90,9 +90,6 @@ function AccountDetails(props) {
       var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
       var end_time = event.end.toLocaleTimeString();
       
-      if (event.description == 'LEC1') {
-        console.log("CUNT " + start_time)
-      }
 
 
       const postOptions = {
