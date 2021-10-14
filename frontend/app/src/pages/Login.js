@@ -13,15 +13,16 @@ function Login(props) {
 
     const[isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const[validEmail, setValidEmail] = useState(false)
+    const[validEmail, setValidEmail] = useState(false);
+    const[validPassword, setValidPassword] = useState(false);
 
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
-    const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
-    const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
+    const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>);
+    const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>);
 
-    const[showPopUp, setShowPopUp] = useState(true);
+    const[showPopUp, setShowPopUp] = useState(false);
     const[popUpMessage, setPopUpMessage] = useState("");
 
     function handleEmail(thisEmail, emailBool) {
@@ -37,15 +38,18 @@ function Login(props) {
     function handlePassword(thisPassword) {
         setUserPassword(thisPassword)
         if(thisPassword.length >= 7) {
+            setValidPassword(true);
             setPasswordIcon(<BsCheckCircle/>)
         } else {
+            setValidPassword(false);
             setPasswordIcon(<BsExclamationCircle style={{color: 'red'}}/>)
         }
     }
 
     function handleSubmission(event) {
         event.preventDefault();
-        const requestOptions = {
+        if (validEmail && validPassword) {
+          const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -63,6 +67,10 @@ function Login(props) {
               setShowPopUp(true);
             }
           });
+        } else {
+          setPopUpMessage("Email or Password is Invalid");
+          setShowPopUp(true);
+        }
     }
 
     function hidePopUp() {
