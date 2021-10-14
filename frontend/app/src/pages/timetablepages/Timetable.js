@@ -26,7 +26,7 @@ fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", g
   for (const event of Object.values(data)) {
     var start = new Date(event.start)
     var end = new Date(event.end)
-    //console.warn(start.toISOString().split('T')[0])
+    
     classes.set(start.toISOString().split('T')[0], {
       'name': event.name,
       'desc': event.description,
@@ -93,14 +93,14 @@ function Timetable(props) {
     for (let [key, value] of classes.entries()) {
       //console.log('Key: ' + key + 'Selected Date: ' + selectedDate.toISOString().split('T')[0])
       if (key == selectedDate.toISOString().split('T')[0]) {
-        console.log('inside')
+
         unit.push(
           <TimetableTile event = {value}/>
         )
       }
      
     }
-    //console.log(unit)
+
 
 
     return (
