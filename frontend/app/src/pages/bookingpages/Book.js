@@ -1,21 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import TripMap from '../../components/TripMap'
 import TripTile from '../../components/TripTile'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { MediumConfirmButton, SquareButton } from '../../components/Button'
 import './Book.css'
 import BasicPage from '../../components/BasicPage'
 
 function Book(props) {
+  const location = useLocation();
+  var start = '';
+  console.warn(props)
+  if (location.state) {
+    console.warn(location.state)
+    console.log('Start time ' + location.state.props.event.start_date)
+    start = location.state.props.event.start_date
+
+  } else {
+    console.log('undefined')
+  }
+  
   const history = useHistory();
   const [startLoc, setStartLoc] = useState(0);
   const [endLoc, setEndLoc] = useState(0);
   const [centerLoc, setCenterLoc] = useState(0);
   const [intermediateStops, setIntermediateStops] = useState(0);
-  const [startTime, setStartTime] = useState(0);
+  const [startTime, setStartTime] = useState(start);
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const driverId = "s1234567"
+
+
+
+
+  
+  
 
   function updateBookTrip(flag, bookingProps) {
     if (flag.match("startMarker")) {
@@ -88,7 +106,7 @@ function Book(props) {
         {/* <BlankDefaultPage currentlySelected={0} name='Book' previousPage='/Timetable' hide={true}/> */}
         <div class='booktile'>
         <TripTile class_name='DECO3801 Build Studio 3' address='University of Queensland'
-          updateBookTrip={updateBookTrip}/>
+          updateBookTrip={updateBookTrip} start_date={start}/>
         </div>
         <div class="bookmap">
           <TripMap locations={[startLoc, endLoc, centerLoc, intermediateStops]} updateBookTrip={updateBookTrip} /> 

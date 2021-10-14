@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 
 import { Avatar } from '@material-ui/core';
 import { InputName } from '../../components/InputText';
 import { FaPen } from 'react-icons/fa';
-import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
+import { BsExclamationCircle, BsCheckCircle } from "react-icons/bs"
 import { CircleEditButton, MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
 import { DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
@@ -15,20 +15,20 @@ function AccountDetails(props) {
 
   const [userName, setUserName] = useState("");
   const [validName, setValidName] = useState(false);
-  const [nameIcon, setNameIcon] = useState(<BsExclamationCircle/>);
+  const [nameIcon, setNameIcon] = useState(<BsExclamationCircle />);
 
-  const[userGender, setUserGender] = useState("")
-  const[driverPref, setDriverPref] = useState("")
-  const[userSchool, setUserSchool] = useState("")
-  
- 
+  const [userGender, setUserGender] = useState("")
+  const [driverPref, setDriverPref] = useState("")
+  const [userSchool, setUserSchool] = useState("")
+
+
   function handleName(thisName, nameBool) {
     setUserName(thisName)
     setValidName(nameBool)
-    if(nameBool) {
-        setNameIcon(<BsCheckCircle/>)
+    if (nameBool) {
+      setNameIcon(<BsCheckCircle />)
     } else {
-      setNameIcon(<BsExclamationCircle/>)
+      setNameIcon(<BsExclamationCircle />)
     }
   }
 
@@ -80,12 +80,16 @@ function AccountDetails(props) {
     const events = ical.parseICS(content);
     for (const event of Object.values(events)) {
       console.warn(event)
-      var start_date = event.start.toISOString().split('T')[0];
-      var start_time = event.start.toLocaleTimeString();
-      var end_date = event.end.toISOString().split('T')[0];
-      var end_time = event.end.toLocaleTimeString();
 
+      var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
+      var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
+      var start_time = event.start.toLocaleTimeString();
+      var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
+      var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
+      var end_time = event.end.toLocaleTimeString();
       
+
+
       const postOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -126,30 +130,30 @@ function AccountDetails(props) {
         <div className='ad-container'>
           Display Name:
 
-          <InputName 
-          placeholder='Enter your name' 
-          value = {userName}
-          onChange = {handleName}
-          iconLeft={<FaPen />}
-          iconRight={nameIcon} />
+          <InputName
+            placeholder='Enter your name'
+            value={userName}
+            onChange={handleName}
+            iconLeft={<FaPen />}
+            iconRight={nameIcon} />
 
           Gender:
 
           <GenderDropDownMenu
-          value = {userGender}
-          handleChange = {handleGender} />
+            value={userGender}
+            handleChange={handleGender} />
 
           Preference:
 
           <DriverDropDownMenu
-          value = {driverPref}
-          handleChange = {handleDriverPref} />
+            value={driverPref}
+            handleChange={handleDriverPref} />
 
           School:
 
           <SchoolDropDownMenu
-          value = {userSchool}
-          handleChange = {handleSchool} />
+            value={userSchool}
+            handleChange={handleSchool} />
 
           Timetable:
           {/*  TODO:  Change it so on changeFile it saves it to the State and on Save it sends to the DB*/}
