@@ -88,6 +88,9 @@ function AccountDetails(props) {
       var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
       var end_time = event.end.toLocaleTimeString();
       
+      if (event.description == 'LEC1') {
+        console.log("CUNT " + start_time)
+      }
 
 
       const postOptions = {
