@@ -22,7 +22,7 @@ function Timetable(props) {
 
   const location = useLocation();
   var student_id = props.studentId
-  console.warn(props)
+
 
   const getOptions = {
     method: 'POST',
@@ -61,9 +61,6 @@ function Timetable(props) {
   const [isFIlePicked, setIsFilePicked] = useState(false);
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const todaysDate = new Date()
-
-  console.log("HERE" )
-  console.warn(props)
 
   var dates = [];
   for (var i = 0; i < 30; i++) {

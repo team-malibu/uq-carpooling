@@ -33,7 +33,7 @@ function App() {
             setPage([newPage, 0]);
         }
         
-        console.log(isNavbarVisible)
+        // console.log(isNavbarVisible)
 
       };
 

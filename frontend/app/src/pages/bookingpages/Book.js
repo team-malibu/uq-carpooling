@@ -9,18 +9,12 @@ import BasicPage from '../../components/BasicPage'
 function Book(props) {
   const location = useLocation();
   var start = '';
-  console.warn(props)
+
   if (location.state.props) {
-    console.warn(location.state)
-    console.log('Start time ' + location.state.props.start_date)
     start = location.state.props.start_date
 
-  } else {
-    console.log('undefined')
   }
 
-  console.error('FCUK')
-  console.log(location.state)
   
   const history = useHistory();
   const [startLoc, setStartLoc] = useState(0);
@@ -30,7 +24,7 @@ function Book(props) {
   const [startTime, setStartTime] = useState(start);
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
-  const driverId = "s1234567"
+  const driverId = "s1234567" //Change to ID also could be a passengerID?
 
 
 
