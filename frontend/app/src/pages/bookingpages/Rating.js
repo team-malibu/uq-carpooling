@@ -10,10 +10,65 @@ function Rating(props) {
 
     const [ratingValue, setRatingValue] = useState(3)
 
+    ////////// not implemented yet ////////
+    const trip_id = 3;
+    const driver_id = 12345678;
+    const passenger_id = 11111111;
+    ////////////////////////////////////////
+
     function handleRatingChange(thisValue) {
         setRatingValue(thisValue);
         //console.log(thisValue);
     }
+
+    function handleSubmission(event) {
+        event.preventDefault();
+        
+        // add a new passenger trip to store the new rating
+        const requestOptions1 = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'trip_id': trip_id,
+                'passenger_id': passenger_id,
+                'rating': ratingValue,
+                'comments': "None"
+            })
+        };
+        fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-passenger-trip", requestOptions1)
+
+        // get all ratings of the current driver
+        const requestOptions2 = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'driver_id': driver_id
+            })
+        };
+        fetch("https://deco3801-teammalibu.uqcloud.net/db/ratings/driver/getall", requestOptions2)
+        .then(result => result.json())
+        .then(data => {
+            let sum = 0;
+            let num = 0;
+            for (const rating of Object.values(data)) {
+                sum += rating.rating;
+                num++;
+            }
+            const average = sum / num;
+
+            // update the driver's average rating
+            const requestOptions3 = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    'average_rating': average,
+                    'student_id': driver_id
+                })
+            };
+            fetch("https://deco3801-teammalibu.uqcloud.net/db/users/update-rating", requestOptions3);
+        });
+    }
+
 
     function createRating() {
         return (
@@ -33,7 +88,7 @@ function Rating(props) {
                             onChange = {handleRatingChange} />
                         </div>
                         <Link to='/Book'>
-                            <div className="reviewSubmitButton" >
+                            <div className="reviewSubmitButton" onClick={handleSubmission}>
 
                                 <Buttons.MediumConfirmButton name="Submit" />
 
