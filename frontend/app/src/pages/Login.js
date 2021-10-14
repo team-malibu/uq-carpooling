@@ -82,6 +82,9 @@ function Login(props) {
             <>
                 <div className='login-body'>
                   <div>
+                    <div>
+                        {showPopUp ? <PopUp toggle={hidePopUp} message={popUpMessage}/> : null}
+                    </div>
                     <div className="inputEmail">
                           <InputEmail
                               value = {userEmail}
@@ -109,9 +112,6 @@ function Login(props) {
                           history.push('/Signup')}}>
                           <CreateAccountButton name="Create Account" />
                       </div>
-                  </div>
-                  <div>
-                        {showPopUp ? <PopUp toggle={hidePopUp} message={popUpMessage}/> : null}
                   </div>
                 </div>
             </>

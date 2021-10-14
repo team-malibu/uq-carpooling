@@ -8,8 +8,8 @@
     text-align: center;
     margin: auto;
     z-index: 100;
-    position: relative;
     background-color: #ddedfd;
+    position: absolute;
 }
 
 .popUp-button {
