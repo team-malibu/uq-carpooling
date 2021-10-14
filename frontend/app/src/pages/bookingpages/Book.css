@@ -6,13 +6,11 @@
 .booktile {
   position: relative;
   display: flex;
-  top: 7%;
   align-items: center;
   align-content: center;
   align-self: center;
-  width: 90%;
   height: 21%;
-  left: 5%;
+  top: 5%;
   z-index: 5;
 }
 
@@ -32,6 +30,9 @@
   width: 100%;
   z-index: 20;
   border-radius: 15%;
+  max-width: calc(min(675px, 80vw));
+  min-width: 280px;
+  margin: auto;
 }
 
 .bookbutton > button {
@@ -40,16 +41,16 @@
 
 .bookbutton > button:last-of-type {
   background-color: salmon;
-  width: 40%;
+  width: 50%;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
-} 
+}
 
 .bookbutton > button:first-of-type {
-  width: 40%;
+  width: 50%;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
-} 
+}
 
 .react-datetime-picker {
   width: 80%;

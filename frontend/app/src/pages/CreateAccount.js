@@ -215,7 +215,7 @@ function CreateAccount2(props) {
 
   return (
 
-    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} currentlySelected={0} hide={true} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} previousPage={'/'} currentlySelected={0} hide={false} direction={props.direction} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
 
   )
 }
