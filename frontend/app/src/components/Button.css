@@ -160,12 +160,10 @@
   font-family: 'Lato', sans-serif;
   letter-spacing: 2px;
   box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
-  position: absolute;
-  left: 25%;
-  top: 35%;
-  width: 50%;
-  padding-top: 5%;
-  padding-bottom: 5%;
+  width: 50vw;
+  margin-top: 2.5vh;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
   border-radius: 20px;
   font-size: large;
 }
@@ -183,12 +181,10 @@
   font-family: 'Lato', sans-serif;
   letter-spacing: 2px;
   box-shadow: 0px 5px 10px -2px rgba(0,0,0,0.79);
-  position: absolute;
-  left: 25%;
-  top: 55%;
-  width: 50%;
-  padding-top: 5%;
-  padding-bottom: 5%;
+  width: 50vw;
+  margin-top: 2.5vh;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
   border-radius: 20px;
   font-size:15px;
 }

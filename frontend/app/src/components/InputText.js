@@ -122,7 +122,6 @@ function InputPassword(props) {
 
     return (
         <div className="itext">
-            <form>
                 <span className="itext-icon-left">{props.iconLeft}</span>
                 <input className="itext-form"
                     placeholder={props.placeholder}
@@ -133,7 +132,6 @@ function InputPassword(props) {
                     type={showPassword ? "text" : "password"}
                     />
                  <span className="itext-icon-right">{props.iconRight}</span>
-            </form>
         </div>
     )
 }

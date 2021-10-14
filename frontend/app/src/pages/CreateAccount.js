@@ -193,7 +193,7 @@ function CreateAccount2(props) {
             iconRight={passwordIcon}
           />
         </div>
-        <div className="input-field-sign-up">
+        <div className="inputPassword">
           <InputPassword
             value={userPassword2}
             onChange={handlePassword2}
