@@ -193,7 +193,7 @@ function CreateAccount2(props) {
             iconRight={passwordIcon}
           />
         </div>
-        <div className="input-field-sign-up">
+        <div className="inputPassword">
           <InputPassword
             value={userPassword2}
             onChange={handlePassword2}
@@ -215,7 +215,7 @@ function CreateAccount2(props) {
 
   return (
 
-    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} currentlySelected={0} hide={true} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} previousPage={'/'} currentlySelected={0} hide={false} direction={props.direction} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
 
   )
 }
