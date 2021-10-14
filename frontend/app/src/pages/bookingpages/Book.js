@@ -12,8 +12,8 @@ function Book(props) {
   console.warn(props)
   if (location.state) {
     console.warn(location.state)
-    console.log('Start time ' + location.state.props.event.start_date)
-    start = location.state.props.event.start_date
+    console.log('Start time ' + location.state.props.start_date)
+    start = location.state.props.start_date
 
   } else {
     console.log('undefined')

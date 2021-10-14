@@ -48,8 +48,8 @@ function App() {
           {/* <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} /> */}
           <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
           <Route path='/Account' exact component={() => <AccountDetails name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
-          <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
-          <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction}/>} />
+          <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction}  update_direction={update_direction}/>} />
+          <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} paginate = {paginate}/>} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
           <Route exact path='/' component={() => <Login name='Login' hide={true} default={false} direction={direction} key={location.key} custom={direction} />} />
           <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />

@@ -52,6 +52,9 @@ function Timetable(props) {
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const todaysDate = new Date()
 
+  console.log("HERE" )
+  console.warn(props)
+
   var dates = [];
   for (var i = 0; i < 30; i++) {
     var newDate = new Date()
@@ -99,7 +102,7 @@ function Timetable(props) {
       if (key == selectedDate.toISOString().split('T')[0]) {
 
         unit.push(
-          <TimetableTile event = {value}/>
+          <TimetableTile event = {value} update_direction={props.update_direction}/>
         )
       }
      

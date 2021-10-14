@@ -6,16 +6,18 @@ import {useHistory} from 'react-router-dom'
 
 function TimetableTile(props) {
   const history = useHistory();
+  console.log(props)
   
   return (
     <>
       <div class='ttilewrapper' onClick={() => {
          console.log('tile clicked')
-         
+         props.update_direction(-1)
+
          history.push({
            pathname: '/book',
            state: {
-             props: props,
+             props: props.event,
            }
          })
       }}>
