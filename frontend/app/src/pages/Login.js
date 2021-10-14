@@ -64,31 +64,35 @@ function Login(props) {
         return (
             <>
                 <div className='login-body'>
+                  <div>
                     <div className="inputEmail">
-                        <InputEmail
-                            value = {userEmail}
-                            onChange = {handleEmail}
-                            placeholder="Student Email (uq.net.au)"
-                            iconLeft={<MdLockOutline />}
-                            iconRight={emailIcon}
-                        />
-                    </div>
-                    <div className="inputPassword">
-                        <InputPassword
-                            value = {userPassword}
-                            onChange = {handlePassword}
-                            placeholder="Password"
-                            iconLeft={<MdLockOutline />}
-                            iconRight={passwordIcon}
-                        />
-                    </div>
+                          <InputEmail
+                              value = {userEmail}
+                              onChange = {handleEmail}
+                              placeholder="Student Email (uq.net.au)"
+                              iconLeft={<MdLockOutline />}
+                              iconRight={emailIcon}
+                          />
+                      </div>
+                      <div className="inputPassword">
+                          <InputPassword
+                              value = {userPassword}
+                              onChange = {handlePassword}
+                              placeholder="Password"
+                              iconLeft={<MdLockOutline />}
+                              iconRight={passwordIcon}
+                          />
+                      </div>
+                  </div>
+                  <div>
                     <div className="loginButton" onClick={handleSubmission}>
-                        <LoginButton name="Login" />
-                    </div>
-                    <div class='loginButton' onClick={() => {
-                        history.push('/Signup')}}>
-                        <CreateAccountButton name="Create Account" />
-                    </div>
+                          <LoginButton name="Login" />
+                      </div>
+                      <div class='loginButton' onClick={() => {
+                          history.push('/Signup')}}>
+                          <CreateAccountButton name="Create Account" />
+                      </div>
+                  </div>
                 </div>
             </>
         )
