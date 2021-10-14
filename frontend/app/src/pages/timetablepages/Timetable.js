@@ -104,7 +104,7 @@ function Timetable(props) {
 
 
     return (
-      <div>
+      <div class='bigtimetablewrapper'>
         <div class='ttimetable'>
           <pre class='tdatetext'>{dateString.split(',').join(', ')}</pre>
         </div>
@@ -119,8 +119,6 @@ function Timetable(props) {
 
           {unit}
         </div>
-
-
       </div>
 
 
