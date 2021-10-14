@@ -1,15 +1,23 @@
 .itext {
 background-color: #ddedfd;
-width:90%;
 height:auto;
 border-radius: 20px;
 font-family: 'Lato', sans-serif;
 border:none;
 outline:none;
 color:#37A7F2;
-margin-top:7%;
-margin-left: 5%;
+margin-bottom: 2.5vh;
+position: relative;
+display: flex;
+justify-content: space-between;
+width: 90vw;
+left: 5vw;
 }
+
+.itext > * {
+    align-self: center;
+}
+
 
 .itext-form {
     background-color: #ddedfd;
@@ -20,8 +28,8 @@ margin-left: 5%;
     max-width: 100%;
     border-radius: 20px;
     height: 100%;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
     margin-left: 2.5%;
     align-items: center;
 }
@@ -32,15 +40,11 @@ margin-left: 5%;
 .itext-icon-left {   
     margin-left: 3%;
     font-size: 25px;
-    float: left;
-    margin-top: 5%;
 }
 
 .itext-icon-right {
     margin-right: 3%;
     font-size: 25px;
-    float: right;
-    margin-top: 5%;
 }
 
 .itext-db {
@@ -55,21 +59,21 @@ margin-left: 5%;
     margin-top: 3%;
     margin-bottom: 3%;
     margin-left: 5%;
-    }
+}
     
-    .itext-db-form {
-        background-color: #37A7F2;
-        color:White;
-        border:none;
-        outline:none;
-        font-size: 20px;
-        max-width: 100%;
-        height: 100%;
-        padding-top: 5%;
-        padding-bottom: 5%;
-        margin-left: 2.5%;
-        align-items: center;
-    }
+.itext-db-form {
+    background-color: #37A7F2;
+    color:White;
+    border:none;
+    outline:none;
+    font-size: 20px;
+    max-width: 100%;
+    height: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-left: 2.5%;
+    align-items: center;
+}
     
     .itext-other-form::placeholder {
         color:White;

@@ -1,11 +1,26 @@
 import React from 'react'
 import "./TimetableTile.css"
 import { SchoolOutlined, PlaceOutlined, ScheduleOutlined} from '@material-ui/icons/'
+import {useHistory} from 'react-router-dom'
+
 
 function TimetableTile(props) {
+  const history = useHistory();
+  console.log(props)
+  
   return (
     <>
-      <div class='ttilewrapper'>
+      <div class='ttilewrapper' onClick={() => {
+         console.log('tile clicked')
+         props.update_direction(-1)
+
+         history.push({
+           pathname: '/book',
+           state: {
+             props: props.event,
+           }
+         })
+      }}>
         <div class='tt_info_line'>
           <div class='tt_content'>
             <div>

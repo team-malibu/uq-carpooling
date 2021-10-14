@@ -24,18 +24,23 @@ fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", g
 .then(result => result.json())
 .then(data => {
   for (const event of Object.values(data)) {
-    var start = new Date(event.start)
-    var end = new Date(event.end)
-    console.warn(start.toISOString().split('T')[0])
-    classes.set(start.toISOString().split('T')[0], {
+    var start = new Date(event.start.replace('Z',''))
+    var end = new Date(event.end.replace('Z',''))
+
+
+    var new_start = event.start.split('T')
+    var new_end = event.end.split('T')
+    
+    classes.set(new_start[0], {
       'name': event.name,
       'desc': event.description,
       'location': event.location,
-      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1] + ' ' + start.toLocaleTimeString().split(' ')[1],
-      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1] + ' ' + end.toLocaleTimeString().split(' ')[1],
+      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', ' + new_start[1].split('.')[0],
+      'start_date': start,
+      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + new_end[1].split('.')[0],
     })
   }
-  console.log(classes)
+  
 });
 
 
@@ -46,6 +51,9 @@ function Timetable(props) {
   const [isFIlePicked, setIsFilePicked] = useState(false);
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const todaysDate = new Date()
+
+  console.log("HERE" )
+  console.warn(props)
 
   var dates = [];
   for (var i = 0; i < 30; i++) {
@@ -90,16 +98,16 @@ function Timetable(props) {
 
     var unit = []
     for (let [key, value] of classes.entries()) {
-      console.log('Key: ' + key + 'Selected Date: ' + selectedDate.toISOString().split('T')[0])
+      //console.log('Key: ' + key + 'Selected Date: ' + selectedDate.toISOString().split('T')[0])
       if (key == selectedDate.toISOString().split('T')[0]) {
-        console.log('inside')
+
         unit.push(
-          <TimetableTile event = {value}/>
+          <TimetableTile event = {value} update_direction={props.update_direction}/>
         )
       }
      
     }
-    console.log(unit)
+
 
 
     return (
