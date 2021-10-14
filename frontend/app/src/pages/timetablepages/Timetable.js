@@ -26,13 +26,14 @@ fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", g
   for (const event of Object.values(data)) {
     var start = new Date(event.start)
     var end = new Date(event.end)
-    //console.warn(start.toISOString().split('T')[0])
+    
     classes.set(start.toISOString().split('T')[0], {
       'name': event.name,
       'desc': event.description,
       'location': event.location,
-      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1] + ' ' + start.toLocaleTimeString().split(' ')[1],
-      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1] + ' ' + end.toLocaleTimeString().split(' ')[1],
+      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1],
+      'start_date': start,
+      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1],
     })
   }
   
@@ -92,14 +93,14 @@ function Timetable(props) {
     for (let [key, value] of classes.entries()) {
       //console.log('Key: ' + key + 'Selected Date: ' + selectedDate.toISOString().split('T')[0])
       if (key == selectedDate.toISOString().split('T')[0]) {
-        console.log('inside')
+
         unit.push(
           <TimetableTile event = {value}/>
         )
       }
      
     }
-    //console.log(unit)
+
 
 
     return (
