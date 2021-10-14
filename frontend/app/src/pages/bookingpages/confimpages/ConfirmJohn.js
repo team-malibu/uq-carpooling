@@ -1,11 +1,10 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+import BasicPage from '../../../components/BasicPage'
 import { MediumConfirmButton } from '../../../components/Button'
-import BlankDefaultPage from '../../../components/BlankDefaultPage'
 import DriverTile from '../../../components/DriverTile'
 import TripTile from '../../../components/TripTile'
 import './ConfirmDriver.css'
-import {useHistory} from 'react-router-dom'
-import BasicPage from '../../../components/BasicPage'
 
 
 function ConfirmJohn(props) {

@@ -1,23 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import './App.css'
-import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-
-
+import { AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import './App.css';
+import SimpleNavbar from './components/SimpleNavbar';
+import TimeTile from "./components/TimeTile";
 import AccountDetails from "./pages/accountpages/AccountDetails";
 import Book from "./pages/bookingpages/Book";
-import Search from "./pages/Search";
-import SelectDriver from "./pages/bookingpages/SelectDriver";
-
 import ConfirmDriver from "./pages/bookingpages/confimpages/Confirm";
+import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
+import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
 import Rating from "./pages/bookingpages/Rating";
+import SelectDriver from "./pages/bookingpages/SelectDriver";
 import Login from "./pages/Login";
 import Timetable from "./pages/timetablepages/Timetable";
-import TimeTile from "./components/TimeTile";
-import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
-import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
-import SimpleNavbar from './components/SimpleNavbar';
 import CreateAccount from './pages/CreateAccount';
+import Search from "./pages/Search";
 
 function App() {
   const location = useLocation();

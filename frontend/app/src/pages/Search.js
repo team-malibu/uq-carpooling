@@ -1,6 +1,4 @@
 import React from 'react'
-import BlankDefaultPage from '../components/BlankDefaultPage'
-import Navbar from '../components/Navbar'
 import BasicPage from '../components/BasicPage'
 
 function Search(props) {

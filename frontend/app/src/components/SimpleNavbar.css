@@ -1,26 +1,6 @@
 .navbar-link {
-    position: relative;
-    display: inline-block;
-    width: 25%;
-    height: 100%;
-  }
-  
-  .bottom {
-    position: static;
-    display: inline-block;
-    width: 375px;
-    height: 72px;
-  }
-  
-  .body {
-    position: static;
-    width: 375px;
-    height: 630px;
-  }
-  
-  .top {
-    position: static;
-    width: 375px;
-    height: 110px;
-  }
-  
+  position: relative;
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+}

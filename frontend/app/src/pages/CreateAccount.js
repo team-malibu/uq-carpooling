@@ -146,6 +146,7 @@ function CreateAccount2(props) {
   function createBook2(props) {
     return (
       <>
+
         <div className="inputFirstName">
           <InputName
             value={firstName}
@@ -173,6 +174,7 @@ function CreateAccount2(props) {
             iconRight={emailIcon}
           />
         </div>
+
         <div className="inputStudentId">
           <InputStudentId
             value={studentId}
@@ -191,7 +193,7 @@ function CreateAccount2(props) {
             iconRight={passwordIcon}
           />
         </div>
-        <div className="inputPassword2">
+        <div className="input-field-sign-up">
           <InputPassword
             value={userPassword2}
             onChange={handlePassword2}
@@ -200,6 +202,7 @@ function CreateAccount2(props) {
             iconRight={passwordIcon2}
           />
         </div>
+
         <div className="submitButton" onClick={handleSubmission}>
           <LargeConfirmButton name="Sign Up" />
         </div>
@@ -212,7 +215,6 @@ function CreateAccount2(props) {
 
   return (
 
-    // <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} direction={props.direction}/>
     <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} currentlySelected={0} hide={true} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
 
   )
