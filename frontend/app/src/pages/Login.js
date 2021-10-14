@@ -6,6 +6,7 @@ import { InputPassword, InputEmail } from '../components/InputText';
 import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
 import { MdLockOutline } from 'react-icons/md';
 import BasicPage from '../components/BasicPage';
+import { PopUp } from '../components/PopUp';
 
 function Login(props) {
     const history = useHistory();
@@ -19,6 +20,9 @@ function Login(props) {
 
     const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
     const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
+
+    const[showPopUp, setShowPopUp] = useState(true);
+    const[popUpMessage, setPopUpMessage] = useState("");
 
     function handleEmail(thisEmail, emailBool) {
           setUserEmail(thisEmail)
@@ -55,9 +59,14 @@ function Login(props) {
             if (data.result) {
               history.push('/Book');
             } else {
-              alert(data.message);
+              setPopUpMessage(data.message);
+              setShowPopUp(true);
             }
           });
+    }
+
+    function hidePopUp() {
+      setShowPopUp(false);
     }
 
     function createLogin() {
@@ -88,6 +97,9 @@ function Login(props) {
                     <div class='loginButton' onClick={() => {
                         history.push('/Signup')}}>
                         <CreateAccountButton name="Create Account" />
+                    </div>
+                    <div>
+                        {showPopUp ? <PopUp toggle={hidePopUp} message={popUpMessage}/> : null}
                     </div>
                 </div>
             </>
