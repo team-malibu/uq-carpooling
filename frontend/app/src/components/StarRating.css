@@ -24,13 +24,50 @@
   width: 100%;
 }
 
-.rating-selector {
-  position: absolute;
-  z-index: 9;
-  opacity: 0;
-  width: 360px;
+.star-rating {
+  transform: scale(4.5);
+  text-align: center;
+  margin-top: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
+.star-items-wrapper {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.stars-aligned {
+  font-size: 2vw;
+  color: #322d95;
+  position: relative;
+  z-index: -1;
+  width: 100%;
+}
+
+.rating-selector {
+  -webkit-appearance: none !important;
+  position: absolute;
+  z-index: 9;
+  opacity: 1;
+  height: 1%;
+  width: 10%;
+  top: 25%;
+}
+
+.rating-selector::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10%;
+  height: 2vh;
+  border-radius: 90%;
+  background: #04aa6d;
+}
 .rating-text {
   font-family: "Lato", sans-serif;
   font-size: xx-small;
