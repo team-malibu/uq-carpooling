@@ -64,7 +64,13 @@ function Login(props) {
           .then(result => result.json())
           .then(data => {
             if (data.result) {
-              history.push('/Book');
+              props.setStudentId(data.studentId)
+              history.push({
+                pathname: '/Book',
+                state: {
+                  id: data.studentId,
+                }
+              });
             } else {
               setPopUpMessage(data.message);
               setShowPopUp(true);
