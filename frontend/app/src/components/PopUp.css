@@ -10,6 +10,7 @@
     z-index: 100;
     background-color: #ddedfd;
     position: absolute;
+    margin-top: 200px;
 }
 
 .popUp-button {

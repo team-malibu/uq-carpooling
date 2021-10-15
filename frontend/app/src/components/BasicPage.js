@@ -3,6 +3,7 @@ import './BasicPage.css'
 import { motion } from 'framer-motion';
 import { BrowserRouter as Link } from 'react-router-dom';
 import {useHistory} from 'react-router-dom'
+import PopUp from '../components/PopUp';
 
 const variants = {
   enter: (direction) => {
@@ -94,7 +95,7 @@ function BasicPage(props) {
             {props.body}
             </div>
             }
-          
+          {props.showPopUp ? <PopUp toggle={props.togglePopUp} message={props.popUpMessage} /> : null}
           
         </motion.div>
     </>

@@ -6,7 +6,6 @@ import { InputPassword, InputEmail } from '../components/InputText';
 import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
 import { MdLockOutline } from 'react-icons/md';
 import BasicPage from '../components/BasicPage';
-import { PopUp } from '../components/PopUp';
 
 function Login(props) {
     const history = useHistory();
@@ -24,6 +23,10 @@ function Login(props) {
 
     const[showPopUp, setShowPopUp] = useState(false);
     const[popUpMessage, setPopUpMessage] = useState("");
+
+    function togglePopUp() {
+      setShowPopUp(false);
+    }
 
     function handleEmail(thisEmail, emailBool) {
           setUserEmail(thisEmail)
@@ -73,18 +76,11 @@ function Login(props) {
         }
     }
 
-    function hidePopUp() {
-      setShowPopUp(false);
-    }
-
     function createLogin() {
         return (
             <>
                 <div className='login-body'>
                   <div>
-                    <div>
-                        {showPopUp ? <PopUp toggle={hidePopUp} message={popUpMessage}/> : null}
-                    </div>
                     <div className="inputEmail">
                           <InputEmail
                               value = {userEmail}
@@ -120,7 +116,9 @@ function Login(props) {
 
     
     return (
-    <BasicPage name={"UQ carpool login"} body={createLogin(props)} currentlySelected={0} hide={props.hide} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage name={"UQ carpool login"} body={createLogin(props)} currentlySelected={0} 
+        hide={props.hide} direction={props.direction} default={props.default} key={props.key} 
+        custom={props.custom} showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage}/>
 
   )
 }

@@ -17,6 +17,4 @@ function PopUp(props) {
     )
 }
 
-export {
-    PopUp
-}
+export default PopUp;
