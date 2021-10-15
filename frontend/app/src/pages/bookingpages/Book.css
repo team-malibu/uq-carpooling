@@ -5,29 +5,69 @@
 
 .booktile {
   position: relative;
-  top: 5%;
-  margin: 0 auto;
-  width: 90%;
-  max-width: 350px;
-  min-height: 100px;
-  height: 15%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  height: 21%;
   z-index: 5;
 }
 
 .bookmap {
-  position: absolute;
-  top: -0%;
+  position: relative;
+  top: -26%;
   width: 100%;
   height: 100%;
 }
 
 .bookbutton {
-  position: relative;
-  top: calc(80% - 120px);
-  width: 50%;
-  z-index: 20;
-  margin: 0 auto;
   display: flex;
+  position: relative;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  top: -40%;
+  width: 100%;
+  z-index: 20;
+  border-radius: 15%;
+  max-width: calc(min(675px, 80vw));
+  min-width: 280px;
+  margin: auto;
+}
+
+.bookbutton > button {
+  font-size: 12;
+}
+
+.bookbutton > button:last-of-type {
+  background-color: salmon;
+  width: 50%;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.bookbutton > button:first-of-type {
+  width: 50%;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.react-datetime-picker {
+  width: 80%;
+}
+
+.help-container {
+  position: relative;
+  display: flex;
+  height: 5%;
+  z-index: 5;
+}
+
+.helpbutton {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background-color: white;
+  margin-left: 84%;
+  margin-top: 2.9%;
 }

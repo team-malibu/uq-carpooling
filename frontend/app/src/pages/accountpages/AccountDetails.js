@@ -17,9 +17,11 @@ function AccountDetails(props) {
   const [validName, setValidName] = useState(false);
   const [nameIcon, setNameIcon] = useState(<BsExclamationCircle />);
 
-  const [userGender, setUserGender] = useState("Male")
+  const [userGender, setUserGender] = useState("")
   const [driverPref, setDriverPref] = useState("")
   const [userSchool, setUserSchool] = useState("")
+  var student_id = props.studentId
+
 
 
   function handleName(thisName, nameBool) {
@@ -64,8 +66,7 @@ function AccountDetails(props) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'student_id': '12345678',
-        'gender': userGender,
+        'student_id': student_id,
       })
     };
 
@@ -75,52 +76,40 @@ function AccountDetails(props) {
         console.log(data);
       });
 
-    // // Delete old timetable events
-    // const deleteOptions = {
-    //   method: 'DELETE',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     'student_id': '12345678',
-    //   })
-    // };
+    // Add new timetable events
+    const content = e.target.result;
+    const events = ical.parseICS(content);
+    for (const event of Object.values(events)) {
+      console.warn(event)
 
-    // fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
-    //   .then(result => result.json())
-    //   .then(data => {
-
-    //     console.log(data);
-    //   });
-
-    // // Add new timetable events
-    // const content = e.target.result;
-    // const events = ical.parseICS(content);
-    // for (const event of Object.values(events)) {
-    //   console.warn(event)
-    //   var start_date = event.start.toISOString().split('T')[0];
-    //   var start_time = event.start.toLocaleTimeString();
-    //   var end_date = event.end.toISOString().split('T')[0];
-    //   var end_time = event.end.toLocaleTimeString();
+      var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
+      var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
+      var start_time = event.start.toLocaleTimeString();
+      var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
+      var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
+      var end_time = event.end.toLocaleTimeString();
+      
 
 
-    //   const postOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       'student_id': '12345678',
-    //       'name': event.summary.val,
-    //       'description': event.description,
-    //       'location': event.location,
-    //       'start': start_date + ' ' + start_time,
-    //       'end': end_date + ' ' + end_time,
-    //     })
-    //   };
+      const postOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'student_id': student_id,
+          'name': event.summary.val,
+          'description': event.description,
+          'location': event.location,
+          'start': start_date + ' ' + start_time,
+          'end': end_date + ' ' + end_time,
+        })
+      };
 
-    //   fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/add-event", postOptions)
-    //     .then(result => result.json())
-    //     .then(data => {
-    //       console.log(data);
-    //     });
-    // }
+      fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/add-event", postOptions)
+        .then(result => result.json())
+        .then(data => {
+          console.log(data);
+        });
+    }
 
     // for (let unit of classes.values()) {
     //   console.log(unit)

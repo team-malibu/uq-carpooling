@@ -34,6 +34,13 @@ function CreateAccount2(props) {
   const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
   const[passwordIcon2, setPasswordIcon2] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
 
+  const[showPopUp, setShowPopUp] = useState(false);
+  const[popUpMessage, setPopUpMessage] = useState("");
+
+  function togglePopUp() {
+    setShowPopUp(false);
+  }
+
   function handleFirstName(thisFirstName, firstNameBool) {
     setFirstName(thisFirstName);
     setValidFirstName(firstNameBool);
@@ -113,15 +120,16 @@ function CreateAccount2(props) {
       .then(result => result.json())
       .then(data => {
         if (data.result) {
-          history.push('/Login');
+          history.push('/Account');
+          setPopUpMessage("Change your preferences!");
         } else {
-          alert(data.message);
+          setPopUpMessage(data.message);
         }
       });
     } else {
-      var errormsg = '';
+      var errormsg = "";
       if (!validFirstName) {
-        errormsg += 'First name is invalid\n';
+        errormsg += "First name is invalid\n";
       }
       if (!validLastName) {
         errormsg += 'Last name is invalid\n';
@@ -138,8 +146,9 @@ function CreateAccount2(props) {
       if (!validPassword2) {
         errormsg += 'Password does not match\n';
       }
-      alert(errormsg);
+      setPopUpMessage(errormsg);
     }
+    setShowPopUp(true);
   }
 
   function createBook2(props) {
@@ -192,7 +201,7 @@ function CreateAccount2(props) {
             iconRight={passwordIcon}
           />
         </div>
-        <div className="input-field-sign-up">
+        <div className="inputPassword">
           <InputPassword
             value={userPassword2}
             onChange={handlePassword2}
@@ -214,7 +223,10 @@ function CreateAccount2(props) {
 
   return (
 
-    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} currentlySelected={0} hide={true} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} 
+        previousPage={'/'} currentlySelected={0} hide={false} direction={props.direction} 
+        default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} 
+        showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage}/>
 
   )
 }

@@ -10,7 +10,7 @@ function Rating(props) {
 
     const [ratingValue, setRatingValue] = useState(3)
 
-    ////////// not implemented yet ////////
+    ////////// NOT IMPLEMENTED YET, NEED PASSENGERID, DRIVERID AND TRIPID ////////
     const trip_id = 3;
     const driver_id = 12345678;
     const passenger_id = 11111111;

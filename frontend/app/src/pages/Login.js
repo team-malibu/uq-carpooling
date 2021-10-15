@@ -12,13 +12,21 @@ function Login(props) {
 
     const[isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const[validEmail, setValidEmail] = useState(false)
+    const[validEmail, setValidEmail] = useState(false);
+    const[validPassword, setValidPassword] = useState(false);
 
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
-    const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
-    const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
+    const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>);
+    const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>);
+
+    const[showPopUp, setShowPopUp] = useState(false);
+    const[popUpMessage, setPopUpMessage] = useState("");
+
+    function togglePopUp() {
+      setShowPopUp(false);
+    }
 
     function handleEmail(thisEmail, emailBool) {
           setUserEmail(thisEmail)
@@ -33,15 +41,18 @@ function Login(props) {
     function handlePassword(thisPassword) {
         setUserPassword(thisPassword)
         if(thisPassword.length >= 7) {
+            setValidPassword(true);
             setPasswordIcon(<BsCheckCircle/>)
         } else {
+            setValidPassword(false);
             setPasswordIcon(<BsExclamationCircle style={{color: 'red'}}/>)
         }
     }
 
     function handleSubmission(event) {
         event.preventDefault();
-        const requestOptions = {
+        if (validEmail && validPassword) {
+          const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -53,42 +64,57 @@ function Login(props) {
           .then(result => result.json())
           .then(data => {
             if (data.result) {
-              history.push('/Book');
+              props.setStudentId(data.studentId)
+              history.push({
+                pathname: '/Book',
+                state: {
+                  id: data.studentId,
+                }
+              });
             } else {
-              alert(data.message);
+              setPopUpMessage(data.message);
+              setShowPopUp(true);
             }
           });
+        } else {
+          setPopUpMessage("Email or Password is Invalid");
+          setShowPopUp(true);
+        }
     }
 
     function createLogin() {
         return (
             <>
                 <div className='login-body'>
+                  <div>
                     <div className="inputEmail">
-                        <InputEmail
-                            value = {userEmail}
-                            onChange = {handleEmail}
-                            placeholder="Student Email (uq.net.au)"
-                            iconLeft={<MdLockOutline />}
-                            iconRight={emailIcon}
-                        />
-                    </div>
-                    <div className="inputPassword">
-                        <InputPassword
-                            value = {userPassword}
-                            onChange = {handlePassword}
-                            placeholder="Password"
-                            iconLeft={<MdLockOutline />}
-                            iconRight={passwordIcon}
-                        />
-                    </div>
+                          <InputEmail
+                              value = {userEmail}
+                              onChange = {handleEmail}
+                              placeholder="Student Email (uq.net.au)"
+                              iconLeft={<MdLockOutline />}
+                              iconRight={emailIcon}
+                          />
+                      </div>
+                      <div className="inputPassword">
+                          <InputPassword
+                              value = {userPassword}
+                              onChange = {handlePassword}
+                              placeholder="Password"
+                              iconLeft={<MdLockOutline />}
+                              iconRight={passwordIcon}
+                          />
+                      </div>
+                  </div>
+                  <div>
                     <div className="loginButton" onClick={handleSubmission}>
-                        <LoginButton name="Login" />
-                    </div>
-                    <div class='loginButton' onClick={() => {
-                        history.push('/Signup')}}>
-                        <CreateAccountButton name="Create Account" />
-                    </div>
+                          <LoginButton name="Login" />
+                      </div>
+                      <div class='loginButton' onClick={() => {
+                          history.push('/Signup')}}>
+                          <CreateAccountButton name="Create Account" />
+                      </div>
+                  </div>
                 </div>
             </>
         )
@@ -96,7 +122,9 @@ function Login(props) {
 
     
     return (
-    <BasicPage name={"UQ carpool login"} body={createLogin(props)} currentlySelected={0} hide={props.hide} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage name={"UQ carpool login"} body={createLogin(props)} currentlySelected={0} 
+        hide={props.hide} direction={props.direction} default={props.default} key={props.key} 
+        custom={props.custom} showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage}/>
 
   )
 }
