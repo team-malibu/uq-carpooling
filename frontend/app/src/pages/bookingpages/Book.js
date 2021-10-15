@@ -14,10 +14,7 @@ function Book(props) {
     console.warn(location.state)
     console.log('Start time ' + location.state.props.event.start_date)
     start = location.state.props.event.start_date
-
-  } else {
-    console.log('undefined')
-  }
+  } 
   
   const history = useHistory();
   const [startLoc, setStartLoc] = useState(0);
@@ -28,12 +25,6 @@ function Book(props) {
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const driverId = "s1234567"
-
-
-
-
-  
-  
 
   function updateBookTrip(flag, bookingProps) {
     if (flag.match("startMarker")) {
@@ -46,21 +37,21 @@ function Book(props) {
       console.log(time);
       setStartTime(time);
     } else if (flag.match("duration")) {
-      console.log("new duration is " + String(bookingProps))
       setDuration(bookingProps);
+    } else if (flag.match("center")) {
+      setCenterLoc(bookingProps);
     }
   }
 
 
   function createATrip(tripProps) {
-    console.log(endLoc, startLoc, date, startTime)
+    //console.log(endLoc, startLoc, date, startTime)
     if (endLoc == 0 || startLoc == 0 || date == 0 || startTime == 0) {
       alert("Fill all trip fields!")
       return
     }
 
     let coordinateCutoff = 12
-
     let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
     let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
     let end_long = String(endLoc[0]).slice(0, coordinateCutoff)
@@ -85,7 +76,6 @@ function Book(props) {
         'driver_id': driverId
       })
     };
-    try {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {
@@ -94,10 +84,56 @@ function Book(props) {
         } else {
           alert(data.message);
         }
-      });
-    } catch (e) {
+      }).catch((e) => {
       console.warn(e)
+    });
+  }
+
+  function findTrips(tripProps) {
+    //console.log(endLoc, startLoc, date, startTime)
+    if (endLoc == 0 || startLoc == 0 || date == 0 || startTime == 0) {
+      alert("Fill all trip fields!")
+      return
     }
+
+    let coordinateCutoff = 12
+    let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
+    let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
+    let end_long = String(endLoc[0]).slice(0, coordinateCutoff)
+    let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
+    let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
+    let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'start_long': start_long,
+        'start_lat': start_lat,
+        'end_long': end_long,
+        'end_lat': end_lat,
+        'center_long': center_long,
+        'center_lat': center_lat,
+        'intermediateStops': intermediateStops,
+        'duration': duration,
+        'date': date,
+        'start_time': startTime,
+        'driver_id': driverId
+      })
+    };
+      fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
+      .then(result => result.json())
+      .then(data => {
+        console.log(data)
+        if (data.result) {
+          
+        } else {
+          alert(data.message);
+        }
+        history.push("/Select");
+      }).catch((e) => {
+        console.warn(e)
+      });
   }
 
   function createBook(props) {
@@ -114,8 +150,7 @@ function Book(props) {
           <div class='bookbutton' >
           <MediumConfirmButton name="Find Trips" class="findButton" 
               onClick={() => {
-                
-                //findTrips();
+                findTrips();
               }}/>
           <MediumConfirmButton name="Create Trip" class="createButton"
               onClick={() => {

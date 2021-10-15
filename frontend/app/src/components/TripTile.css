@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
-* {
-  padding: 0;
-  top: 0;
-}
-
 .trip_wrapper {
   background-color: #37a7f2;
   border-radius: 12px;
@@ -30,8 +25,9 @@
 .trip_content {
   display: flex;
 
-  justify-content: space-evenly;
-  width: 100%;
+  justify-content: space-between;
+  width: 95%;
+  margin: auto;
 }
 
 .trip_edit {
@@ -71,4 +67,35 @@
   color: black;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+/* 
+.react-datetime-picker__wrapper > button {
+  width: 0;
+  display: none;
+} */
+.react-datetime-picker {
+  width: 88%;
+}
+
+.react-datetime-picker__wrapper{
+  justify-content: space-between;
+  border: 0;
+}
+
+.react-datetime-picker__calendar-button__icon {
+  stroke: white;
+}
+
+.react-datetime-picker__inputGroup {
+  border-bottom: 1px white solid;
+  flex-grow: 0;
+  width: 86.5%;
+}
+
+.react-datetime-picker__clear-button, .react-datetime-picker__clear-button > svg{
+  width: 0;
+  display: none;
+}
+.react-datetime-picker__button:enabled:hover .react-datetime-picker__button__icon, .react-datetime-picker__button:enabled:focus .react-datetime-picker__button__icon {
+  stroke: white;
 }
