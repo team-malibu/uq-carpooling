@@ -56,7 +56,7 @@ function AccountDetails(props) {
   }
 
 
-  const handleFile = (e) => {
+  const handleFile = async (e) => {
 
     // Delete old timetable events
     const deleteOptions = {
@@ -67,7 +67,7 @@ function AccountDetails(props) {
       })
     };
 
-    fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
       .then(result => result.json())
       .then(data => {
 
@@ -164,7 +164,7 @@ function AccountDetails(props) {
           </div>
 
 
-          <MediumConfirmButton margin={true} onClick={handleFile} name={'SAVE'} />
+          <MediumConfirmButton margin={true} name={'SAVE'} />
 
         </div>
 

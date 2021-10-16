@@ -138,13 +138,11 @@ function Book(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
       .then(result => result.json())
       .then(data => {
-        //console.log(data)
-        // if (data.result) {
-          
-        // } else {
-        //   alert(data.message);
-        // }
-        //history.push("/Select");
+        console.log(data)
+        history.push({
+          pathname: '/select',
+          state: data,
+        });
       }).catch((e) => {
         console.warn(e)
       });
