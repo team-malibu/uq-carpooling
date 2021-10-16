@@ -113,7 +113,11 @@ function CreateAccount2(props) {
           'last_name': lastName,
           'student_id': studentId,
           'email': userEmail,
-          'password': userPassword
+          'password': userPassword,
+          'gender': "Male",
+          'preference': "Any Driver",
+          'school': "EAIT",
+          'arrive_time': "30 mins"
         })
       };
       fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/sign-up", requestOptions)
