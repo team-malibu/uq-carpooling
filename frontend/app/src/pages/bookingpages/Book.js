@@ -142,7 +142,7 @@ function Book(props) {
         console.log(data)
         history.push({
           pathname: '/select',
-          state: data,
+          state: {data: data, passenger_long: start_long, passenger_lat: start_lat},
         });
       }).catch((e) => {
         console.warn(e)
