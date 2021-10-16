@@ -34,6 +34,13 @@ function CreateAccount2(props) {
   const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
   const[passwordIcon2, setPasswordIcon2] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
 
+  const[showPopUp, setShowPopUp] = useState(false);
+  const[popUpMessage, setPopUpMessage] = useState("");
+
+  function togglePopUp() {
+    setShowPopUp(false);
+  }
+
   function handleFirstName(thisFirstName, firstNameBool) {
     setFirstName(thisFirstName);
     setValidFirstName(firstNameBool);
@@ -106,7 +113,11 @@ function CreateAccount2(props) {
           'last_name': lastName,
           'student_id': studentId,
           'email': userEmail,
-          'password': userPassword
+          'password': userPassword,
+          'gender': "Male",
+          'preference': "Any Driver",
+          'school': "EAIT",
+          'arrive_time': "30 mins"
         })
       };
       fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/sign-up", requestOptions)
@@ -114,15 +125,15 @@ function CreateAccount2(props) {
       .then(data => {
         if (data.result) {
           history.push('/Account');
-          alert("Change your preferences!");
+          setPopUpMessage("Change your preferences!");
         } else {
-          alert(data.message);
+          setPopUpMessage(data.message);
         }
       });
     } else {
-      var errormsg = '';
+      var errormsg = "";
       if (!validFirstName) {
-        errormsg += 'First name is invalid\n';
+        errormsg += "First name is invalid\n";
       }
       if (!validLastName) {
         errormsg += 'Last name is invalid\n';
@@ -139,8 +150,9 @@ function CreateAccount2(props) {
       if (!validPassword2) {
         errormsg += 'Password does not match\n';
       }
-      alert(errormsg);
+      setPopUpMessage(errormsg);
     }
+    setShowPopUp(true);
   }
 
   function createBook2(props) {
@@ -215,7 +227,10 @@ function CreateAccount2(props) {
 
   return (
 
-    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} previousPage={'/'} currentlySelected={0} hide={false} direction={props.direction} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
+    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} 
+        previousPage={'/'} currentlySelected={0} hide={false} direction={props.direction} 
+        default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} 
+        showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage}/>
 
   )
 }
