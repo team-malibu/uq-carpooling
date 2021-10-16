@@ -16,13 +16,12 @@ function SelectDriver(props) {
   }
 
   for (const trip of Object.values(possible_trips)) {
-    console.error('CUNT')
-
     drivers.push(
       <div onClick={ () => {
         console.log(trip.first_name + ' ' + trip.last_name + ' pressed')
+        
       }}>
-        <DriverTile rating= {trip.average_rating} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}/>
+        <DriverTile rating= {trip.average_rating} passenger_count = {trip.passenger_count} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}/>
       </div>
     )
 
