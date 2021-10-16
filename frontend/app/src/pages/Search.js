@@ -13,6 +13,7 @@ function Switch({ isUpcoming, ...props}) {
     return (
 
         <motion.div animate className={className} {...props}>
+          
           <motion.div animate className='white'> {isUpcoming ? "Upcoming" : "Past"} </motion.div>
 
           <motion.div animate className='blue'> {isUpcoming ? "Past" : "Upcoming"} </motion.div>
