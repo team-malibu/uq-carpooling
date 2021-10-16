@@ -9,12 +9,12 @@ import BasicPage from '../../components/BasicPage'
 function Book(props) {
   const location = useLocation();
   var start = '';
-  console.warn(props)
-  if (location.state) {
-    console.warn(location.state)
-    console.log('Start time ' + location.state.props.event.start_date)
-    start = location.state.props.event.start_date
-  } 
+
+  if (location.state.props) {
+    start = location.state.props.start_date
+
+  }
+
   
   const history = useHistory();
   const [startLoc, setStartLoc] = useState(0);
@@ -24,7 +24,18 @@ function Book(props) {
   const [startTime, setStartTime] = useState(start);
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
-  const driverId = "s1234567"
+  const driverId = "s1234567" //Change to ID also could be a passengerID?
+
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [popUpMessage, setPopUpMessage] = useState("");
+
+  function togglePopUp() {
+    setShowPopUp(false);
+  }
+
+  function showHelp() {
+    setShowPopUp(true);
+  }
 
   function updateBookTrip(flag, bookingProps) {
     if (flag.match("startMarker")) {
@@ -140,6 +151,9 @@ function Book(props) {
     return (
       <div class="booking-container">
         {/* <BlankDefaultPage currentlySelected={0} name='Book' previousPage='/Timetable' hide={true}/> */}
+        <div class="help-container">
+          <button class="helpbutton" onClick={showHelp}>?</button>
+        </div>
         <div class='booktile'>
         <TripTile class_name='DECO3801 Build Studio 3' address='University of Queensland'
           updateBookTrip={updateBookTrip} start_date={start}/>
@@ -164,7 +178,9 @@ function Book(props) {
   return (
 
     // <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} direction={props.direction}/>
-    <BasicPage name={"Book"} body={createBook(props)} currentlySelected={0} hide={props.hide} direction={props.direction} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage name={"Book"} studentId = {location.state.id} body={createBook(props)} currentlySelected={0} 
+        hide={props.hide} direction={props.direction} default={props.default} key={props.key} 
+        custom={props.custom} showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage}/>
 
   )
 
