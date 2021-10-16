@@ -26,7 +26,7 @@ function Trips(props) {
   return(
     <motion.ul layout initial={{ borderRadius: 25 }}>
       {props.trips.map(tripKey => (
-        <Item key={tripKey} event={{ start: 'start_time', name: 'event_name', location: 'location'}}/>
+        <TripEvent key={tripKey} event={{ start: 'start_time', name: 'event_name', location: 'location'}}/>
       ))}
     </motion.ul>
       )
@@ -38,22 +38,15 @@ function Search(props) {
     const [isUpcoming, setIsUpcoming] = useState(false);
     
     function SearchBody(props) {
-        const upcomingTrips = ['x', 'y', 'z'];
-        const pastTrips = ['a', 'b', 'c']
+        const upcomingTrips = ['x', 'y'];
+        const pastTrips = ['a', 'b', 'c', 'd']
         return (
           <>
           <Switch isUpcoming={isUpcoming} onClick={() => setIsUpcoming(!isUpcoming)}> 
-          </Switch>
-          {/* {isUpcoming ? <Upcoming /> : <Past />} */}
-          
+          </Switch>          
           <AnimateSharedLayout>
             {isUpcoming ? <Trips trips={upcomingTrips} /> : <Trips trips={pastTrips} />}
-            {/* <motion.ul layout initial={{ borderRadius: 25 }}>
-              {upcomingTrips.map(tripKey => (
-                <Item key={tripKey} event={{ start: 'start_time', name: 'event_name', location: 'location'}}/>
-              ))}
-            </motion.ul> */}
-          </AnimateSharedLayout>          {/* <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} /> */}
+          </AnimateSharedLayout>
         </>
       );
     }
@@ -63,13 +56,13 @@ function Search(props) {
     )
 }
 
-function Item(props) {
+function TripEvent(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
-    <motion.div class='ttilewrapper' layout onClick={toggleOpen} initial={{ borderRadius: 10 }}>
+    <motion.div class='trip-event-wrapper' layout onClick={toggleOpen} initial={{ borderRadius: 10 }}>
     <AnimatePresence>{isOpen ? <Header />: <motion.div class='tt_info_line'
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -163,7 +156,7 @@ function Footer() {
 
 function Header() {
   return (
-    <motion.div class='tdatetext'
+    <motion.div class='event-title'
       layout
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
