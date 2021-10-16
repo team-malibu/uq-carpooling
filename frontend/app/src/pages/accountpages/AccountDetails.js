@@ -80,17 +80,14 @@ function AccountDetails(props) {
     for (const event of Object.values(events)) {
       console.warn(event)
 
-      var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
-      var start_date = start_split[2] + '-' + start_split[0] + '-' + start_split[1]
-      var start_time = event.start.toLocaleTimeString().split(' ')[0];
-      console.log(event.start.toLocaleTimeString())
-      if (event.start.toLocaleTimeString().split(' ')[1] == 'PM') {
-        var start_time_new = valueOf(parseInt(start_time.split(":")[0].split('0')[1]) + 12) + ':' + start_time.split(":")[1] + ':' + start_time.split(":")[2]
-        console.log (start_time_new)
-      } 
-      var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
-      var end_date = end_split[2] + '-' + end_split[0] + '-' + end_split[1]
-      var end_time = event.end.toLocaleTimeString().split(' ')[0];;
+      var start_split = event.start.toLocaleString('en-GB').split(',')[0].trim().split('/')
+      var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
+      var start_time = event.start.toLocaleTimeString('en-GB').split(' ')[0];
+      console.log(event.start.toLocaleString('en-GB'))
+
+      var end_split = event.end.toLocaleString('en-GB').split(',')[0].trim().split('/')
+      var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
+      var end_time = event.end.toLocaleTimeString('en-GB').split(' ')[0];
 
 
 
