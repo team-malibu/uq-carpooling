@@ -87,7 +87,7 @@ function Book(props) {
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'driver_id': driverId
+        'passenger_id': props.studentId
       })
     };
       fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
@@ -138,13 +138,13 @@ function Book(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
       .then(result => result.json())
       .then(data => {
-        //console.log(data)
-        // if (data.result) {
+        console.log(data)
+        if (data.result) {
           
-        // } else {
-        //   alert(data.message);
-        // }
-        //history.push("/Select");
+        } else {
+          alert(data.message);
+        }
+        history.push("/Select");
       }).catch((e) => {
         console.warn(e)
       });
