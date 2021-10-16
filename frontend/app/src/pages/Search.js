@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { MediumConfirmButton, SquareButton } from '../components/Button'
 import TimetableTile from '../components/TimetableTile';
 import TimeTile from '../components/TimeTile'
+import { SchoolOutlined, PlaceOutlined, ScheduleOutlined} from '@material-ui/icons/'
 
 function Switch({ isUpcoming, ...props}) {
     const className = `switch ${isUpcoming ? "on" : "off"}`;
@@ -16,43 +17,63 @@ function Switch({ isUpcoming, ...props}) {
       );
 }
 
+function PastTripTile(props) {
+  return (
+    <>
+    <div class='ttilewrapper'>
+     <div class='tt_info_line'>
+       <div class='tt_content'>
+         <div>
+           <ScheduleOutlined />
+         </div>
+         <div class='tt_input_text'>
+           {props.event.start}
+         </div>
+       </div>
+
+     </div>
+
+     <div class='tt_info_line'>
+       <div class='tt_content'>
+         <div >
+           <SchoolOutlined />
+         </div>
+         <div class='tt_input_text'>
+           {props.event.name.split(' ')[0] + ' ' +  props.event.desc}
+         </div>
+       </div>
+     </div>
+
+     <div class='tt_info_line'>
+       <div class='tt_content'>
+         <div >
+           <PlaceOutlined />
+         </div>
+         <div class='tt_input_text'>
+           {props.event.location}
+         </div>
+       </div>
+     </div>
+
+   </div>
+ </>  
+  )
+}
 function Upcoming(props) {
   return(
     <div>
-    <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
-        <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
-        <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
-        <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
-        <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
+      <div class='ttimetable'>
+        <pre class='tdatetext'>Date</pre>
+      </div>
+      <div class='timeitems'>
+        <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
+      </div>
+      <div class='ttimetable'>
+        <pre class='tdatetext'>Date</pre>
+      </div>
+      <div class='timeitems'>
+        <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
+      </div>
         </div>
       )
 }
@@ -64,38 +85,18 @@ function Past(props) {
           <pre class='tdatetext'>Date</pre>
         </div>
         <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
+          <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
+          <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
+          <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
         </div>
         <div class='ttimetable'>
           <pre class='tdatetext'>Date</pre>
         </div>
         <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
+          <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
+          <PastTripTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
         </div>
-        <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
-        <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
-        <div class='ttimetable'>
-          <pre class='tdatetext'>Date</pre>
-        </div>
-        <div class='timeitems'>
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-          <TimetableTile event={{ start: 'start_time', name: 'event_name', location: 'location'}} />
-        </div>
-        </div>
+      </div>
       )
 }
 function Search(props) {
@@ -103,6 +104,7 @@ function Search(props) {
     const [tripType, setTripType] = useState('Upcoming')
     const [isOn, setIsOn] = useState(false);
     const [isUpcoming, setIsUpcoming] = useState(false);
+    
 
 
     
@@ -111,9 +113,9 @@ function Search(props) {
         return (
           <>
           <Switch isUpcoming={isUpcoming} onClick={() => setIsUpcoming(!isUpcoming)}> 
-           
-          </Switch>
           <div>Text</div>
+          </Switch>
+          
           {/* <div className='trip-type-switch'>
             <div className='upcoming'>
                 <div className='text-div'>Date</div>
