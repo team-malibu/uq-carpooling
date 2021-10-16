@@ -22,6 +22,7 @@ function DriverTile(props) {
             </div>
 
             <div class='drating'>
+              {props.rating}
               <StarOutlined />
             </div>
           </div>
