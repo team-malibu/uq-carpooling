@@ -87,7 +87,7 @@ function Book(props) {
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'driver_id': driverId
+        'passenger_id': props.studentId
       })
     };
       fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
@@ -142,7 +142,7 @@ function Book(props) {
         console.log(data)
         history.push({
           pathname: '/select',
-          state: data,
+          state: {data: data, passenger_long: start_long, passenger_lat: start_lat},
         });
       }).catch((e) => {
         console.warn(e)
