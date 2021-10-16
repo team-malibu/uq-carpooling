@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import TimetableTile from '../../components/TimetableTile';
-import TimeTile from '../../components/TimeTile'
+import TimeTile from '../../components/TimeTile';
+import { useLocation } from 'react-router-dom';
 import './Timetable.css'
 
 function sameDay(d1, d2) {
@@ -12,35 +13,44 @@ function sameDay(d1, d2) {
 
 var classes = new Map();
 
-const getOptions = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    'student_id': '12345678',
-  })
-};
-
-fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", getOptions)
-.then(result => result.json())
-.then(data => {
-  for (const event of Object.values(data)) {
-    var start = new Date(event.start)
-    var end = new Date(event.end)
-    
-    classes.set(start.toISOString().split('T')[0], {
-      'name': event.name,
-      'desc': event.description,
-      'location': event.location,
-      'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1],
-      'start_date': start,
-      'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1],
-    })
-  }
-  
-});
-
 
 function Timetable(props) {
+
+  const location = useLocation();
+  var student_id = props.studentId
+
+
+  const getOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      'student_id': student_id,
+    })
+  };
+
+  fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/user/get-events", getOptions)
+  .then(result => result.json())
+  .then(data => {
+    for (const event of Object.values(data)) {
+      var start = new Date(event.start.replace('Z',''))
+      var end = new Date(event.end.replace('Z',''))
+  
+  
+      var new_start = event.start.split('T')
+      var new_end = event.end.split('T')
+      
+      classes.set(new_start[0], {
+        'name': event.name,
+        'desc': event.description,
+        'location': event.location,
+        'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', ' + new_start[1].split('.')[0],
+        'start_date': start,
+        'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + new_end[1].split('.')[0],
+      })
+    }
+    
+  });
+
   const ical = require('node-ical');
   const fs = require('fs');
   const [selectedFile, setSelectedFile] = useState();
@@ -55,36 +65,6 @@ function Timetable(props) {
     dates.push(<TimeTile date={newDate} updateSelected={(date) => setSelectedDate(date)} isSelected={sameDay(selectedDate, newDate)}/>)
   }
 
-  
-  const handleFile = (e) => {
-    
-    // const content = e.target.result;
-    // const events = ical.parseICS(content);
-    // console.log(events)
-    // for (const event of Object.values(events)) {
-    //   classes.set(start.toISOString().split('T')[0], {
-    //     'name': event.summary.val,
-    //     'desc': event.description,
-    //     'location': event.location,
-    //     'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1] + ' ' + start.toLocaleTimeString().split(' ')[1],
-    //     'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1] + ' ' + end.toLocaleTimeString().split(' ')[1],
-    //   })
-
-    // }
-
-    // for (let unit of classes.values()) {
-    //   console.log(unit)
-    // }
-
-    // You can set content in state and show it in render.
-  }
-
-  const handleChangeFile = (file) => {
-    let fileData = new FileReader();
-    fileData.onloadend = handleFile;
-    fileData.readAsText(file);
-  }
-
   function createBody() {
     var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     var dateString = selectedDate.toLocaleString("en-US", options);
@@ -95,7 +75,7 @@ function Timetable(props) {
       if (key == selectedDate.toISOString().split('T')[0]) {
 
         unit.push(
-          <TimetableTile event = {value}/>
+          <TimetableTile event = {value} update_direction={props.update_direction}/>
         )
       }
      
@@ -104,7 +84,7 @@ function Timetable(props) {
 
 
     return (
-      <div>
+      <div class='bigtimetablewrapper'>
         <div class='ttimetable'>
           <pre class='tdatetext'>{dateString.split(',').join(', ')}</pre>
         </div>
@@ -119,8 +99,6 @@ function Timetable(props) {
 
           {unit}
         </div>
-
-
       </div>
 
 

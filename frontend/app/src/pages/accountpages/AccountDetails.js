@@ -13,6 +13,8 @@ const ical = require('node-ical');
 
 function AccountDetails(props) {
 
+  console.log(props.studentId)
+
   const [userName, setUserName] = useState("");
   const [validName, setValidName] = useState(false);
   const [nameIcon, setNameIcon] = useState(<BsExclamationCircle />);
@@ -20,7 +22,7 @@ function AccountDetails(props) {
   const [userGender, setUserGender] = useState("")
   const [driverPref, setDriverPref] = useState("")
   const [userSchool, setUserSchool] = useState("")
-
+  var student_id = props.studentId
 
   function handleName(thisName, nameBool) {
     setUserName(thisName)
@@ -45,9 +47,6 @@ function AccountDetails(props) {
     console.log(thisSchool)
   }
 
-
-
-
   var classes = new Map();
 
   const handleChangeFile = (file) => {
@@ -57,18 +56,18 @@ function AccountDetails(props) {
   }
 
 
-  const handleFile = (e) => {
+  const handleFile = async (e) => {
 
     // Delete old timetable events
     const deleteOptions = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'student_id': '12345678',
+        'student_id': student_id,
       })
     };
 
-    fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
       .then(result => result.json())
       .then(data => {
 
@@ -81,20 +80,22 @@ function AccountDetails(props) {
     for (const event of Object.values(events)) {
       console.warn(event)
 
-      var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
+      var start_split = event.start.toLocaleString('en-GB').split(',')[0].trim().split('/')
       var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
-      var start_time = event.start.toLocaleTimeString();
-      var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
+      var start_time = event.start.toLocaleTimeString('en-GB').split(' ')[0];
+      console.log(event.start.toLocaleString('en-GB'))
+
+      var end_split = event.end.toLocaleString('en-GB').split(',')[0].trim().split('/')
       var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
-      var end_time = event.end.toLocaleTimeString();
-      
+      var end_time = event.end.toLocaleTimeString('en-GB').split(' ')[0];
+
 
 
       const postOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'student_id': '12345678',
+          'student_id': student_id,
           'name': event.summary.val,
           'description': event.description,
           'location': event.location,
@@ -163,7 +164,7 @@ function AccountDetails(props) {
           </div>
 
 
-          <MediumConfirmButton margin={true} onClick={handleFile} name={'SAVE'} />
+          <MediumConfirmButton margin={true} name={'SAVE'} />
 
         </div>
 

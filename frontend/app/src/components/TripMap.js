@@ -16,6 +16,7 @@ mapboxgl.workerClass = MapboxWorker;
 function TripMap(props) {
     const ref = useRef(null);
     const [map, setMap] = useState(null);
+    let [center, setCenter] = useState(0);
     const [route, setRoute] = useState(null);
     const [markers, setMarkers] = useState(null)
     
@@ -32,7 +33,7 @@ function TripMap(props) {
       }
       
       let call = "https://api.mapbox.com/directions/v5/mapbox/driving/" + firstCo + ";" + secondCo
-      + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q";
+      + "?overview=simplified&geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q";
       
       async function addRoute(map) {
         let des = {}
@@ -41,7 +42,6 @@ function TripMap(props) {
         then(response => response.json()).
         then(data => {
         des = data
-        console.log(des)
         if (!map.getSource('route')) {
           map.addSource('route', {
             'type': 'geojson',
@@ -119,14 +119,16 @@ function TripMap(props) {
           setMap(map);
         })
       } else {
+        
         const mark = document.createElement('div');
         mark.className = 'custom-marker';
         markers[1].setLngLat(firstCo)
         markers[0].setLngLat(secondCo)
         map.fitBounds([firstCo, secondCo], {padding: 125})
-        map.getCenter();
-
-        
+        if (map.getCenter().lat != center.lat && map.getCenter().lng != center.lng) {
+          setCenter(map.getCenter())
+          props.updateBookTrip("center", [map.getCenter().lng, map.getCenter().lat])
+        }
         addRoute(map)
       }
     });

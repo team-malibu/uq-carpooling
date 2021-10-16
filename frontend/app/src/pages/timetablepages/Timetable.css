@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
+
+.bigtimetablewrapper {
+  width: 100vw;
+}
+
 .ttimetable {
   display: flex;
   flex-direction: column;
@@ -25,7 +30,8 @@
 }
 
 .tscrollable {
-  width: 100%;
+  max-width: 1440px;
+  margin: auto;
   height: 80px;
   max-width: 1440px;
   margin: auto;

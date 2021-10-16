@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap");
+
+.popUp {
+    width: 200px;
+    height: 150px;
+    border: 1px solid black;
+    border-radius: 16px;
+    text-align: center;
+    margin: auto;
+    z-index: 100;
+    background-color: #ddedfd;
+    position: absolute;
+    margin-top: 200px;
+}
+
+.popUp-content {
+    height: 125px;
+}
+
+.popUp-button {
+    color: blue;
+}
+
+.popUp-footer {
+    height: 25px;
+    text-align: center;
+}

@@ -1,17 +1,39 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import BasicPage from '../../components/BasicPage'
 import DriverTile from '../../components/DriverTile'
 import './SelectDriver.css'
 
 function SelectDriver(props) {
   const history = useHistory();
+  const location = useLocation();
+  var possible_trips;
+  var drivers = [];
 
+  if (location.state) {
+    possible_trips = location.state
+
+  }
+
+  for (const trip of Object.values(possible_trips)) {
+    console.error('CUNT')
+
+    drivers.push(
+      <div onClick={ () => {
+        console.log(trip.first_name + ' ' + trip.last_name + ' pressed')
+      }}>
+        <DriverTile rating= {trip.average_rating} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}/>
+      </div>
+    )
+
+  }
   
   function createTiles(props) {
     return (
       <div class='drivers'>
-        <div onClick={() => {
+        {drivers}
+
+        {/* <div onClick={() => {
             history.push('/confirm/john')
             console.log('Current direction:' + props.direction)
             props.update_direction(1)
@@ -53,7 +75,7 @@ function SelectDriver(props) {
             props.update_direction(1)
           }}>
           <DriverTile name='Amy Stenger' src='https://randomuser.me/api/portraits/women/74.jpg' arrive='11:03'/>
-        </div>
+        </div> */}
 
 
       </div>
