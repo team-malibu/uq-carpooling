@@ -13,6 +13,8 @@ const ical = require('node-ical');
 
 function AccountDetails(props) {
 
+  console.log(props.studentId)
+
   const [userName, setUserName] = useState("");
   const [validName, setValidName] = useState(false);
   const [nameIcon, setNameIcon] = useState(<BsExclamationCircle />);
@@ -21,8 +23,6 @@ function AccountDetails(props) {
   const [driverPref, setDriverPref] = useState("")
   const [userSchool, setUserSchool] = useState("")
   var student_id = props.studentId
-
-
 
   function handleName(thisName, nameBool) {
     setUserName(thisName)
@@ -46,9 +46,6 @@ function AccountDetails(props) {
     setUserSchool(thisSchool);
     console.log(thisSchool)
   }
-
-
-
 
   var classes = new Map();
 
@@ -84,13 +81,13 @@ function AccountDetails(props) {
       console.warn(event)
 
       var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
-      var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
-      var start_time = event.start.toLocaleTimeString();
+      var start_date = start_split[2] + '-' + start_split[0] + '-' + start_split[1]
+      var start_time = event.start.toLocaleTimeString().split(' ')[0];
       var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
-      var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
-      var end_time = event.end.toLocaleTimeString();
+      var end_date = end_split[2] + '-' + end_split[0] + '-' + end_split[1]
+      var end_time = event.end.toLocaleTimeString().split(' ')[0];;
       
-
+      
 
       const postOptions = {
         method: 'POST',

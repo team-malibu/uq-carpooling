@@ -13,9 +13,7 @@ function TripTile(props) {
   function updateBooking(propFlag, bookingProps) {
     props.updateBookTrip(propFlag, bookingProps)
   }
-
-  const [arriveDate, setArriveDate] = useState();
-
+  const [arriveDate, setArriveDate] = useState(0);
   return (
       <div class='trip_wrapper'>
         <div class='trip_info_line'>
@@ -65,8 +63,9 @@ function TripTile(props) {
              </span> 
             <DateTimePicker onChange={(dateProps) => {
               setArriveDate(dateProps); //Necessary to update Time table DateTimePicker Value
-              updateBooking("date", dateProps)
-              }} value={props.start_date == '' ? arriveDate: props.start_date} />
+              updateBooking("date", dateProps);
+              updateBooking("timetable")
+              }} value={props.tProps.setFlag ? props.tProps.arrive: arriveDate} />
           </div>
                 
         </div>

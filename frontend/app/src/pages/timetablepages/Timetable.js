@@ -14,10 +14,6 @@ function sameDay(d1, d2) {
 var classes = new Map();
 
 
-
-
-
-
 function Timetable(props) {
 
   const location = useLocation();
@@ -67,36 +63,6 @@ function Timetable(props) {
     var newDate = new Date()
     newDate.setDate(todaysDate.getDate() + i)
     dates.push(<TimeTile date={newDate} updateSelected={(date) => setSelectedDate(date)} isSelected={sameDay(selectedDate, newDate)}/>)
-  }
-
-  
-  const handleFile = (e) => {
-    
-    // const content = e.target.result;
-    // const events = ical.parseICS(content);
-    // console.log(events)
-    // for (const event of Object.values(events)) {
-    //   classes.set(start.toISOString().split('T')[0], {
-    //     'name': event.summary.val,
-    //     'desc': event.description,
-    //     'location': event.location,
-    //     'start': start.toDateString().split(' ')[0] + ', ' + start.toDateString().split(' ')[1] + ' ' + start.toDateString().split(' ')[2]  + ', '  + start.toLocaleTimeString().split(':')[0] + ':' + start.toLocaleTimeString().split(':')[1] + ' ' + start.toLocaleTimeString().split(' ')[1],
-    //     'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + end.toLocaleTimeString().split(':')[0] + ':' + end.toLocaleTimeString().split(':')[1] + ' ' + end.toLocaleTimeString().split(' ')[1],
-    //   })
-
-    // }
-
-    // for (let unit of classes.values()) {
-    //   console.log(unit)
-    // }
-
-    // You can set content in state and show it in render.
-  }
-
-  const handleChangeFile = (file) => {
-    let fileData = new FileReader();
-    fileData.onloadend = handleFile;
-    fileData.readAsText(file);
   }
 
   function createBody() {
