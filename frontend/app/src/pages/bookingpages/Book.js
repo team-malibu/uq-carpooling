@@ -19,8 +19,8 @@ function Book(props) {
   const [date, setDate] = useState(new Date());
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpMessage, setPopUpMessage] = useState("");
-  const [tProps, setTProps] = useState({arrive: null, setFlag: false, firstClickFlag: false});
-  
+  const [tProps, setTProps] = useState({ arrive: null, setFlag: false, firstClickFlag: false });
+
   const driverId = "s1234567" //Change to ID also could be a passengerID
 
   if (location.state && location.state.props && location.state.props.start_date && !tProps.firstClickFlag) {
@@ -28,7 +28,7 @@ function Book(props) {
     setDate(timeTableStart);
     let time = timeTableStart.getHours() + ":" + timeTableStart.getMinutes() + ":" + timeTableStart.getSeconds();
     setStartTime(time);
-    setTProps({arrive: timeTableStart, setFlag: true, firstClickFlag: true})
+    setTProps({ arrive: timeTableStart, setFlag: true, firstClickFlag: true })
   }
 
   function togglePopUp() {
@@ -41,7 +41,7 @@ function Book(props) {
 
   function updateBookTrip(flag, bookingProps) {
     if (flag.match("startMarker")) {
-      setStartLoc([bookingProps.longitude, bookingProps.latitude]); 
+      setStartLoc([bookingProps.longitude, bookingProps.latitude]);
     } else if (flag.match("endMarker")) {
       setEndLoc([bookingProps.longitude, bookingProps.latitude]);
     } else if (flag.match("date")) {
@@ -53,7 +53,7 @@ function Book(props) {
     } else if (flag.match("center")) {
       setCenterLoc(bookingProps);
     } else if (flag.match("timetable")) {
-      setTProps({arrive: timeTableStart, setFlag: false, firstClickFlag: true})
+      setTProps({ arrive: timeTableStart, setFlag: false, firstClickFlag: true })
     }
   }
 
@@ -87,10 +87,10 @@ function Book(props) {
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'driver_id': driverId
+        'passenger_id': props.studentId
       })
     };
-      fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {
         if (data.result) {
@@ -99,8 +99,8 @@ function Book(props) {
           alert(data.message);
         }
       }).catch((e) => {
-      console.warn(e)
-    });
+        console.warn(e)
+      });
   }
 
   function findTrips(tripProps) {
@@ -133,16 +133,20 @@ function Book(props) {
         'date': date,
         'arrive_time': arriveTime,
         'passenger_id': props.studentId
-        
+
       })
     };
-      fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
       .then(result => result.json())
       .then(data => {
         console.log(data)
         history.push({
           pathname: '/select',
-          state: data,
+          state: { 
+            data: data, 
+            passenger_long: start_long, 
+            passenger_lat: start_lat,
+          },
         });
       }).catch((e) => {
         console.warn(e)
@@ -157,21 +161,21 @@ function Book(props) {
           <button class="helpbutton" onClick={showHelp}>?</button>
         </div>
         <div class='booktile'>
-        <TripTile class_name='DECO3801 Build Studio 3' address='University of Queensland'
-          updateBookTrip={updateBookTrip} tProps={tProps}/>
+          <TripTile class_name='DECO3801 Build Studio 3' address='University of Queensland'
+            updateBookTrip={updateBookTrip} tProps={tProps} />
         </div>
         <div class="bookmap">
-          <TripMap locations={[startLoc, endLoc, centerLoc, intermediateStops]} updateBookTrip={updateBookTrip} /> 
+          <TripMap locations={[startLoc, endLoc, centerLoc, intermediateStops]} updateBookTrip={updateBookTrip} />
         </div>
-          <div class='bookbutton' >
-          <MediumConfirmButton name="Find Trips" class="findButton" 
-              onClick={() => {
-                findTrips();
-              }}/>
+        <div class='bookbutton' >
+          <MediumConfirmButton name="Find Trips" class="findButton"
+            onClick={() => {
+              findTrips();
+            }} />
           <MediumConfirmButton name="Create Trip" class="createButton"
-              onClick={() => {
-                createATrip();
-              }}/>
+            onClick={() => {
+              createATrip();
+            }} />
         </div>
       </div>
     )
@@ -180,9 +184,9 @@ function Book(props) {
   return (
 
     // <BlankDefaultPage name={"Book"} body={createBook()} currentlySelected={0} previousPage='/Timetable' hide={true} direction={props.direction}/>
-    <BasicPage name={"Book"} body={createBook(props)} currentlySelected={0} 
-        hide={props.hide} direction={props.direction} default={props.default} key={props.key} 
-        custom={props.custom} showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage}/>
+    <BasicPage name={"Book"} body={createBook(props)} currentlySelected={0}
+      hide={props.hide} direction={props.direction} default={props.default} key={props.key}
+      custom={props.custom} showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage} />
 
   )
 
