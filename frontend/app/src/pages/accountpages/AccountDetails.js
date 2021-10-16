@@ -81,24 +81,6 @@ function AccountDetails(props) {
       console.warn(event)
 
       var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
-      var start_time = event.start.toLocaleTimeString();
-=======
-      var start_date = start_split[2] + '-' + start_split[0] + '-' + start_split[1]
-      var start_time = event.start.toLocaleTimeString().split(' ')[0];
->>>>>>> master
-      var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
-      var end_date = end_split[2] + '-' + end_split[0] + '-' + end_split[1]
-      var end_time = event.end.toLocaleTimeString().split(' ')[0];;
-      
-      
-<<<<<<< HEAD
-      if (event.description == 'LEC1') {
-        console.log("CUNT " + start_time)
-      }
-=======
       var start_date = start_split[2] + '-' + start_split[0] + '-' + start_split[1]
       var start_time = event.start.toLocaleTimeString().split(' ')[0];
       console.log(event.start.toLocaleTimeString())
@@ -110,10 +92,7 @@ function AccountDetails(props) {
       var end_date = end_split[2] + '-' + end_split[0] + '-' + end_split[1]
       var end_time = event.end.toLocaleTimeString().split(' ')[0];;
 
->>>>>>> Stashed changes
 
-=======
->>>>>>> master
 
       const postOptions = {
         method: 'POST',
