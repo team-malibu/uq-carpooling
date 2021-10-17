@@ -40,7 +40,7 @@ function InputStudentId(props) {
 
         const thisStudentId = e.target.value
 
-        const reg = /\b\d{7}\b/g
+        const reg = /s\b\d{6}\b/g
 
         if (thisStudentId.length == 8 && !reg.test(String(thisStudentId))) {
             props.onChange(thisStudentId, true)
@@ -54,7 +54,7 @@ function InputStudentId(props) {
            
                 <span className="itext-icon-left">{props.iconLeft}</span>
                 <input className="itext-form"
-                    type="number"
+                    type="text"
                     placeholder={props.placeholder}
                     value={props.value}
                     onChange={handleStudentId} />

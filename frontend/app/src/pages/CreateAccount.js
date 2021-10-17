@@ -114,10 +114,6 @@ function CreateAccount2(props) {
           'student_id': studentId,
           'email': userEmail,
           'password': userPassword,
-          'gender': "Male",
-          'preference': "Any Driver",
-          'school': "EAIT",
-          'arrive_time': "30 mins"
         })
       };
       fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/sign-up", requestOptions)
@@ -125,9 +121,9 @@ function CreateAccount2(props) {
       .then(data => {
         if (data.result) {
           history.push('/Account');
-          setPopUpMessage("Change your preferences!");
         } else {
           setPopUpMessage(data.message);
+          setShowPopUp(true);
         }
       });
     } else {
@@ -151,8 +147,8 @@ function CreateAccount2(props) {
         errormsg += 'Password does not match\n';
       }
       setPopUpMessage(errormsg);
+      setShowPopUp(true);
     }
-    setShowPopUp(true);
   }
 
   function createBook2(props) {
