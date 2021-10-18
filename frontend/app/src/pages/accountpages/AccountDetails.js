@@ -40,6 +40,7 @@ function AccountDetails() {
         )
 }
 
+
 function AccountDetailsChild(props) {
 
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
@@ -47,6 +48,7 @@ function AccountDetailsChild(props) {
   const [userSchool, setUserSchool] = useState(props.userItems.data.school);
   const [userArrivalTime, setUserArrivalTime] = useState(props.userItems.data.arrive_time_preference);
   const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_adress);
+
   var student_id = props.studentId
 
   let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/Brisbane.json?access_token=pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q&proximity=153.01182776135374%2C-27.500061086853854&bbox=152.91750879139477%2C-27.670452156811677%2C153.20513988226412%2C-27.33132423232297&limit=5"
@@ -80,13 +82,7 @@ function AccountDetailsChild(props) {
 
   var classes = new Map();
 
-  const handleChangeFile = (file) => {
-    let fileData = new FileReader();
-    fileData.onloadend = handleFile;
-    fileData.readAsText(file);
-  }
-
-  const handleFile = (e) => {
+  const handleDropDowns = () => {
 
     let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
 
@@ -100,7 +96,7 @@ function AccountDetailsChild(props) {
         'preference': driverPref,
         'school': userSchool,
         'arrive_time_preference': userArrivalTime,
-        "home_address" : input.value
+        "home_address": input.value
 
       })
     };
@@ -111,40 +107,50 @@ function AccountDetailsChild(props) {
         console.log(data);
       });
 
-    // // Add new timetable events
-    // const content = e.target.result;
-    // const events = ical.parseICS(content);
-    // for (const event of Object.values(events)) {
-    //   console.warn(event)
+  }
 
-    //   var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
-    //   var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
-    //   var start_time = event.start.toLocaleTimeString();
-    //   var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
-    //   var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
-    //   var end_time = event.end.toLocaleTimeString();
+  const handleChangeFile = (file) => {
+    let fileData = new FileReader();
+    fileData.onloadend = handleFile;
+    fileData.readAsText(file);
+  }
+
+  const handleFile = (e) => {
+
+    // Add new timetable events
+    const content = e.target.result;
+    const events = ical.parseICS(content);
+    for (const event of Object.values(events)) {
+      console.warn(event)
+
+      var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
+      var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
+      var start_time = event.start.toLocaleTimeString();
+      var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
+      var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
+      var end_time = event.end.toLocaleTimeString();
 
 
 
-    //   const postOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       'student_id': student_id,
-    //       'name': event.summary.val,
-    //       'description': event.description,
-    //       'location': event.location,
-    //       'start': start_date + ' ' + start_time,
-    //       'end': end_date + ' ' + end_time,
-    //     })
-    //   };
+      const postOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'student_id': student_id,
+          'name': event.summary.val,
+          'description': event.description,
+          'location': event.location,
+          'start': start_date + ' ' + start_time,
+          'end': end_date + ' ' + end_time,
+        })
+      };
 
-    //   fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/add-event", postOptions)
-    //     .then(result => result.json())
-    //     .then(data => {
-    //       console.log(data);
-    //     });
-    // }
+      fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/add-event", postOptions)
+        .then(result => result.json())
+        .then(data => {
+          console.log(data);
+        });
+    }
 
     // for (let unit of classes.values()) {
     //   console.log(unit)
@@ -164,6 +170,11 @@ function AccountDetailsChild(props) {
         </div>
 
         <div className='ad-container'>
+
+          <div onClick={handleDropDowns}>
+            <MediumConfirmButton margin={true} name={'Update Preferences'} />
+
+          </div>
 
           Gender:
 
