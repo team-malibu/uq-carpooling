@@ -14,7 +14,7 @@ import SelectDriver from "./pages/bookingpages/SelectDriver";
 import Login from "./pages/Login";
 import Timetable from "./pages/timetablepages/Timetable";
 import CreateAccount from './pages/CreateAccount';
-import Search from "./pages/Search";
+import Search from "./pages/trippages/Search";
 
 function App() {
   const location = useLocation();
