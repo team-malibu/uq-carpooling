@@ -103,4 +103,10 @@ li:last-child {
   grid-column: 1;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
+  text-decoration: none;
+}
+
+.view-passenger-link {
+  text-decoration: none;
+  color: #ffffff;
 }

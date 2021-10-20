@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useHistory } from 'react';
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { SchoolOutlined, PlaceOutlined, ScheduleOutlined} from '@material-ui/icons/'
 import './TripCards.css'
+import { Link } from "react-router-dom";
 
 function PassengerTripEvent(props) {
     const [isOpen, setIsOpen] = useState(false);
@@ -174,12 +175,12 @@ function PassengerTripEvent(props) {
            </div>
          </div>
        </div>
-       <AnimatePresence>{isOpen && <DriverFooter />}</AnimatePresence>
+       <AnimatePresence>{isOpen && <DriverFooter update_direction={props.update_direction}/>}</AnimatePresence>
      </motion.div> 
     );
   }
 
-  function DriverFooter() {
+  function DriverFooter(props) {
     return (
       <motion.div
         layout
@@ -218,7 +219,9 @@ function PassengerTripEvent(props) {
          </div>
        </div>
        <div className="driver-trip-actions">
-         <div className='view-action'> View Passengers </div>
+         <Link className='view-passenger-link' to='/Select/Passenger' onClick={() => props.update_direction(1)}>
+         <div className='view-action' > View Passengers </div>
+         </Link>
          <div className='cancel-action'> Cancel Trip </div>
        </div>
       </motion.div>
