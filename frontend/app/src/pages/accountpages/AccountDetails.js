@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Avatar} from '@material-ui/core';
 import { AiFillHome } from 'react-icons/ai';
 import { MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
+import {InputCarDetails, InputCarRego} from '../../components/InputText'
 import { SchoolOutlined, PlaceOutlined, EditOutlined } from '@material-ui/icons/';
 import { TimingDropDownMenu, DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
@@ -52,6 +53,8 @@ function AccountDetailsChild(props) {
   const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
   const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
   const [userImage, setUserImage] = useState(props.userItems.data.image);
+  const [userRego, setUserRego] = useState(props.userItems.data.number_plate);
+  const [carModel, setCarModel] = useState(props.userItems.data.car_type);
  
 
   var student_id = props.thisStudentId
@@ -73,6 +76,14 @@ function AccountDetailsChild(props) {
 
   function handleSchool(thisSchool) {
     setUserSchool(thisSchool);
+  }
+
+  function handleUserRego(thisRego) {
+    setUserRego(thisRego)
+  }
+
+  function handleCarModel(thisCarModel) {
+    setCarModel(thisCarModel)
   }
 
   function handleHome() {
@@ -101,7 +112,9 @@ function AccountDetailsChild(props) {
         'preference': driverPref,
         'school': userSchool,
         'arrive_time_preference': userArrivalTime,
-        "home_address": input.value
+        "home_address": input.value,
+        "number_plate": userRego,
+        "car_type": carModel
 
       })
     };
@@ -291,6 +304,25 @@ function AccountDetailsChild(props) {
           <SchoolDropDownMenu
             schoolValue={userSchool}
             handleChange={handleSchool} />
+
+          Car Number Plate:
+
+          <InputCarRego
+            value={userRego}
+            onChange={handleUserRego}
+            placeholder={userRego}
+            iconRight={null}
+          />
+
+          Car Description:
+
+          <InputCarDetails
+            value={carModel}
+            onChange={handleCarModel}
+            placeholder={carModel}
+            iconRight={null}
+          />
+
 
           Timetable:
           {/*  TODO:  Change it so on changeFile it saves it to the State and on Save it sends to the DB*/}

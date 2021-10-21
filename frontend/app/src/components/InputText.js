@@ -161,10 +161,58 @@ function InputStandardText(props) {
     )
 }
 
+function InputCarRego(props) {
+    
+    const handleCarRego = (e) => {
+        const thisDetail = e.target.value;
+        props.onChange(thisDetail);
+
+    }
+
+    return (
+        <div className="itext">
+           
+                <span className="itext-icon-left">{props.iconLeft}</span>
+                <input className="itext-form-cars"
+                    type="text"
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    onChange={handleCarRego} />
+                <span className="itext-icon-right">{props.iconRight}</span>
+            
+        </div>
+    )
+}
+
+function InputCarDetails(props) {
+    
+    const handleCarDetails = (e) => {
+        const thisDetail = e.target.value;
+        props.onChange(thisDetail);
+
+    }
+
+    return (
+        <div className="itext">
+           
+                <span className="itext-icon-left" >{props.iconLeft}</span>
+                <input className="itext-form-cars"
+                    type="text"
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    onChange={handleCarDetails} />
+                <span className="itext-icon-right">{props.iconRight}</span>
+            
+        </div>
+    )
+}
+
 export {
     InputPassword,
     InputName,
     InputStudentId,
     InputEmail,
-    InputStandardText
+    InputStandardText,
+    InputCarRego,
+    InputCarDetails
 }
