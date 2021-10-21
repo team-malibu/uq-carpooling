@@ -38,7 +38,7 @@ function AccountDetails(props) {
 
         return (
           <div>
-            {userItems && <AccountDetailsChild userItems={userItems} thisStudentId/>}
+            {userItems && <AccountDetailsChild userItems={userItems} thisStudentId={thisStudentId}/>}
           </div>
         )
 }
@@ -54,7 +54,7 @@ function AccountDetailsChild(props) {
   const [userImage, setUserImage] = useState(props.userItems.data.image);
  
 
-  var student_id = props.studentId
+  var student_id = props.thisStudentId
 
   let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/Brisbane.json?access_token=pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q&proximity=153.01182776135374%2C-27.500061086853854&bbox=152.91750879139477%2C-27.670452156811677%2C153.20513988226412%2C-27.33132423232297&limit=5"
   const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q"
@@ -110,6 +110,7 @@ function AccountDetailsChild(props) {
       .then(result => result.json())
       .then(data => {
         console.log(data);
+        console.log(student_id)
       });
 
   }
