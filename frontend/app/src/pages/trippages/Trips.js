@@ -79,6 +79,7 @@ function Trips(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-driver-trips", requestOptionsDriver)
         .then(result => result.json())
         .then(data => {
+          console.log(data)
           setDriverDataFound({
             data: data,
             foundFlag: true
