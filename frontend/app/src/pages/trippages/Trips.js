@@ -28,7 +28,7 @@ function GetTrips(props) {
       {props.trips.map(tripKey => (
         <>
         <PassengerTripEvent key={tripKey} update_direction={props.update_direction} event={{ start: 'start_time', name: 'event_name', location: 'location'}}/>
-        <DriverTripEvent key={tripKey} update_direction={props.update_direction} event={{ start: 'start_time', name: 'event_name', location: 'location'}}/>
+        {/* <DriverTripEvent key={tripKey} update_direction={props.update_direction} event={{ start: 'start_time', name: 'event_name', location: 'location'}}/> */}
         </>
       ))}
     </motion.ul>
