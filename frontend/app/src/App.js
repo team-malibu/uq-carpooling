@@ -14,7 +14,8 @@ import SelectDriver from "./pages/bookingpages/SelectDriver";
 import Login from "./pages/Login";
 import Timetable from "./pages/timetablepages/Timetable";
 import CreateAccount from './pages/CreateAccount';
-import Search from "./pages/Search";
+import Trips from "./pages/trippages/Trips";
+import SelectPassenger from './pages/trippages/SelectPassenger';
 
 function App() {
   const location = useLocation();
@@ -49,7 +50,7 @@ function App() {
           {/* <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} /> */}
           <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Account' exact component={() => <AccountDetails name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction} setStudentId={setStudentId} studentId = {studentId}/>} />
-          <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction}  update_direction={update_direction} studentId = {studentId}/>} />
+          <Route path='/Trips' exact component={() => <Trips name='Trips' hide={true} default={false} direction={direction} key={location.key} custom={direction}  update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
           <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
@@ -60,7 +61,8 @@ function App() {
           <Route exact path='/' component={() => <Login name='Login' hide={true} default={false} direction={direction} key={location.key} custom={direction} setStudentId={setStudentId}/>} />
           <Route path='/Login' exact component={() => <Login name='Login' hide={false} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} setStudentId={setStudentId}/>}/>
           <Route exact path='/Signup' component={() => <CreateAccount name='Signup' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction}/>} />
-
+          <Route exact path='/Select/Passenger' component={() => <SelectPassenger name='Signup' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction}/>} />
+          
         </Switch>
       </AnimatePresence>
       <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page}/>
