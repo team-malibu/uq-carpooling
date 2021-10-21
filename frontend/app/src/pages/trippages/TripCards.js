@@ -134,6 +134,7 @@ function DriverTripEvent(props) {
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
 
+
   const toggleOpen = () => setIsOpen(!isOpen);
   const classNameModifier = `${props.isUpcoming ? "upcoming" : "past"}`;
 
@@ -150,9 +151,7 @@ function DriverTripEvent(props) {
           <PlaceOutlined /> {/* icon */}
           </div>
           <div class='tt_input_text'>
-          {props.event.date}
-          {props.event.start}
-          
+          {props.event.date}  {classNameModifier}          
           </div>
         </div>
       </div>
@@ -181,7 +180,7 @@ function DriverTripEvent(props) {
           </div>
         </div>
       </div>
-      <AnimatePresence>{isOpen && <DriverFooter event={props.event} isUpcoming={props.isUpcoming} update_direction={props.update_direction} />}</AnimatePresence>
+      <AnimatePresence>{isOpen && <DriverFooter trip_id = {props.trip_id} event={props.event} isUpcoming={props.isUpcoming} update_direction={props.update_direction} />}</AnimatePresence>
     </motion.div>
   );
 }
@@ -218,17 +217,17 @@ function DriverFooter(props) {
       </div>
     {props.isUpcoming ? 
       <div className="driver-trip-actions">
-        <Link className='view-passenger-link' to='/Select/Passenger' onClick={() => props.update_direction(1)}>
-          <div className='view-action' onCick={() => {
+       
+          <div className='view-action' onClick={() => {
             history.push({
               pathname: '/select/passenger',
               state: {
-                requestedPassengerIds: [],
-                passengerIds: [],
+                trip_id: props.trip_id,
+                passengerIds: props.event.intermediate_passengers == null ? [] : props.event.intermediate_passengers,
               }
             })
           }}> Manage Passengers </div>
-        </Link>
+
         <div className='cancel-action'> Cancel Trip </div>
       </div>
       : 
@@ -241,7 +240,7 @@ function DriverFooter(props) {
             //     passengerIds: [],
             //   }
             // })
-          }}> Review Passengers </div>
+          }}> Review Passengers {props.isUpcoming} </div>
         </Link>}
     </motion.div>
   );
