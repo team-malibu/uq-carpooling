@@ -1,9 +1,11 @@
 import React from 'react'
 import BasicPage from '../../components/BasicPage'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
+import { useLocation } from 'react-router-dom'
 import './SelectPassenger.css'
 
 function PassengerTile(props) {
+  
     return (
       <div>
         <div class='pwrapper'>
@@ -66,6 +68,11 @@ function SelectPassengerBody(props) {
 }
 
 function SelectPassenger(props) {
+  const location = useLocation();
+  if (location.state) {
+    console.error(location.state)
+  }
+  console.error(props)
     return (
         <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody()} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
     )
