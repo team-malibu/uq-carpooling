@@ -134,6 +134,7 @@ function DriverTripEvent(props) {
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
 
+
   const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
@@ -178,7 +179,7 @@ function DriverTripEvent(props) {
           </div>
         </div>
       </div>
-      <AnimatePresence>{isOpen && <DriverFooter event={props.event} update_direction={props.update_direction} />}</AnimatePresence>
+      <AnimatePresence>{isOpen && <DriverFooter trip_id = {props.trip_id} event={props.event} update_direction={props.update_direction} />}</AnimatePresence>
     </motion.div>
   );
 }
@@ -224,17 +225,17 @@ function DriverFooter(props) {
         </div>
       </div>
       <div className="driver-trip-actions">
-        <Link className='view-passenger-link' to='/Select/Passenger' onClick={() => props.update_direction(1)}>
-          <div className='view-action' onCick={() => {
+       
+          <div className='view-action' onClick={() => {
             history.push({
               pathname: '/select/passenger',
               state: {
-                requestedPassengerIds: [],
-                passengerIds: [],
+                trip_id: props.trip_id,
+                passengerIds: props.event.intermediate_passengers == null ? [] : props.event.intermediate_passengers,
               }
             })
           }}> Manage Passengers </div>
-        </Link>
+
         <div className='cancel-action'> Cancel Trip </div>
       </div>
     </motion.div>

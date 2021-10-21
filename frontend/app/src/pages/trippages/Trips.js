@@ -28,7 +28,7 @@ function GetTrips(props) {
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
           <>
-            <DriverTripEvent key={value.trip_id} update_direction={props.update_direction} event={{ start: value.arrive_time, passenger_count: value.passenger_count, location: 'University of Queensland', date:value.date }} />
+            <DriverTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} event={{ start: value.arrive_time, passenger_count: value.passenger_count, location: 'University of Queensland', date:value.date }} />
           </>
         ))}
       </motion.ul>
@@ -39,7 +39,7 @@ function GetTrips(props) {
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
           <>
-            <PassengerTripEvent key={value.trip_id} update_direction={props.update_direction} event={{ start: value.arrive_time, name: `${value.passenger_count} passengers`, location: 'University of Queensland' }} />
+            <PassengerTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} event={{ start: value.arrive_time, name: `${value.passenger_count} passengers`, location: 'University of Queensland' }} />
           </>
         ))}
       </motion.ul>
@@ -75,7 +75,7 @@ function Trips(props) {
   };
 
   if (!requestDataFound.foundFlag) {
-    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-trip-requests-passenger", requestOptionsPassenger)
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-pending-requests-as-a-passenger", requestOptionsPassenger)
       .then(result => result.json())
       .then(data => {
         setRequestDataFound({
