@@ -147,6 +147,7 @@ function Trips(props) {
         'trip_id': trip.trip_id,
         'driver_id': trip.driver_id,
         'passenger_count': trip.passenger_count,
+        'passengers': trip.intermediate_passengers,
         'arrive_time': trip.arrive_time,
         'date': trip.date.split('T')[0],
       })
