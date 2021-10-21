@@ -26,6 +26,7 @@ function SelectDriver(props) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             'trip_id': trip.trip_id,
+            'driver_id': trip.driver_id,
             'passenger_id': props.studentId,
             'passenger_lat': location.state.passenger_lat,
             'passenger_long': location.state.passenger_long,
