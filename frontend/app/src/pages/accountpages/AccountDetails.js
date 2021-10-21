@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 
-import { Avatar } from '@material-ui/core';
+import { Avatar} from '@material-ui/core';
 import { AiFillHome } from 'react-icons/ai';
 import { MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
 import { SchoolOutlined, PlaceOutlined, EditOutlined } from '@material-ui/icons/';
@@ -11,9 +11,8 @@ import "./AccountDetails.css";
 import Geocoder from 'react-mapbox-gl-geocoder';
 const ical = require('node-ical');
 
-function AccountDetails() {
+function AccountDetails(props) {
   const [userItems, setUserItems] = useState();
-  const[testGender, setTestGender] = useState();
 
   useEffect(() => {
       const prerenderOptions = {
@@ -21,7 +20,7 @@ function AccountDetails() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           //'student_id': student_id,
-          'student_id': "s1234567",  
+          'student_id': "s1243456",  
         })
       };
   
@@ -29,13 +28,14 @@ function AccountDetails() {
         .then(result => result.json())
         .then(data => {
           console.log((data));
-          setUserItems({data});          
+          setUserItems({data});    
+                 
         });
-      }, []);
+       }, []);
 
         return (
           <div>
-            {userItems && <AccountDetailsChild userItems={userItems} />}
+            {userItems && <AccountDetailsChild userItems={userItems}/>}
           </div>
         )
 }
@@ -46,8 +46,10 @@ function AccountDetailsChild(props) {
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
   const [userSchool, setUserSchool] = useState(props.userItems.data.school);
-  const [userArrivalTime, setUserArrivalTime] = useState(props.userItems.data.arrive_time_preference);
-  const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_adress);
+  const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
+  const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
+  const [userImage, setUserImage] = useState(props.userItems.data.image);
+ 
 
   var student_id = props.studentId
 
@@ -91,7 +93,7 @@ function AccountDetailsChild(props) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         //'student_id': student_id,
-        'student_id': "s1234567",
+        'student_id': "s1243456",
         'gender': userGender,
         'preference': driverPref,
         'school': userSchool,
@@ -159,17 +161,62 @@ function AccountDetailsChild(props) {
     // You can set content in state and show it in render.
   }
 
+  const imageSubmit = (e) => {
+    e.preventDefault();
+    const that = this;
+    if (userImage === "") {
+      console.log("No Image Found")
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(userImage);
+      reader.onloadend = () => {
+        that.setState({
+          image: URL.createObjectURL(userImage),
+          userImage: reader.result,
+        });
+      }
+    }
+
+    // const imageOptions = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     //'student_id': student_id,
+    //     'student_id': "s1234567",
+    //     'userImage': that,
+    //   })
+    // };
+
+    // fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/update-image", imageOptions)
+    //   .then(result => result.json())
+    //   .then(data => {
+    //     console.log(data);
+    //   });
+
+  }
+
+  const imageChange = (e) => {
+    const image = e.target.files[0];
+    setUserImage(image);
+    console.log(userImage)
+  }
+
   function createAccountBody() {
 
     return (
       <div className='acc-detail-wrapper'>
         <div className="acc-detail-image-container">
-          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', marginLeft: '15%', position: "relative" }} src={props.src} onClick={() => {
+          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', marginLeft: '15%', position: "relative" }} src={userImage} onClick={() => {
             console.log('Avatar pressed display image picker')
           }} />
         </div>
 
         <div className='ad-container'>
+
+          <form onSubmit={imageSubmit}>
+            <input type="file" onChange={imageChange}/>
+            <SmallConfirmButton margin={true} name={"Upload Image"}/>
+          </form>
 
           <div onClick={handleDropDowns}>
             <MediumConfirmButton margin={true} name={'Update Preferences'} />
@@ -191,7 +238,7 @@ function AccountDetailsChild(props) {
                 </div>
                 <Geocoder
                   mapboxApiAccessToken={access_token}
-                  onSelected={(markerProps) => { updateBooking("startMarker", markerProps) }}
+                  onSelected={(markerProps) => {updateBooking("startMarker", markerProps) }}
                   hideOnSelect={true}
                   queryParams={locationSearchUrl}
                   initialInputValue={props.userItems.data.home_address}
