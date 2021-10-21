@@ -2,19 +2,24 @@ import React, { useState, Component } from 'react';
 import StarRating from '../../components/StarRating';
 import * as Buttons from '../../components/Button';
 import './Rating.css'
-import { Link } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Avatar } from '@material-ui/core';
 import BasicPage from '../../components/BasicPage';
 
 function Rating(props) {
+    const history = useHistory();
+    const location = useLocation();
+    var trip_id;
+    var driver_id;
+    var passenger_id;
+
+    if (location.state) {
+        trip_id = location.state.trip_id;
+        driver_id = location.state.driver_id;
+        passenger_id = location.state.passenger_id;
+    }
 
     const [ratingValue, setRatingValue] = useState(3)
-
-    ////////// NOT IMPLEMENTED YET, NEED PASSENGERID, DRIVERID AND TRIPID ////////
-    const trip_id = 3;
-    const driver_id = 12345678;
-    const passenger_id = 11111111;
-    ////////////////////////////////////////
 
     function handleRatingChange(thisValue) {
         setRatingValue(thisValue);
@@ -36,6 +41,9 @@ function Rating(props) {
             })
         };
         fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-passenger-trip", requestOptions1)
+        .catch((e) => {
+            console.warn(e)
+        });
 
         // get all ratings of the current driver
         const requestOptions2 = {
@@ -65,8 +73,16 @@ function Rating(props) {
                     'student_id': driver_id
                 })
             };
-            fetch("https://deco3801-teammalibu.uqcloud.net/db/users/update-rating", requestOptions3);
+            fetch("https://deco3801-teammalibu.uqcloud.net/db/users/update-rating", requestOptions3)
+            .catch((e) => {
+                console.warn(e)
+            });
+        }).catch((e) => {
+            console.warn(e)
         });
+        
+        history.push('/Trips');
+
     }
 
 

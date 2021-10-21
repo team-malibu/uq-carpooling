@@ -7,8 +7,6 @@ import TimeTile from "./components/TimeTile";
 import AccountDetails from "./pages/accountpages/AccountDetails";
 import Book from "./pages/bookingpages/Book";
 import ConfirmDriver from "./pages/bookingpages/confimpages/Confirm";
-import ConfirmAllen from "./pages/bookingpages/confimpages/ConfirmAllen";
-import ConfirmJohn from "./pages/bookingpages/confimpages/ConfirmJohn";
 import Rating from "./pages/bookingpages/Rating";
 import SelectDriver from "./pages/bookingpages/SelectDriver";
 import Login from "./pages/Login";
@@ -55,8 +53,6 @@ function App() {
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
           <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Confirm' exact component={() => <ConfirmDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
-          <Route path='/confirm/allen' exact component={() => <ConfirmAllen direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
-          <Route path='/confirm/john' exact component={() => <ConfirmJohn direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Rating' exact component={() => <Rating name='Rating' src='https://randomuser.me/api/portraits/men/52.jpg' direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>}/>
           <Route exact path='/' component={() => <Login name='Login' hide={true} default={false} direction={direction} key={location.key} custom={direction} setStudentId={setStudentId}/>} />
           <Route path='/Login' exact component={() => <Login name='Login' hide={false} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} setStudentId={setStudentId}/>}/>
