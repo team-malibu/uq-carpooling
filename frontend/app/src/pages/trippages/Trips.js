@@ -28,7 +28,7 @@ function GetTrips(props) {
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
           <>
-            <DriverTripEvent key={value.trip_id} update_direction={props.update_direction} event={{ start: value.arrive_time, passenger_count: value.passenger_count, location: 'University of Queensland', date:value.date }} />
+            <DriverTripEvent key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, passenger_count: value.passenger_count, location: 'University of Queensland', date:value.date }} />
           </>
         ))}
       </motion.ul>
@@ -48,9 +48,6 @@ function GetTrips(props) {
   
 }
 function Trips(props) {
-  // const [selectedId, setSelectedId] = useState(null)
-  // const [tripType, setTripType] = useState('Upcoming')
-  // const [isOn, setIsOn] = useState(false);
   const [requestDataFound, setRequestDataFound] = useState({ data: null, foundFlag: false });
   const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false });
   const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false });
@@ -219,7 +216,7 @@ function Trips(props) {
               <Route path='/Trips/Upcoming' exact={true} component={() => <GetTrips trips={upcomingTrips} />} />
               <Route path='/Trips/Past' exact={true} component={() => <GetTrips trips={pastTrips} />} />
             </Switch> */}
-          {isUpcoming ? <GetTrips driver={true} trips={driverUpcomingTrips} update_direction={props.update_direction} /> : <GetTrips trips={driverPastTrips} driver={true} update_direction={props.update_direction} />}{/*Somthing about this change causes it fail when unmounting*/}
+          {isUpcoming ? <GetTrips driver={true} trips={driverUpcomingTrips} isUpcoming={props.isUpcoming} update_direction={props.update_direction} /> : <GetTrips trips={driverPastTrips} driver={true} update_direction={props.update_direction} />}{/*Somthing about this change causes it fail when unmounting*/}
 
         </AnimateSharedLayout>
       </>

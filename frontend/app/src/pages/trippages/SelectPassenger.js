@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom'
 import './SelectPassenger.css'
 
 function PassengerTile(props) {
-  
     return (
       <div>
         <div class='pwrapper'>
