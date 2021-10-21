@@ -87,7 +87,7 @@ function Book(props) {
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'passenger_id': props.studentId
+        'driver_id': props.studentId
       })
     };
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
