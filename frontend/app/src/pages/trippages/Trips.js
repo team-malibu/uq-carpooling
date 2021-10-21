@@ -35,9 +35,137 @@ function GetTrips(props) {
       )
 }
 function Trips(props) {
-    // const [selectedId, setSelectedId] = useState(null)
+   // const [selectedId, setSelectedId] = useState(null)
     // const [tripType, setTripType] = useState('Upcoming')
     // const [isOn, setIsOn] = useState(false);
+    const [requestDataFound, setRequestDataFound] = useState({ data: null, foundFlag: false });
+    const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false });
+    const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false });
+    var request_date_map = new Map()
+    var passenger_date_map = new Map()
+    var driver_date_map = new Map()
+  
+    const requestOptionsPassenger = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'passenger_id': props.studentId,
+      })
+    };
+  
+    const requestOptionsDriver = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'driver_id': props.studentId,
+      })
+    };
+
+    if (!requestDataFound.foundFlag) {
+      fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-trip-requests-passenger", requestOptionsPassenger)
+        .then(result => result.json())
+        .then(data => {
+          setRequestDataFound({
+            data: data,
+            foundFlag: true
+          })
+  
+        }).catch((e) => {
+          console.warn(e)
+        });
+    }
+
+    if (!asDriverDataFound.foundFlag) {
+      fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-driver-trips", requestOptionsDriver)
+        .then(result => result.json())
+        .then(data => {
+          console.log(data)
+          setDriverDataFound({
+            data: data,
+            foundFlag: true
+          })
+  
+        }).catch((e) => {
+          console.warn(e)
+        });
+    }
+
+    // if (!asPassengerDataFound.foundFlag) {
+    //   fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-passenger-trips", requestOptionsPassenger)
+    //     .then(result => result.json())
+    //     .then(data => {
+    //       setPassengerDataFound({
+    //         data: data,
+    //         foundFlag: true
+    //       })
+  
+    //     }).catch((e) => {
+    //       console.warn(e)
+    //     });
+
+    // }
+  
+    // fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-passenger-trips", requestOptionsPassenger)
+    // .then(result => result.json())
+    // .then(data => {
+    //   trips_as_passenger_results = data
+    //   console.log(data)
+  
+    // }).catch((e) => {
+    //   console.warn(e)
+    // });
+  
+    // fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-driver-trips", requestOptionsDriver)
+    // .then(result => result.json())
+    // .then(data => {
+    //   trips_as_driver_results = data
+    //   console.log(data)
+  
+    // }).catch((e) => {
+    //   console.warn(e)
+    // });
+  
+    // console.log(request_passenger_results)
+    // console.log(trips_as_passenger_results)
+    // console.log(trips_as_driver_results)
+
+    if (requestDataFound.foundFlag) {
+      for (const trip of Object.values(requestDataFound.data)) {
+        request_date_map.set(trip.date.split('T')[0], {
+              'trip_id' : trip.trip_id,
+              'driver_id': trip.driver_id,
+              'passenger_count': trip.passenger_count, 
+            })
+      }
+    }
+
+    if (asDriverDataFound.foundFlag) {
+      for (const trip of Object.values(asDriverDataFound.data)) {
+        driver_date_map.set(trip.date.split('T')[0], {
+              'trip_id' : trip.trip_id,
+              'driver_id': trip.driver_id,
+              'passenger_count': trip.passenger_count, 
+            })
+      }
+    }
+
+    // if (asPassengerDataFound.foundFlag) {
+    //   for (const trip of Object.values(requestDataFound.data)) {
+    //     passenger_date_map.set(trip.date.split('T')[0], {
+    //           'trip_id' : trip.trip_id,
+    //           'driver_id': trip.driver_id,
+    //           'passenger_count': trip.passenger_count, 
+    //         })
+    //   }
+    // }
+
+    console.log("Requested Trips")
+    console.log(request_date_map)
+    console.log("Driver Trips")
+    console.log(driver_date_map)
+    // console.log("Actual Trips")
+    // console.log(passenger_date_map)
+  
     const [isUpcoming, setIsUpcoming] = useState(false);
     const history = useHistory();
 
