@@ -20,7 +20,7 @@ function PassengerTripEvent(props) {
               <SchoolOutlined />
             </div>
             <div class='tt_input_text'>
-              {props.event.name.split(' ')[0] + ' ' +  props.event.desc}
+              {props.event.passenger_count} <span> passengers</span>
             </div>
           </div>
         </motion.div>
@@ -51,12 +51,12 @@ function PassengerTripEvent(props) {
            </div>
          </div>
        </div>
-       <AnimatePresence>{isOpen && <PassengerFooter />}</AnimatePresence>
+       <AnimatePresence>{isOpen && <PassengerFooter event= {props.event} />}</AnimatePresence>
      </motion.div> 
     );
   }
 
-  function PassengerFooter() {
+  function PassengerFooter(props) {
     return (
       <motion.div
         layout
@@ -115,7 +115,7 @@ function PassengerTripEvent(props) {
     );
   }
 
-  function DriverHeader() {
+  function DriverHeader(props) {
     return (
       <motion.div class='driver-event-title'
         layout
@@ -123,7 +123,7 @@ function PassengerTripEvent(props) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        Event_name
+        {props.date}
       </motion.div>
     );
   }
@@ -135,7 +135,7 @@ function PassengerTripEvent(props) {
   
     return (
       <motion.div class='driver-card-wrapper' layout onClick={toggleOpen} initial={{ borderRadius: 10 }}>
-      <AnimatePresence>{isOpen ? <DriverHeader />: <motion.div class='tt_info_line'
+      <AnimatePresence>{isOpen ? <DriverHeader date={props.event.date} />: <motion.div class='tt_info_line'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -144,7 +144,7 @@ function PassengerTripEvent(props) {
               <SchoolOutlined />
             </div>
             <div class='tt_input_text'>
-              {props.event.name.split(' ')[0] + ' ' +  props.event.desc}
+            {props.event.passenger_count} <span> passengers</span>
             </div>
           </div>
         </motion.div>
@@ -175,7 +175,7 @@ function PassengerTripEvent(props) {
            </div>
          </div>
        </div>
-       <AnimatePresence>{isOpen && <DriverFooter update_direction={props.update_direction}/>}</AnimatePresence>
+       <AnimatePresence>{isOpen && <DriverFooter event= {props.event} update_direction={props.update_direction}/>}</AnimatePresence>
      </motion.div> 
     );
   }
@@ -194,7 +194,7 @@ function PassengerTripEvent(props) {
              <PlaceOutlined />
            </div>
            <div class='tt_input_text'>
-             Pick up location
+             Trip Start Location
            </div>
          </div>
        </div>
@@ -204,7 +204,7 @@ function PassengerTripEvent(props) {
              <PlaceOutlined />
            </div>
            <div class='tt_input_text'>
-             Driver
+             Driver: You
            </div>
          </div>
        </div>
@@ -214,7 +214,7 @@ function PassengerTripEvent(props) {
              <PlaceOutlined />
            </div>
            <div class='tt_input_text'>
-             Passengers: 3/4
+             Passengers: {props.event.passenger_count}
            </div>
          </div>
        </div>
