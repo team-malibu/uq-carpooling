@@ -1,17 +1,60 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import BasicPage from '../../components/BasicPage'
 import DriverTile from '../../components/DriverTile'
 import './SelectDriver.css'
 
 function SelectDriver(props) {
   const history = useHistory();
+  const location = useLocation();
+  var possible_trips;
+  var drivers = [];
 
+  if (location.state) {
+    possible_trips = location.state.data
+
+  }
+
+  for (const trip of Object.values(possible_trips)) {
+    drivers.push(
+      <div onClick={() => {
+
+        console.log(location.state)
+        console.log(props.studentId)
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            'trip_id': trip.trip_id,
+            'passenger_id': props.studentId,
+            'passenger_lat': location.state.passenger_lat,
+            'passenger_long': location.state.passenger_long,
+          })
+        };
+        console.log(requestOptions)
+        fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip-request", requestOptions)
+          .then(data => {
+            console.log(data)
+      
+          }).catch((e) => {
+            console.warn(e)
+          });
+
+        
+        
+      }}>
+        <DriverTile rating= {trip.average_rating} passenger_count = {trip.passenger_count} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}/>
+      </div>
+    )
+
+  }
   
   function createTiles(props) {
     return (
       <div class='drivers'>
-        <div onClick={() => {
+        {drivers}
+
+        {/* <div onClick={() => {
             history.push('/confirm/john')
             console.log('Current direction:' + props.direction)
             props.update_direction(1)
@@ -53,7 +96,7 @@ function SelectDriver(props) {
             props.update_direction(1)
           }}>
           <DriverTile name='Amy Stenger' src='https://randomuser.me/api/portraits/women/74.jpg' arrive='11:03'/>
-        </div>
+        </div> */}
 
 
       </div>

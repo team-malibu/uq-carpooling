@@ -1,34 +1,35 @@
 import React from 'react'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
 import './DriverTile.css'
-import { Avatar } from '@material-ui/core'
+
 
 function DriverTile(props) {
+  var insert_string = props.passenger_count == 0 ? '' : '+ ' + props.passenger_count + ' others' 
   return (
     <div>
       <div class='dwrapper'>
-        <div class='davatar'>
-          <Avatar variant='circle' style={{ height: '75px', width: '75px' }} src={props.src} />
-        </div>
+      
 
 
         {/* Add flexbox to center John Smith text */}
 
         <div class='dinfo_line'>
           <div class='dline'>
-            <div>
+            <div class='dtest'>
               <PersonOutlined className='place-outlined' />
-              {props.name}
+              {props.name} {insert_string}
             </div>
 
-            <div class='drating'>
+            <div class='dtest'>
+              
               <StarOutlined />
+              {props.rating}
             </div>
           </div>
           <div class='dline'>
-            <div>
+            <div class='dtest'>
               <ScheduleOutlined className='place-outlined' />
-              Arrive by {props.arrive} AM
+              Arrive by {props.arrive}
 
             </div>
 

@@ -14,14 +14,15 @@ import SelectDriver from "./pages/bookingpages/SelectDriver";
 import Login from "./pages/Login";
 import Timetable from "./pages/timetablepages/Timetable";
 import CreateAccount from './pages/CreateAccount';
-import Search from "./pages/Search";
+import Trips from "./pages/trippages/Trips";
+import SelectPassenger from './pages/trippages/SelectPassenger';
 
 function App() {
   const location = useLocation();
 
   const [[page, direction], setPage] = useState([0, 0]);
   const [isNavbarVisible, setNavbarVisibility] = useState(false);
-  const [studentId, setStudentId] = useState(null)
+  const [studentId, setStudentId] = useState("s1234567")
 
     const paginate = (newPage) => {
         if (page < newPage) {
@@ -47,20 +48,21 @@ function App() {
       <AnimatePresence  exitBeforeEnter custom={direction}>
         <Switch location={location} key={location.key}>
           {/* <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} /> */}
-          <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} setStudentId={setStudentId}/>} />
+          <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Account' exact component={() => <AccountDetails name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction} setStudentId={setStudentId} studentId = {studentId}/>} />
-          <Route path='/Search' exact component={() => <Search name='Search' hide={true} default={false} direction={direction} key={location.key} custom={direction}  update_direction={update_direction} setStudentId={setStudentId}/>} />
-          <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} setStudentId={setStudentId} studentId = {studentId}/>} />
+          <Route path='/Trips' exact component={() => <Trips name='Trips' hide={true} default={false} direction={direction} key={location.key} custom={direction}  update_direction={update_direction} studentId = {studentId}/>} />
+          <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
+          <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
+          <Route path='/Confirm' exact component={() => <ConfirmDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
+          <Route path='/confirm/allen' exact component={() => <ConfirmAllen direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
+          <Route path='/confirm/john' exact component={() => <ConfirmJohn direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
+          <Route path='/Rating' exact component={() => <Rating name='Rating' src='https://randomuser.me/api/portraits/men/52.jpg' direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>}/>
           <Route exact path='/' component={() => <Login name='Login' hide={true} default={false} direction={direction} key={location.key} custom={direction} setStudentId={setStudentId}/>} />
-          <Route path='/Select' exact component={() => <SelectDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
-          <Route path='/Confirm' exact component={() => <ConfirmDriver direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
-          <Route path='/confirm/allen' exact component={() => <ConfirmAllen direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
-          <Route path='/confirm/john' exact component={() => <ConfirmJohn direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>} />
-          <Route path='/Rating' exact component={() => <Rating name='Rating' src='https://randomuser.me/api/portraits/men/52.jpg' direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction}/>}/>
           <Route path='/Login' exact component={() => <Login name='Login' hide={false} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} setStudentId={setStudentId}/>}/>
           <Route exact path='/Signup' component={() => <CreateAccount name='Signup' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction}/>} />
-
+          <Route exact path='/Select/Passenger' component={() => <SelectPassenger name='Signup' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction}/>} />
+          
         </Switch>
       </AnimatePresence>
       <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page}/>

@@ -14,13 +14,15 @@ const ical = require('node-ical');
 function AccountDetails(props) {
   const [userItems, setUserItems] = useState();
 
+  var thisStudentId = props.studentId
+
   useEffect(() => {
       const prerenderOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          //'student_id': student_id,
-          'student_id': "s1243456",  
+          'student_id': thisStudentId,
+          //'student_id': "s1243456",  
         })
       };
   
@@ -28,14 +30,15 @@ function AccountDetails(props) {
         .then(result => result.json())
         .then(data => {
           console.log((data));
-          setUserItems({data});    
+          setUserItems({data});
+          console.log(thisStudentId)    
                  
         });
        }, []);
 
         return (
           <div>
-            {userItems && <AccountDetailsChild userItems={userItems}/>}
+            {userItems && <AccountDetailsChild userItems={userItems} thisStudentId/>}
           </div>
         )
 }
@@ -93,7 +96,7 @@ function AccountDetailsChild(props) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         //'student_id': student_id,
-        'student_id': "s1243456",
+        'student_id': student_id,
         'gender': userGender,
         'preference': driverPref,
         'school': userSchool,
@@ -117,7 +120,23 @@ function AccountDetailsChild(props) {
     fileData.readAsText(file);
   }
 
-  const handleFile = (e) => {
+  const handleFile = async (e) => {
+
+    // Delete old timetable events
+    const deleteOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'student_id': student_id,
+      })
+    };
+
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
+      .then(result => result.json())
+      .then(data => {
+
+        console.log(data);
+      });
 
     // Add new timetable events
     const content = e.target.result;
@@ -125,13 +144,14 @@ function AccountDetailsChild(props) {
     for (const event of Object.values(events)) {
       console.warn(event)
 
-      var start_split = event.start.toLocaleString().split(',')[0].trim().split('/')
+      var start_split = event.start.toLocaleString('en-GB').split(',')[0].trim().split('/')
       var start_date = start_split[2] + '-' + start_split[1] + '-' + start_split[0]
-      var start_time = event.start.toLocaleTimeString();
-      var end_split = event.end.toLocaleString().split(',')[0].trim().split('/')
-      var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
-      var end_time = event.end.toLocaleTimeString();
+      var start_time = event.start.toLocaleTimeString('en-GB').split(' ')[0];
+      console.log(event.start.toLocaleString('en-GB'))
 
+      var end_split = event.end.toLocaleString('en-GB').split(',')[0].trim().split('/')
+      var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
+      var end_time = event.end.toLocaleTimeString('en-GB').split(' ')[0];
 
 
       const postOptions = {
@@ -159,6 +179,7 @@ function AccountDetailsChild(props) {
     // }
 
     // You can set content in state and show it in render.
+  
   }
 
   const imageSubmit = (e) => {

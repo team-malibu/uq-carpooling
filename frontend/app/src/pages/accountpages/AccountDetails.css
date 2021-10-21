@@ -12,7 +12,6 @@
 }
 
 .ad-container {
-  align-items: inherit;
   display: flex;
   row-gap: 20px;
   flex-direction: column;
@@ -20,6 +19,7 @@
   font-size: x-large;
   color: #462963;
   margin-bottom: 3%;
+  text-align: center;
 }
 
 .ad_trip_wrapper {

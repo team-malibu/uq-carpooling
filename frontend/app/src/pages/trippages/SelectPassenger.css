@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.drivers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  overflow: scroll;
+
+  align-items: center;
+  justify-items: center;
+}
+
+.pwrapper {
+  margin: 8px;
+  display: flex;
+  flex-direction: row;
+
+  position: relative;
+  background-color: #37a7f2;
+  width: calc(min(100%, 90vw));
+  height: 104px;
+  border-radius: 12px;
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.79);
+}
+
+.passenger-picture {
+  width: 100px;
+  height: 100%;
+  background-color: blueviolet;
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
+}
+
+.actions {
+  width: 150px;
+  height: 100%;
+  background-color: red;
+}
+
+.pcontent {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.pinfo_line {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 250px);
+
+  color: white;
+  margin-top: 8px;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+.ptest {
+  display: flex;
+  align-items: center;
+}
+
+.pline {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+
+  padding-top: 8px;
+  justify-content: space-between;
+
+  font-family: "Lato", sans-serif;
+  font-size: medium;
+  width: 100%;
+
+  border-bottom: 1px white solid;
+}
+
+.pline > div {
+  vertical-align: middle;
+}
+
+.passenger-select-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: 100%;
+  overflow: visible;
+}
+
+.accept-action,
+.reject-action {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+  font-size: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: white;
+  text-align: center;
+}
+
+.reject-action {
+  background-color: salmon;
+  grid-column: 1;
+  grid-row: 1;
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
+}
+
+.accept-action {
+  background-color: #62e974;
+  grid-column: 2;
+  border-bottom-right-radius: 12px;
+  border-top-right-radius: 12px;
+}
