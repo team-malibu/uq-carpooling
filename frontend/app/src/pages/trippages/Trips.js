@@ -13,23 +13,20 @@ function TripSwitch({ isUpcoming, ...props }) {
   return (
 
     <motion.div animate className={className} {...props}>
-
       <motion.div animate className='white'> {isUpcoming ? "Upcoming" : "Past"} </motion.div>
-
       <motion.div animate className='blue'> {isUpcoming ? "Past" : "Upcoming"} </motion.div>
     </motion.div>
   );
 }
 
-
 function GetTrips(props) {
   if (props.driver) {
+    console.log(props.trips)
     return (
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
-          <>
-            <DriverTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, passenger_count: value.passenger_count, location: 'University of Queensland', date:value.date }} />
-          </>
+            //NEED A PASSENGER IP PROPS PASSED THROUGH THERE from the trip
+            <DriverTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, passenger_count: value.passenger_count, intermediate_passengers: null, location: 'University of Queensland', date:value.date }} />
         ))}
       </motion.ul>
     );
@@ -38,9 +35,7 @@ function GetTrips(props) {
     return (
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
-          <>
             <PassengerTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, name: `${value.passenger_count} passengers`, location: 'University of Queensland' }} />
-          </>
         ))}
       </motion.ul>
     )
@@ -48,13 +43,10 @@ function GetTrips(props) {
   
 }
 function Trips(props) {
-  const [requestDataFound, setRequestDataFound] = useState({ data: null, foundFlag: false });
-  const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false });
-  const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false });
-  var request_date_map = new Map()
-  var passenger_date_map = new Map()
-  var driver_date_map = new Map()
-
+  const [specificPassengerRequestsFound, setRequestDataFound] = useState({ data: null, foundFlag: false });
+  const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, passengerPastTrips: [], passengerUpcomingTrips: []});
+  const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false, processedFlag: false,  driverPastTrips: [], driverUpcomingTrips: []});
+ 
   const requestOptionsPassenger = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -71,15 +63,33 @@ function Trips(props) {
     })
   };
 
-  if (!requestDataFound.foundFlag) {
+  if (!specificPassengerRequestsFound.foundFlag) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-pending-requests-as-a-passenger", requestOptionsPassenger)
       .then(result => result.json())
       .then(data => {
         setRequestDataFound({
           data: data,
-          foundFlag: true
+          foundFlag: true,
+          processedFlag: false,
+          passengerPastTrips: [],
         })
 
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
+
+  if (!asPassengerDataFound.foundFlag) {
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-passenger-trips", requestOptionsPassenger)
+      .then(result => result.json())
+      .then(data => {
+        setPassengerDataFound({
+          data: data,
+          foundFlag: true,
+          processedFlag: false,
+          passengerPastTrips: [],
+          passengerUpcomingTrips: []
+        })
       }).catch((e) => {
         console.warn(e)
       });
@@ -91,117 +101,118 @@ function Trips(props) {
       .then(data => {
         setDriverDataFound({
           data: data,
-          foundFlag: true
+          foundFlag: true,
+          processedFlag: false,
+          driverPastTrips: [],
+          driverUpcomingTrips: []
         })
-
       }).catch((e) => {
         console.warn(e)
       });
   }
 
-  // if (!asPassengerDataFound.foundFlag) {
-  //   fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-passenger-trips", requestOptionsPassenger)
-  //     .then(result => result.json())
-  //     .then(data => {
-  //       setPassengerDataFound({
-  //         data: data,
-  //         foundFlag: true
-  //       })
+  if (asDriverDataFound.foundFlag && !asDriverDataFound.processedFlag) {
+    var driver_date_map = new Map()
 
-  //     }).catch((e) => {
-  //       console.warn(e)
-  //     });
-
-  // }
-
-  // fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-passenger-trips", requestOptionsPassenger)
-  // .then(result => result.json())
-  // .then(data => {
-  //   trips_as_passenger_results = data
-  //   console.log(data)
-
-  // }).catch((e) => {
-  //   console.warn(e)
-  // });
-
-  // fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-driver-trips", requestOptionsDriver)
-  // .then(result => result.json())
-  // .then(data => {
-  //   trips_as_driver_results = data
-  //   console.log(data)
-
-  // }).catch((e) => {
-  //   console.warn(e)
-  // });
-
-  // console.log(request_passenger_results)
-  // console.log(trips_as_passenger_results)
-  // console.log(trips_as_driver_results)
-
-  if (requestDataFound.foundFlag) {
-    for (const trip of Object.values(requestDataFound.data)) {
-      request_date_map.set(trip.date.split('T')[0], {
-        'trip_id': trip.trip_id,
-        'driver_id': trip.driver_id,
-        'passenger_count': trip.passenger_count,
-        'passengers': trip.intermediate_passengers,
-        'arrive_time': trip.arrive_time,
-        'date': trip.date.split('T')[0],
-      })
-    }
-  }
-
-  if (asDriverDataFound.foundFlag) {
     for (const trip of Object.values(asDriverDataFound.data)) {
       driver_date_map.set(trip.date.split('T')[0], {
         'trip_id': trip.trip_id,
         'driver_id': trip.driver_id,
         'passenger_count': trip.passenger_count,
+        'intermediate_passengers': trip.intermediate_passengers,
+        'intermediate_stops': trip.intermediate_stops,
+        'pending_requests': trip.pending_requests_flag,
+        'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
-        'date': trip.date.split('T')[0],
+        'duration': trip.duration,
+        'date': trip.date.split('T')[0]
+      })
+    }
+    var driverUpcomingTripsArray = []
+    var driverPastTripsArray = []
+    for (const [key, value] of driver_date_map) {
+      var keyDate = new Date(key)
+      if (keyDate > today) {
+        driverUpcomingTripsArray.push(value)
+      } else {
+        driverPastTripsArray.push(value)
+  
+      }
+    }
+    setDriverDataFound({
+      data: asDriverDataFound.data,
+      foundFlag: true,
+      processedFlag: true,
+      driverPastTrips: driverPastTripsArray,
+      driverUpcomingTrips: driverUpcomingTripsArray
+    })
+  }
+
+
+  if (asPassengerDataFound.foundFlag && !asPassengerDataFound.processedFlag) {
+    var passengerUpcomingTripsArray = []
+    var passengerPastTripsArray = []
+    var passenger_date_map = new Map()
+    for (const trip of Object.values(asPassengerDataFound.data)) {
+      passenger_date_map.set(trip.date.split('T')[0], {
+          'trip_id': trip.trip_id,
+          'driver_id': trip.driver_id,
+          'passenger_count': trip.passenger_count,
+          'intermediate_passengers': trip.intermediate_passengers,
+          'intermediate_stops': trip.intermediate_stops,
+          'pending_requests': trip.pending_requests_flag,
+          'route_string': trip.route_string,
+          'arrive_time': trip.arrive_time,
+          'duration': trip.duration,
+          'date': trip.date.split('T')[0]
+        })
+    }
+    for (const [key, value] of passenger_date_map) {
+      var keyDate = new Date(key)
+      if (keyDate > today) {
+        passengerUpcomingTripsArray.push(value)
+      } else {
+        passengerPastTripsArray.push(value)
+  
+      }
+    }
+    setPassengerDataFound({
+      data: asPassengerDataFound.data,
+      foundFlag: true,
+      processedFlag: true,
+      passengerPastTrips: passengerPastTripsArray,
+      passengerUpcomingTrips: passengerUpcomingTripsArray
+    })
+  }
+
+  if (specificPassengerRequestsFound.foundFlag && !specificPassengerRequestsFound.processedFlag) {
+    var pendingPassengersArray = []
+    var request_date_map = new Map()
+    for (const trip of Object.values(specificPassengerRequestsFound.data)) {
+      request_date_map.set(trip.date.split('T')[0], {
+        'trip_id': trip.trip_id,
+        'driver_id': trip.driver_id,
+      });
+      for (const [key, value] of request_date_map) {
+        var keyDate = new Date(key)
+        if (keyDate > today) {
+          pendingPassengersArray.push(value)
+        } 
+      }
+      setRequestDataFound({
+        data: specificPassengerRequestsFound.data,
+        foundFlag: true,
+        processedFlag: true,
+        requestTrips: pendingPassengersArray
       })
     }
   }
 
-  // if (asPassengerDataFound.foundFlag) {
-  //   for (const trip of Object.values(requestDataFound.data)) {
-  //     passenger_date_map.set(trip.date.split('T')[0], {
-  //           'trip_id' : trip.trip_id,
-  //           'driver_id': trip.driver_id,
-  //           'passenger_count': trip.passenger_count, 
-  //         })
-  //   }
-  // }
-
-  console.log("Requested Trips")
-  console.log(request_date_map)
-  console.log("Driver Trips")
-  console.log(driver_date_map)
-  // console.log("Actual Trips")
-  // console.log(passenger_date_map)
-
   const [isUpcoming, setIsUpcoming] = useState(false);
   var today = new Date()
-  var driverUpcomingTrips = []
-  var driverPastTrips = []
-
-  for (const [key, value] of driver_date_map) {
-    console.error(key)
-    console.error(value)
-
-    var keyDate = new Date(key)
-    if (keyDate > today) {
-
-      driverUpcomingTrips.push(value)
-    } else {
-      driverPastTrips.push(value)
-
-    }
-  }
-
-  console.log(driverPastTrips)
-  console.log(driverUpcomingTrips)
-
+  var passengerPastTrips = []
+  var passengerUpcomingTrips = []
+ 
 
   function SearchBody(props) {
     return (
@@ -216,7 +227,17 @@ function Trips(props) {
               <Route path='/Trips/Upcoming' exact={true} component={() => <GetTrips trips={upcomingTrips} />} />
               <Route path='/Trips/Past' exact={true} component={() => <GetTrips trips={pastTrips} />} />
             </Switch> */}
-          {isUpcoming ? <GetTrips driver={true} trips={driverUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> : <GetTrips isUpcoming={isUpcoming} trips={driverPastTrips} driver={true} update_direction={props.update_direction} />}{/*Somthing about this change causes it fail when unmounting*/}
+          {isUpcoming ? 
+          <>
+          <GetTrips driver={true} trips={asDriverDataFound.driverUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
+          <GetTrips driver={false} pending={false} trips={asPassengerDataFound.passengerUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
+          <GetTrips driver={false} pending={true} trips={asPassengerDataFound.passengerUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
+          </>
+          : 
+          <>
+          <GetTrips  driver={true} trips={asDriverDataFound.driverPastTrips}  isUpcoming={isUpcoming} update_direction={props.update_direction}/>
+          <GetTrips driver={false} trips={asPassengerDataFound.passengerPastTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
+          </>}{/*Somthing about this change causes it fail when unmounting*/}
         </AnimateSharedLayout>
       </>
     );

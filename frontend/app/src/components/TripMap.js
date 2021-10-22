@@ -7,7 +7,7 @@ import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './TripMap.css';
-
+let x = "https://api.mapbox.com/directions/v5/mapbox/driving/152.99141492007297,-27.497658078942994;153.01399090738528,-27.499044512348025?steps=true&access_token=pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q"
 const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q"
 
 mapboxgl.accessToken = access_token;
