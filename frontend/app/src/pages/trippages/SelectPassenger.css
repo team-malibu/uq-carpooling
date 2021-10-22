@@ -13,10 +13,10 @@
 }
 
 .pwrapper {
-  margin: 8px;
+  margin: auto;
   display: flex;
   flex-direction: row;
-
+ 
   position: relative;
   background-color: #37a7f2;
   width: calc(min(100%, 90vw));
