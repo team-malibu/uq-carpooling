@@ -26,7 +26,7 @@ function PassengerTile(props) {
           console.warn(e)
         });
   }
-  await function handleAcceptPassengerRequest(props) {
+  async function handleAcceptPassengerRequest(props) {
     const acceptOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
