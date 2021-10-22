@@ -143,14 +143,19 @@ function Book(props) {
       .then(result => result.json())
       .then(data => {
         console.log(data)
-        history.push({
-          pathname: '/select',
-          state: { 
-            data: data, 
-            passenger_long: start_long, 
-            passenger_lat: start_lat,
-          },
-        });
+        if (data.length > 0) {
+          history.push({
+            pathname: '/select',
+            state: { 
+              data: data, 
+              passenger_long: start_long, 
+              passenger_lat: start_lat,
+            },
+          });
+        } else {
+          setPopUpMessage("No trips found");
+          setShowPopUp(true);
+        }
       }).catch((e) => {
         console.warn(e)
       });
