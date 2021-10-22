@@ -187,7 +187,7 @@ function DriverTripEvent(props) {
 
 function DriverFooter(props) {
   const history = useHistory();
-  
+  let aaa = props.event;
   return (
     <motion.div
       layout
@@ -218,14 +218,15 @@ function DriverFooter(props) {
     {props.isUpcoming ? 
       <div className="driver-trip-actions">
        
-          <div className='view-action' onClick={() => {
+          <div className='view-action' onClick={() => { /////////////////////////////////////////////////////////////////ITS HERE YOU PASS PASSENGERS FROM THE TRIP, WHY IS IT NOT RECOGNISING PROPS.EVENT
+            console.log(props.event);
             history.push({
               pathname: '/select/passenger',
               state: {
                 trip_id: props.trip_id,
                 passengerIds: props.event.intermediate_passengers == null ? [] : props.event.intermediate_passengers,
               }
-            })
+            });
           }}> Manage Passengers </div>
 
         <div className='cancel-action'> Cancel Trip </div>
@@ -233,6 +234,7 @@ function DriverFooter(props) {
       : 
         <Link className='review-passenger-link driver-trip-actions' to='/Select/Passenger' onClick={() => props.update_direction(1)}>
           <div className='review-action' onCick={() => {
+           
             // history.push({
             //   pathname: '/select/passenger',
             //   state: {

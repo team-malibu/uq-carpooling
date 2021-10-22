@@ -7,6 +7,8 @@ import './SelectPassenger.css'
 //Does this need to go to a different file????
 function PassengerTile(props) {
   
+
+
   async function handleRejectPassengerRequest(props) {
     //Fetch Calls to update db here
     const rejectionOptions = {
@@ -97,7 +99,6 @@ function SelectPassengerBody(props) {
     let pendingPassengers = []
     let confirmedPassengers = []
     props.confirmed.forEach((passengerProps) => {
-      console.log(passengerProps)
       confirmedPassengers.push(
         <PassengerTile props={passengerProps} pendingPassnger={true}/>
       )
@@ -119,12 +120,15 @@ function SelectPassengerBody(props) {
 
 function SelectPassenger(props) {
   const [passengersDataFound, setPassengerDataFound] = useState({ data: [], foundFlag: false });
-  const location = useLocation();
   var trip_id;
+  var intermediate_passengers;
+  const location = useLocation();
   if (location.state) {
-    trip_id = location.state.trip_id
+    trip_id = location.state.trip_id;
+    intermediate_passengers = location.state.intermediate_passengers;
   } else {
     trip_id = ''
+    intermediate_passengers = []
   }
 
   const requestOptions = {
@@ -139,8 +143,6 @@ function SelectPassenger(props) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-pending-requests", requestOptions)
       .then(result => result.json())
       .then(data => {
-
-
         setPassengerDataFound({
           data: data,
           foundFlag: true,
@@ -154,7 +156,7 @@ function SelectPassenger(props) {
 
 
     return (
-        <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({pending: passengersDataFound.data, confirmed: []})} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
+        <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({pending: passengersDataFound.data, confirmed: intermediate_passengers})} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
     )
 }
 
