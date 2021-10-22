@@ -20,6 +20,7 @@ function Book(props) {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpMessage, setPopUpMessage] = useState("");
   const [tProps, setTProps] = useState({ arrive: null, setFlag: false, firstClickFlag: false });
+  const [filter, setFilter] = useState(false);
 
   const driverId = "s1234567" //Change to ID also could be a passengerID
 
@@ -54,6 +55,8 @@ function Book(props) {
       setCenterLoc(bookingProps);
     } else if (flag.match("timetable")) {
       setTProps({ arrive: timeTableStart, setFlag: false, firstClickFlag: true })
+    } else if (flag.match("filter")) {
+      setFilter(bookingProps);
     }
   }
 
@@ -87,7 +90,7 @@ function Book(props) {
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'driver_id': props.studentId
+        'passenger_id': props.studentId
       })
     };
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
@@ -136,7 +139,7 @@ function Book(props) {
 
       })
     };
-    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/" + (filter ? "find-trips-with-preferences" : "find-trips"), requestOptions)
       .then(result => result.json())
       .then(data => {
         console.log(data)
