@@ -1,6 +1,7 @@
-import React from 'react'
+import {React, useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
+import { useLocation } from 'react-router-dom'
 import './SelectPassenger.css'
 
 function PassengerTile(props) {
@@ -66,6 +67,41 @@ function SelectPassengerBody(props) {
 }
 
 function SelectPassenger(props) {
+  const [passengersDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false });
+  const location = useLocation();
+  var trip_id;
+  if (location.state) {
+    trip_id = location.state.trip_id
+  } else {
+    trip_id = ''
+  }
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      'trip_id': trip_id,
+    })
+  };
+
+  if (!passengersDataFound.foundFlag) {
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-pending-requests", requestOptions)
+      .then(result => result.json())
+      .then(data => {
+
+
+        setPassengerDataFound({
+          data: data,
+          foundFlag: true
+        })
+
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
+
+
+
     return (
         <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody()} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
     )
