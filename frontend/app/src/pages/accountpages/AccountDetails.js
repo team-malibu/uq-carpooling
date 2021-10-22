@@ -232,7 +232,7 @@ function AccountDetailsChild(props) {
 
   const imageChange = (e) => {
     const image = e.target.files[0];
-    setUserImage(image);
+    setUserImage(URL.createObjectURL(image));
     console.log(userImage)
   }
 
