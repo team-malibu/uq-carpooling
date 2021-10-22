@@ -1,38 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 
-import { Avatar } from '@material-ui/core';
-import { InputName } from '../../components/InputText';
-import { FaPen } from 'react-icons/fa';
-import { BsExclamationCircle, BsCheckCircle } from "react-icons/bs"
-import { CircleEditButton, MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
-import { DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
+import { Avatar} from '@material-ui/core';
+import { AiFillHome } from 'react-icons/ai';
+import { MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
+import {InputCarDetails, InputCarRego} from '../../components/InputText'
+import { SchoolOutlined, PlaceOutlined, EditOutlined } from '@material-ui/icons/';
+import { TimingDropDownMenu, DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
 import "./AccountDetails.css";
+import Geocoder from 'react-mapbox-gl-geocoder';
 const ical = require('node-ical');
 
 function AccountDetails(props) {
+  const [userItems, setUserItems] = useState();
 
-  console.log(props.studentId)
+  var thisStudentId = props.studentId
 
-  const [userName, setUserName] = useState("");
-  const [validName, setValidName] = useState(false);
-  const [nameIcon, setNameIcon] = useState(<BsExclamationCircle />);
+  useEffect(() => {
+      const prerenderOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'student_id': thisStudentId,
+          //'student_id': "s1243456",  
+        })
+      };
+  
+      fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-details", prerenderOptions)
+        .then(result => result.json())
+        .then(data => {
+          console.log((data));
+          setUserItems({data});
+          console.log(thisStudentId)    
+                 
+        });
+       }, []);
 
-  const [userGender, setUserGender] = useState("")
-  const [driverPref, setDriverPref] = useState("")
-  const [userSchool, setUserSchool] = useState("")
-  var student_id = props.studentId
+        return (
+          <div>
+            {userItems && <AccountDetailsChild userItems={userItems} thisStudentId={thisStudentId}/>}
+          </div>
+        )
+}
 
-  function handleName(thisName, nameBool) {
-    setUserName(thisName)
-    setValidName(nameBool)
-    if (nameBool) {
-      setNameIcon(<BsCheckCircle />)
-    } else {
-      setNameIcon(<BsExclamationCircle />)
-    }
-  }
+
+function AccountDetailsChild(props) {
+
+  const [userGender, setUserGender] = useState(props.userItems.data.gender);
+  const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
+  const [userSchool, setUserSchool] = useState(props.userItems.data.school);
+  const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
+  const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
+  const [userImage, setUserImage] = useState(props.userItems.data.image);
+  const [userRego, setUserRego] = useState(props.userItems.data.number_plate);
+  const [carModel, setCarModel] = useState(props.userItems.data.car_type);
+ 
+
+  var student_id = props.thisStudentId
+
+  let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/Brisbane.json?access_token=pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q&proximity=153.01182776135374%2C-27.500061086853854&bbox=152.91750879139477%2C-27.670452156811677%2C153.20513988226412%2C-27.33132423232297&limit=5"
+  const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q"
 
   function handleGender(thisGender) {
     setUserGender(thisGender);
@@ -42,19 +70,69 @@ function AccountDetails(props) {
     setDriverPref(thisDriverPref);
   }
 
+  function handleArrivalTime(thisArrivalTime) {
+    setUserArrivalTime(thisArrivalTime);
+  }
+
   function handleSchool(thisSchool) {
     setUserSchool(thisSchool);
-    console.log(thisSchool)
+  }
+
+  function handleUserRego(thisRego) {
+    setUserRego(thisRego)
+  }
+
+  function handleCarModel(thisCarModel) {
+    setCarModel(thisCarModel)
+  }
+
+  function handleHome() {
+    let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
+    console.log(input);
+    setHomeLocation(input);
+  }
+
+  function updateBooking(propFlag, bookingProps) {
+    //console.log(propFlag)
   }
 
   var classes = new Map();
+
+  const handleDropDowns = () => {
+
+    let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        //'student_id': student_id,
+        'student_id': student_id,
+        'gender': userGender,
+        'preference': driverPref,
+        'school': userSchool,
+        'arrive_time_preference': userArrivalTime,
+        "home_address": input.value,
+        "number_plate": userRego,
+        "car_type": carModel
+
+      })
+    };
+
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/update-user", requestOptions)
+      .then(result => result.json())
+      .then(data => {
+        console.log(data);
+        console.log(student_id)
+      });
+
+  }
 
   const handleChangeFile = (file) => {
     let fileData = new FileReader();
     fileData.onloadend = handleFile;
     fileData.readAsText(file);
   }
-
 
   const handleFile = async (e) => {
 
@@ -90,7 +168,6 @@ function AccountDetails(props) {
       var end_time = event.end.toLocaleTimeString('en-GB').split(' ')[0];
 
 
-
       const postOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -116,6 +193,47 @@ function AccountDetails(props) {
     // }
 
     // You can set content in state and show it in render.
+  
+  }
+
+  const imageSubmit = (e) => {
+    e.preventDefault();
+    const that = this;
+    if (userImage === "") {
+      console.log("No Image Found")
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(userImage);
+      reader.onloadend = () => {
+        that.setState({
+          image: URL.createObjectURL(userImage),
+          userImage: reader.result,
+        });
+      }
+    }
+
+    // const imageOptions = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     //'student_id': student_id,
+    //     'student_id': "s1234567",
+    //     'userImage': that,
+    //   })
+    // };
+
+    // fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/update-image", imageOptions)
+    //   .then(result => result.json())
+    //   .then(data => {
+    //     console.log(data);
+    //   });
+
+  }
+
+  const imageChange = (e) => {
+    const image = e.target.files[0];
+    setUserImage(URL.createObjectURL(image));
+    console.log(userImage)
   }
 
   function createAccountBody() {
@@ -123,38 +241,88 @@ function AccountDetails(props) {
     return (
       <div className='acc-detail-wrapper'>
         <div className="acc-detail-image-container">
-          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', marginLeft: '15%', position: "relative" }} src={props.src} onClick={() => {
+          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', marginLeft: '15%', position: "relative" }} src={userImage} onClick={() => {
             console.log('Avatar pressed display image picker')
           }} />
         </div>
 
         <div className='ad-container'>
-          Display Name:
 
-          <InputName
-            placeholder='Enter your name'
-            value={userName}
-            onChange={handleName}
-            iconLeft={<FaPen />}
-            iconRight={nameIcon} />
+          <form onSubmit={imageSubmit}>
+            <input type="file" onChange={imageChange}/>
+            <SmallConfirmButton margin={true} name={"Upload Image"}/>
+          </form>
+
+          <div onClick={handleDropDowns}>
+            <MediumConfirmButton margin={true} name={'Update Preferences'} />
+
+          </div>
 
           Gender:
 
           <GenderDropDownMenu
-            value={userGender}
+            genderValue={userGender}
             handleChange={handleGender} />
 
-          Preference:
+          Home Location:
+          <div class='ad_trip_wrapper'>
+            <div class='ad_trip_info_line'>
+              <div class='ad_trip_content' id="startingGeo">
+                <div>
+                {<AiFillHome />}
+                </div>
+                <Geocoder
+                  mapboxApiAccessToken={access_token}
+                  onSelected={(markerProps) => {updateBooking("startMarker", markerProps) }}
+                  hideOnSelect={true}
+                  queryParams={locationSearchUrl}
+                  initialInputValue={props.userItems.data.home_address}
+                  updateInputOnSelect={true}
+                  id="startingGeo"
+                />
+               
+              </div>
+
+
+            </div>
+          </div>
+
+          Driver Preference:
 
           <DriverDropDownMenu
-            value={driverPref}
+            driverPrefValue={driverPref}
             handleChange={handleDriverPref} />
+
+          Preferred Arrival Time:
+
+          <TimingDropDownMenu
+            arrivalTimeValue={userArrivalTime}
+            handleChange={handleArrivalTime} />
 
           School:
 
           <SchoolDropDownMenu
-            value={userSchool}
+            schoolValue={userSchool}
             handleChange={handleSchool} />
+
+          Car Number Plate:
+
+          <InputCarRego
+            value={userRego}
+            onChange={handleUserRego}
+            placeholder={userRego}
+            iconRight={null}
+          />
+
+          Car Description:
+
+          <InputCarDetails
+            value={carModel}
+            onChange={handleCarModel}
+            placeholder={carModel}
+            iconRight={null}
+          />
+
 
           Timetable:
           {/*  TODO:  Change it so on changeFile it saves it to the State and on Save it sends to the DB*/}
@@ -163,8 +331,10 @@ function AccountDetails(props) {
               handleChangeFile(e.target.files[0])} />
           </div>
 
+          <div onClick={handleFile}>
+            <MediumConfirmButton margin={true} name={'SAVE'} />
 
-          <MediumConfirmButton margin={true} name={'SAVE'} />
+          </div>
 
         </div>
 

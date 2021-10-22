@@ -91,3 +91,20 @@ left: 5vw;
         float: right;
         margin-top: 5%;
     }
+
+    .itext-form-cars {
+    background-color: #ddedfd;
+    color:#37A7F2;
+    border:none;
+    outline:none;
+    font-size: 20px;
+    max-width: 100%;
+    border-radius: 20px;
+    height: 100%;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    margin-left: 2.5%;
+    align-items: center;
+    text-align: center;
+
+    }

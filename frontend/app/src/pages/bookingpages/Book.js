@@ -105,7 +105,7 @@ function Book(props) {
         console.warn(e)
       });
   }
-
+  
   function findTrips(tripProps) {
     //console.log(endLoc, startLoc, date, arriveTime)
     if (endLoc == 0 || startLoc == 0 || date == 0 || arriveTime == 0) {
