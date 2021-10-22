@@ -25,7 +25,7 @@ function GetTrips(props) {
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
             //NEED A PASSENGER IP PROPS PASSED THROUGH THERE from the trip
-            <DriverTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, passenger_count: value.passenger_count, intermediate_passengers: value.intermediate_passengers, location: 'University of Queensland', date:value.date }} />
+            <DriverTripEvent trip = {value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming}/>
         ))}
       </motion.ul>
     );
@@ -34,7 +34,7 @@ function GetTrips(props) {
     return (
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
-            <PassengerTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, name: `${value.passenger_count} passengers`, location: 'University of Queensland' }} />
+            <PassengerTripEvent  trip = {value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming}/>
         ))}
       </motion.ul>
     )

@@ -22,7 +22,7 @@ function PassengerTripEvent(props) {
             <SchoolOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.event.passenger_count} <span> passengers</span>
+            {props.trip.passenger_count} <span> passengers</span>
           </div>
         </div>
       </motion.div>
@@ -35,7 +35,7 @@ function PassengerTripEvent(props) {
             <ScheduleOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.event.start}
+            {props.trip.start}
           </div>
         </div>
 
@@ -49,11 +49,11 @@ function PassengerTripEvent(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.event.location}
+            {props.trip.location}
           </div>
         </div>
       </div>
-      <AnimatePresence>{isOpen && <PassengerFooter event={props.event} />}</AnimatePresence>
+      <AnimatePresence>{isOpen && <PassengerFooter trip={props.trip} />}</AnimatePresence>
     </motion.div>
   );
 }
@@ -143,7 +143,7 @@ function DriverTripEvent(props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <AnimatePresence>{isOpen ? <DriverHeader date={props.event.date} /> :  <></>}</AnimatePresence>
+      <AnimatePresence>{isOpen ? <DriverHeader date={props.trip.date} /> :  <></>}</AnimatePresence>
 
       <div class='tt_info_line'
         ><div class='tt_content'> {/* Date - Time */}
@@ -151,7 +151,7 @@ function DriverTripEvent(props) {
           <PlaceOutlined /> {/* icon */}
           </div>
           <div class='tt_input_text'>
-          {props.event.date}  {classNameModifier}          
+          {props.trip.date}  {classNameModifier}          
           </div>
         </div>
       </div>
@@ -162,13 +162,11 @@ function DriverTripEvent(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.event.location}
+            {props.trip.stop_locations}
           </div>
         </div>
 
       </div>
-
-
 
       <div class='tt_info_line'> {/* # passengers */}
         <div class='tt_content'>
@@ -176,18 +174,17 @@ function DriverTripEvent(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-          {props.event.passenger_count} <span> passengers</span>
+          {props.trip.passenger_count} <span> passengers</span>
           </div>
         </div>
       </div>
-      <AnimatePresence>{isOpen && <DriverFooter trip_id = {props.trip_id} event={props.event} isUpcoming={props.isUpcoming} update_direction={props.update_direction} />}</AnimatePresence>
+      <AnimatePresence>{isOpen && <DriverFooter trip = {props.trip} isUpcoming={props.isUpcoming} update_direction={props.update_direction} />}</AnimatePresence>
     </motion.div>
   );
 }
 
 function DriverFooter(props) {
   const history = useHistory();
-  let aaa = props.event;
   return (
     <motion.div
       layout
@@ -201,7 +198,7 @@ function DriverFooter(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            Trip Start Location
+            Trip Start Locationsss
           </div>
         </div>
       </div>
@@ -211,38 +208,21 @@ function DriverFooter(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-          {props.event.start}
+          {props.trip.start}
           </div>
         </div>
       </div>
     {props.isUpcoming ? 
       <div className="driver-trip-actions">
-       
           <div className='view-action' onClick={() => { /////////////////////////////////////////////////////////////////ITS HERE YOU PASS PASSENGERS FROM THE TRIP, WHY IS IT NOT RECOGNISING PROPS.EVENT
-            console.log(props.event);
-            history.push({
-              pathname: '/select/passenger',
-              state: {
-                trip_id: props.trip_id,
-                passengerIds: props.event.intermediate_passengers == null ? [] : props.event.intermediate_passengers,
-              }
-            });
+        
           }}> Manage Passengers </div>
 
         <div className='cancel-action'> Cancel Trip </div>
       </div>
       : 
-        <Link className='review-passenger-link driver-trip-actions' to='/Select/Passenger' onClick={() => props.update_direction(1)}>
-          <div className='review-action' onCick={() => {
-           
-            // history.push({
-            //   pathname: '/select/passenger',
-            //   state: {
-            //     requestedPassengerIds: [],
-            //     passengerIds: [],
-            //   }
-            // })
-          }}> Review Passengers {props.isUpcoming} </div>
+        <Link className='review-passenger-link driver-trip-actions' to={{pathname: '/Select/Passenger', trip: props.trip}} onClick={() => {props.update_direction(1)}}>
+          <div className='review-action'> Review Passengers {props.isUpcoming} </div>
         </Link>}
     </motion.div>
   );

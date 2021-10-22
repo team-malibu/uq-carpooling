@@ -123,6 +123,7 @@ li:last-child {
   grid-column: 1 / span 2;
   border-radius: 5px;
   text-decoration: none;
+  z-index: 100;
 }
 
 .review-passenger-link,
