@@ -7,7 +7,7 @@ import './SelectPassenger.css'
 //Does this need to go to a different file????
 function PassengerTile(props) {
   
-  function handleRejectPassengerRequest(props) {
+  async function handleRejectPassengerRequest(props) {
     //Fetch Calls to update db here
     const rejectionOptions = {
       method: 'POST',
@@ -18,24 +18,31 @@ function PassengerTile(props) {
       })
     };
   
-    if (!specificPassengerRequestsFound.foundFlag) {
-      fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/deny-trip-request", rejectionOptions)
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/deny-trip-request", rejectionOptions)
         .then(result => result.json())
         .then(data => {
-          setRequestDataFound({
-            data: data,
-            foundFlag: true,
-            processedFlag: false,
-            passengerPastTrips: [],
-          })
-  
+          //Cause a state update somewhere
         }).catch((e) => {
           console.warn(e)
         });
-    }
   }
-  function handleAcceptPassengerRequest(props) {
-    //Fetch calls to update db here
+  await function handleAcceptPassengerRequest(props) {
+    const acceptOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'passenger_id': props.studentId,//THIS IS WRONG AND NEEDS TO BE THE PASSENGER OF THE TILE
+        'trip_id': props.trip_id
+      })
+    };
+  
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/accept-trip-request", acceptOptions)
+        .then(result => result.json())
+        .then(data => {
+          //Cause a state update somewhere
+        }).catch((e) => {
+          console.warn(e)
+        });
   }
 
     return (
