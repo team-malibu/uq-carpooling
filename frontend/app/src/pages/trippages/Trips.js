@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import BasicPage from '../../components/BasicPage'
 import './Trips.css'
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
-import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, TripOrigin } from '@material-ui/icons/'
+import { motion, AnimateSharedLayout } from "framer-motion";
 import { PassengerTripEvent, DriverTripEvent } from './TripCards.js'
-import { useHistory, useLocation, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 
 function TripSwitch({ isUpcoming, ...props }) {
@@ -130,8 +129,8 @@ function Trips(props) {
     var driverUpcomingTripsArray = []
     var driverPastTripsArray = []
     for (const [key, value] of driver_date_map) {
-      var keyDate = new Date(key)
-      if (keyDate >= today) {
+      var keyDateDriver = new Date(key)
+      if (keyDateDriver >= today) {
         driverUpcomingTripsArray.push(value)
       } else {
         driverPastTripsArray.push(value)
@@ -167,8 +166,8 @@ function Trips(props) {
         })
     }
     for (const [key, value] of passenger_date_map) {
-      var keyDate = new Date(key)
-      if (keyDate >= today) {
+      var keyDatePassenger = new Date(key)
+      if (keyDatePassenger >= today) {
         passengerUpcomingTripsArray.push(value)
       } else {
         passengerPastTripsArray.push(value)
@@ -243,7 +242,7 @@ function Trips(props) {
   }
 
   return (
-    <BasicPage currentlySelected={2} name='Trips' hide={true} direction={props.direction} key={props.location.key} custom={props.direction} update_direction={props.update_direction} body={SearchBody(props)} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage currentlySelected={2} name='Trips' hide={true} direction={props.direction} update_direction={props.update_direction} body={SearchBody(props)} default={props.default} key={props.key} custom={props.custom} />
   )
 }
 

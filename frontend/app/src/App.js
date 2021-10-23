@@ -19,13 +19,13 @@ function App() {
   const location = useLocation();
 
   const [[page, direction], setPage] = useState([0, 0]);
-  const [isNavbarVisible, setNavbarVisibility] = useState(false);
+  // const [isNavbarVisible, setNavbarVisibility] = useState(false);
   const [studentId, setStudentId] = useState(null);
 
     const paginate = (newPage) => {
         if (page < newPage) {
           setPage([newPage, 1]);
-          var message = 'counter is at ${page}'
+          // var message = 'counter is at ${page}'
         } else if (page > newPage){
           setPage([newPage, -1]);
         } else {

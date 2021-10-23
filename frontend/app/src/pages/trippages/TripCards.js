@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { SchoolOutlined, PlaceOutlined, ScheduleOutlined } from '@material-ui/icons/'
 import './TripCards.css'
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function PassengerTripEvent(props) {
@@ -132,7 +132,6 @@ function DriverHeader(props) {
 
 function DriverTripEvent(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const history = useHistory();
 
 
   const toggleOpen = () => setIsOpen(!isOpen);
@@ -184,7 +183,6 @@ function DriverTripEvent(props) {
 }
 
 function DriverFooter(props) {
-  const history = useHistory();
   return (
     <motion.div
       layout

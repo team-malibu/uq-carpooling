@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '@material-ui/core';
-import { BrowserRouter as Router, Switch, Route, useHistory, useLocation, Redirect } from 'react-router-dom';
+import { useHistory, useLocation,} from 'react-router-dom';
 
 const defaultNavbar = [
     {
@@ -47,19 +46,19 @@ const defaultNavbar = [
 
 
 function NavbarButton(props) {
-    const isSelected = (props.currentPage == props.index);
+    // const isSelected = (props.currentPage == props.index);
     const history = useHistory();
     const location = useLocation();
     // // const [buttonColor, setButtonColor] = useState(isSelected ? "#7a599b" : "#554ff1");
-    const [buttonColor, setButtonColor] = useState(isSelected ? "primary" : "secondary");
+    // const [buttonColor, setButtonColor] = useState(isSelected ? "primary" : "secondary");
     
-    const updateButtonColor = (isSelected) => {
-        if (isSelected) {
-            setButtonColor("primary");
-        } else {
-            setButtonColor("secondary");
-        }
-      };
+    // const updateButtonColor = (isSelected) => {
+    //     if (isSelected) {
+    //         setButtonColor("primary");
+    //     } else {
+    //         setButtonColor("secondary");
+    //     }
+    //   };
     // const isSelected = (props.currentPage == props.index);
     // const color = isSelected ? "#7a599b" : "#554ff1";
     
@@ -81,8 +80,8 @@ function NavbarButton(props) {
             //     return (<Redirect to="/" />);
             // }
 
-            if (props.icon.path != location.pathname) {
-                console.log(props.icon.path != location.pathname)
+            if (props.icon.path !== location.pathname) {
+                console.log(props.icon.path !== location.pathname)
                 console.log("pushed")
                 history.push(props.icon.path)
             }
@@ -112,18 +111,20 @@ function NavbarButton(props) {
     )
 }
 function SimpleNavbar(props) {
-    const unselected = "#7a599b";
-    const selected = "#554ff1";
+    // const unselected = "#7a599b";
+    // const selected = "#554ff1";
+    
+    // @Andrew setButton never used, can button just be a variable?
     const [button, setButton] = useState(defaultNavbar)
     
 
     const [buttonColors, setButtonColor] = useState(["#554ff1", "#7a599b", "#7a599b", "#7a599b"])
     const updateButtonColor = (newPage) => {
-        if (newPage == 0) {
+        if (newPage === 0) {
             setButtonColor(["#554ff1", "#7a599b", "#7a599b", "#7a599b"]);
-        } else if (newPage == 1) {
+        } else if (newPage === 1) {
             setButtonColor(["#7a599b", "#554ff1", "#7a599b", "#7a599b"]);
-        } else if (newPage == 2) {
+        } else if (newPage === 2) {
             setButtonColor(["#7a599b", "#7a599b", "#554ff1", "#7a599b"]);
         } else {
             setButtonColor(["#7a599b", "#7a599b", "#7a599b", "#554ff1"]);

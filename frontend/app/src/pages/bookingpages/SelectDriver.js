@@ -1,11 +1,10 @@
 import React from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import {  useLocation } from 'react-router-dom'
 import BasicPage from '../../components/BasicPage'
 import DriverTile from '../../components/DriverTile'
 import './SelectDriver.css'
 
 function SelectDriver(props) {
-  const history = useHistory();
   const location = useLocation();
   var possible_trips;
   var drivers = [];
