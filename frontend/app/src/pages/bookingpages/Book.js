@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TripMap from '../../components/TripMap'
 import TripTile from '../../components/TripTile'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, Redirect } from 'react-router-dom'
 import { MediumConfirmButton, SquareButton } from '../../components/Button'
 import './Book.css'
 import BasicPage from '../../components/BasicPage'
@@ -103,6 +103,7 @@ function Book(props) {
       });
   }
   
+  
   function findTrips(tripProps) {
     //console.log(endLoc, startLoc, date, arriveTime)
     if (endLoc == 0 || startLoc == 0 || date == 0 || arriveTime == 0) {
@@ -154,6 +155,10 @@ function Book(props) {
   }
 
   function createBook(props) {
+    if (props.studentId == null) {
+      props.update_direction(0);
+      return (<Redirect to="/" />);
+    }
     return (
       <div class="booking-container">
         {/* <BlankDefaultPage currentlySelected={0} name='Book' previousPage='/Timetable' hide={true}/> */}

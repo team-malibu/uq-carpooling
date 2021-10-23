@@ -20,7 +20,7 @@ function App() {
 
   const [[page, direction], setPage] = useState([0, 0]);
   const [isNavbarVisible, setNavbarVisibility] = useState(false);
-  const [studentId, setStudentId] = useState(null)
+  const [studentId, setStudentId] = useState(null);
 
     const paginate = (newPage) => {
         if (page < newPage) {
@@ -29,10 +29,12 @@ function App() {
         } else if (page > newPage){
           setPage([newPage, -1]);
         } else {
+          console.log("Same");
             setPage([newPage, 0]);
         }
         
         // console.log(isNavbarVisible)
+        console.log("new page" + newPage);
 
       };
 
@@ -47,7 +49,7 @@ function App() {
         <Switch location={location} key={location.key}>
           {/* <Route path='/' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction}/>} /> */}
           <Route path='/Book' exact component={() => <Book name='Book' hide={true}  direction={direction} default={false} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
-          <Route path='/Account' exact component={() => <AccountDetails name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction} setStudentId={setStudentId} studentId = {studentId}/>} />
+          <Route path='/Account' exact component={() => <AccountDetails name='Account' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} setStudentId={setStudentId} studentId = {studentId}/>} />
           <Route path='/Trips' exact component={() => <Trips name='Trips' hide={true} default={false} direction={direction} key={location.key} custom={direction}  update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Calendar' exact component={() => <Timetable hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route path='/Timetile' exact component={() => <TimeTile date = {new Date()} isSelected = {true} />} />
@@ -61,7 +63,7 @@ function App() {
           
         </Switch>
       </AnimatePresence>
-      <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page}/>
+      <SimpleNavbar location={location} onClick={(newPage) => paginate(newPage)} currentPage={page} studentId = {studentId} update_direction={update_direction}/>
 
 
     </div>
