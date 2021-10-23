@@ -231,7 +231,6 @@ function SelectPassenger(props) {
           console.log(request)
           list_of_request.push(request);
         }
-        console.log("CUNT 1")
         console.log(list_of_request)
         setpassengerIdData({
           requestData: list_of_request,
@@ -252,7 +251,6 @@ function SelectPassenger(props) {
         for (let request of data) {
           list_of_request.push(request);
         }
-        console.log("CUNT 2")
         console.log(list_of_request)
         setpassengerIdData({
           requestData: passengerIdData.requestData,
