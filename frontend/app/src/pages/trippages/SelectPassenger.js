@@ -105,6 +105,8 @@ function PassengerTile(props) {
         'passenger_count': passenger_count,
         'intermediate_passengers': intermediate_passengers,
         'intermediate_coordinates': intermediate_coordinates,
+        'passenger_lat': props.passengerLat,
+        'passenger_long': props.passengerLong,
         'full_flag': full_flag,
         'route_string': routeString,
         'tripDuration': tripDuration
@@ -135,13 +137,13 @@ function PassengerTile(props) {
             <div class='pline'>
               <div class='ptest'>
                 <PersonOutlined className='place-outlined' />
-                NAME
+                {props.everything.first_name} {props.everything.last_name}
               </div>
   
               <div class='ptest'>
                 
                 <StarOutlined />
-                RATING
+                {props.everything.average_rating}
               </div>
             </div>
             <div class='pline'>
@@ -157,10 +159,10 @@ function PassengerTile(props) {
           null
         :
           <>
-            <div className='reject-action' onClick={() => {handleRejectPassengerRequest({update: props.update, passengerId: props.passengerId, tripId: props.tripId})}}>
+            <div className='reject-action' onClick={() => {handleRejectPassengerRequest({update: props.update, passengerId: props.everything.student_id, tripId: props.tripId})}}>
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
             </div>
-            <div className='accept-action' onClick={() => {handleAcceptPassengerRequest({update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat})}}> 
+            <div className='accept-action' onClick={() => {handleAcceptPassengerRequest({update: props.update, driverId: props.driverId, passengerId: props.everything.student_id, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat})}}> 
                 <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
             </div>
           </>
@@ -176,14 +178,16 @@ function PassengerTile(props) {
 function SelectPassengerBody(props) {
     let pendingPassengers = [];
     let confirmedPassengers = [];
+    
     props.confirmed.forEach((passengerProps) => {
+
       confirmedPassengers.push(
-        <PassengerTile update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
+        <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
       )
     });
     props.pending.forEach((passengerProps) => {
       confirmedPassengers.push(
-        <PassengerTile update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{lat: passengerProps.passenger_lat, long: passengerProps.passenger_long}}/>
+        <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{lat: passengerProps.passenger_lat, long: passengerProps.passenger_long}}/>
       )
     });
     return (
@@ -221,7 +225,6 @@ function SelectPassenger(props) {
       .then(data => {
         var list_of_request = [];
         for (let request of data) {
-          console.log(request)
           list_of_request.push(request);
         }
         setpassengerIdData({
