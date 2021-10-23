@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import TimetableTile from '../../components/TimetableTile';
 import TimeTile from '../../components/TimeTile';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Redirect } from 'react-router-dom';
 import './Timetable.css'
 
 function sameDay(d1, d2) {
@@ -82,7 +82,10 @@ function Timetable(props) {
     }
 
 
-
+    if (props.studentId == null) {
+      props.update_direction(0);
+      return (<Redirect to="/" />);
+    }
     return (
       <div class='bigtimetablewrapper'>
         <div class='ttimetable'>

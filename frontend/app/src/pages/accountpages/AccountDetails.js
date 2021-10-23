@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory, useLocation, Redirect } from 'react-router-dom'
 
 
 import { Avatar} from '@material-ui/core';
@@ -13,10 +14,12 @@ import Geocoder from 'react-mapbox-gl-geocoder';
 const ical = require('node-ical');
 
 function AccountDetails(props) {
+  
+
   const [userItems, setUserItems] = useState();
 
   var thisStudentId = props.studentId
-
+  
   useEffect(() => {
       const prerenderOptions = {
         method: 'POST',
@@ -37,6 +40,14 @@ function AccountDetails(props) {
         });
        }, []);
 
+        const location = useLocation();
+        const history = useHistory();
+
+        if (props.studentId == null) {
+          props.update_direction(0);
+          return (<Redirect to="/" />);
+        }
+
         return (
           <div>
             {userItems && <AccountDetailsChild userItems={userItems} thisStudentId={thisStudentId}/>}
@@ -46,6 +57,7 @@ function AccountDetails(props) {
 
 
 function AccountDetailsChild(props) {
+  
 
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
@@ -237,6 +249,7 @@ function AccountDetailsChild(props) {
   }
 
   function createAccountBody() {
+    
 
     return (
       <div className='acc-detail-wrapper'>

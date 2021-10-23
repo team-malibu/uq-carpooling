@@ -7,8 +7,15 @@ import PopUp from '../components/PopUp';
 
 const variants = {
   enter: (direction) => {
+    // if (x < 0) {
+    //   return { x : -500};
+    // } elif (x > 0) {
+    //   return { x : 500};
+    // } else {
+    //   return { x : 500};
+    // }
     return {
-      x: direction < 0 ? -500 : 500,
+      x: direction < 0 ? -500 : direction > 0 ? 500: 0,
     };
   },
   center: {
