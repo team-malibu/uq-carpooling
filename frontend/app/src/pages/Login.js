@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Login.css'
 import {LoginButton, CreateAccountButton} from '../components/AllButtons';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { InputPassword, InputEmail } from '../components/InputText';
 import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
 import { MdLockOutline } from 'react-icons/md';
@@ -10,7 +10,7 @@ import BasicPage from '../components/BasicPage';
 function Login(props) {
     const history = useHistory();
 
-    const[isLoggedIn, setIsLoggedIn] = useState(false);
+    // const[isLoggedIn, setIsLoggedIn] = useState(false);
 
     const[validEmail, setValidEmail] = useState(false);
     const[validPassword, setValidPassword] = useState(false);

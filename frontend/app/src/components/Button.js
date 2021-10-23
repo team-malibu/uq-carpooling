@@ -1,6 +1,6 @@
-import { yellow } from '@material-ui/core/colors';
+
 import React from 'react'
-import {EditOutlined} from '@material-ui/icons/'
+
 import './Button.css'
 
 function SmallConfirmButton(props) {
@@ -12,7 +12,7 @@ function SmallConfirmButton(props) {
 
 function MediumConfirmButton(props) {
 
-  if (props.margin != true) {
+  if (props.margin !== true) {
 
     return (
     

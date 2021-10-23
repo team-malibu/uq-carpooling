@@ -13,8 +13,9 @@ import './DropDownMenu.css';
 
 function GenderDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
+    // Same here @Toby this is never used
     const [gender, setGender] = useState("Male");
-    const [genderIcon, setGenderIcon] = useState(props.genderValue == "Male"? <CgGenderMale /> : props.genderValue =="Female"? <CgGenderFemale /> : <IoMdTransgender/> )
+    const [genderIcon, setGenderIcon] = useState(props.genderValue === "Male"? <CgGenderMale /> : props.genderValue === "Female"? <CgGenderFemale /> : <IoMdTransgender/> )
 
     function handleGender(thisGender) {
         setGender(thisGender);
@@ -73,8 +74,9 @@ function GenderDropDownMenu(props) {
 
 function DriverDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
+    // Same here @Toby this is never used
     const [driverPref, setDriverPref] = useState("Any Driver");
-    const [driverIcon, setDriverIcon] = useState(props.driverPrefValue=='Any Driver'? <BsPeopleFill /> : <BsPersonFill/>);
+    const [driverIcon, setDriverIcon] = useState(props.driverPrefValue==='Any Driver'? <BsPeopleFill /> : <BsPersonFill/>);
 
     function handleDriverPref(thisDriverPref) {
         props.handleChange(thisDriverPref);
@@ -126,8 +128,9 @@ function DriverDropDownMenu(props) {
 
 function TimingDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
+    // Same here @Toby this is never used
     const [arrivalTime, setArrivalTime] = useState("30 minutes before class");
-    const [timeIcon, setTimeIcon] = useState(props.arrivalTimeValue =="30 mins"? <WiTime2 /> : props.arrivalTimeValue =="1 hour"? <WiTime3/> : <WiTime4/>)
+    const [timeIcon, setTimeIcon] = useState(props.arrivalTimeValue ==="30 mins"? <WiTime2 /> : props.arrivalTimeValue ==="1 hour"? <WiTime3/> : <WiTime4/>)
 
     function handleArrivalTime(thisArrivalTime) {
         props.handleChange(thisArrivalTime)
@@ -185,9 +188,10 @@ function TimingDropDownMenu(props) {
 
 function SchoolDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
+    // Same here @Toby this is never used
     const [school, setSchool] = useState("EAIT");
-    const [schoolIcon, setSchoolIcon] = useState(props.schoolValue == "EAIT"? <TiSpanner /> : props.schoolValue =="Medicine"? <FaClinicMedical/> 
-    : props.schoolValue =="Science"? <FaFlask/>: props.schoolValue == "Business/Law/Economics"? <MdBusinessCenter/>: props.schoolValue == "Humanities/Social Sciences"? <AiFillRead /> : <RiMentalHealthFill /> );
+    const [schoolIcon, setSchoolIcon] = useState(props.schoolValue === "EAIT"? <TiSpanner /> : props.schoolValue ==="Medicine"? <FaClinicMedical/> 
+    : props.schoolValue ==="Science"? <FaFlask/>: props.schoolValue === "Business/Law/Economics"? <MdBusinessCenter/>: props.schoolValue === "Humanities/Social Sciences"? <AiFillRead /> : <RiMentalHealthFill /> );
 
     function handleSchool(thisSchool) {
         props.handleChange(thisSchool);

@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import StarRating from '../../components/StarRating';
 import * as Buttons from '../../components/Button';
 import './Rating.css'
