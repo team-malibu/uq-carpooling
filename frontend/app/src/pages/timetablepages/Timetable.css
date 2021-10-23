@@ -51,7 +51,7 @@
 }
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-  background: black;
+  background: transparent;
 }
 
 .tdatetext {

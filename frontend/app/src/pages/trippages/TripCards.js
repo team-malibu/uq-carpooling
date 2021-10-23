@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 
 
 function PassengerTripEvent(props) {
-  
+  console.log("WJERE ARE YOU")
+  console.log(props)
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
+  const classNameModifier = `${props.isUpcoming ? "upcoming" : "past"}`;
 
   return (
     <motion.div class='passenger-card-wrapper' layout onClick={toggleOpen} initial={{ borderRadius: 10 }}>
@@ -22,7 +24,7 @@ function PassengerTripEvent(props) {
             <SchoolOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.trip.passenger_count} <span> passengers</span>
+          {props.trip.date}  {classNameModifier}  
           </div>
         </div>
       </motion.div>
@@ -35,7 +37,7 @@ function PassengerTripEvent(props) {
             <ScheduleOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.trip.start}
+            {props.trip.arrive_time}
           </div>
         </div>
 
@@ -49,7 +51,7 @@ function PassengerTripEvent(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.trip.location}
+          {props.trip.passenger_count} <span> passengers</span>
           </div>
         </div>
       </div>
