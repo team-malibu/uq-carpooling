@@ -38,9 +38,9 @@ function AccountDetails(props) {
        }, []);
 
         return (
-          <div>
+          <>
             {userItems && <AccountDetailsChild userItems={userItems} thisStudentId={thisStudentId}/>}
-          </div>
+          </>
         )
 }
 
