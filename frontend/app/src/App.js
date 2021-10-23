@@ -20,7 +20,7 @@ function App() {
 
   const [[page, direction], setPage] = useState([0, 0]);
   const [isNavbarVisible, setNavbarVisibility] = useState(false);
-  const [studentId, setStudentId] = useState("s1234567")
+  const [studentId, setStudentId] = useState(null)
 
     const paginate = (newPage) => {
         if (page < newPage) {

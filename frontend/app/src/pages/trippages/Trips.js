@@ -109,7 +109,7 @@ function Trips(props) {
         console.warn(e)
       });
   }
-
+  var today = new Date()
   if (asDriverDataFound.foundFlag && !asDriverDataFound.processedFlag) {
     var driver_date_map = new Map()
 
@@ -131,7 +131,7 @@ function Trips(props) {
     var driverPastTripsArray = []
     for (const [key, value] of driver_date_map) {
       var keyDate = new Date(key)
-      if (keyDate > today) {
+      if (keyDate >= today) {
         driverUpcomingTripsArray.push(value)
       } else {
         driverPastTripsArray.push(value)
@@ -168,7 +168,7 @@ function Trips(props) {
     }
     for (const [key, value] of passenger_date_map) {
       var keyDate = new Date(key)
-      if (keyDate > today) {
+      if (keyDate >= today) {
         passengerUpcomingTripsArray.push(value)
       } else {
         passengerPastTripsArray.push(value)
@@ -207,9 +207,8 @@ function Trips(props) {
     }
   }
 
-  const [isUpcoming, setIsUpcoming] = useState(false);
-  var today = new Date()
- 
+  const [isUpcoming, setIsUpcoming] = useState(true);
+
   function SearchBody(props) {
     return (
       <>
