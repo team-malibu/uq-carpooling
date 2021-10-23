@@ -14,7 +14,7 @@ import Timetable from "./pages/timetablepages/Timetable";
 import CreateAccount from './pages/CreateAccount';
 import Trips from "./pages/trippages/Trips";
 import SelectPassenger from './pages/trippages/SelectPassenger';
-
+import TripVisualiser from './pages/trippages/TripVisualiser';
 function App() {
   const location = useLocation();
 
@@ -60,6 +60,7 @@ function App() {
           <Route path='/Login' exact component={() => <Login name='Login' hide={false} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} setStudentId={setStudentId} studentId = {studentId}/>}/>
           <Route exact path='/Signup' component={() => <CreateAccount name='Signup' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           <Route exact path='/Select/Passenger' component={() => <SelectPassenger name='Signup' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
+          <Route exact path='/TripVisualiser' component={() => <TripVisualiser name='Trip Visualiser' hide={true} default={false} direction={direction} key={location.key} custom={direction} update_direction={update_direction} studentId = {studentId}/>} />
           
         </Switch>
       </AnimatePresence>
