@@ -14,18 +14,17 @@ function SelectDriver(props) {
     possible_trips = location.state.data
 
   }
-
+  
   for (const trip of Object.values(possible_trips)) {
+    
     drivers.push(
       <div onClick={() => {
-
-        console.log(location.state)
-        console.log(props.studentId)
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             'trip_id': trip.trip_id,
+            'driver_id': trip.driver_id,
             'passenger_id': props.studentId,
             'passenger_lat': location.state.passenger_lat,
             'passenger_long': location.state.passenger_long,
@@ -39,14 +38,10 @@ function SelectDriver(props) {
           }).catch((e) => {
             console.warn(e)
           });
-
-        
-        
       }}>
         <DriverTile rating= {trip.average_rating} passenger_count = {trip.passenger_count} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}/>
       </div>
     )
-
   }
   
   function createTiles(props) {

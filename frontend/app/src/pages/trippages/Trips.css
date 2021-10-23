@@ -1,0 +1,59 @@
+.trip-list {
+  list-style: none;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+  height: calc(100% - 72px);
+}
+
+.switch {
+  width: 400px;
+  height: 50px;
+  display: flex;
+  cursor: pointer;
+  margin: auto;
+  background-color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.switch.on {
+  background-color: #ffffff;
+  justify-content: flex-end;
+  font-family: "Lato", sans-serif;
+  font-size: x-large;
+  flex-direction: row;
+}
+
+.switch.off {
+  background-color: #ffffff;
+  justify-content: flex-start;
+  font-family: "Lato", sans-serif;
+  font-size: x-large;
+  flex-direction: row-reverse;
+}
+
+.blue {
+  width: 200px;
+  height: 50px;
+  background-color: #37a7f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+  font-size: x-large;
+  color: white;
+}
+
+.white {
+  width: 200px;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+  font-size: x-large;
+  color: #37a7f2;
+}

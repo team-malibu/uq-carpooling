@@ -87,7 +87,7 @@ function Book(props) {
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'passenger_id': props.studentId
+        'driver_id': props.studentId
       })
     };
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
@@ -102,7 +102,7 @@ function Book(props) {
         console.warn(e)
       });
   }
-
+  
   function findTrips(tripProps) {
     //console.log(endLoc, startLoc, date, arriveTime)
     if (endLoc == 0 || startLoc == 0 || date == 0 || arriveTime == 0) {

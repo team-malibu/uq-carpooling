@@ -18,8 +18,39 @@
   font-family: 'Lato', sans-serif;
   font-size: x-large;
   color: #462963;
+  margin-bottom: 3%;
+  text-align: center;
 }
 
-.ad-container{
-  text-align: center;
+.ad_trip_wrapper {
+  background-color: #37a7f2;
+  font-size: 4vh;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  color: white;
+  width:90%;
+  margin-bottom: 3%;
+}
+
+.ad_trip_info_line {
+  align-items: stretch;
+  display: flex;
+  width: 100%;
+  position: relative;
+  vertical-align: middle;
+  color: white;
+  padding: 2.5%;
+  padding-bottom: 4%;
+  height: 90%;
+}
+
+.ad_trip_content {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  color: white;
 }

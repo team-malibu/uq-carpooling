@@ -1,83 +1,284 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import BasicPage from '../../components/BasicPage'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
-import { useLocation } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import './SelectPassenger.css'
 
+//Does this need to go to a different file????
 function PassengerTile(props) {
+  const [userData, setUserData] = useState({ data: [], foundFlag: false });
 
-  return (
-    <div>
-      <div class='pwrapper'>
-        <div className='passenger-picture'>
+  const userOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      'student_id': props.passengerId,
+    })
+  }
 
-        </div>
+  if (!userData.foundFlag) {
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/get", userOptions)
+    .then(result => result.json())
+      .then(data => {
 
-        <div class='pinfo_line'>
-          <div class='pline'>
-            <div class='ptest'>
-              <PersonOutlined className='place-outlined' />
-              {props.name}
-            </div>
-
-            <div class='ptest'>
-
-              <StarOutlined />
-              {props.rating}
-            </div>
-          </div>
-          <div class='pline'>
-            <div class='ptest'>
-              <ScheduleOutlined className='place-outlined' />
-              Arrive by TIME
-
-            </div>
+        console.log(userOptions)
+        console.log(data)
+        setUserData({
+          data: data,
+          foundFlag: true,
+        })
 
 
-          </div>
-        </div>
-        <div className="passenger-select-actions">
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
 
-          <div className='reject-action'>
-            <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
-          </div>
-          <div className='accept-action'>
-            <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
-          </div>
+  async function handleRejectPassengerRequest(props) {
+    //Fetch Calls to update db here
+    const rejectionOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'passenger_id': props.passengerId,//THIS IS WRONG AND NEEDS TO BE THE PASSENGER OF THE TILE
+        'trip_id': props.tripId,
 
-        </div>
+      })
+    };
+
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/deny-trip-request", rejectionOptions)
+      .then(result => result.json())
+      .then(data => {
+        props.update({ data: [], foundFlag: false });
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
+
+  async function handleAcceptPassengerRequest(props) {
+    var passenger_count;
+    var intermediate_passengers;
+    var intermediate_coordinates;
+    var full_flag = 0;
+    var routeString;
+    var firstCoord;
+    var lastCoord;
+    var tripDuration;
+    const getTripOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'trip_id': props.tripId
+      })
+    };
+
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-specific-trip", getTripOptions)
+      .then(result => result.json())
+      .then(data => {
+        passenger_count = data[0].passenger_count;
+
+        intermediate_passengers = data[0].intermediate_passengers;
+        if (intermediate_passengers == null) {
+          intermediate_passengers = ""
+        }
+
+
+        intermediate_coordinates = data[0].intermediate_coordinates;
+        if (intermediate_coordinates == null) {
+          intermediate_coordinates = ""
+        }
+
+        intermediate_passengers += String(props.passengerId + ",");
+        intermediate_coordinates += String(props.passengerLong + "," + props.passengerLat + ";");
+
+        routeString = data[0].routeString;
+
+        firstCoord = String(data[0].start_long + "," + data[0].start_lat);
+        lastCoord = String(data[0].end_long + "," + data[0].end_lat);
+      }).catch((e) => {
+        console.warn(e)
+      });
+
+    passenger_count = passenger_count + 1;
+    if (passenger_count == 4) {
+      full_flag = 1;
+    }
+
+    let coordinateString = "";
+
+    coordinateString += firstCoord + ";";
+    coordinateString += intermediate_coordinates;
+    coordinateString += lastCoord;
+    console.log("Coord string");
+    console.log(intermediate_coordinates);
+    let updatedRoute = fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + coordinateString
+      + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q").
+      then(response => response.json()).
+      then(data => {
+
+        routeString = String(data.routes[0].geometry.coordinates);
+        tripDuration = data.routes[0].duration;
+      })
+    //Fetch updated RouteString, 
+    const acceptOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'passenger_id': props.passengerId, //WE NEED TO PASS A NEW INTERMEDIATE STOPS,INTERMEDIATE PASSENGERS AND DURATION AND ROUTE STRING
+        'trip_id': props.tripId,
+        'driver_id': props.driverId,
+        'passenger_count': passenger_count,
+        'intermediate_passengers': intermediate_passengers,
+        'intermediate_coordinates': intermediate_coordinates,
+        'full_flag': full_flag,
+        'route_string': routeString,
+        'tripDuration': tripDuration
+      })
+    };
+
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/accept-trip-request", acceptOptions)
+      .then(result => result.json())
+      .then(data => {
+        props.update({ data: [], foundFlag: false });
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
+
+  return userData.foundFlag ? (
+    <div class='pwrapper'>
+      <div className='passenger-picture'>
 
       </div>
+
+      <div class='pinfo_line'>
+        <div class='pline'>
+          <div class='ptest'>
+            <PersonOutlined className='place-outlined' />
+            NAME
+          </div>
+
+          <div class='ptest'>
+
+            <StarOutlined />
+            RATING
+          </div>
+        </div>
+        <div class='pline'>
+          <div class='ptest'>
+            <ScheduleOutlined className='place-outlined' />
+            Arrive by TIME
+
+          </div>
+        </div>
+      </div>
+      <div className="passenger-select-actions">
+        {props.pendingPassnger ?
+          null
+          :
+          <>
+            <div className='reject-action' onClick={() => { handleRejectPassengerRequest({ update: props.update, passengerId: props.passengerId, tripId: props.tripId }) }}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
+            </div>
+            <div className='accept-action' onClick={() => { handleAcceptPassengerRequest({ update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat }) }}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
+            </div>
+          </>
+        }
+
+
+      </div>
+
+    </div>
+  ) : (
+    <div class='pwrapper'>
+      <div className='passenger-picture'>
+
+      </div>
+
+      <div class='pinfo_line'>
+        <div class='pline'>
+          <div class='ptest'>
+            <PersonOutlined className='place-outlined' />
+            {userData.data.first_name} {userData.data.last_name}
+          </div>
+
+          <div class='ptest'>
+
+            <StarOutlined />
+            {userData.data.average_rating}
+          </div>
+        </div>
+        <div class='pline'>
+          <div class='ptest'>
+            <ScheduleOutlined className='place-outlined' />
+            Arrive by {props.arrival_time}
+
+          </div>
+        </div>
+      </div>
+      <div className="passenger-select-actions">
+        {props.pendingPassnger ?
+          null
+          :
+          <>
+            <div className='reject-action' onClick={() => { handleRejectPassengerRequest({ update: props.update, passengerId: props.passengerId, tripId: props.tripId }) }}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
+            </div>
+            <div className='accept-action' onClick={() => { handleAcceptPassengerRequest({ update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat }) }}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
+            </div>
+          </>
+        }
+
+
+      </div>
+
     </div>
 
   )
 }
 
 function SelectPassengerBody(props) {
+  let pendingPassengers = []
+  let confirmedPassengers = []
+  props.confirmed.forEach((passengerProps) => {
 
+    confirmedPassengers.push(
+      <PassengerTile update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true} />
+    )
+  });
+  props.pending.forEach((passengerProps) => {
+
+    confirmedPassengers.push(
+      <PassengerTile update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{ lat: passengerProps.passenger_lat, long: passengerProps.passenger_long }} />
+    )
+  });
   return (
-    <>
-      <div class='drivers'>
-        <PassengerTile props={props} />
-        <PassengerTile />
-        <PassengerTile />
-        <PassengerTile />
-
-      </div>
-    </>
+    <div class='drivers'>
+      {confirmedPassengers}
+      {pendingPassengers}
+    </div>
   )
 }
 
 function SelectPassenger(props) {
-  const [passengersDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false });
-  const [usersDataFound, setUserDataFound] = useState({ data: null, foundFlag: false })
-
+  const [passengerRequestIds, setPassengerRequestIds] = useState({ data: [], foundFlag: false });
   const location = useLocation();
-  var trip_id;
-  if (location.state) {
-    trip_id = location.state.trip_id
-  } else {
-    trip_id = ''
+  var trip_id = '';
+  var intermediate_passengers_ids = [];
+  if (location.trip) {
+    trip_id = location.trip.trip_id;
+    console.log(location.trip.intermediate_passengers)
+    if (location.trip.intermediate_passengers != null && location.trip.intermediate_passengers.length != 0) {
+      // intermediate_passengers_ids = location.trip.intermediate_passengers.slice(1, location.trip.intermediate_passengers.length - 1);
+
+      console.log("FCUK")
+      console.log(location.trip.intermediate_passengers)
+      intermediate_passengers_ids = location.trip.intermediate_passengers.split(',');
+      intermediate_passengers_ids.pop()
+      console.log(intermediate_passengers_ids)
+    }
   }
 
   const requestOptions = {
@@ -88,90 +289,30 @@ function SelectPassenger(props) {
     })
   };
 
-  if (!passengersDataFound.foundFlag) {
+  if (!passengerRequestIds.foundFlag) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-pending-requests", requestOptions)
       .then(result => result.json())
       .then(data => {
 
-
-        setPassengerDataFound({
-          data: data,
-          foundFlag: true
-        })
+        var list_of_request = [];
+        for (let request of data) {
+          console.log(request)
+          list_of_request.push(request);
+        }
+        setPassengerRequestIds({
+          data: list_of_request,
+          foundFlag: true,
+        });
 
       }).catch((e) => {
         console.warn(e)
       });
   }
 
-  if (passengersDataFound.foundFlag && !usersDataFound.foundFlag) {
-    var userData = []
-
-
-    for (var value of Object.values(passengersDataFound.data)) {
-      console.log(value)
-      const userOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          'student_id': value.passenger_id,
-        })
-      };
-
-      fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/get", userOptions)
-        .then(result => result.json())
-        .then(data => {
-          userData.push(data)
-          
-        }).catch((e) => {
-          console.warn(e)
-        });
-    }
-
-  
-
-    setUserDataFound({
-      data: userData,
-      foundFlag: true
-    })
-
-  }
-
-
-  console.log('PASSENFER DATA')
-  console.log(passengersDataFound.data)
-  console.log('USER DATA')
-  console.log(usersDataFound.data)
-  
-  var body = () => {
-    console.log("CUNT")
-    if (passengersDataFound.foundFlag && usersDataFound.foundFlag) {
-      var passengerTiles = []
-      for (const values of Object.values(usersDataFound.data)) {
-        console.log("CUNT3")
-        
-        var value = values.pop()
-        if (value) {
-          passengerTiles.push(<PassengerTile name={value.first_name + ' ' + value.last_name} rating={value.average_rating} />)
-        }
-       
-      }
-  
-      return (<div class='drivers'>
-        {passengerTiles}
-  
-      </div>)
-    } else {
-      console.log("CUNT2")
-      return
-    }
-   
-  }
-
 
 
   return (
-    <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={body()} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
+    <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({ update: setPassengerRequestIds, tripId: trip_id, driverId: location.trip.driver_id, pending: passengerRequestIds.data, confirmed: intermediate_passengers_ids })} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
   )
 }
 
