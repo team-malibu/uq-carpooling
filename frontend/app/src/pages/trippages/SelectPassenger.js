@@ -16,7 +16,7 @@ function PassengerTile(props) {
     })
   }
 
-  if (!props.userData.numFound != props.total && !props.userData.data.has(props.passengerId)) {
+  if (!props.userData.data.size != props.total && !props.userData.data.has(props.passengerId)) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/get", userOptions)
       .then(result => result.json())
       .then(data => {
@@ -27,7 +27,7 @@ function PassengerTile(props) {
         current.set(props.passengerId, data)
         props.setUserData({
           data: current,
-          numFound: props.userData.numFound + 1,
+
         })
 
 
@@ -51,7 +51,18 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/deny-trip-request", rejectionOptions)
       .then(result => result.json())
       .then(data => {
-        props.update({ data: [], foundFlag: false });
+        // var current = props.userData.data
+        // current.delete(props.passengerId)
+        props.setUserData({
+          data: new Map()
+        })
+
+        props.update({
+          requestData: [],
+          requestFoundFlag: false,
+          confirmedData: [],
+          confirmedFoundFlag: false
+        });
       }).catch((e) => {
         console.warn(e)
       });
@@ -111,8 +122,6 @@ function PassengerTile(props) {
     coordinateString += firstCoord + ";";
     coordinateString += intermediate_coordinates;
     coordinateString += lastCoord;
-    console.log("Coord string");
-    console.log(intermediate_coordinates);
     let updatedRoute = fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + coordinateString
       + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q").
       then(response => response.json()).
@@ -141,14 +150,21 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/accept-trip-request", acceptOptions)
       .then(result => result.json())
       .then(data => {
-        props.update({ data: [], foundFlag: false });
+        props.update({
+          requestData: [],
+          requestFoundFlag: false,
+          confirmedData: [],
+          confirmedFoundFlag: false
+        });
       }).catch((e) => {
         console.warn(e)
       });
   }
 
-  return props.userData.numFound
-   == props.total ? (
+  console.log(props.userData.data.size
+    == props.total)
+  return props.userData.data.size
+    == props.total ? (
     <div class='pwrapper'>
       <div className='passenger-picture'>
 
@@ -180,10 +196,12 @@ function PassengerTile(props) {
           null
           :
           <>
-            <div className='reject-action' onClick={() => { handleRejectPassengerRequest({ update: props.update, passengerId: props.passengerId, tripId: props.tripId }) }}>
+            <div className='reject-action' onClick={() => { handleRejectPassengerRequest({  userData: props.userData, 
+            setUserData: props.setUserData, update: props.update, passengerId: props.passengerId, tripId: props.tripId }) }}>
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
             </div>
-            <div className='accept-action' onClick={() => { handleAcceptPassengerRequest({ update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat }) }}>
+            <div className='accept-action' onClick={() => { handleAcceptPassengerRequest({  userData: props.userData, 
+            setUserData: props.setUserData, update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat }) }}>
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
             </div>
           </>
@@ -226,10 +244,12 @@ function PassengerTile(props) {
           null
           :
           <>
-            <div className='reject-action' onClick={() => { handleRejectPassengerRequest({ update: props.update, passengerId: props.passengerId, tripId: props.tripId }) }}>
+            <div className='reject-action' onClick={() => { handleRejectPassengerRequest({  userData: props.userData, 
+            setUserData: props.setUserData, update: props.update, passengerId: props.passengerId, tripId: props.tripId }) }}>
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
             </div>
-            <div className='accept-action' onClick={() => { handleAcceptPassengerRequest({ update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat }) }}>
+            <div className='accept-action' onClick={() => { handleAcceptPassengerRequest({  userData: props.userData, 
+            setUserData: props.setUserData, update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat }) }}>
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
             </div>
           </>
@@ -245,18 +265,19 @@ function PassengerTile(props) {
 
 function SelectPassengerBody(props) {
   var total = props.confirmed.length + props.pending.length
+  console.log(total)
   let pendingPassengers = []
   let confirmedPassengers = []
   props.confirmed.forEach((passengerProps) => {
 
     confirmedPassengers.push(
-      <PassengerTile total = {total}  trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true} />
+      <PassengerTile total={total} trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true} />
     )
   });
   props.pending.forEach((passengerProps) => {
 
     pendingPassengers.push(
-      <PassengerTile total = {total} trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{ lat: passengerProps.passenger_lat, long: passengerProps.passenger_long }} />
+      <PassengerTile total={total} trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{ lat: passengerProps.passenger_lat, long: passengerProps.passenger_long }} />
     )
   });
   return (
@@ -268,26 +289,21 @@ function SelectPassengerBody(props) {
 }
 
 function SelectPassenger(props) {
-  const [userData, setUserData] = useState({ data: new Map(), numFound: 0 });
-  const [passengerRequestIds, setPassengerRequestIds] = useState({ data: [], foundFlag: false });
+  const [userData, setUserData] = useState({ data: new Map()});
+
   const location = useLocation();
   var trip_id = '';
   var intermediate_passengers_ids = [];
   if (location.trip) {
 
     trip_id = location.trip.trip_id;
-    console.log(location.trip.intermediate_passengers)
-    if (location.trip.intermediate_passengers != null && location.trip.intermediate_passengers.length != 0) {
-      // intermediate_passengers_ids = location.trip.intermediate_passengers.slice(1, location.trip.intermediate_passengers.length - 1);
-
-
-
+    if (location.trip.intermediate_passengers != null) {
       intermediate_passengers_ids = location.trip.intermediate_passengers.split(',');
       intermediate_passengers_ids.pop()
 
     }
   }
-
+  const [passengerIdData, setpassengerIdData] = useState({ requestData: [], requestFoundFlag: false, confirmedData: intermediate_passengers_ids, confirmedFoundFlag: false });
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -296,19 +312,43 @@ function SelectPassenger(props) {
     })
   };
 
-  if (!passengerRequestIds.foundFlag) {
+  if (!passengerIdData.requestFoundFlag) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-pending-requests", requestOptions)
       .then(result => result.json())
       .then(data => {
-
         var list_of_request = [];
         for (let request of data) {
           console.log(request)
           list_of_request.push(request);
         }
-        setPassengerRequestIds({
-          data: list_of_request,
-          foundFlag: true,
+        console.log("REQUEST")
+        console.log(list_of_request)
+        setpassengerIdData({
+          requestData: list_of_request,
+          requestFoundFlag: true,
+          confirmedData: passengerIdData.confirmedData,
+          confirmedFoundFlag: passengerIdData.confirmedFoundFlag
+        });
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
+
+  if (!passengerIdData.confirmedFoundFlag) {
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-confirmed-requests", requestOptions)
+      .then(result => result.json())
+      .then(data => {
+        var list_of_request = [];
+        for (let request of data) {
+          list_of_request.push(request);
+        }
+        console.log("CONFIRMD")
+        console.log(list_of_request)
+        setpassengerIdData({
+          requestData: passengerIdData.requestData,
+          requestFoundFlag: passengerIdData.requestFoundFlag,
+          confirmedData: list_of_request,
+          confirmedFoundFlag: true
         });
 
       }).catch((e) => {
@@ -316,12 +356,21 @@ function SelectPassenger(props) {
       });
   }
 
-  console.log(userData.data)
 
 
-  return (
-    <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({ trip: location.trip, userData: userData, setUserData: setUserData, update: setPassengerRequestIds, tripId: trip_id, driverId: location.trip.driver_id, pending: passengerRequestIds.data, confirmed: intermediate_passengers_ids })} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
-  )
+
+    return (
+        <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({
+            userData: userData, 
+            setUserData: setUserData,
+            trip: location.trip,
+            update: setpassengerIdData,
+            tripId: trip_id,
+            driverId: location.trip.driver_id,
+            pending: passengerIdData.requestData,
+            confirmed: passengerIdData.confirmedData})}
+          default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
+    )
 }
 
 export default SelectPassenger

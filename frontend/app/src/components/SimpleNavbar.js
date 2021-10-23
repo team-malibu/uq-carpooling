@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, useLocation, Redirect } from 'react-router-dom';
 
 const defaultNavbar = [
     {
@@ -48,6 +48,8 @@ const defaultNavbar = [
 
 function NavbarButton(props) {
     const isSelected = (props.currentPage == props.index);
+    const history = useHistory();
+    const location = useLocation();
     // // const [buttonColor, setButtonColor] = useState(isSelected ? "#7a599b" : "#554ff1");
     const [buttonColor, setButtonColor] = useState(isSelected ? "primary" : "secondary");
     
@@ -68,7 +70,24 @@ function NavbarButton(props) {
                 key={props.key}>
             {props.icon.name}
         </Button> */}
-        <Link to={props.icon.path} className='navbar-link' onClick={(newPage) => props.onClick(props.index)}
+        <div className='navbar-link' onClick={(newPage) => {
+            console.log(location.pathname)
+            console.log(props.icon.path)
+            
+            // console.log.apply("redirecting")
+            // if (props.studentId == null) {
+            //     props.update_direction(0);
+            //     console.log.apply("redirecting")
+            //     return (<Redirect to="/" />);
+            // }
+
+            if (props.icon.path != location.pathname) {
+                console.log(props.icon.path != location.pathname)
+                console.log("pushed")
+                history.push(props.icon.path)
+            }
+            props.onClick(props.index)
+            }}
                 key={props.key}>
             <svg className='icon'
                 xmlns={props.icon.xmlns}
@@ -86,7 +105,7 @@ function NavbarButton(props) {
                 fill={props.color} 
                 />
             </svg>
-        </Link>
+        </div>
         </>
 
 
@@ -110,7 +129,7 @@ function SimpleNavbar(props) {
             setButtonColor(["#7a599b", "#7a599b", "#7a599b", "#554ff1"]);
         }
     };
-    console.log(props.location.pathname === '/Login')
+    //console.log(props.location.pathname === '/Login')
     if (props.location.pathname === '/' || props.location.pathname === '/Signup' || props.location.pathname === '/Login') {
         console.log("returnign null for pathname: " + props.location.pathname)
         return null;
@@ -144,6 +163,8 @@ function SimpleNavbar(props) {
                             }}
                             key={props.key}
                         icon={ic}
+                        studentId={props.studentId}
+                        update_direction={props.update_direction}
                         />
                     </>
                 )

@@ -212,7 +212,7 @@ function DriverFooter(props) {
           </div>
         </div>
       </div>
-    {props.isUpcoming ? 
+    {!props.isUpcoming ? 
       <div className="driver-trip-actions">
           <div className='view-action' onClick={() => { /////////////////////////////////////////////////////////////////ITS HERE YOU PASS PASSENGERS FROM THE TRIP, WHY IS IT NOT RECOGNISING PROPS.EVENT
         
