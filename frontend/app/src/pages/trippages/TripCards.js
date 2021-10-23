@@ -213,16 +213,18 @@ function DriverFooter(props) {
         </div>
       </div>
     {props.isUpcoming ? 
-      <div className="driver-trip-actions">
-          <div className='view-action' onClick={() => { /////////////////////////////////////////////////////////////////ITS HERE YOU PASS PASSENGERS FROM THE TRIP, WHY IS IT NOT RECOGNISING PROPS.EVENT
-        
-          }}> Manage Passengers </div>
-
-        <div className='cancel-action'> Cancel Trip </div>
+      <div className="upcoming-driver-trip-actions">
+        <Link className='driver-manage-action' to={{pathname: '/Select/Passenger', trip: props.trip}} onClick={() => {props.update_direction(1)}}>
+          <div className='driver-manage-action'> Manage Passengers</div>
+        </Link>
+        <Link className='driver-view-action' to={{pathname: '/TripVisualiser', trip: props.trip}} onClick={() => {props.update_direction(1)}}>
+          <div className='driver-view-action'> View Trip </div>
+        </Link>
+        <div className='driver-cancel-action'> Cancel Trip </div>
       </div>
       : 
         <Link className='review-passenger-link driver-trip-actions' to={{pathname: '/Select/Passenger', trip: props.trip}} onClick={() => {props.update_direction(1)}}>
-          <div className='review-action'> Review Passengers {props.isUpcoming} </div>
+          <div className='review-action'> Review Passengers</div>
         </Link>}
     </motion.div>
   );

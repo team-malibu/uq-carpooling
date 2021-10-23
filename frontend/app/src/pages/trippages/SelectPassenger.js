@@ -21,7 +21,12 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/deny-trip-request", rejectionOptions)
         .then(result => result.json())
         .then(data => {
-          props.update({data: [], foundFlag: false});
+          props.update({
+          requestData: [],
+          requestFoundFlag: false,
+          confirmedData: [],
+          confirmedFoundFlag: false
+          });
         }).catch((e) => {
           console.warn(e)
         });
@@ -81,8 +86,6 @@ function PassengerTile(props) {
     coordinateString += firstCoord + ";";
     coordinateString += intermediate_coordinates;
     coordinateString += lastCoord;
-    console.log("Coord string");
-    console.log(intermediate_coordinates);
     let updatedRoute = fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + coordinateString
         + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q").
         then(response => response.json()).
@@ -111,7 +114,12 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/accept-trip-request", acceptOptions)
         .then(result => result.json())
         .then(data => {
-          props.update({data: [], foundFlag: false});
+          props.update({
+          requestData: [],
+          requestFoundFlag: false,
+          confirmedData: [],
+          confirmedFoundFlag: false
+          });
         }).catch((e) => {
           console.warn(e)
         });
@@ -166,8 +174,8 @@ function PassengerTile(props) {
   }
 
 function SelectPassengerBody(props) {
-    let pendingPassengers = []
-    let confirmedPassengers = []
+    let pendingPassengers = [];
+    let confirmedPassengers = [];
     props.confirmed.forEach((passengerProps) => {
       confirmedPassengers.push(
         <PassengerTile update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
@@ -187,19 +195,18 @@ function SelectPassengerBody(props) {
 }
 
 function SelectPassenger(props) {
-  const [passengerRequestIds, setPassengerRequestIds] = useState({ data: [], foundFlag: false });
+ 
   const location = useLocation();
   var trip_id = '';
   var intermediate_passengers_ids = [];
   if (location.trip) {
     trip_id = location.trip.trip_id;
-    console.log(location.trip.intermediate_passengers)
-    if (location.trip.intermediate_passengers != null && location.trip.intermediate_passengers.length != 0) {
-      intermediate_passengers_ids = location.trip.intermediate_passengers.slice(1, location.trip.intermediate_passengers.length - 1);
-      intermediate_passengers_ids = intermediate_passengers_ids.split(',');
+    if (location.trip.intermediate_passengers != null) {
+      intermediate_passengers_ids = location.trip.intermediate_passengers.split(',');
+
     }
   } 
-
+  const [passengerIdData, setpassengerIdData] = useState({ requestData: [], requestFoundFlag: false, confirmedData: intermediate_passengers_ids, confirmedFoundFlag: false});
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -208,19 +215,39 @@ function SelectPassenger(props) {
     })
   };
 
-  if (!passengerRequestIds.foundFlag) {
+  if (!passengerIdData.requestFoundFlag) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-pending-requests", requestOptions)
       .then(result => result.json())
       .then(data => {
-  
         var list_of_request = [];
         for (let request of data) {
           console.log(request)
           list_of_request.push(request);
         }
-        setPassengerRequestIds({
-          data: list_of_request,
-          foundFlag: true,
+        setpassengerIdData({
+          requestData: list_of_request,
+          requestFoundFlag: true,
+          confirmedData: passengerIdData.confirmedData,
+          confirmedFoundFlag: passengerIdData.confirmedFoundFlag
+        });
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
+
+  if (!passengerIdData.confirmedFoundFlag) {
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-confirmed-requests", requestOptions)
+      .then(result => result.json())
+      .then(data => {
+        var list_of_request = [];
+        for (let request of data) {
+          list_of_request.push(request);
+        }
+        setpassengerIdData({
+          requestData: passengerIdData.requestData,
+          requestFoundFlag: passengerIdData.requestFoundFlag,
+          confirmedData: list_of_request,
+          confirmedFoundFlag: true
         });
         
       }).catch((e) => {
@@ -231,7 +258,13 @@ function SelectPassenger(props) {
 
 
     return (
-        <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({update: setPassengerRequestIds, tripId: trip_id, driverId: location.trip.driver_id, pending: passengerRequestIds.data, confirmed: intermediate_passengers_ids})} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
+        <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({
+            update: setpassengerIdData, 
+            tripId: trip_id, 
+            driverId: location.trip.driver_id, 
+            pending: passengerIdData.requestData, 
+            confirmed: passengerIdData.confirmedData})} 
+          default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
     )
 }
 
