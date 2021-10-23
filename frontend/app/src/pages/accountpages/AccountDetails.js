@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
-
+import FileBase64 from 'react-file-base64'
 
 import { Avatar} from '@material-ui/core';
 import { AiFillHome } from 'react-icons/ai';
@@ -53,7 +53,8 @@ function AccountDetails(props) {
 
 
 function AccountDetailsChild(props) {
-  
+  const  { data } = props.userItems.data.user_avatar
+  const img = new Buffer.from(data).toString("ascii")
 
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
@@ -61,7 +62,7 @@ function AccountDetailsChild(props) {
   const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
   // @Toby homeLocation never used
   const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
-  const [userImage, setUserImage] = useState(props.userItems.data.user_avatar);
+  const [userImage, setUserImage] = useState((img));
   const [userRego, setUserRego] = useState(props.userItems.data.number_plate);
   const [carModel, setCarModel] = useState(props.userItems.data.car_type);
  
@@ -114,7 +115,6 @@ function AccountDetailsChild(props) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        //'student_id': student_id,
         'student_id': student_id,
         'gender': userGender,
         'preference': driverPref,
@@ -205,46 +205,6 @@ function AccountDetailsChild(props) {
   
   }
 
-  const imageSubmit = (e) => {
-    e.preventDefault();
-    const that = this;
-    if (userImage === "") {
-      console.log("No Image Found")
-    } else {
-      const reader = new FileReader();
-      reader.readAsDataURL(userImage);
-      reader.onloadend = () => {
-        that.setState({
-          image: URL.createObjectURL(userImage),
-          userImage: reader.result,
-        });
-      }
-    }
-
-    // const imageOptions = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     //'student_id': student_id,
-    //     'student_id': "s1234567",
-    //     'userImage': that,
-    //   })
-    // };
-
-    // fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/update-image", imageOptions)
-    //   .then(result => result.json())
-    //   .then(data => {
-    //     console.log(data);
-    //   });
-
-  }
-
-  const imageChange = (e) => {
-    const image = e.target.files[0];
-    setUserImage(URL.createObjectURL(image));
-    console.log(userImage)
-  }
-
   function createAccountBody() {
     
 
@@ -258,10 +218,7 @@ function AccountDetailsChild(props) {
 
         <div className='ad-container'>
 
-          <form onSubmit={imageSubmit}>
-            <input type="file" onChange={imageChange}/>
-            <SmallConfirmButton margin={true} name={"Upload Image"}/>
-          </form>
+          <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)}/>
 
           <div onClick={handleDropDowns}>
             <MediumConfirmButton margin={true} name={'Update Preferences'} />
@@ -345,6 +302,7 @@ function AccountDetailsChild(props) {
             <MediumConfirmButton margin={true} name={'SAVE'} />
 
           </div>
+
 
         </div>
 
