@@ -168,7 +168,7 @@ function Trips(props) {
     }
     for (const [key, value] of passenger_date_map) {
       var keyDate = new Date(key)
-      if (keyDate > today) {
+      if (keyDate >= today) {
         passengerUpcomingTripsArray.push(value)
       } else {
         passengerPastTripsArray.push(value)
@@ -207,7 +207,7 @@ function Trips(props) {
     }
   }
 
-  const [isUpcoming, setIsUpcoming] = useState(false);
+  const [isUpcoming, setIsUpcoming] = useState(true);
   var today = new Date()
  
   function SearchBody(props) {
