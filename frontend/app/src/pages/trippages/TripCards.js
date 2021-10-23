@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { SchoolOutlined, PlaceOutlined, ScheduleOutlined } from '@material-ui/icons/'
 import './TripCards.css'
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function PassengerTripEvent(props) {
@@ -132,7 +132,6 @@ function DriverHeader(props) {
 
 function DriverTripEvent(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const history = useHistory();
 
 
   const toggleOpen = () => setIsOpen(!isOpen);
@@ -184,7 +183,6 @@ function DriverTripEvent(props) {
 }
 
 function DriverFooter(props) {
-  const history = useHistory();
   return (
     <motion.div
       layout
@@ -213,16 +211,18 @@ function DriverFooter(props) {
         </div>
       </div>
     {props.isUpcoming ? 
-      <div className="driver-trip-actions">
-          <div className='view-action' onClick={() => { /////////////////////////////////////////////////////////////////ITS HERE YOU PASS PASSENGERS FROM THE TRIP, WHY IS IT NOT RECOGNISING PROPS.EVENT
-        
-          }}> Manage Passengers </div>
-
-        <div className='cancel-action'> Cancel Trip </div>
+      <div className="upcoming-driver-trip-actions">
+        <Link className='driver-manage-action' to={{pathname: '/Select/Passenger', trip: props.trip}} onClick={() => {props.update_direction(1)}}>
+          <div className='driver-manage-action'> Manage Passengers</div>
+        </Link>
+        <Link className='driver-view-action' to={{pathname: '/TripVisualiser', trip: props.trip}} onClick={() => {props.update_direction(1)}}>
+          <div className='driver-view-action'> View Trip </div>
+        </Link>
+        <div className='driver-cancel-action'> Cancel Trip </div>
       </div>
       : 
         <Link className='review-passenger-link driver-trip-actions' to={{pathname: '/Select/Passenger', trip: props.trip}} onClick={() => {props.update_direction(1)}}>
-          <div className='review-action'> Review Passengers {props.isUpcoming} </div>
+          <div className='review-action'> Review Passengers</div>
         </Link>}
     </motion.div>
   );

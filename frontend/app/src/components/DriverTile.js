@@ -4,7 +4,7 @@ import './DriverTile.css'
 
 
 function DriverTile(props) {
-  var insert_string = props.passenger_count == 0 ? '' : '+ ' + props.passenger_count + ' others' 
+  var insert_string = props.passenger_count === 0 ? '' : '+ ' + props.passenger_count + ' others' 
   return (
     <div>
       <div class='dwrapper'>

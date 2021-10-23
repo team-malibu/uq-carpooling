@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 
 
 import { Avatar} from '@material-ui/core';
 import { AiFillHome } from 'react-icons/ai';
 import { MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
 import {InputCarDetails, InputCarRego} from '../../components/InputText'
-import { SchoolOutlined, PlaceOutlined, EditOutlined } from '@material-ui/icons/';
 import { TimingDropDownMenu, DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
 import "./AccountDetails.css";
@@ -13,10 +13,12 @@ import Geocoder from 'react-mapbox-gl-geocoder';
 const ical = require('node-ical');
 
 function AccountDetails(props) {
+  
+
   const [userItems, setUserItems] = useState();
 
   var thisStudentId = props.studentId
-
+  
   useEffect(() => {
       const prerenderOptions = {
         method: 'POST',
@@ -35,7 +37,12 @@ function AccountDetails(props) {
           console.log(thisStudentId)    
                  
         });
-       }, []);
+       }, [thisStudentId]);
+
+        if (props.studentId == null) {
+          props.update_direction(0);
+          return (<Redirect to="/" />);
+        }
 
         return (
           <>
@@ -47,10 +54,12 @@ function AccountDetails(props) {
 
 function AccountDetailsChild(props) {
   
+
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
   const [userSchool, setUserSchool] = useState(props.userItems.data.school);
-  const [userArrivalTime, setUserArrivalTime] = useState(props.userItems.data.arrive_time_preference);
+  const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
+  // @Toby homeLocation never used
   const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
   const [userImage, setUserImage] = useState(props.userItems.data.user_avatar);
   const [userRego, setUserRego] = useState(props.userItems.data.number_plate);
@@ -86,6 +95,7 @@ function AccountDetailsChild(props) {
     setCarModel(thisCarModel)
   }
 
+  // Never used @Toby
   function handleHome() {
     let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
     console.log(input);
@@ -95,8 +105,6 @@ function AccountDetailsChild(props) {
   function updateBooking(propFlag, bookingProps) {
     //console.log(propFlag)
   }
-
-  var classes = new Map();
 
   const handleDropDowns = () => {
 
@@ -238,6 +246,7 @@ function AccountDetailsChild(props) {
   }
 
   function createAccountBody() {
+    
 
     return (
       <div className='acc-detail-wrapper'>

@@ -1,7 +1,7 @@
 import {React, useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
-import { useParams, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import './SelectPassenger.css'
 
 //Does this need to go to a different file????
@@ -21,7 +21,12 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/deny-trip-request", rejectionOptions)
         .then(result => result.json())
         .then(data => {
-          props.update({data: [], foundFlag: false});
+          props.update({
+          requestData: [],
+          requestFoundFlag: false,
+          confirmedData: [],
+          confirmedFoundFlag: false
+          });
         }).catch((e) => {
           console.warn(e)
         });
@@ -72,7 +77,7 @@ function PassengerTile(props) {
     });
 
     passenger_count = passenger_count + 1;
-    if (passenger_count == 4) {
+    if (passenger_count === 4) {
       full_flag = 1;
     } 
 
@@ -81,12 +86,12 @@ function PassengerTile(props) {
     coordinateString += firstCoord + ";";
     coordinateString += intermediate_coordinates;
     coordinateString += lastCoord;
-    console.log("Coord string");
-    console.log(intermediate_coordinates);
+    // eslint-disable-next-line 
     let updatedRoute = fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + coordinateString
-        + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q").
-        then(response => response.json()).
-        then(data => {
+    // eslint-disable-next-line 
+        + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q")
+        .then(response => response.json())
+        .then(data => {
             
             routeString = String(data.routes[0].geometry.coordinates);
             tripDuration = data.routes[0].duration;
@@ -102,6 +107,8 @@ function PassengerTile(props) {
         'passenger_count': passenger_count,
         'intermediate_passengers': intermediate_passengers,
         'intermediate_coordinates': intermediate_coordinates,
+        'passenger_lat': props.passengerLat,
+        'passenger_long': props.passengerLong,
         'full_flag': full_flag,
         'route_string': routeString,
         'tripDuration': tripDuration
@@ -111,7 +118,12 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/accept-trip-request", acceptOptions)
         .then(result => result.json())
         .then(data => {
-          props.update({data: [], foundFlag: false});
+          props.update({
+          requestData: [],
+          requestFoundFlag: false,
+          confirmedData: [],
+          confirmedFoundFlag: false
+          });
         }).catch((e) => {
           console.warn(e)
         });
@@ -127,13 +139,13 @@ function PassengerTile(props) {
             <div class='pline'>
               <div class='ptest'>
                 <PersonOutlined className='place-outlined' />
-                NAME
+                {props.everything.first_name} {props.everything.last_name}
               </div>
   
               <div class='ptest'>
                 
                 <StarOutlined />
-                RATING
+                {props.everything.average_rating}
               </div>
             </div>
             <div class='pline'>
@@ -149,10 +161,10 @@ function PassengerTile(props) {
           null
         :
           <>
-            <div className='reject-action' onClick={() => {handleRejectPassengerRequest({update: props.update, passengerId: props.passengerId, tripId: props.tripId})}}>
+            <div className='reject-action' onClick={() => {handleRejectPassengerRequest({update: props.update, passengerId: props.everything.student_id, tripId: props.tripId})}}>
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
             </div>
-            <div className='accept-action' onClick={() => {handleAcceptPassengerRequest({update: props.update, driverId: props.driverId, passengerId: props.passengerId, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat})}}> 
+            <div className='accept-action' onClick={() => {handleAcceptPassengerRequest({update: props.update, driverId: props.driverId, passengerId: props.everything.student_id, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat})}}> 
                 <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
             </div>
           </>
@@ -166,16 +178,18 @@ function PassengerTile(props) {
   }
 
 function SelectPassengerBody(props) {
-    let pendingPassengers = []
-    let confirmedPassengers = []
+    let pendingPassengers = [];
+    let confirmedPassengers = [];
+    
     props.confirmed.forEach((passengerProps) => {
+
       confirmedPassengers.push(
-        <PassengerTile update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
+        <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
       )
     });
     props.pending.forEach((passengerProps) => {
       confirmedPassengers.push(
-        <PassengerTile update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{lat: passengerProps.passenger_lat, long: passengerProps.passenger_long}}/>
+        <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{lat: passengerProps.passenger_lat, long: passengerProps.passenger_long}}/>
       )
     });
     return (
@@ -187,19 +201,18 @@ function SelectPassengerBody(props) {
 }
 
 function SelectPassenger(props) {
-  const [passengerRequestIds, setPassengerRequestIds] = useState({ data: [], foundFlag: false });
+ 
   const location = useLocation();
   var trip_id = '';
   var intermediate_passengers_ids = [];
   if (location.trip) {
     trip_id = location.trip.trip_id;
-    console.log(location.trip.intermediate_passengers)
-    if (location.trip.intermediate_passengers != null && location.trip.intermediate_passengers.length != 0) {
-      intermediate_passengers_ids = location.trip.intermediate_passengers.slice(1, location.trip.intermediate_passengers.length - 1);
-      intermediate_passengers_ids = intermediate_passengers_ids.split(',');
+    if (location.trip.intermediate_passengers != null) {
+      intermediate_passengers_ids = location.trip.intermediate_passengers.split(',');
+
     }
   } 
-
+  const [passengerIdData, setpassengerIdData] = useState({ requestData: [], requestFoundFlag: false, confirmedData: intermediate_passengers_ids, confirmedFoundFlag: false});
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -208,19 +221,38 @@ function SelectPassenger(props) {
     })
   };
 
-  if (!passengerRequestIds.foundFlag) {
+  if (!passengerIdData.requestFoundFlag) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-pending-requests", requestOptions)
       .then(result => result.json())
       .then(data => {
-  
         var list_of_request = [];
         for (let request of data) {
-          console.log(request)
           list_of_request.push(request);
         }
-        setPassengerRequestIds({
-          data: list_of_request,
-          foundFlag: true,
+        setpassengerIdData({
+          requestData: list_of_request,
+          requestFoundFlag: true,
+          confirmedData: passengerIdData.confirmedData,
+          confirmedFoundFlag: passengerIdData.confirmedFoundFlag
+        });
+      }).catch((e) => {
+        console.warn(e)
+      });
+  }
+
+  if (!passengerIdData.confirmedFoundFlag) {
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-confirmed-requests", requestOptions)
+      .then(result => result.json())
+      .then(data => {
+        var list_of_request = [];
+        for (let request of data) {
+          list_of_request.push(request);
+        }
+        setpassengerIdData({
+          requestData: passengerIdData.requestData,
+          requestFoundFlag: passengerIdData.requestFoundFlag,
+          confirmedData: list_of_request,
+          confirmedFoundFlag: true
         });
         
       }).catch((e) => {
@@ -231,7 +263,13 @@ function SelectPassenger(props) {
 
 
     return (
-        <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({update: setPassengerRequestIds, tripId: trip_id, driverId: location.trip.driver_id, pending: passengerRequestIds.data, confirmed: intermediate_passengers_ids})} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
+        <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({
+            update: setpassengerIdData, 
+            tripId: trip_id, 
+            driverId: location.trip.driver_id, 
+            pending: passengerIdData.requestData, 
+            confirmed: passengerIdData.confirmedData})} 
+          default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
     )
 }
 

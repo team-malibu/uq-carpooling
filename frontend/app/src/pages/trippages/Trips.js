@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import BasicPage from '../../components/BasicPage'
 import './Trips.css'
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
-import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, TripOrigin } from '@material-ui/icons/'
+import { motion, AnimateSharedLayout } from "framer-motion";
 import { PassengerTripEvent, DriverTripEvent } from './TripCards.js'
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 
 
 function TripSwitch({ isUpcoming, ...props }) {
@@ -45,7 +44,7 @@ function Trips(props) {
   const [specificPassengerRequestsFound, setRequestDataFound] = useState({ data: null, foundFlag: false });
   const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, passengerPastTrips: [], passengerUpcomingTrips: []});
   const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false, processedFlag: false,  driverPastTrips: [], driverUpcomingTrips: []});
- 
+  
   const requestOptionsPassenger = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -109,7 +108,7 @@ function Trips(props) {
         console.warn(e)
       });
   }
-
+  var today = new Date()
   if (asDriverDataFound.foundFlag && !asDriverDataFound.processedFlag) {
     var driver_date_map = new Map()
 
@@ -130,8 +129,8 @@ function Trips(props) {
     var driverUpcomingTripsArray = []
     var driverPastTripsArray = []
     for (const [key, value] of driver_date_map) {
-      var keyDate = new Date(key)
-      if (keyDate > today) {
+      var keyDateDriver = new Date(key)
+      if (keyDateDriver >= today) {
         driverUpcomingTripsArray.push(value)
       } else {
         driverPastTripsArray.push(value)
@@ -167,8 +166,8 @@ function Trips(props) {
         })
     }
     for (const [key, value] of passenger_date_map) {
-      var keyDate = new Date(key)
-      if (keyDate > today) {
+      var keyDatePassenger = new Date(key)
+      if (keyDatePassenger >= today) {
         passengerUpcomingTripsArray.push(value)
       } else {
         passengerPastTripsArray.push(value)
@@ -207,10 +206,13 @@ function Trips(props) {
     }
   }
 
-  const [isUpcoming, setIsUpcoming] = useState(false);
-  var today = new Date()
+  const [isUpcoming, setIsUpcoming] = useState(true);
  
   function SearchBody(props) {
+    if (props.studentId == null) {
+      props.update_direction(0);
+      return (<Redirect to="/" />);
+    }
     return (
       <>
         <TripSwitch isUpcoming={isUpcoming} onClick={() => setIsUpcoming(!isUpcoming)}>
@@ -240,7 +242,7 @@ function Trips(props) {
   }
 
   return (
-    <BasicPage currentlySelected={2} name='Trips' hide={true} direction={props.direction} key={props.location.key} custom={props.direction} update_direction={props.update_direction} body={SearchBody(props)} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage currentlySelected={2} name='Trips' hide={true} direction={props.direction} update_direction={props.update_direction} body={SearchBody(props)} default={props.default} key={props.key} custom={props.custom} />
   )
 }
 

@@ -67,6 +67,15 @@ li:last-child {
   margin-top: 5px;
 }
 
+.upcoming-driver-trip-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: 100px;
+  overflow: visible;
+  margin-top: 5px;
+}
+
 .passenger-trip-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -75,7 +84,9 @@ li:last-child {
   overflow: visible;
   margin-top: 5px;
 }
-
+.driver-view-action,
+.driver-cancel-action,
+.driver-manage-action,
 .view-action,
 .cancel-action {
   height: 100%;
@@ -100,6 +111,30 @@ li:last-child {
 
 .view-action {
   background-color: #62e974;
+  grid-column: 1;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  text-decoration: none;
+}
+
+.driver-view-action {
+  background-color: #62e974;
+  grid-column: 2;
+
+  text-decoration: none;
+}
+
+.driver-cancel-action {
+  background-color: salmon;
+  grid-column: 3;
+
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  text-decoration: none;
+}
+
+.driver-manage-action {
+  background-color: blue;
   grid-column: 1;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
