@@ -208,7 +208,7 @@ function Trips(props) {
   }
 
   const [isUpcoming, setIsUpcoming] = useState(true);
-
+ 
   function SearchBody(props) {
     if (props.studentId == null) {
       props.update_direction(0);

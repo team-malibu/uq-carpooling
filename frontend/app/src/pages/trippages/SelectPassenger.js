@@ -180,15 +180,12 @@ function SelectPassengerBody(props) {
     let confirmedPassengers = [];
     
     props.confirmed.forEach((passengerProps) => {
-      console.log("PROPS 1")
-      console.log(passengerProps)
+
       confirmedPassengers.push(
         <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
       )
     });
     props.pending.forEach((passengerProps) => {
-      console.log("PROPS 2")
-      console.log(passengerProps)
       confirmedPassengers.push(
         <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{lat: passengerProps.passenger_lat, long: passengerProps.passenger_long}}/>
       )
@@ -228,10 +225,8 @@ function SelectPassenger(props) {
       .then(data => {
         var list_of_request = [];
         for (let request of data) {
-          console.log(request)
           list_of_request.push(request);
         }
-        console.log(list_of_request)
         setpassengerIdData({
           requestData: list_of_request,
           requestFoundFlag: true,
@@ -251,7 +246,6 @@ function SelectPassenger(props) {
         for (let request of data) {
           list_of_request.push(request);
         }
-        console.log(list_of_request)
         setpassengerIdData({
           requestData: passengerIdData.requestData,
           requestFoundFlag: passengerIdData.requestFoundFlag,
