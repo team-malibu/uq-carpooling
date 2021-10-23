@@ -16,16 +16,18 @@ function PassengerTile(props) {
     })
   }
 
-  if (!props.userData.foundFlag) {
+  if (!props.userData.numFound != props.total && !props.userData.data.has(props.passengerId)) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/get", userOptions)
       .then(result => result.json())
       .then(data => {
 
         console.log(userOptions)
         console.log(data)
+        var current = props.userData.data
+        current.set(props.passengerId, data)
         props.setUserData({
-          data: data,
-          foundFlag: true,
+          data: current,
+          numFound: props.userData.numFound + 1,
         })
 
 
@@ -145,7 +147,8 @@ function PassengerTile(props) {
       });
   }
 
-  return props.userData.foundFlag ? (
+  return props.userData.numFound
+   == props.total ? (
     <div class='pwrapper'>
       <div className='passenger-picture'>
 
@@ -155,13 +158,13 @@ function PassengerTile(props) {
         <div class='pline'>
           <div class='ptest'>
             <PersonOutlined className='place-outlined' />
-            {props.userData.data[0].first_name} {props.userData.data[0].last_name}
+            {props.userData.data.get(props.passengerId)[0].first_name} {props.userData.data.get(props.passengerId)[0].last_name}
           </div>
 
           <div class='ptest'>
 
             <StarOutlined />
-            {props.userData.data[0].average_rating}
+            {props.userData.data.get(props.passengerId)[0].average_rating}
           </div>
         </div>
         <div class='pline'>
@@ -173,7 +176,7 @@ function PassengerTile(props) {
         </div>
       </div>
       <div className="passenger-select-actions">
-        {props.pendingPassnger ?
+        {props.pendingPassenger ?
           null
           :
           <>
@@ -219,7 +222,7 @@ function PassengerTile(props) {
         </div>
       </div>
       <div className="passenger-select-actions">
-        {props.pendingPassnger ?
+        {props.pendingPassenger ?
           null
           :
           <>
@@ -241,19 +244,19 @@ function PassengerTile(props) {
 }
 
 function SelectPassengerBody(props) {
-
+  var total = props.confirmed.length + props.pending.length
   let pendingPassengers = []
   let confirmedPassengers = []
   props.confirmed.forEach((passengerProps) => {
 
     confirmedPassengers.push(
-      <PassengerTile trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true} />
+      <PassengerTile total = {total}  trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true} />
     )
   });
   props.pending.forEach((passengerProps) => {
 
-    confirmedPassengers.push(
-      <PassengerTile trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{ lat: passengerProps.passenger_lat, long: passengerProps.passenger_long }} />
+    pendingPassengers.push(
+      <PassengerTile total = {total} trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{ lat: passengerProps.passenger_lat, long: passengerProps.passenger_long }} />
     )
   });
   return (
@@ -265,7 +268,7 @@ function SelectPassengerBody(props) {
 }
 
 function SelectPassenger(props) {
-  const [userData, setUserData] = useState({ data: [], foundFlag: false });
+  const [userData, setUserData] = useState({ data: new Map(), numFound: 0 });
   const [passengerRequestIds, setPassengerRequestIds] = useState({ data: [], foundFlag: false });
   const location = useLocation();
   var trip_id = '';
