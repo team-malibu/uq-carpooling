@@ -46,13 +46,13 @@ function AccountDetails(props) {
 
 
 function AccountDetailsChild(props) {
-
+  
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
   const [userSchool, setUserSchool] = useState(props.userItems.data.school);
-  const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
+  const [userArrivalTime, setUserArrivalTime] = useState(props.userItems.data.arrive_time_preference);
   const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
-  const [userImage, setUserImage] = useState(props.userItems.data.image);
+  const [userImage, setUserImage] = useState(props.userItems.data.user_avatar);
   const [userRego, setUserRego] = useState(props.userItems.data.number_plate);
   const [carModel, setCarModel] = useState(props.userItems.data.car_type);
  
@@ -114,7 +114,8 @@ function AccountDetailsChild(props) {
         'arrive_time_preference': userArrivalTime,
         "home_address": input.value,
         "number_plate": userRego,
-        "car_type": carModel
+        "car_type": carModel,
+        "user_avatar" : userImage
 
       })
     };
@@ -241,7 +242,7 @@ function AccountDetailsChild(props) {
     return (
       <div className='acc-detail-wrapper'>
         <div className="acc-detail-image-container">
-          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', marginLeft: '15%', position: "relative" }} src={userImage} onClick={() => {
+          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', position: "relative", left:"10%" }} src={userImage} onClick={() => {
             console.log('Avatar pressed display image picker')
           }} />
         </div>
