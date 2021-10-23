@@ -6,7 +6,7 @@ import './SelectPassenger.css'
 
 //Does this need to go to a different file????
 function PassengerTile(props) {
-  const [userData, setUserData] = useState({ data: [], foundFlag: false });
+
 
   const userOptions = {
     method: 'POST',
@@ -16,14 +16,14 @@ function PassengerTile(props) {
     })
   }
 
-  if (!userData.foundFlag) {
+  if (!props.userData.foundFlag) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/get", userOptions)
-    .then(result => result.json())
+      .then(result => result.json())
       .then(data => {
 
         console.log(userOptions)
         console.log(data)
-        setUserData({
+        props.setUserData({
           data: data,
           foundFlag: true,
         })
@@ -145,7 +145,7 @@ function PassengerTile(props) {
       });
   }
 
-  return userData.foundFlag ? (
+  return props.userData.foundFlag ? (
     <div class='pwrapper'>
       <div className='passenger-picture'>
 
@@ -155,19 +155,19 @@ function PassengerTile(props) {
         <div class='pline'>
           <div class='ptest'>
             <PersonOutlined className='place-outlined' />
-            NAME
+            {props.userData.data[0].first_name} {props.userData.data[0].last_name}
           </div>
 
           <div class='ptest'>
 
             <StarOutlined />
-            RATING
+            {props.userData.data[0].average_rating}
           </div>
         </div>
         <div class='pline'>
           <div class='ptest'>
             <ScheduleOutlined className='place-outlined' />
-            Arrive by TIME
+            Arrive by {props.trip.arrive_time}
 
           </div>
         </div>
@@ -190,6 +190,7 @@ function PassengerTile(props) {
       </div>
 
     </div>
+
   ) : (
     <div class='pwrapper'>
       <div className='passenger-picture'>
@@ -200,19 +201,19 @@ function PassengerTile(props) {
         <div class='pline'>
           <div class='ptest'>
             <PersonOutlined className='place-outlined' />
-            {userData.data.first_name} {userData.data.last_name}
+            NAME
           </div>
 
           <div class='ptest'>
 
             <StarOutlined />
-            {userData.data.average_rating}
+            RATING
           </div>
         </div>
         <div class='pline'>
           <div class='ptest'>
             <ScheduleOutlined className='place-outlined' />
-            Arrive by {props.arrival_time}
+            Arrive by {props.trip.arrive_time}
 
           </div>
         </div>
@@ -240,18 +241,19 @@ function PassengerTile(props) {
 }
 
 function SelectPassengerBody(props) {
+
   let pendingPassengers = []
   let confirmedPassengers = []
   props.confirmed.forEach((passengerProps) => {
 
     confirmedPassengers.push(
-      <PassengerTile update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true} />
+      <PassengerTile trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true} />
     )
   });
   props.pending.forEach((passengerProps) => {
 
     confirmedPassengers.push(
-      <PassengerTile update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{ lat: passengerProps.passenger_lat, long: passengerProps.passenger_long }} />
+      <PassengerTile trip={props.trip} userData={props.userData} setUserData={props.setUserData} update={props.update} passengerId={passengerProps.passenger_id} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{ lat: passengerProps.passenger_lat, long: passengerProps.passenger_long }} />
     )
   });
   return (
@@ -263,21 +265,23 @@ function SelectPassengerBody(props) {
 }
 
 function SelectPassenger(props) {
+  const [userData, setUserData] = useState({ data: [], foundFlag: false });
   const [passengerRequestIds, setPassengerRequestIds] = useState({ data: [], foundFlag: false });
   const location = useLocation();
   var trip_id = '';
   var intermediate_passengers_ids = [];
   if (location.trip) {
+
     trip_id = location.trip.trip_id;
     console.log(location.trip.intermediate_passengers)
     if (location.trip.intermediate_passengers != null && location.trip.intermediate_passengers.length != 0) {
       // intermediate_passengers_ids = location.trip.intermediate_passengers.slice(1, location.trip.intermediate_passengers.length - 1);
 
-      console.log("FCUK")
-      console.log(location.trip.intermediate_passengers)
+
+
       intermediate_passengers_ids = location.trip.intermediate_passengers.split(',');
       intermediate_passengers_ids.pop()
-      console.log(intermediate_passengers_ids)
+
     }
   }
 
@@ -309,10 +313,11 @@ function SelectPassenger(props) {
       });
   }
 
+  console.log(userData.data)
 
 
   return (
-    <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({ update: setPassengerRequestIds, tripId: trip_id, driverId: location.trip.driver_id, pending: passengerRequestIds.data, confirmed: intermediate_passengers_ids })} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
+    <BasicPage currentlySelected={2} name='Select Passengers' previousPage='/Trips' hide={false} direction={props.direction} body={SelectPassengerBody({ trip: location.trip, userData: userData, setUserData: setUserData, update: setPassengerRequestIds, tripId: trip_id, driverId: location.trip.driver_id, pending: passengerRequestIds.data, confirmed: intermediate_passengers_ids })} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
   )
 }
 
