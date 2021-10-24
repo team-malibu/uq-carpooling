@@ -53,8 +53,15 @@ function AccountDetails(props) {
 
 
 function AccountDetailsChild(props) {
-  const  { data } = props.userItems.data.user_avatar
+  // const img = null;
+  // if(props.userItems.data.user_avatar != null) {
+  //   const  { data } = props.userItems.data.user_avatar;
+  //   const img = new Buffer.from(data).toString("ascii")
+  // } 
+
+  const  { data } = props.userItems.data.user_avatar;
   const img = new Buffer.from(data).toString("ascii")
+  
 
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
