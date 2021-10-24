@@ -102,13 +102,6 @@ function InputEmail(props) {
 
 function InputPassword(props) {
 
-    const [showPassword, setShowPassword] = useState(false)
-    // Same here @Toby this is never used
-    const togglePassword = () => {
-        setShowPassword(showPassword ? false : true);
-
-    }
-
     const handlePassword = (e) => {
         const thisPassword = e.target.value;
         if(thisPassword.length >= 7) {
@@ -118,7 +111,6 @@ function InputPassword(props) {
         }
     }
 
-    // @Toby two type=
     return (
         <div className="itext">
                 <span className="itext-icon-left">{props.iconLeft}</span>
@@ -128,7 +120,6 @@ function InputPassword(props) {
                     name="password"
                     value={props.value}
                     onChange={handlePassword}
-                    type={showPassword ? "text" : "password"}
                     />
                  <span className="itext-icon-right">{props.iconRight}</span>
         </div>

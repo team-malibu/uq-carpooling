@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import FileBase64 from 'react-file-base64'
-
 import { Avatar} from '@material-ui/core';
 import { AiFillHome } from 'react-icons/ai';
-import { MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
+import { MediumConfirmButton } from '../../components/Button'
 import {InputCarDetails, InputCarRego} from '../../components/InputText'
 import { TimingDropDownMenu, DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
@@ -53,25 +52,19 @@ function AccountDetails(props) {
 
 
 function AccountDetailsChild(props) {
-  // const img = null;
-  // if(props.userItems.data.user_avatar != null) {
-  //   const  { data } = props.userItems.data.user_avatar;
-  //   const img = new Buffer.from(data).toString("ascii")
-  // } 
-
-  const  { data } = props.userItems.data.user_avatar;
-  const img = new Buffer.from(data).toString("ascii")
-  
+  var img = null;
+    if (props.userItems.data.user_avatar != null) {
+      const  { data } = props.userItems.data.user_avatar;
+      img = new Buffer.from(data).toString("ascii");
+    }
 
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
   const [userSchool, setUserSchool] = useState(props.userItems.data.school);
   const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
-  // @Toby homeLocation never used
-  const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
   const [userImage, setUserImage] = useState((img));
-  const [userRego, setUserRego] = useState(props.userItems.data.number_plate);
-  const [carModel, setCarModel] = useState(props.userItems.data.car_type);
+  const [userRego, setUserRego] = useState(props.userItems.data.number_plate? props.userItems.data.number_plate: "" );
+  const [carModel, setCarModel] = useState(props.userItems.data.car_type? props.userItems.data.car_type: "" );
  
 
   var student_id = props.thisStudentId
@@ -103,12 +96,7 @@ function AccountDetailsChild(props) {
     setCarModel(thisCarModel)
   }
 
-  // Never used @Toby
-  function handleHome() {
-    let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
-    console.log(input);
-    setHomeLocation(input);
-  }
+ 
 
   function updateBooking(propFlag, bookingProps) {
     //console.log(propFlag)
@@ -218,18 +206,18 @@ function AccountDetailsChild(props) {
     return (
       <div className='acc-detail-wrapper'>
         <div className="acc-detail-image-container">
-          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', position: "relative", left:"10%" }} src={userImage} onClick={() => {
+          <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '250px', width: '250px' }} src={userImage} onClick={() => {
             console.log('Avatar pressed display image picker')
           }} />
+           <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)}/>
         </div>
 
         <div className='ad-container'>
 
-          <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)}/>
+         
 
           <div onClick={handleDropDowns}>
             <MediumConfirmButton margin={true} name={'Update Preferences'} />
-
           </div>
 
           Gender:
@@ -242,7 +230,7 @@ function AccountDetailsChild(props) {
           <div class='ad_trip_wrapper'>
             <div class='ad_trip_info_line'>
               <div class='ad_trip_content' id="startingGeo">
-                <div>
+              <div>
                 {<AiFillHome />}
                 </div>
                 <Geocoder
@@ -267,7 +255,7 @@ function AccountDetailsChild(props) {
             driverPrefValue={driverPref}
             handleChange={handleDriverPref} />
 
-          Preferred Arrival Time:
+          Arrival Time before class:
 
           <TimingDropDownMenu
             arrivalTimeValue={userArrivalTime}
