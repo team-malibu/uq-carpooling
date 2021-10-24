@@ -124,6 +124,8 @@ function Trips(props) {
         'intermediate_passengers': trip.intermediate_passengers,
         'intermediate_stops': trip.intermediate_stops,
         'pending_requests': trip.pending_requests_flag,
+        'start_lat': trip.start_lat,
+        'start_long': trip.start_long,
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
@@ -166,7 +168,9 @@ function Trips(props) {
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
-        'date': trip.date.split('T')[0]
+        'date': trip.date.split('T')[0],
+        'driver_first_name': trip.driver_first_name,
+        'driver_last_name': trip.driver_last_name,
       })
     }
     for (const [key, value] of passenger_date_map) {
@@ -203,7 +207,9 @@ function Trips(props) {
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
-        'date': trip.date.split('T')[0]
+        'date': trip.date.split('T')[0],
+        'driver_first_name': trip.driver_first_name,
+        'driver_last_name': trip.driver_last_name,
       });
     }
     for (const [key, value] of request_date_map) {
@@ -211,11 +217,12 @@ function Trips(props) {
       
       var keyDate = new Date(key)
       if (keyDate >= today) {
-        console.log("ADDDED")
         console.log(value)
         pendingPassengersArray.push(value)
 
 
+      } else {
+    
       }
     }
     setRequestDataFound({
