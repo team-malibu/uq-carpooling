@@ -2,17 +2,16 @@ import React from 'react'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
 import './DriverTile.css'
 
-
+/**
+ * DriverTile Component used to display relevant information about a Driver an their Trip
+ * to the Passenger / User.
+ * 
+ */
 function DriverTile(props) {
-  var insert_string = props.passenger_count === 0 ? '' : '+ ' + props.passenger_count + ' others' 
+  var insert_string = props.passenger_count === 0 ? '' : '+ ' + props.passenger_count + ' others'
   return (
     <div>
       <div class='dwrapper'>
-      
-
-
-        {/* Add flexbox to center John Smith text */}
-
         <div class='dinfo_line'>
           <div class='dline'>
             <div class='dtest'>
@@ -21,7 +20,7 @@ function DriverTile(props) {
             </div>
 
             <div class='dtest'>
-              
+
               <StarOutlined />
               {props.rating}
             </div>

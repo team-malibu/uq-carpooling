@@ -77,7 +77,13 @@ function TopSection(props) {
   );
 }
 
-
+/**
+ * The BasicPage component is a wrapper for every page we use, it contains
+ * title, body, and pop-up components that can be initialised and filled
+ * by passing in props. You can see this BasicPage at the bottom of almost 
+ * every file in our pages directory.
+ * 
+ */
 function BasicPage(props) {
   return (
     <>
