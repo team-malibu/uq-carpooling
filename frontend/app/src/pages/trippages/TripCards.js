@@ -7,8 +7,6 @@ import { Link, useHistory } from "react-router-dom";
 
 function PassengerTripEvent(props) {
   const history = useHistory();
-  console.log("IN HERE")
-  console.log(props)
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
@@ -58,7 +56,7 @@ function PassengerTripEvent(props) {
           </div>
         </div>
       </div>
-      <AnimatePresence>{isOpen && <PassengerFooter history={history} trip={props.trip} pending={props.pending} isUpcoming={props.isUpcoming} />}</AnimatePresence>
+      <AnimatePresence>{isOpen && <PassengerFooter history={history} trip={props.trip} pending={props.pending} isUpcoming={props.isUpcoming} update_direction={props.update_direction} />}</AnimatePresence>
     </motion.div>
   );
 }
@@ -93,7 +91,7 @@ function PassengerFooter(props) {
         </div>
       </div>
       <div className="passenger-trip-actions">
-        {props.isUpcoming ? <div className='view-action'> View </div> :
+        {props.isUpcoming ? null :
           <div onClick={
             props.history.push({
               'pathname':'/rating',
@@ -104,7 +102,12 @@ function PassengerFooter(props) {
               }
             })
           }>
-        Rate Driver</div>}
+          Rate Trip
+          </div>
+          }
+       <Link className='driver-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+            <div className='driver-view-action'> View Trip </div>
+        </Link>
       <div className='cancel-action'> Cancel </div>
     </div>
     </motion.div >
@@ -190,7 +193,6 @@ function DriverTripEvent(props) {
 }
 
 function DriverFooter(props) {
-  console.log(props)
   return (
     <motion.div
       layout
@@ -223,15 +225,15 @@ function DriverFooter(props) {
           <Link className='driver-manage-action' to={{ pathname: '/Select/Passenger', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
             <div className='driver-manage-action'> Manage Passengers</div>
           </Link>
-          <Link className='driver-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
-            <div className='driver-view-action'> View Trip </div>
-          </Link>
           <div className='driver-cancel-action'> Cancel Trip </div>
         </div>
         :
         <Link className='review-passenger-link driver-trip-actions' to={{ pathname: '/Select/Passenger', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
           <div className='review-action'> Review Passengers</div>
         </Link>}
+        <Link className='driver-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+            <div className='driver-view-action'> View Trip </div>
+        </Link>
     </motion.div>
   );
 }
