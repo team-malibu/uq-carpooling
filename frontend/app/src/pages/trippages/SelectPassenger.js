@@ -1,7 +1,7 @@
 import {React, useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
-import { useParams, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import './SelectPassenger.css'
 
 //Does this need to go to a different file????
@@ -77,7 +77,7 @@ function PassengerTile(props) {
     });
 
     passenger_count = passenger_count + 1;
-    if (passenger_count == 4) {
+    if (passenger_count === 4) {
       full_flag = 1;
     } 
 
@@ -86,10 +86,12 @@ function PassengerTile(props) {
     coordinateString += firstCoord + ";";
     coordinateString += intermediate_coordinates;
     coordinateString += lastCoord;
+    // eslint-disable-next-line 
     let updatedRoute = fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + coordinateString
-        + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q").
-        then(response => response.json()).
-        then(data => {
+    // eslint-disable-next-line 
+        + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q")
+        .then(response => response.json())
+        .then(data => {
             
             routeString = String(data.routes[0].geometry.coordinates);
             tripDuration = data.routes[0].duration;
@@ -270,5 +272,6 @@ function SelectPassenger(props) {
           default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}/>
     )
 }
+
 
 export default SelectPassenger

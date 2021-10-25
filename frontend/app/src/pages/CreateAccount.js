@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import BasicPage from '../components/BasicPage'
 import { useHistory } from 'react-router-dom'
-import { LargeConfirmButton, SquareButton } from '../components/Button'
+import { LargeConfirmButton } from '../components/Button'
 import './CreateAccount.css'
 import { InputPassword, InputEmail, InputName, InputStudentId } from '../components/InputText';
 import { MdLockOutline } from 'react-icons/md';
@@ -93,7 +93,7 @@ function CreateAccount2(props) {
 
   function handlePassword2(thisPassword2) {
     setUserPassword2(thisPassword2)
-    if (userPassword == thisPassword2 && validPassword) {
+    if (userPassword === thisPassword2 && validPassword) {
       setValidPassword2(true)
       setPasswordIcon2(<BsCheckCircle/>)
     } else {

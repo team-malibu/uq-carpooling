@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
+import React, { useState,  } from 'react';
 import "./InputText.css";
 
 function InputName(props) {
@@ -9,6 +8,7 @@ function InputName(props) {
         const thisName = e.target.value
 
         //characters not allowed within student's name
+        // eslint-disable-next-line
         const reg = /[~`!0123456789@#$%\^&*+=\\[\]\\';,/{}|\\":<>\?]/g
 
         if(thisName.length >= 2 && !reg.test(String(thisName))) {
@@ -39,10 +39,9 @@ function InputStudentId(props) {
     const handleStudentId = (e) => {
 
         const thisStudentId = e.target.value
-
+        // eslint-disable-next-line
         const reg = /s\b\d{6}\b/g
-
-        if (thisStudentId.length == 8 && !reg.test(String(thisStudentId))) {
+        if (thisStudentId.length === 8 && !reg.test(String(thisStudentId))) {
             props.onChange(thisStudentId, true)
         } else {
             props.onChange(thisStudentId, false)
@@ -70,6 +69,7 @@ function InputEmail(props) {
         const thisEmail = e.target.value;
 
         //checks for firstname.lastnamexx@uq.net.au
+        // eslint-disable-next-line
         const reg = /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@uq([\.])net([\.])au$/g
 
         if ((reg.test(String(thisEmail)))) {
@@ -102,13 +102,6 @@ function InputEmail(props) {
 
 function InputPassword(props) {
 
-    const [showPassword, setShowPassword] = useState(false)
-
-    const togglePassword = () => {
-        setShowPassword(showPassword ? false : true);
-
-    }
-
     const handlePassword = (e) => {
         const thisPassword = e.target.value;
         if(thisPassword.length >= 7) {
@@ -117,7 +110,6 @@ function InputPassword(props) {
             props.onChange(thisPassword, false) 
         }
     }
-
 
     return (
         <div className="itext">
@@ -128,7 +120,6 @@ function InputPassword(props) {
                     name="password"
                     value={props.value}
                     onChange={handlePassword}
-                    type={showPassword ? "text" : "password"}
                     />
                  <span className="itext-icon-right">{props.iconRight}</span>
         </div>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import TripMap from '../../components/TripMap'
 import TripTile from '../../components/TripTile'
 import { useHistory, useLocation, Redirect } from 'react-router-dom'
-import { MediumConfirmButton, SquareButton } from '../../components/Button'
+import { MediumConfirmButton } from '../../components/Button'
 import './Book.css'
 import BasicPage from '../../components/BasicPage'
 
@@ -13,15 +13,18 @@ function Book(props) {
   const [startLoc, setStartLoc] = useState(0);
   const [endLoc, setEndLoc] = useState(0);
   const [centerLoc, setCenterLoc] = useState(0);
+
+  // Set Intermediate stops not used @Arthur
   const [intermediateStops, setIntermediateStops] = useState(0);
   const [arriveTime, setStartTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const [showPopUp, setShowPopUp] = useState(false);
+  // Set Popup Message not used @Arthur
   const [popUpMessage, setPopUpMessage] = useState("");
   const [tProps, setTProps] = useState({ arrive: null, setFlag: false, firstClickFlag: false });
 
-  const driverId = "s1234567" //Change to ID also could be a passengerID
+
 
   if (location.state && location.state.props && location.state.props.start_date && !tProps.firstClickFlag) {
     var timeTableStart = new Date(location.state.props.start_date.valueOf() - 5 * 60000);
@@ -60,7 +63,7 @@ function Book(props) {
 
   function createATrip(tripProps) {
     console.log(endLoc, startLoc, date, arriveTime)
-    if (endLoc == 0 || startLoc == 0 || date == 0 || arriveTime == 0) {
+    if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
       return
     }
@@ -106,7 +109,7 @@ function Book(props) {
   
   function findTrips(tripProps) {
     //console.log(endLoc, startLoc, date, arriveTime)
-    if (endLoc == 0 || startLoc == 0 || date == 0 || arriveTime == 0) {
+    if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
       return
     }

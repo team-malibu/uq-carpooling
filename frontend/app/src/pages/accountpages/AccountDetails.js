@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, useLocation, Redirect } from 'react-router-dom'
-
-
+import { Redirect } from 'react-router-dom'
+import FileBase64 from 'react-file-base64'
 import { Avatar} from '@material-ui/core';
 import { AiFillHome } from 'react-icons/ai';
-import { MediumConfirmButton, SmallConfirmButton } from '../../components/Button'
+import { MediumConfirmButton } from '../../components/Button'
 import {InputCarDetails, InputCarRego} from '../../components/InputText'
-import { SchoolOutlined, PlaceOutlined, EditOutlined } from '@material-ui/icons/';
 import { TimingDropDownMenu, DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
 import "./AccountDetails.css";
@@ -38,10 +36,7 @@ function AccountDetails(props) {
           console.log(thisStudentId)    
                  
         });
-       }, []);
-
-        const location = useLocation();
-        const history = useHistory();
+       }, [thisStudentId]);
 
         if (props.studentId == null) {
           props.update_direction(0);
@@ -57,16 +52,19 @@ function AccountDetails(props) {
 
 
 function AccountDetailsChild(props) {
-  
+  var img = null;
+    if (props.userItems.data.user_avatar != null) {
+      const  { data } = props.userItems.data.user_avatar;
+      img = new Buffer.from(data).toString("ascii");
+    }
 
   const [userGender, setUserGender] = useState(props.userItems.data.gender);
   const [driverPref, setDriverPref] = useState(props.userItems.data.preference);
   const [userSchool, setUserSchool] = useState(props.userItems.data.school);
   const [userArrivalTime, setUserArrivalTime] = useState( props.userItems.data.arrive_time_preference);
-  const [homeLocation, setHomeLocation] = useState(props.userItems.data.home_address);
-  const [userImage, setUserImage] = useState(props.userItems.data.image);
-  const [userRego, setUserRego] = useState(props.userItems.data.number_plate);
-  const [carModel, setCarModel] = useState(props.userItems.data.car_type);
+  const [userImage, setUserImage] = useState((img));
+  const [userRego, setUserRego] = useState(props.userItems.data.number_plate? props.userItems.data.number_plate: "" );
+  const [carModel, setCarModel] = useState(props.userItems.data.car_type? props.userItems.data.car_type: "" );
  
 
   var student_id = props.thisStudentId
@@ -98,17 +96,11 @@ function AccountDetailsChild(props) {
     setCarModel(thisCarModel)
   }
 
-  function handleHome() {
-    let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
-    console.log(input);
-    setHomeLocation(input);
-  }
+ 
 
   function updateBooking(propFlag, bookingProps) {
     //console.log(propFlag)
   }
-
-  var classes = new Map();
 
   const handleDropDowns = () => {
 
@@ -118,7 +110,6 @@ function AccountDetailsChild(props) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        //'student_id': student_id,
         'student_id': student_id,
         'gender': userGender,
         'preference': driverPref,
@@ -126,7 +117,8 @@ function AccountDetailsChild(props) {
         'arrive_time_preference': userArrivalTime,
         "home_address": input.value,
         "number_plate": userRego,
-        "car_type": carModel
+        "car_type": carModel,
+        "user_avatar" : userImage
 
       })
     };
@@ -208,67 +200,24 @@ function AccountDetailsChild(props) {
   
   }
 
-  const imageSubmit = (e) => {
-    e.preventDefault();
-    const that = this;
-    if (userImage === "") {
-      console.log("No Image Found")
-    } else {
-      const reader = new FileReader();
-      reader.readAsDataURL(userImage);
-      reader.onloadend = () => {
-        that.setState({
-          image: URL.createObjectURL(userImage),
-          userImage: reader.result,
-        });
-      }
-    }
-
-    // const imageOptions = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     //'student_id': student_id,
-    //     'student_id': "s1234567",
-    //     'userImage': that,
-    //   })
-    // };
-
-    // fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/update-image", imageOptions)
-    //   .then(result => result.json())
-    //   .then(data => {
-    //     console.log(data);
-    //   });
-
-  }
-
-  const imageChange = (e) => {
-    const image = e.target.files[0];
-    setUserImage(URL.createObjectURL(image));
-    console.log(userImage)
-  }
-
   function createAccountBody() {
     
 
     return (
       <div className='acc-detail-wrapper'>
         <div className="acc-detail-image-container">
-          <Avatar variant='circle' className='acc-detail-avatar' style={{ height: '250px', width: '250px', marginLeft: '15%', position: "relative" }} src={userImage} onClick={() => {
+          <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '250px', width: '250px' }} src={userImage} onClick={() => {
             console.log('Avatar pressed display image picker')
           }} />
+           <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)}/>
         </div>
 
         <div className='ad-container'>
 
-          <form onSubmit={imageSubmit}>
-            <input type="file" onChange={imageChange}/>
-            <SmallConfirmButton margin={true} name={"Upload Image"}/>
-          </form>
+         
 
           <div onClick={handleDropDowns}>
             <MediumConfirmButton margin={true} name={'Update Preferences'} />
-
           </div>
 
           Gender:
@@ -281,7 +230,7 @@ function AccountDetailsChild(props) {
           <div class='ad_trip_wrapper'>
             <div class='ad_trip_info_line'>
               <div class='ad_trip_content' id="startingGeo">
-                <div>
+              <div>
                 {<AiFillHome />}
                 </div>
                 <Geocoder
@@ -306,7 +255,7 @@ function AccountDetailsChild(props) {
             driverPrefValue={driverPref}
             handleChange={handleDriverPref} />
 
-          Preferred Arrival Time:
+          Arrival Time before class:
 
           <TimingDropDownMenu
             arrivalTimeValue={userArrivalTime}
@@ -348,6 +297,7 @@ function AccountDetailsChild(props) {
             <MediumConfirmButton margin={true} name={'SAVE'} />
 
           </div>
+
 
         </div>
 
