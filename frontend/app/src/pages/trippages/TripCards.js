@@ -62,7 +62,8 @@ function PassengerTripEvent(props) {
 }
 
 function PassengerFooter(props) {
-  
+  console.log(props)
+  console.log("PROPS")
   return (
     <motion.div
       layout
@@ -91,24 +92,27 @@ function PassengerFooter(props) {
         </div>
       </div>
       <div className="passenger-trip-actions">
-        {props.isUpcoming ? null :
-          <div onClick={
-            props.history.push({
-              'pathname':'/rating',
-              'state': {
-                'driver_id': props.trip.drive_id,
-                'trip_id': props.trip.trip_id,
-                'passenger_id': props.student_id,
-              }
-            })
-          }>
-          Rate Trip
-          </div>
-          }
-       <Link className='driver-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
-            <div className='driver-view-action'> View Trip </div>
+        {props.isUpcoming ?  
+        <>
+        <Link className='passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+            <div className='passenger-view-action'> View Trip </div>
         </Link>
-      <div className='cancel-action'> Cancel </div>
+        <div className='cancel-action'> Cancel </div>
+        </>
+         :
+          <>
+          <Link className='review-action' to={{ pathname: '/Rating', trip: props.trip}} onClick={() => {
+            console.log(props.trip);
+            props.update_direction(1) }}>
+            <div className='review-action'> Rate Trip </div>
+          </Link>
+          <Link className='passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+          <div className='passenger-view-action'> View Trip </div>
+          </Link>
+          </>
+          }
+       
+      
     </div>
     </motion.div >
   );
@@ -193,6 +197,7 @@ function DriverTripEvent(props) {
 }
 
 function DriverFooter(props) {
+  
   return (
     <motion.div
       layout
@@ -234,7 +239,7 @@ function DriverFooter(props) {
         :
         <div className="past-driver-trip-actions">
         <Link className='review-passenger-link driver-trip-actions' to={{ pathname: '/Select/Passenger', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
-          <div className='review-action'> Review Passengers</div>
+          <div className='review-passengers'> Review Passengers</div>
         </Link>
         <Link className='past-driver-view-action driver-trip-actions' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
         <div className='past-driver-view-action'> View Trip </div>

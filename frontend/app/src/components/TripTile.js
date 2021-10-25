@@ -91,7 +91,7 @@ function TripTile(props) {
         <div class='trip_info_line'>
           <div class='trip_content'>
             <label for="filter">Filter by preferences</label>
-            <input type="checkbox" id="filter" onClick={(ev) => {
+            <input type="checkbox" id="filter-checkbox" onClick={(ev) => {
               updateBooking("filter", ev.target.checked);
             }} />
           </div>
