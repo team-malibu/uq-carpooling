@@ -191,13 +191,6 @@ function AccountDetailsChild(props) {
           console.log(data);
         });
     }
-
-    // for (let unit of classes.values()) {
-    //   console.log(unit)
-    // }
-
-    // You can set content in state and show it in render.
-  
   }
 
   function createAccountBody() {

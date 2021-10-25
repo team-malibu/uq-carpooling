@@ -218,7 +218,6 @@ function SelectPassenger(props) {
     trip_id = location.trip.trip_id;
     if (location.trip.intermediate_passengers != null) {
       intermediate_passengers_ids = location.trip.intermediate_passengers.split(',');
-
     }
   } 
   const [passengerIdData, setpassengerIdData] = useState({ requestData: [], requestFoundFlag: false, confirmedData: intermediate_passengers_ids, confirmedFoundFlag: false});
