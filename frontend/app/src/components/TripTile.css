@@ -47,6 +47,12 @@
   margin-right: 2.5%;
 }
 
+.react-geocoder input {
+  font-family: "Lato", sans-serif;
+  font-size: large;
+  color: white;
+}
+
 .react-geocoder {
   width: 80%;
 }
@@ -77,7 +83,7 @@
   width: 88%;
 }
 
-.react-datetime-picker__wrapper{
+.react-datetime-picker__wrapper {
   justify-content: space-between;
   border: 0;
 }
@@ -92,11 +98,13 @@
   width: 86.5%;
 }
 
-.react-datetime-picker__clear-button, .react-datetime-picker__clear-button > svg{
+.react-datetime-picker__clear-button,
+.react-datetime-picker__clear-button > svg {
   width: 0;
   display: none;
 }
-.react-datetime-picker__button:enabled:hover .react-datetime-picker__button__icon, .react-datetime-picker__button:enabled:focus .react-datetime-picker__button__icon {
+.react-datetime-picker__button:enabled:hover .react-datetime-picker__button__icon,
+.react-datetime-picker__button:enabled:focus .react-datetime-picker__button__icon {
   stroke: white;
 }
 
