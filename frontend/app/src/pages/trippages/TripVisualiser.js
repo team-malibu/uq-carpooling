@@ -109,7 +109,7 @@ function TripVisualiser(props) {
     }
 
     return (
-        <BasicPage currentlySelected={2} name='Trip Visualiser' previousPage='/path' hide={false} direction={props.direction} key={props.location.key} custom={props.direction} update_direction={props.update_direction} body={GetTripVisualiser({props: props, tripProps: tripProps})} default={props.default} key={props.key} custom={props.custom} />
+        <BasicPage currentlySelected={2} name='Trip Visualiser' previousPage='/Trips' hide={false} direction={props.direction} key={props.location.key} custom={props.direction} update_direction={props.update_direction} body={GetTripVisualiser({props: props, tripProps: tripProps})} default={props.default} key={props.key} custom={props.custom} />
     )
 }
 
