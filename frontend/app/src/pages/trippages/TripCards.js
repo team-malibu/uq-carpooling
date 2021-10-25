@@ -29,9 +29,21 @@ function PassengerTripEvent(props) {
             <ScheduleOutlined /> {/* icon */}
           </div>
           <div class='tt_input_text'>
-            {props.trip.arrive_time} arrival
+            Estimated arrival: {props.trip.arrive_time}
           </div>
         </div>
+      </div>
+
+      <div class='tt_info_line'> {/* Start Location */}
+        <div class='tt_content'>
+          <div>
+            <PlaceOutlined />
+          </div>
+          <div class='tt_input_text'>
+            Starting at {props.trip.start_location}
+          </div>
+        </div>
+
       </div>
 
       <div class='tt_info_line'> {/* To Location */}
@@ -40,7 +52,7 @@ function PassengerTripEvent(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            University of Queensland
+            Finishing at {props.trip.end_location}
           </div>
         </div>
 
@@ -52,7 +64,7 @@ function PassengerTripEvent(props) {
             <GroupOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.trip.passenger_count} <span> passengers</span>
+            {props.trip.passenger_count} <span> passenger(s)</span>
           </div>
         </div>
       </div>
@@ -62,8 +74,6 @@ function PassengerTripEvent(props) {
 }
 
 function PassengerFooter(props) {
-  console.log(props)
-  console.log("PROPS")
   return (
     <motion.div
       layout
@@ -102,7 +112,6 @@ function PassengerFooter(props) {
          :
           <>
           <Link className='review-action' to={{ pathname: '/Rating', trip: props.trip}} onClick={() => {
-            console.log(props.trip);
             props.update_direction(1) }}>
             <div className='review-action'> Rate Trip </div>
           </Link>
@@ -159,14 +168,26 @@ function DriverTripEvent(props) {
       <AnimatePresence>{isOpen ? <DriverHeader date={props.trip.date} /> : <></>}</AnimatePresence>
 
       <div class='tt_info_line'>
-        <div class='tt_content'> {/* Date - Time */}
+        <div class='tt_content'> {/* Arrival time */}
           <div >
             <ScheduleOutlined /> {/* icon */}
           </div>
           <div class='tt_input_text'>
-            {props.trip.arrive_time} arrival
+            Estimated arrival: {props.trip.arrive_time}
           </div>
         </div>
+      </div>
+
+      <div class='tt_info_line'> {/* Start Location */}
+        <div class='tt_content'>
+          <div>
+            <PlaceOutlined />
+          </div>
+          <div class='tt_input_text'>
+            Starting at {props.trip.start_location}
+          </div>
+        </div>
+
       </div>
 
       <div class='tt_info_line'> {/* To Location */}
@@ -175,7 +196,7 @@ function DriverTripEvent(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            University of Queensland
+            Finishing at {props.trip.end_location}
           </div>
         </div>
 
@@ -187,7 +208,7 @@ function DriverTripEvent(props) {
             <GroupOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.trip.passenger_count} <span> passengers</span>
+            {props.trip.passenger_count} <span> passenger(s)</span>
           </div>
         </div>
       </div>
@@ -205,17 +226,17 @@ function DriverFooter(props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div class='tt_info_line'> {/*  Arrive Time   */}
+      <div class='tt_info_line'> {/*  Intermediate Stops  */}
         <div class='tt_content'>
           <div >
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.trip.start_lat} Lat, {props.trip.start_long} Long
+            Click View Trip to see stops along the way
           </div>
         </div>
       </div>
-      <div class='tt_info_line'> {/*  Arrive Time   */}
+      <div class='tt_info_line'> {/* Driver  */}
         <div class='tt_content'>
           <div >
             <DriveEtaOutlined />
