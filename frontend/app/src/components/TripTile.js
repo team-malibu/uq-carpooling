@@ -30,7 +30,9 @@ function TripTile(props) {
             <Geocoder
                     mapboxApiAccessToken={access_token} onSelected={(markerProps, value) => {
                       updateBooking("startMarker", {markerProps: markerProps, value: value});
-                    }} hideOnSelect={true}
+                    }} 
+                    hideOnSelect={true}
+                    updateInputOnSelect={true}
                     queryParams={locationSearchUrl} initialInputValue={props.startName} id="startingGeo"
                 />
             <div class='trip_edit'>
@@ -52,8 +54,10 @@ function TripTile(props) {
             <Geocoder
                     mapboxApiAccessToken={access_token} onSelected={(markerProps, value) => {
                       updateBooking("endMarker", {markerProps: markerProps, value: value})
-                  }} hideOnSelect={true}
-                    queryParams={locationSearchUrl} initialInputValue={props.tProps.setFlag ? props.endName : ""} 
+                  }} 
+                  hideOnSelect={true}
+                  updateInputOnSelect={true}
+                  queryParams={locationSearchUrl} initialInputValue={props.tProps.setFlag ? props.endName : ""} 
                 />
             <div class='trip_edit'>
               <EditOutlined onClick={() => {
@@ -86,7 +90,7 @@ function TripTile(props) {
         </div>
         <div class='trip_info_line'>
           <div class='trip_content'>
-            <label for="filter">filter by preferences</label>
+            <label for="filter">Filter by preferences</label>
             <input type="checkbox" id="filter" onClick={(ev) => {
               updateBooking("filter", ev.target.checked);
             }} />

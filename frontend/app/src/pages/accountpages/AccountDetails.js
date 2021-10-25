@@ -50,6 +50,7 @@ function AccountDetails(props) {
 
 
 function AccountDetailsChild(props) {
+  const childProps = props.userItems.data;
   var img = null;
     if (props.userItems.data.user_avatar != null) {
       const  { data } = props.userItems.data.user_avatar;
@@ -65,7 +66,6 @@ function AccountDetailsChild(props) {
   const [carModel, setCarModel] = useState(props.userItems.data.car_type? props.userItems.data.car_type: "" );
   const [home_location, setHomeLocation] = useState("");
   const [home_coords, setHomeCoords] = useState(0);
-  const [driverRating, setRating] = useState(0);
 
   var student_id = props.thisStudentId
 
@@ -114,7 +114,6 @@ function AccountDetailsChild(props) {
         "home_lat": home_coords[0],
         "home_long": home_coords[1],
         "number_plate": userRego,
-        "driver_rating": driverRating,
         "car_type": carModel,
         "user_avatar" : userImage
 
@@ -124,8 +123,6 @@ function AccountDetailsChild(props) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/update-user", requestOptions)
       .then(result => result.json())
       .then(data => {
-        console.log(data);
-        console.log(student_id)
       });
   }
 
@@ -190,8 +187,6 @@ function AccountDetailsChild(props) {
   }
 
   function createAccountBody() {
-    
-
     return (
       <div className='acc-detail-wrapper'>
         <div className="acc-detail-image-container">
@@ -204,8 +199,7 @@ function AccountDetailsChild(props) {
         <div className='ad-container'>
 
           <div>
-
-          Driver Rating: {driverRating}
+            Driver Rating: {childProps.average_rating}
           </div>
 
           <div onClick={handleDropDowns}>

@@ -113,9 +113,11 @@ function Trips(props) {
   }
   var today = new Date()
   if (asDriverDataFound.foundFlag && !asDriverDataFound.processedFlag) {
+    
     var driver_date_map = new Map()
 
     for (const trip of Object.values(asDriverDataFound.data)) {
+      console.log(trip.date)
       driver_date_map.set(trip.date.split('T')[0], {
         'trip_id': trip.trip_id,
         'driver_id': trip.driver_id,
@@ -141,7 +143,6 @@ function Trips(props) {
         driverUpcomingTripsArray.push(value)
       } else {
         driverPastTripsArray.push(value)
-
       }
     }
     setDriverDataFound({

@@ -74,11 +74,7 @@
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-/* 
-.react-datetime-picker__wrapper > button {
-  width: 0;
-  display: none;
-} */
+
 .react-datetime-picker {
   width: 88%;
 }

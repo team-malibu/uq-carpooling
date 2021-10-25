@@ -47,6 +47,10 @@ function TripMap(props) {
         .then(response => response.json())
         .then(data => {
         des = data
+        if (des.routes == null) {
+          alert("A trip is not possible between these two locations!");
+          return;
+        }
         if (!map.getSource('route')) {
           map.addSource('route', {
             'type': 'geojson',
@@ -74,16 +78,20 @@ function TripMap(props) {
             });
           //console.log(des)
           } else {
-            map.getSource('route').setData({
-              'type': 'Feature',
-              'properties': {},
-              'geometry': {
-              'type': 'LineString',
-              'coordinates': des.routes[0].geometry.coordinates
-              }})
+            if (!(des.routes == null)) {
+              map.getSource('route').setData({
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                'type': 'LineString',
+                'coordinates': des.routes[0].geometry.coordinates
+                }})
+            props.updateBookTrip("route", des.routes[0].geometry.coordinates)
+            props.updateBookTrip("duration", des.routes[0].duration);
+            } else {
+              alert("A trip is not possible between these two locations!");
+            }
           }
-          props.updateBookTrip("route", des.routes[0].geometry.coordinates)
-          props.updateBookTrip("duration", des.routes[0].duration)
         });
       };
 
