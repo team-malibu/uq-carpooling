@@ -31,9 +31,7 @@ function AccountDetails(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-details", prerenderOptions)
         .then(result => result.json())
         .then(data => {
-          console.log((data));
-          setUserItems({data});
-          console.log(thisStudentId)    
+          setUserItems({data});  
                  
         });
        }, [thisStudentId]);
@@ -65,7 +63,9 @@ function AccountDetailsChild(props) {
   const [userImage, setUserImage] = useState((img));
   const [userRego, setUserRego] = useState(props.userItems.data.number_plate? props.userItems.data.number_plate: "" );
   const [carModel, setCarModel] = useState(props.userItems.data.car_type? props.userItems.data.car_type: "" );
- 
+  const [home_location, setHomeLocation] = useState("");
+  const [home_coords, setHomeCoords] = useState(0);
+  const [driverRating, setRating] = useState(0);
 
   var student_id = props.thisStudentId
 
@@ -96,16 +96,10 @@ function AccountDetailsChild(props) {
     setCarModel(thisCarModel)
   }
 
- 
-
-  function updateBooking(propFlag, bookingProps) {
-    //console.log(propFlag)
-  }
-
   const handleDropDowns = () => {
 
     let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
-
+    console.log(home_coords)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -116,7 +110,11 @@ function AccountDetailsChild(props) {
         'school': userSchool,
         'arrive_time_preference': userArrivalTime,
         "home_address": input.value,
+        "home_location": home_location,
+        "home_lat": home_coords[0],
+        "home_long": home_coords[1],
         "number_plate": userRego,
+        "driver_rating": driverRating,
         "car_type": carModel,
         "user_avatar" : userImage
 
@@ -129,7 +127,6 @@ function AccountDetailsChild(props) {
         console.log(data);
         console.log(student_id)
       });
-
   }
 
   const handleChangeFile = (file) => {
@@ -171,7 +168,6 @@ function AccountDetailsChild(props) {
       var end_date = end_split[2] + '-' + end_split[1] + '-' + end_split[0]
       var end_time = event.end.toLocaleTimeString('en-GB').split(' ')[0];
 
-
       const postOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -202,12 +198,15 @@ function AccountDetailsChild(props) {
           <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '250px', width: '250px' }} src={userImage} onClick={() => {
             console.log('Avatar pressed display image picker')
           }} />
-           <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)}/>
+           <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)} />
         </div>
 
         <div className='ad-container'>
 
-         
+          <div>
+
+          Driver Rating: {driverRating}
+          </div>
 
           <div onClick={handleDropDowns}>
             <MediumConfirmButton margin={true} name={'Update Preferences'} />
@@ -228,7 +227,10 @@ function AccountDetailsChild(props) {
                 </div>
                 <Geocoder
                   mapboxApiAccessToken={access_token}
-                  onSelected={(markerProps) => {updateBooking("startMarker", markerProps) }}
+                  onSelected={(markerProps, event) => {
+                    setHomeLocation(event.text);
+                    setHomeCoords([Number(markerProps.longitude), Number(markerProps.latitude)]);
+                  }}
                   hideOnSelect={true}
                   queryParams={locationSearchUrl}
                   initialInputValue={props.userItems.data.home_address}

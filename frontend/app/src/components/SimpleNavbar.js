@@ -49,29 +49,11 @@ function NavbarButton(props) {
   // const isSelected = (props.currentPage == props.index);
   const history = useHistory();
   const location = useLocation();
-  // // const [buttonColor, setButtonColor] = useState(isSelected ? "#7a599b" : "#554ff1");
-  // const [buttonColor, setButtonColor] = useState(isSelected ? "primary" : "secondary");
-
-  // const updateButtonColor = (isSelected) => {
-  //     if (isSelected) {
-  //         setButtonColor("primary");
-  //     } else {
-  //         setButtonColor("secondary");
-  //     }
-  //   };
-  // const isSelected = (props.currentPage == props.index);
-  // const color = isSelected ? "#7a599b" : "#554ff1";
+ 
 
   return (
     <>
-      {/* <Button variant="contained" color={props.color} 
-            onClick={(newPage) => props.onClick(props.index)}
-                key={props.key}>
-            {props.icon.name}
-        </Button> */}
       <div className='navbar-link' onClick={(newPage) => {
-        console.log(location.pathname)
-        console.log(props.icon.path)
 
         // console.log.apply("redirecting")
         // if (props.studentId == null) {
@@ -81,8 +63,6 @@ function NavbarButton(props) {
         // }
 
         if (props.icon.path !== location.pathname) {
-          console.log(props.icon.path !== location.pathname)
-          console.log("pushed")
           history.push(props.icon.path)
         }
         props.onClick(props.index)

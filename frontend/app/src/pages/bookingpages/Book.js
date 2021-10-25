@@ -11,18 +11,24 @@ function Book(props) {
   const history = useHistory();
 
   const [startLoc, setStartLoc] = useState(0);
+  const [startLocationName, setStartLocationName] = useState("")
+  const [endLocationName, setEndLocationName] = useState("");
   const [endLoc, setEndLoc] = useState(0);
   const [centerLoc, setCenterLoc] = useState(0);
   // Set Intermediate stops not used @Arthur
   const [route, setRoute] = useState(0);
   const [arriveTime, setStartTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
   // Set Popup Message not used @Arthur
   const [popUpMessage, setPopUpMessage] = useState("");
-  const [tProps, setTProps] = useState({ arrive: null, setFlag: false, firstClickFlag: false });
+  
+  const UQLong = 153.013224;
+  const UQLat = -27.497473;
+  const [filter, setFilter] = useState(false);
 
+  const [tProps, setTProps] = useState({ arrive: null, setFlag: false, firstClickFlag: false, home_coords: [0, 0], home_location: "", endLocationName: "University of Queensland", end_coords: [UQLong, UQLat]});
 
 
   if (location.state && location.state.props && location.state.props.start_date && !tProps.firstClickFlag) {
@@ -30,7 +36,13 @@ function Book(props) {
     setDate(timeTableStart);
     let time = timeTableStart.getHours() + ":" + timeTableStart.getMinutes() + ":" + timeTableStart.getSeconds();
     setStartTime(time);
-    setTProps({ arrive: timeTableStart, setFlag: true, firstClickFlag: true })
+    setTProps({ arrive: timeTableStart, 
+      setFlag: true, 
+      home_coords: location.state.homeDetails.homeDetails.coords, 
+      home_location: location.state.homeDetails.homeDetails.location, 
+      endLocationName: "University of Queensland",
+      end_coords: [UQLong, UQLat],
+      firstClickFlag: true });
   }
 
   function togglePopUp() {
@@ -43,11 +55,15 @@ function Book(props) {
 
   function updateBookTrip(flag, bookingProps) {
     if (flag.match("startMarker")) {
-      setStartLoc([bookingProps.longitude, bookingProps.latitude]);
+      setStartLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
+      setStartLocationName(bookingProps.value.text);
     } else if (flag.match("endMarker")) {
-      setEndLoc([bookingProps.longitude, bookingProps.latitude]);
+      console.log(bookingProps)
+      setEndLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
+      setEndLocationName(bookingProps.value.text);
     } else if (flag.match("date")) {
-      setDate(bookingProps);
+      let test = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + bookingProps.getDate();
+      setDate(test);
       let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
       setStartTime(time);
     } else if (flag.match("duration")) {
@@ -62,6 +78,8 @@ function Book(props) {
       if (String(route) != String(bookingProps)) {
         setRoute(String(bookingProps))
       }
+    } else if (flag.match("filter")) {
+      setFilter(bookingProps);
     }
   }
 
@@ -72,7 +90,6 @@ function Book(props) {
       alert("Fill all trip fields!")
       return
     }
-
     let coordinateCutoff = 12
     let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
     let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
@@ -80,7 +97,8 @@ function Book(props) {
     let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
     let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
-   
+    console.log(startLocationName)
+    console.log(endLocationName)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -95,10 +113,11 @@ function Book(props) {
         'date': date,
         'arrive_time': arriveTime,
         'driver_id': props.studentId,
-        'route': String(route)
+        'route': String(route),
+        'start_location': startLocationName,
+        'end_location': endLocationName
       })
     };
-    console.log(String(route))
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {
@@ -127,7 +146,7 @@ function Book(props) {
     let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
     let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
-    console.log(date.toLocaleString())
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -145,18 +164,23 @@ function Book(props) {
 
       })
     };
-    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/" + (filter ? "find-trips-with-preferences" : "find-trips"), requestOptions)
       .then(result => result.json())
       .then(data => {
         console.log(data)
-        history.push({
-          pathname: '/select',
-          state: { 
-            data: data, 
-            passenger_long: start_long, 
-            passenger_lat: start_lat,
-          },
-        });
+        if (data.length > 0) {
+          history.push({
+            pathname: '/select',
+            state: { 
+              data: data, 
+              passenger_long: start_long, 
+              passenger_lat: start_lat,
+            },
+          });
+        } else {
+          setPopUpMessage("No trips found");
+          setShowPopUp(true);
+        }
       }).catch((e) => {
         console.warn(e)
       });
@@ -169,16 +193,15 @@ function Book(props) {
     }
     return (
       <div class="booking-container">
-        {/* <BlankDefaultPage currentlySelected={0} name='Book' previousPage='/Timetable' hide={true}/> */}
         <div class="help-container">
           <button class="helpbutton" onClick={showHelp}>?</button>
         </div>
         <div class='booktile'>
           <TripTile class_name='DECO3801 Build Studio 3' address='University of Queensland'
-            updateBookTrip={updateBookTrip} tProps={tProps} />
+            updateBookTrip={updateBookTrip} tProps={tProps} startName={tProps.home_location} endName={tProps.endLocationName}/>
         </div>
         <div class="bookmap">
-          <TripMap locations={[startLoc, endLoc, centerLoc]} updateBookTrip={updateBookTrip} />
+          <TripMap locations={[startLoc, endLoc, centerLoc]} updateBookTrip={updateBookTrip} tProps={tProps} />
         </div>
         <div class='bookbutton' >
           <MediumConfirmButton name="Find Trips" class="findButton"
