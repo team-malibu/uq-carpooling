@@ -72,7 +72,7 @@ function Book(props) {
     let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
     let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
-
+   
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -118,7 +118,7 @@ function Book(props) {
     let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
     let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
-
+    console.log(date.toLocaleString())
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
