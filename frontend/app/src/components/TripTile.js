@@ -7,7 +7,6 @@ import Geocoder from 'react-mapbox-gl-geocoder'
 const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q"
 let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/Brisbane.json?access_token=pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q&proximity=153.01182776135374%2C-27.500061086853854&bbox=152.91750879139477%2C-27.670452156811677%2C153.20513988226412%2C-27.33132423232297&limit=5"
 
-
 /**
  * The TripTile component is displayed on the Book Page and handles
  * location autocompletion for both Start an End Location. It also
@@ -29,8 +28,10 @@ function TripTile(props) {
               <SchoolOutlined />
             </div>
             <Geocoder
-                    mapboxApiAccessToken={access_token} onSelected={(markerProps) => {updateBooking("startMarker", markerProps)}} hideOnSelect={true}
-                    queryParams={locationSearchUrl} initialInputValue={"Regatta"} id="startingGeo"
+                    mapboxApiAccessToken={access_token} onSelected={(markerProps, value) => {
+                      updateBooking("startMarker", {markerProps: markerProps, value: value});
+                    }} hideOnSelect={true}
+                    queryParams={locationSearchUrl} initialInputValue={props.startName} id="startingGeo"
                 />
             <div class='trip_edit'>
               <EditOutlined onClick={() => {
@@ -49,8 +50,10 @@ function TripTile(props) {
               <PlaceOutlined />
             </div>
             <Geocoder
-                    mapboxApiAccessToken={access_token} onSelected={(markerProps) => {updateBooking("endMarker", markerProps)}} hideOnSelect={true}
-                    queryParams={locationSearchUrl} initialInputValue={"University of Queensland"} 
+                    mapboxApiAccessToken={access_token} onSelected={(markerProps, value) => {
+                      updateBooking("endMarker", {markerProps: markerProps, value: value})
+                  }} hideOnSelect={true}
+                    queryParams={locationSearchUrl} initialInputValue={props.tProps.setFlag ? props.endName : ""} 
                 />
             <div class='trip_edit'>
               <EditOutlined onClick={() => {
@@ -69,10 +72,15 @@ function TripTile(props) {
               Arrive:
              </span> 
             <DateTimePicker onChange={(dateProps) => {
-              setArriveDate(dateProps); //Necessary to update Time table DateTimePicker Value
-              updateBooking("date", dateProps);
-              updateBooking("timetable")
-              }} value={props.tProps.setFlag ? props.tProps.arrive: arriveDate} />
+              let today = new Date();
+              if (dateProps >= today) {
+                setArriveDate(dateProps); //Necessary to update Time table DateTimePicker Value
+                updateBooking("date", dateProps);
+                updateBooking("timetable");
+              } else {
+                alert("That's in the past - Please choose a valid date!");
+              }
+            }} value={props.tProps.setFlag ? props.tProps.arrive: arriveDate} />
           </div>
                 
         </div>

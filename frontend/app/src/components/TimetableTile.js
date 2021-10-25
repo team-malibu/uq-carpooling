@@ -14,13 +14,12 @@ function TimetableTile(props) {
   return (
     <>
       <div class='ttilewrapper' onClick={() => {
-
         props.update_direction(-1)
-
         history.push({
           pathname: '/book',
           state: {
             props: props.event,
+            homeDetails: props.homeDetails
           }
         })
       }}>

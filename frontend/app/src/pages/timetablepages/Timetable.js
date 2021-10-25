@@ -16,8 +16,8 @@ var classes = new Map();
 
 function Timetable(props) {
 
-  var student_id = props.studentId
-
+  var student_id = props.studentId;
+  const [homeDetails, setHomeDetails] = useState({detailsFoundFlag: false, homeDetails: {}});
 
   const getOptions = {
     method: 'POST',
@@ -47,8 +47,14 @@ function Timetable(props) {
         'end': end.toDateString().split(' ')[0] + ', ' + end.toDateString().split(' ')[1] + ' ' + end.toDateString().split(' ')[2]  + ', '  + new_end[1].split('.')[0],
       })
     }
-    
   });
+
+  fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/get", getOptions)
+  .then(result => result.json())
+  .then(data => {
+      setHomeDetails({detailsFoundFlag: true, homeDetails: {location: data[0].home_address, coords: [Number(data[0].home_long), Number(data[0].home_lat)]}});
+    }
+  );
 
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const todaysDate = new Date()
@@ -66,11 +72,10 @@ function Timetable(props) {
 
     var unit = []
     for (let [key, value] of classes.entries()) {
-      //console.log('Key: ' + key + 'Selected Date: ' + selectedDate.toISOString().split('T')[0])
       if (key === selectedDate.toISOString().split('T')[0]) {
 
         unit.push(
-          <TimetableTile event = {value} update_direction={props.update_direction}/>
+          <TimetableTile event = {value} update_direction={props.update_direction} homeDetails={homeDetails}/>
         )
       }
      

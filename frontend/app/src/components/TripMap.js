@@ -19,14 +19,16 @@ function TripMap(props) {
     // const [route, setRoute] = useState(null);
     const [markers, setMarkers] = useState(null)
     
-    let firstCo = [152.99141492007297, -27.497658078942994];
-    let secondCo = [153.01399090738528, -27.499044512348025];
+    let firstCo = [0, 0];
+    let secondCo = [0, 0];
     
    
     useEffect(() => {
       
-      if (props.locations[0] !== 0 && props.locations[1] !== 0) {
-        //console.log("Coords updated")
+      if (props.tProps.setFlag) {
+        firstCo = props.tProps.home_coords;
+        secondCo = props.tProps.end_coords;
+      } else if (props.locations[0] !== 0 && props.locations[1] !== 0) {
         // eslint-disable-next-line
         firstCo = props.locations[0]
         // eslint-disable-next-line
@@ -84,17 +86,18 @@ function TripMap(props) {
           props.updateBookTrip("duration", des.routes[0].duration)
         });
       };
-      
+
+      if (props.tProps.setFlag) {
+        firstCo = props.tProps.home_coords;
+        secondCo = props.tProps.end_coords;
+      }
+
       if (ref.current && !map) {
-        //console.log(call)
-        // eslint-disable-next-line
         fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + firstCo + ";" + secondCo
         // eslint-disable-next-line
         + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q")
         .then(response => response.json())
         .then(data => {
-            //console.log("HERES THE DATA")
-            //console.log(data)
           })
           const map = new mapboxgl.Map({
           container: ref.current,
@@ -102,7 +105,6 @@ function TripMap(props) {
           center: [153.01399090738528, -27.499044512348025],
           zoom: 12
         });
-
         map.on('load', () => {
           const startMarker = new mapboxgl.Marker({
             draggable: false,
@@ -123,18 +125,22 @@ function TripMap(props) {
           setMap(map);
         })
       } else {
-        
         const mark = document.createElement('div');
         mark.className = 'custom-marker';
-      
         
+        //If the user has selected a tutorial slot, prefill the booking screen with the tutorial props (tProps)
+       
+
         if (markers[1]._lngLat.lng != firstCo[0] && markers[1]._lngLat.lat != firstCo[1]) {
           markers[1].setLngLat(firstCo)
         }
         if (markers[0]._lngLat.lng != secondCo[0] && markers[0]._lngLat.lat != secondCo[1]) {
           markers[0].setLngLat(secondCo)
         }
-        map.fitBounds([firstCo, secondCo], {padding: 125})
+        if (!(firstCo[0] == 0 && firstCo[1] == 0 && secondCo[0] == 0 && secondCo[0] == 0)) {
+          map.fitBounds([firstCo, secondCo], {padding: 125})
+        } 
+
         if (map.getCenter().lat != center.lat && map.getCenter().lng != center.lng) {
           setCenter(map.getCenter())
           props.updateBookTrip("center", [map.getCenter().lng, map.getCenter().lat])
