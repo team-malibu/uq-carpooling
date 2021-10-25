@@ -21,33 +21,35 @@ function Rating(props) {
         passenger_id = location.state.passenger_id;
     }
     console.log(driver_id)
-    const [driverData, setDriverData] = useState(null)
+    const [driverData, setDriverData] = useState({data: null, foundFlag: false})
     const [ratingValue, setRatingValue] = useState(3)
 
     function handleRatingChange(thisValue) {
         setRatingValue(thisValue);
-        //console.log(thisValue);
+        console.log(thisValue);
     }
 
     function handleSubmission(event) {
         event.preventDefault();
 
+        if(!driverData.foundFlag) {
         const requestPicture = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              'student_id': driver_id      
+            body: JSON.stringify({
+                'student_id': driver_id
             })
-          };
-      
-          fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-picture", requestPicture)
+        };
+
+        fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-picture", requestPicture)
             .then(result => result.json())
             .then(data => {
-              console.log(data);
-              setDriverData(data);
-              
-            }); 
-        
+                console.log(data);
+                setDriverData({data: data, foundFlag: true});
+
+            });
+        }
+
         // add a new passenger trip to store the new rating
         const requestOptions1 = {
             method: 'POST',
@@ -106,10 +108,11 @@ function Rating(props) {
 
     function createRating() {
         var img = null;
-        if (driverData != null) {
-            const { data } = driverData.user_avatar;
-            img = new Buffer.from(data).toString("ascii");
-        }
+       
+        // if (driverData.data != null) {
+        //     const { data } = driverData.data.user_avatar;
+        //     img = new Buffer.from(data).toString("ascii");
+        // }
             return (
             <>
                 {/* <BlankDefaultPage currentlySelected={0} name='Rating' previousPage='/Book' hide={true}/> */}
@@ -126,13 +129,13 @@ function Rating(props) {
                             value = {ratingValue}
                             onChange = {handleRatingChange} />
                         </div>
-                        <Link to='/Trips'>
+                        {/* <Link to='/Trips'> */}
                             <div className="reviewSubmitButton" onClick={handleSubmission}>
 
                                 <Buttons.MediumConfirmButton name="Submit" />
 
                             </div>
-                        </Link>
+                        {/* </Link> */}
                     {/* </div> */}
                 </div>
             </>
