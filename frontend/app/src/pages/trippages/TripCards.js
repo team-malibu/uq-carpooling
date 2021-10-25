@@ -226,14 +226,22 @@ function DriverFooter(props) {
             <div className='driver-manage-action'> Manage Passengers</div>
           </Link>
           <div className='driver-cancel-action'> Cancel Trip </div>
+          <Link className='driver-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+        <div className='driver-view-action'> View Trip </div>
+    </Link>
         </div>
+        
         :
+        <div className="past-driver-trip-actions">
         <Link className='review-passenger-link driver-trip-actions' to={{ pathname: '/Select/Passenger', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
           <div className='review-action'> Review Passengers</div>
-        </Link>}
-        <Link className='driver-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
-            <div className='driver-view-action'> View Trip </div>
         </Link>
+        <Link className='past-driver-view-action driver-trip-actions' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+        <div className='past-driver-view-action'> View Trip </div>
+    </Link>
+    </div>
+        }
+        
     </motion.div>
   );
 }
