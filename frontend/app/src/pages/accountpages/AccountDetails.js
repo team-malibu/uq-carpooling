@@ -31,9 +31,7 @@ function AccountDetails(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-details", prerenderOptions)
         .then(result => result.json())
         .then(data => {
-          console.log((data));
-          setUserItems({data});
-          console.log(thisStudentId)    
+          setUserItems({data});  
                  
         });
        }, [thisStudentId]);
@@ -67,6 +65,7 @@ function AccountDetailsChild(props) {
   const [carModel, setCarModel] = useState(props.userItems.data.car_type? props.userItems.data.car_type: "" );
   const [home_location, setHomeLocation] = useState("");
   const [home_coords, setHomeCoords] = useState(0);
+  const [driverRating, setRating] = useState(0);
 
   var student_id = props.thisStudentId
 
@@ -115,6 +114,7 @@ function AccountDetailsChild(props) {
         "home_lat": home_coords[0],
         "home_long": home_coords[1],
         "number_plate": userRego,
+        "driver_rating": driverRating,
         "car_type": carModel,
         "user_avatar" : userImage
 
@@ -127,7 +127,6 @@ function AccountDetailsChild(props) {
         console.log(data);
         console.log(student_id)
       });
-
   }
 
   const handleChangeFile = (file) => {
@@ -199,12 +198,15 @@ function AccountDetailsChild(props) {
           <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '250px', width: '250px' }} src={userImage} onClick={() => {
             console.log('Avatar pressed display image picker')
           }} />
-           <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)}/>
+           <FileBase64 multiple={false} onDone={convertedImage => setUserImage(convertedImage.base64)} />
         </div>
 
         <div className='ad-container'>
 
-         
+          <div>
+
+          Driver Rating: {driverRating}
+          </div>
 
           <div onClick={handleDropDowns}>
             <MediumConfirmButton margin={true} name={'Update Preferences'} />

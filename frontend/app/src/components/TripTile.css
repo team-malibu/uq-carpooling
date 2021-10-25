@@ -111,3 +111,8 @@
 .react-datetime-picker__inputGroup > * {
   color: black;
 }
+
+.filter_label {
+  margin-left: 10px;
+  padding-bottom: 10px;
+}

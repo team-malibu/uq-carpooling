@@ -19,13 +19,14 @@ function Book(props) {
   const [route, setRoute] = useState(0);
   const [arriveTime, setStartTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
   // Set Popup Message not used @Arthur
   const [popUpMessage, setPopUpMessage] = useState("");
   
   const UQLong = 153.013224;
   const UQLat = -27.497473;
+  const [filter, setFilter] = useState(false);
 
   const [tProps, setTProps] = useState({ arrive: null, setFlag: false, firstClickFlag: false, home_coords: [0, 0], home_location: "", endLocationName: "University of Queensland", end_coords: [UQLong, UQLat]});
 
@@ -61,7 +62,8 @@ function Book(props) {
       setEndLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
       setEndLocationName(bookingProps.value.text);
     } else if (flag.match("date")) {
-      setDate(bookingProps);
+      let test = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + bookingProps.getDate();
+      setDate(test);
       let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
       setStartTime(time);
     } else if (flag.match("duration")) {
@@ -76,6 +78,8 @@ function Book(props) {
       if (String(route) != String(bookingProps)) {
         setRoute(String(bookingProps))
       }
+    } else if (flag.match("filter")) {
+      setFilter(bookingProps);
     }
   }
 
@@ -86,7 +90,6 @@ function Book(props) {
       alert("Fill all trip fields!")
       return
     }
-
     let coordinateCutoff = 12
     let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
     let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
@@ -161,18 +164,23 @@ function Book(props) {
 
       })
     };
-    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/find-trips", requestOptions)
+    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/" + (filter ? "find-trips-with-preferences" : "find-trips"), requestOptions)
       .then(result => result.json())
       .then(data => {
         console.log(data)
-        history.push({
-          pathname: '/select',
-          state: { 
-            data: data, 
-            passenger_long: start_long, 
-            passenger_lat: start_lat,
-          },
-        });
+        if (data.length > 0) {
+          history.push({
+            pathname: '/select',
+            state: { 
+              data: data, 
+              passenger_long: start_long, 
+              passenger_lat: start_lat,
+            },
+          });
+        } else {
+          setPopUpMessage("No trips found");
+          setShowPopUp(true);
+        }
       }).catch((e) => {
         console.warn(e)
       });
