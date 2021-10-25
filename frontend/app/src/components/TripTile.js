@@ -77,13 +77,13 @@ function TripTile(props) {
              </span> 
             <DateTimePicker onChange={(dateProps) => {
               let today = new Date();
-              if (dateProps >= today) {
+              // if (dateProps >= today) {
                 setArriveDate(dateProps); //Necessary to update Time table DateTimePicker Value
                 updateBooking("date", dateProps);
                 updateBooking("timetable");
-              } else {
-                alert("That's in the past - Please choose a valid date!");
-              }
+              // } else {
+              //   alert("That's in the past - Please choose a valid date!");
+              // }
             }} value={props.tProps.setFlag ? props.tProps.arrive: arriveDate} />
           </div>
                 
