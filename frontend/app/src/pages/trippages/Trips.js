@@ -30,7 +30,6 @@ function GetTrips(props) {
     );
 
   } else {
-    console.log(props)
     return (
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
@@ -126,6 +125,8 @@ function Trips(props) {
         'pending_requests': trip.pending_requests_flag,
         'start_lat': trip.start_lat,
         'start_long': trip.start_long,
+        'end_lat': trip.end_lat,
+        'end_long': trip.end_long,
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
@@ -168,6 +169,10 @@ function Trips(props) {
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
+        'start_lat': trip.start_lat,
+        'start_long': trip.start_long,
+        'end_lat': trip.end_lat,
+        'end_long': trip.end_long,
         'date': trip.date.split('T')[0],
         'driver_first_name': trip.driver_first_name,
         'driver_last_name': trip.driver_last_name,
@@ -207,6 +212,10 @@ function Trips(props) {
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
+        'start_lat': trip.start_lat,
+        'start_long': trip.start_long,
+        'end_lat': trip.end_lat,
+        'end_long': trip.end_long,
         'date': trip.date.split('T')[0],
         'driver_first_name': trip.driver_first_name,
         'driver_last_name': trip.driver_last_name,
@@ -217,7 +226,6 @@ function Trips(props) {
       
       var keyDate = new Date(key)
       if (keyDate >= today) {
-        console.log(value)
         pendingPassengersArray.push(value)
 
 

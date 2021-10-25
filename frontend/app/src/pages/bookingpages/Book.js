@@ -13,9 +13,8 @@ function Book(props) {
   const [startLoc, setStartLoc] = useState(0);
   const [endLoc, setEndLoc] = useState(0);
   const [centerLoc, setCenterLoc] = useState(0);
-
   // Set Intermediate stops not used @Arthur
-  const [intermediateStops, setIntermediateStops] = useState(0);
+  const [route, setRoute] = useState(0);
   const [arriveTime, setStartTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -52,11 +51,17 @@ function Book(props) {
       let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
       setStartTime(time);
     } else if (flag.match("duration")) {
-      setDuration(bookingProps);
+      if (String(duration) != String(bookingProps)) {
+        setDuration(bookingProps);
+      }
     } else if (flag.match("center")) {
       setCenterLoc(bookingProps);
     } else if (flag.match("timetable")) {
       setTProps({ arrive: timeTableStart, setFlag: false, firstClickFlag: true })
+    } else if (flag.match("route")) {
+      if (String(route) != String(bookingProps)) {
+        setRoute(String(bookingProps))
+      }
     }
   }
 
@@ -75,7 +80,7 @@ function Book(props) {
     let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
     let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
-
+   
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -86,13 +91,14 @@ function Book(props) {
         'end_lat': end_lat,
         'center_long': center_long,
         'center_lat': center_lat,
-        'intermediateStops': intermediateStops,
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'driver_id': props.studentId
+        'driver_id': props.studentId,
+        'route': String(route)
       })
     };
+    console.log(String(route))
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {
@@ -121,7 +127,7 @@ function Book(props) {
     let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
     let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
-
+    console.log(date.toLocaleString())
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -132,7 +138,6 @@ function Book(props) {
         'end_lat': end_lat,
         'center_long': center_long,
         'center_lat': center_lat,
-        'intermediateStops': intermediateStops,
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
@@ -173,7 +178,7 @@ function Book(props) {
             updateBookTrip={updateBookTrip} tProps={tProps} />
         </div>
         <div class="bookmap">
-          <TripMap locations={[startLoc, endLoc, centerLoc, intermediateStops]} updateBookTrip={updateBookTrip} />
+          <TripMap locations={[startLoc, endLoc, centerLoc]} updateBookTrip={updateBookTrip} />
         </div>
         <div class='bookbutton' >
           <MediumConfirmButton name="Find Trips" class="findButton"

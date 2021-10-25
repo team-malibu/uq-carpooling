@@ -72,8 +72,6 @@ function TripMap(props) {
             });
           //console.log(des)
           } else {
-            //console.log("Updating data")
-            //console.log(map.getSource('route'))
             map.getSource('route').setData({
               'type': 'Feature',
               'properties': {},
@@ -82,6 +80,7 @@ function TripMap(props) {
               'coordinates': des.routes[0].geometry.coordinates
               }})
           }
+          props.updateBookTrip("route", des.routes[0].geometry.coordinates)
           props.updateBookTrip("duration", des.routes[0].duration)
         });
       };
@@ -127,10 +126,16 @@ function TripMap(props) {
         
         const mark = document.createElement('div');
         mark.className = 'custom-marker';
-        markers[1].setLngLat(firstCo)
-        markers[0].setLngLat(secondCo)
+      
+        
+        if (markers[1]._lngLat.lng != firstCo[0] && markers[1]._lngLat.lat != firstCo[1]) {
+          markers[1].setLngLat(firstCo)
+        }
+        if (markers[0]._lngLat.lng != secondCo[0] && markers[0]._lngLat.lat != secondCo[1]) {
+          markers[0].setLngLat(secondCo)
+        }
         map.fitBounds([firstCo, secondCo], {padding: 125})
-        if (map.getCenter().lat !== center.lat && map.getCenter().lng !== center.lng) {
+        if (map.getCenter().lat != center.lat && map.getCenter().lng != center.lng) {
           setCenter(map.getCenter())
           props.updateBookTrip("center", [map.getCenter().lng, map.getCenter().lat])
         }
