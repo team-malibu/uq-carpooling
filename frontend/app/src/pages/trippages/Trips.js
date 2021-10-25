@@ -113,12 +113,11 @@ function Trips(props) {
   }
   var today = new Date()
   if (asDriverDataFound.foundFlag && !asDriverDataFound.processedFlag) {
-    
+
     var driver_date_map = new Map()
 
     for (const trip of Object.values(asDriverDataFound.data)) {
-      console.log(trip.date)
-      driver_date_map.set(trip.date.split('T')[0], {
+      driver_date_map.set(trip.trip_id, {
         'trip_id': trip.trip_id,
         'driver_id': trip.driver_id,
         'passenger_count': trip.passenger_count,
@@ -132,13 +131,15 @@ function Trips(props) {
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
-        'date': trip.date.split('T')[0]
+        'date': trip.date.split('T')[0],
+        'start_location': trip.start_location,
+        'end_location': trip.end_location,
       })
     }
     var driverUpcomingTripsArray = []
     var driverPastTripsArray = []
-    for (const [key, value] of driver_date_map) {
-      var keyDateDriver = new Date(key)
+    for (const value of driver_date_map.values()) {
+      var keyDateDriver = new Date(value.date)
       if (keyDateDriver >= today) {
         driverUpcomingTripsArray.push(value)
       } else {
@@ -160,7 +161,7 @@ function Trips(props) {
     var passengerPastTripsArray = []
     var passenger_date_map = new Map()
     for (const trip of Object.values(asPassengerDataFound.data)) {
-      passenger_date_map.set(trip.date.split('T')[0], {
+      passenger_date_map.set(trip.trip_id, {
         'trip_id': trip.trip_id,
         'driver_id': trip.driver_id,
         'passenger_count': trip.passenger_count,
@@ -177,11 +178,13 @@ function Trips(props) {
         'date': trip.date.split('T')[0],
         'driver_first_name': trip.driver_first_name,
         'driver_last_name': trip.driver_last_name,
+        'start_location': trip.start_location,
+        'end_location': trip.end_location,
       })
     }
-    for (const [key, value] of passenger_date_map) {
-      var keyDatePassenger = new Date(key)
-     
+    for (const value of passenger_date_map.values()) {
+      var keyDatePassenger = new Date(value.date)
+
       if (keyDatePassenger >= today) {
         passengerUpcomingTripsArray.push(value)
       } else {
@@ -203,7 +206,7 @@ function Trips(props) {
     var pendingPassengersArray = []
     var request_date_map = new Map()
     for (const trip of Object.values(specificPassengerRequestsFound.data)) {
-      request_date_map.set(trip.date.split('T')[0], {
+      request_date_map.set(trip.trip_id, {
         'trip_id': trip.trip_id,
         'driver_id': trip.driver_id,
         'passenger_count': trip.passenger_count,
@@ -220,18 +223,14 @@ function Trips(props) {
         'date': trip.date.split('T')[0],
         'driver_first_name': trip.driver_first_name,
         'driver_last_name': trip.driver_last_name,
+        'start_location': trip.start_location,
+        'end_location': trip.end_location,
       });
     }
-    for (const [key, value] of request_date_map) {
-      
-      
-      var keyDate = new Date(key)
+    for (const value of request_date_map.values()) {
+      var keyDate = new Date(value.date)
       if (keyDate >= today) {
         pendingPassengersArray.push(value)
-
-
-      } else {
-    
       }
     }
     setRequestDataFound({

@@ -99,7 +99,9 @@ li:last-child {
 .driver-cancel-action,
 .driver-manage-action,
 .view-action,
-.cancel-action {
+.cancel-action,
+.passenger-view-action,
+.review-passengers {
   height: 100px;
   display: flex;
   justify-content: center;
@@ -137,19 +139,27 @@ li:last-child {
   text-decoration: none;
 }
 
+.passenger-view-action{
+  background-color: #62e974;
+  grid-column: 1;
+  grid-row: 1;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  text-decoration: none;
+}
+
 .past-driver-view-action {
   background-color: #62e974;
-  grid-column: 2;
+  grid-column: 1 ;
   grid-row: 1;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
   text-decoration: none;
 }
 
 .driver-cancel-action {
   background-color: salmon;
   grid-column: 3;
-
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
   text-decoration: none;
@@ -172,8 +182,8 @@ li:last-child {
   font-size: 20px;
   padding-left: 5px;
   padding-right: 5px;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 
   color: white;
   text-align: center;
@@ -181,9 +191,18 @@ li:last-child {
 
 .review-action {
   background-color: #33ccff;
-  grid-column: 1 / span 2;
+  grid-column: 2;
   text-decoration: none;
   z-index: 100;
+}
+
+.review-passengers {
+  background-color: #33ccff;
+  grid-column: 3;
+  text-decoration: none;
+  z-index: 100;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .review-passenger-link,

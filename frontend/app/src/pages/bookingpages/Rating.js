@@ -7,18 +7,16 @@ import { Avatar } from '@material-ui/core';
 import BasicPage from '../../components/BasicPage';
 
 function Rating(props) {
-    console.log(props)
-   
+    
     const history = useHistory();
     const location = useLocation();
-    var trip_id;
+    var trip;
     var driver_id;
     var passenger_id;
-
     if (location.state) {
-        trip_id = location.state.trip_id;
-        driver_id = location.state.driver_id;
-        passenger_id = location.state.passenger_id;
+        trip = location.state.trip;
+        driver_id = trip.driver_id;
+        passenger_id = props.student_id;
     }
     console.log(driver_id)
     const [driverData, setDriverData] = useState({data: null, foundFlag: false})
@@ -55,7 +53,7 @@ function Rating(props) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                'trip_id': trip_id,
+                'trip_id': trip.trip_id,
                 'passenger_id': passenger_id,
                 'rating': ratingValue,
                 'comments': "None"
@@ -102,7 +100,7 @@ function Rating(props) {
             console.warn(e)
         });
         
-        history.push('/Trips');
+        //history.push('/Trips');
 
     }
 
@@ -127,15 +125,15 @@ function Rating(props) {
                         <div className="review-stars">
                             <StarRating
                             value = {ratingValue}
-                            onChange = {handleRatingChange} />
+                            onChange = {null} />
                         </div>
-                        {/* <Link to='/Trips'> */}
-                            <div className="reviewSubmitButton" onClick={handleSubmission}>
+                        <Link to='/Trips'>
+                            <div className="reviewSubmitButton" onClick={null}>
 
                                 <Buttons.MediumConfirmButton name="Submit" />
 
                             </div>
-                        {/* </Link> */}
+                        </Link>
                     {/* </div> */}
                 </div>
             </>
