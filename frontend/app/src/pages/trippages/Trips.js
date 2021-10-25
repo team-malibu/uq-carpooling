@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import BasicPage from '../../components/BasicPage'
 import './Trips.css'
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
-import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, TripOrigin } from '@material-ui/icons/'
+import { motion, AnimateSharedLayout } from "framer-motion";
 import { PassengerTripEvent, DriverTripEvent } from './TripCards.js'
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 
 
 function TripSwitch({ isUpcoming, ...props }) {
@@ -24,28 +23,31 @@ function GetTrips(props) {
     return (
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
-            //NEED A PASSENGER IP PROPS PASSED THROUGH THERE from the trip
-            <DriverTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, passenger_count: value.passenger_count, intermediate_passengers: value.intermediate_passengers, location: 'University of Queensland', date:value.date }} />
+          //NEED A PASSENGER IP PROPS PASSED THROUGH THERE from the trip
+          <DriverTripEvent trip={value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} />
         ))}
       </motion.ul>
     );
 
   } else {
+    console.log(props)
     return (
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
-            <PassengerTripEvent trip_id = {value.trip_id} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} event={{ start: value.arrive_time, name: `${value.passenger_count} passengers`, location: 'University of Queensland' }} />
+          <>
+            <PassengerTripEvent pending={props.pending} trip={value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} />
+          </>
         ))}
       </motion.ul>
     )
   }
-  
+
 }
 function Trips(props) {
-  const [specificPassengerRequestsFound, setRequestDataFound] = useState({ data: null, foundFlag: false });
-  const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, passengerPastTrips: [], passengerUpcomingTrips: []});
-  const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false, processedFlag: false,  driverPastTrips: [], driverUpcomingTrips: []});
- 
+  const [specificPassengerRequestsFound, setRequestDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, requestTrips: [] });
+  const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, passengerPastTrips: [], passengerUpcomingTrips: [] });
+  const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, driverPastTrips: [], driverUpcomingTrips: [] });
+
   const requestOptionsPassenger = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -66,11 +68,12 @@ function Trips(props) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-pending-requests-as-a-passenger", requestOptionsPassenger)
       .then(result => result.json())
       .then(data => {
+
         setRequestDataFound({
           data: data,
           foundFlag: true,
           processedFlag: false,
-          passengerPastTrips: [],
+          requestTrips: [],
         })
 
       }).catch((e) => {
@@ -109,7 +112,7 @@ function Trips(props) {
         console.warn(e)
       });
   }
-
+  var today = new Date()
   if (asDriverDataFound.foundFlag && !asDriverDataFound.processedFlag) {
     var driver_date_map = new Map()
 
@@ -121,6 +124,8 @@ function Trips(props) {
         'intermediate_passengers': trip.intermediate_passengers,
         'intermediate_stops': trip.intermediate_stops,
         'pending_requests': trip.pending_requests_flag,
+        'start_lat': trip.start_lat,
+        'start_long': trip.start_long,
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
         'duration': trip.duration,
@@ -130,12 +135,12 @@ function Trips(props) {
     var driverUpcomingTripsArray = []
     var driverPastTripsArray = []
     for (const [key, value] of driver_date_map) {
-      var keyDate = new Date(key)
-      if (keyDate > today) {
+      var keyDateDriver = new Date(key)
+      if (keyDateDriver >= today) {
         driverUpcomingTripsArray.push(value)
       } else {
         driverPastTripsArray.push(value)
-  
+
       }
     }
     setDriverDataFound({
@@ -154,25 +159,28 @@ function Trips(props) {
     var passenger_date_map = new Map()
     for (const trip of Object.values(asPassengerDataFound.data)) {
       passenger_date_map.set(trip.date.split('T')[0], {
-          'trip_id': trip.trip_id,
-          'driver_id': trip.driver_id,
-          'passenger_count': trip.passenger_count,
-          'intermediate_passengers': trip.intermediate_passengers,
-          'intermediate_stops': trip.intermediate_stops,
-          'pending_requests': trip.pending_requests_flag,
-          'route_string': trip.route_string,
-          'arrive_time': trip.arrive_time,
-          'duration': trip.duration,
-          'date': trip.date.split('T')[0]
-        })
+        'trip_id': trip.trip_id,
+        'driver_id': trip.driver_id,
+        'passenger_count': trip.passenger_count,
+        'intermediate_passengers': trip.intermediate_passengers,
+        'intermediate_stops': trip.intermediate_stops,
+        'pending_requests': trip.pending_requests_flag,
+        'route_string': trip.route_string,
+        'arrive_time': trip.arrive_time,
+        'duration': trip.duration,
+        'date': trip.date.split('T')[0],
+        'driver_first_name': trip.driver_first_name,
+        'driver_last_name': trip.driver_last_name,
+      })
     }
     for (const [key, value] of passenger_date_map) {
-      var keyDate = new Date(key)
-      if (keyDate > today) {
+      var keyDatePassenger = new Date(key)
+     
+      if (keyDatePassenger >= today) {
         passengerUpcomingTripsArray.push(value)
       } else {
         passengerPastTripsArray.push(value)
-  
+
       }
     }
     setPassengerDataFound({
@@ -185,34 +193,57 @@ function Trips(props) {
   }
 
   if (specificPassengerRequestsFound.foundFlag && !specificPassengerRequestsFound.processedFlag) {
+
     var pendingPassengersArray = []
     var request_date_map = new Map()
     for (const trip of Object.values(specificPassengerRequestsFound.data)) {
       request_date_map.set(trip.date.split('T')[0], {
         'trip_id': trip.trip_id,
         'driver_id': trip.driver_id,
+        'passenger_count': trip.passenger_count,
+        'intermediate_passengers': trip.intermediate_passengers,
+        'intermediate_stops': trip.intermediate_stops,
+        'pending_requests': trip.pending_requests_flag,
+        'route_string': trip.route_string,
+        'arrive_time': trip.arrive_time,
+        'duration': trip.duration,
+        'date': trip.date.split('T')[0],
+        'driver_first_name': trip.driver_first_name,
+        'driver_last_name': trip.driver_last_name,
       });
-      for (const [key, value] of request_date_map) {
-        var keyDate = new Date(key)
-        if (keyDate > today) {
-          pendingPassengersArray.push(value)
-        } 
-      }
-      setRequestDataFound({
-        data: specificPassengerRequestsFound.data,
-        foundFlag: true,
-        processedFlag: true,
-        requestTrips: pendingPassengersArray
-      })
     }
+    for (const [key, value] of request_date_map) {
+      
+      
+      var keyDate = new Date(key)
+      if (keyDate >= today) {
+        console.log(value)
+        pendingPassengersArray.push(value)
+
+
+      } else {
+    
+      }
+    }
+    setRequestDataFound({
+      data: specificPassengerRequestsFound.data,
+      foundFlag: true,
+      processedFlag: true,
+      requestTrips: pendingPassengersArray
+    })
   }
 
-  const [isUpcoming, setIsUpcoming] = useState(false);
-  var today = new Date()
- 
+  const [isUpcoming, setIsUpcoming] = useState(true);
+
   function SearchBody(props) {
+
+
+    if (props.studentId == null) {
+      props.update_direction(0);
+      return (<Redirect to="/" />);
+    }
     return (
-      <>
+      <div class='trip-overflow'>
         <TripSwitch isUpcoming={isUpcoming} onClick={() => setIsUpcoming(!isUpcoming)}>
         </TripSwitch>
         {/* <TripSwitch isUpcoming={isUpcoming} onClick={() => history.push('/Trips/Upcoming')}> 
@@ -223,24 +254,24 @@ function Trips(props) {
               <Route path='/Trips/Upcoming' exact={true} component={() => <GetTrips trips={upcomingTrips} />} />
               <Route path='/Trips/Past' exact={true} component={() => <GetTrips trips={pastTrips} />} />
             </Switch> */}
-          {isUpcoming ? 
-          <>
-          <GetTrips driver={true} trips={asDriverDataFound.driverUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
-          <GetTrips driver={false} pending={false} trips={asPassengerDataFound.passengerUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
-          <GetTrips driver={false} pending={true} trips={asPassengerDataFound.passengerUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
-          </>
-          : 
-          <>
-          <GetTrips  driver={true} trips={asDriverDataFound.driverPastTrips}  isUpcoming={isUpcoming} update_direction={props.update_direction}/>
-          <GetTrips driver={false} trips={asPassengerDataFound.passengerPastTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} /> 
-          </>}{/*Somthing about this change causes it fail when unmounting*/}
+          {isUpcoming ?
+            <>
+              <GetTrips driver={true} trips={asDriverDataFound.driverUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+              <GetTrips driver={false} pending={false} trips={asPassengerDataFound.passengerUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+              <GetTrips driver={false} pending={true} trips={specificPassengerRequestsFound.requestTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+            </>
+            :
+            <>
+              <GetTrips driver={true} trips={asDriverDataFound.driverPastTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+              <GetTrips driver={false} trips={asPassengerDataFound.passengerPastTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+            </>}{/*Somthing about this change causes it fail when unmounting*/}
         </AnimateSharedLayout>
-      </>
+      </div>
     );
   }
 
   return (
-    <BasicPage currentlySelected={2} name='Trips' hide={true} direction={props.direction} key={props.location.key} custom={props.direction} update_direction={props.update_direction} body={SearchBody(props)} default={props.default} key={props.key} custom={props.custom} />
+    <BasicPage currentlySelected={2} name='Trips' hide={true} direction={props.direction} update_direction={props.update_direction} body={SearchBody(props)} default={props.default} key={props.key} custom={props.custom} />
   )
 }
 

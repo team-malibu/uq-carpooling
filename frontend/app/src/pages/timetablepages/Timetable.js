@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import TimetableTile from '../../components/TimetableTile';
 import TimeTile from '../../components/TimeTile';
-import { useLocation } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './Timetable.css'
 
 function sameDay(d1, d2) {
@@ -16,7 +16,6 @@ var classes = new Map();
 
 function Timetable(props) {
 
-  const location = useLocation();
   var student_id = props.studentId
 
 
@@ -51,10 +50,6 @@ function Timetable(props) {
     
   });
 
-  const ical = require('node-ical');
-  const fs = require('fs');
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFIlePicked, setIsFilePicked] = useState(false);
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const todaysDate = new Date()
 
@@ -72,7 +67,7 @@ function Timetable(props) {
     var unit = []
     for (let [key, value] of classes.entries()) {
       //console.log('Key: ' + key + 'Selected Date: ' + selectedDate.toISOString().split('T')[0])
-      if (key == selectedDate.toISOString().split('T')[0]) {
+      if (key === selectedDate.toISOString().split('T')[0]) {
 
         unit.push(
           <TimetableTile event = {value} update_direction={props.update_direction}/>
@@ -82,7 +77,10 @@ function Timetable(props) {
     }
 
 
-
+    if (props.studentId == null) {
+      props.update_direction(0);
+      return (<Redirect to="/" />);
+    }
     return (
       <div class='bigtimetablewrapper'>
         <div class='ttimetable'>

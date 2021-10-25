@@ -13,11 +13,11 @@ import './DropDownMenu.css';
 
 function GenderDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    const [gender, setGender] = useState("Male");
-    const [genderIcon, setGenderIcon] = useState(<CgGenderMale />)
+    // Same here @Toby this is never used
+    // const [gender, setGender] = useState("Male");
+    const [genderIcon, setGenderIcon] = useState(props.genderValue === "Male"? <CgGenderMale /> : props.genderValue === "Female"? <CgGenderFemale /> : <IoMdTransgender/> )
 
     function handleGender(thisGender) {
-        setGender(thisGender);
         props.handleChange(thisGender);
       }
 
@@ -51,17 +51,17 @@ function GenderDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" value={props.value} onClick={() => { setIsOpen(!isOpen); setGender('Male'); setGenderIcon(<CgGenderMale />); handleGender('Male') }}>
+                    <motion.li className="dd-option" value={props.value} onClick={() => { setIsOpen(!isOpen); setGenderIcon(<CgGenderMale />); handleGender('Male') }}>
                         <span className="icon-button">{<CgGenderMale />}</span>
                         Male
                     </motion.li>
 
-                    <motion.li className="dd-option" value={props.value} onClick={() => { setIsOpen(!isOpen); setGender('Female'); setGenderIcon(<CgGenderFemale />); handleGender('Female') }}>
+                    <motion.li className="dd-option" value={props.value} onClick={() => { setIsOpen(!isOpen); setGenderIcon(<CgGenderFemale />); handleGender('Female') }}>
                         <span className="icon-button">{<CgGenderFemale />}</span>
                         Female
                     </motion.li>
 
-                    <motion.li className="dd-option" value={props.value} onClick={() => { setIsOpen(!isOpen); setGender('Gender Diverse'); setGenderIcon(<IoMdTransgender />); handleGender('Gender Diverse') }}>
+                    <motion.li className="dd-option" value={props.value} onClick={() => { setIsOpen(!isOpen); setGenderIcon(<IoMdTransgender />); handleGender('Gender Diverse') }}>
                         <span className="icon-button">{<IoMdTransgender />}</span>
                         Gender Diverse
                     </motion.li>
@@ -73,8 +73,9 @@ function GenderDropDownMenu(props) {
 
 function DriverDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    const [driverPref, setDriverPref] = useState("Any Driver");
-    const [driverIcon, setDriverIcon] = useState(<BsPeopleFill />);
+    // Same here @Toby this is never used
+    // const [driverPref, setDriverPref] = useState("Any Driver");
+    const [driverIcon, setDriverIcon] = useState(props.driverPrefValue==='Any Driver'? <BsPeopleFill /> : <BsPersonFill/>);
 
     function handleDriverPref(thisDriverPref) {
         props.handleChange(thisDriverPref);
@@ -109,12 +110,12 @@ function DriverDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" onClick={() => { setDriverPref("Any Driver"); handleDriverPref("Any Driver"); setIsOpen(!isOpen);  setDriverIcon(<BsPeopleFill />) }}>
+                    <motion.li className="dd-option" onClick={() => { handleDriverPref("Any Driver"); setIsOpen(!isOpen);  setDriverIcon(<BsPeopleFill />) }}>
                         <span className="icon-button">{<BsPeopleFill />}</span>
                         Any driver
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setDriverPref('My Gender'); setDriverIcon(<BsPersonFill />); handleDriverPref('My Gender') }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setDriverIcon(<BsPersonFill />); handleDriverPref('My Gender') }}>
                         <span className="icon-button">{<BsPersonFill />}</span>
                         My gender only
                     </motion.li>
@@ -126,8 +127,9 @@ function DriverDropDownMenu(props) {
 
 function TimingDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    const [arrivalTime, setArrivalTime] = useState("30 minutes before class");
-    const [timeIcon, setTimeIcon] = useState(<WiTime2 />)
+    // Same here @Toby this is never used
+    // const [arrivalTime, setArrivalTime] = useState("30 minutes before class");
+    const [timeIcon, setTimeIcon] = useState(props.arrivalTimeValue ==="30 mins"? <WiTime2 /> : props.arrivalTimeValue ==="1 hour"? <WiTime3/> : <WiTime4/>)
 
     function handleArrivalTime(thisArrivalTime) {
         props.handleChange(thisArrivalTime)
@@ -163,19 +165,19 @@ function TimingDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setArrivalTime("30 minutes before class"); setTimeIcon(<WiTime2 />); handleArrivalTime("30 mins") }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setTimeIcon(<WiTime2 />); handleArrivalTime("30 mins") }}>
                         <span className="icon-button">{<WiTime2 />}</span>
-                        30 minutes before class
+                        30 mins
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setArrivalTime("1 hour before class"); setTimeIcon(<WiTime3 />); handleArrivalTime("1 hour") }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setTimeIcon(<WiTime3 />); handleArrivalTime("1 hour") }}>
                         <span className="icon-button">{<WiTime3 />}</span>
-                        1 hour before class
+                        1 hour 
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setArrivalTime("2 hours before class"); setTimeIcon(<WiTime4 />); handleArrivalTime("2 hours") }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setTimeIcon(<WiTime4 />); handleArrivalTime("2 hours") }}>
                         <span className="icon-button">{<WiTime4 />}</span>
-                        2 hours before class
+                        2 hours
                     </motion.li>
                 </div>
             </motion.div>
@@ -185,8 +187,10 @@ function TimingDropDownMenu(props) {
 
 function SchoolDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    const [school, setSchool] = useState("EAIT");
-    const [schoolIcon, setSchoolIcon] = useState(<TiSpanner />);
+    // Same here @Toby this is never used
+    // const [school, setSchool] = useState("EAIT");
+    const [schoolIcon, setSchoolIcon] = useState(props.schoolValue === "EAIT"? <TiSpanner /> : props.schoolValue ==="Medicine"? <FaClinicMedical/> 
+    : props.schoolValue ==="Science"? <FaFlask/>: props.schoolValue === "Business/Law/Economics"? <MdBusinessCenter/>: props.schoolValue === "Humanities/Social Sciences"? <AiFillRead /> : <RiMentalHealthFill /> );
 
     function handleSchool(thisSchool) {
         props.handleChange(thisSchool);
@@ -220,32 +224,32 @@ function SchoolDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool("Business/Law/Economics"); setSchoolIcon(<MdBusinessCenter />); handleSchool("Business/Law/Economics") }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchoolIcon(<MdBusinessCenter />); handleSchool("Business/Law/Economics") }}>
                         <span className="icon-button">{<MdBusinessCenter />}</span>
                         Business/Law/Economics
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool('EAIT'); setSchoolIcon(<TiSpanner />); handleSchool("EAIT") }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchoolIcon(<TiSpanner />); handleSchool("EAIT") }}>
                         <span className="icon-button">{<TiSpanner />}</span>
                         EAIT
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool('Health/Behavourial Sciences'); setSchoolIcon(<RiMentalHealthFill />); handleSchool('Health/Behavourial Sciences') }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchoolIcon(<RiMentalHealthFill />); handleSchool('Health/Behavourial Sciences') }}>
                         <span className="icon-button">{<RiMentalHealthFill />}</span>
                         Health/Behavourial Sciences
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool('Humanities/Social Sciences'); setSchoolIcon(<AiFillRead />); handleSchool("Humanities/Social Sciences") }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchoolIcon(<AiFillRead />); handleSchool("Humanities/Social Sciences") }}>
                         <span className="icon-button">{<AiFillRead />}</span>
                         Humanities/Social Sciences
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool('Medicine'); setSchoolIcon(<FaClinicMedical />); handleSchool('Medicine') }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchoolIcon(<FaClinicMedical />); handleSchool('Medicine') }}>
                         <span className="icon-button">{<FaClinicMedical />}</span>
                         Medicine
                     </motion.li>
 
-                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchool('Science'); setSchoolIcon(<FaFlask />); handleSchool("Science") }}>
+                    <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setSchoolIcon(<FaFlask />); handleSchool("Science") }}>
                         <span className="icon-button">{<FaFlask />}</span>
                         Science
                     </motion.li>

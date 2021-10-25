@@ -8,6 +8,13 @@ const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHR
 let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/Brisbane.json?access_token=pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q&proximity=153.01182776135374%2C-27.500061086853854&bbox=152.91750879139477%2C-27.670452156811677%2C153.20513988226412%2C-27.33132423232297&limit=5"
 
 
+/**
+ * The TripTile component is displayed on the Book Page and handles
+ * location autocompletion for both Start an End Location. It also
+ * handles time and date selection. These are stored in state variables
+ * and are pushed through the Book Page to query trips.
+ *
+ */
 function TripTile(props) {
 
   function updateBooking(propFlag, bookingProps) {

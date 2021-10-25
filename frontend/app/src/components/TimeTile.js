@@ -1,7 +1,12 @@
 import React from 'react'
 import './TimeTile.css'
 
-
+/**
+ * The TimeTile component makes up the scrollable view of Dates
+ * on the TimeTable page. Upon clicking one it will render the 
+ * TimetableTiles of the selected date.
+ * 
+ */
 function TimeTile(props) {
   var options_day_char = { weekday: 'narrow' };
   var options_day_num = { day: 'numeric' }
@@ -11,8 +16,6 @@ function TimeTile(props) {
   const day_num = date.toLocaleString('en-US', options_day_num)
 
   const isSelected = props.isSelected
-
-
 
   return isSelected ? (
     <div class='ttwrapper' onClick={() => {
