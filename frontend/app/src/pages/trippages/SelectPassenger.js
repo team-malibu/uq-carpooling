@@ -2,6 +2,7 @@ import {React, useState } from 'react'
 import BasicPage from '../../components/BasicPage'
 import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/icons/'
 import { useLocation } from 'react-router-dom'
+import { Avatar} from '@material-ui/core';
 import './SelectPassenger.css'
 
 //Does this need to go to a different file????
@@ -128,11 +129,19 @@ function PassengerTile(props) {
           console.warn(e)
         });
   }
+  console.log(props.everything.user_avatar)
+   var img = null;
+   if (props.everything.user_avatar != null) {
+        const  { data } = props.everything.user_avatar;
+        img = new Buffer.from(data).toString("ascii");
+      }
 
     return (
       <div class='pwrapper'>
             <div className='passenger-picture'>
-
+            <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '100%', width: '100%' }} src={img} onClick={() => {
+            console.log('Avatar pressed display image picker')
+          }} />
             </div>
           
           <div class='pinfo_line'>

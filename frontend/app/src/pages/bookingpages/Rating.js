@@ -7,6 +7,8 @@ import { Avatar } from '@material-ui/core';
 import BasicPage from '../../components/BasicPage';
 
 function Rating(props) {
+    console.log(props)
+   
     const history = useHistory();
     const location = useLocation();
     var trip_id;
@@ -18,7 +20,8 @@ function Rating(props) {
         driver_id = location.state.driver_id;
         passenger_id = location.state.passenger_id;
     }
-
+    console.log(driver_id)
+    const [driverData, setDriverData] = useState(null)
     const [ratingValue, setRatingValue] = useState(3)
 
     function handleRatingChange(thisValue) {
@@ -28,6 +31,22 @@ function Rating(props) {
 
     function handleSubmission(event) {
         event.preventDefault();
+
+        const requestPicture = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              'student_id': driver_id      
+            })
+          };
+      
+          fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-picture", requestPicture)
+            .then(result => result.json())
+            .then(data => {
+              console.log(data);
+              setDriverData(data);
+              
+            }); 
         
         // add a new passenger trip to store the new rating
         const requestOptions1 = {
@@ -85,25 +104,29 @@ function Rating(props) {
 
     }
 
-
     function createRating() {
-        return (
+        var img = null;
+        if (driverData != null) {
+            const { data } = driverData.user_avatar;
+            img = new Buffer.from(data).toString("ascii");
+        }
+            return (
             <>
                 {/* <BlankDefaultPage currentlySelected={0} name='Rating' previousPage='/Book' hide={true}/> */}
                 <div className="rating-page">
-                    <Avatar variant='circle' className='rating-driver-avatar' style={{ height: '225px', width: '225px' }} src={props.src} />
+                    <Avatar variant='circle' className='rating-driver-avatar' style={{ height: '225px', width: '225px' }} src={img} />
                     {/* <div className="rating-wrapper"> */}
 
                         <h2 className="header">Leave a rating</h2>
 
-                        <h3 className="driver">Your Driver: {props.name} </h3>
+                        <h3 className="driver">Your Driver: {null} </h3>
                         
                         <div className="review-stars">
                             <StarRating
                             value = {ratingValue}
                             onChange = {handleRatingChange} />
                         </div>
-                        <Link to='/Book'>
+                        <Link to='/Trips'>
                             <div className="reviewSubmitButton" onClick={handleSubmission}>
 
                                 <Buttons.MediumConfirmButton name="Submit" />
@@ -119,7 +142,7 @@ function Rating(props) {
 
     return (
 
-        <BasicPage name={"Leave a rating"} body={createRating()} currentlySelected={0} previousPage='/Confirm' direction={props.direction} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
+        <BasicPage name={"Leave a rating"} body={createRating()} currentlySelected={0} previousPage='/Trips' direction={props.direction} default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} />
 
     )
 

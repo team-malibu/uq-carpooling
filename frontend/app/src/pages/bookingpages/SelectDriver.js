@@ -2,6 +2,7 @@ import React from 'react'
 import {  useLocation } from 'react-router-dom'
 import BasicPage from '../../components/BasicPage'
 import DriverTile from '../../components/DriverTile'
+import { Avatar} from '@material-ui/core';
 import './SelectDriver.css'
 
 function SelectDriver(props) {
@@ -37,7 +38,10 @@ function SelectDriver(props) {
           }).catch((e) => {
             console.warn(e)
           });
+          console.log(trip)
       }}>
+         {/* <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '100%', width: '100%' }} src={'https://randomuser.me/api/portraits/women/56.jpg'} onClick={() => {
+            console.log('Avatar pressed display image picker') }} /> */}
         <DriverTile rating= {trip.average_rating} passenger_count = {trip.passenger_count} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}/>
       </div>
     )
