@@ -18,7 +18,7 @@ function Book(props) {
   const [intermediateStops, setIntermediateStops] = useState(0);
   const [arriveTime, setStartTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
   // Set Popup Message not used @Arthur
   const [popUpMessage, setPopUpMessage] = useState("");
@@ -49,7 +49,8 @@ function Book(props) {
     } else if (flag.match("endMarker")) {
       setEndLoc([bookingProps.longitude, bookingProps.latitude]);
     } else if (flag.match("date")) {
-      setDate(bookingProps);
+      let test = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + bookingProps.getDate();
+      setDate(test);
       let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
       setStartTime(time);
     } else if (flag.match("duration")) {
@@ -70,7 +71,6 @@ function Book(props) {
       alert("Fill all trip fields!")
       return
     }
-
     let coordinateCutoff = 12
     let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
     let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
@@ -93,7 +93,9 @@ function Book(props) {
         'duration': duration,
         'date': date,
         'arrive_time': arriveTime,
-        'passenger_id': props.studentId
+        'driver_id': props.studentId,
+        'start_location': "",
+        'end_location': ""
       })
     };
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
