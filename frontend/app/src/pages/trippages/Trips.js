@@ -161,7 +161,7 @@ function Trips(props) {
     var passengerUpcomingTripsArray = []
     var passengerPastTripsArray = []
     var passenger_date_map = new Map();
-    console.log(asPassengerDataFound.data)
+
     for (const trip of Object.values(asPassengerDataFound.data)) {
       passenger_date_map.set(trip.trip_id, {
         'trip_id': trip.trip_id,

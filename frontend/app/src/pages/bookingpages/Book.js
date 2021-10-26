@@ -33,7 +33,7 @@ function Book(props) {
 
   if (location.state && location.state.props && location.state.props.start_date && !tProps.firstClickFlag) {
     var timeTableStart = new Date(location.state.props.start_date.valueOf() - 5 * 60000);
-    console.log(timeTableStart.toString())
+
     setDate(timeTableStart);
     let time = timeTableStart.getHours() + ":" + timeTableStart.getMinutes() + ":" + timeTableStart.getSeconds();
     setStartTime(time);
@@ -137,7 +137,7 @@ function Book(props) {
         'end_location': endLocationName
       })
     };
-    console.log(requestOptions)
+
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {

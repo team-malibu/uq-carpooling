@@ -98,8 +98,6 @@ async function passengerDelete(props) {
 }
 
 function PassengerFooter(props) {
-  console.log("PASS PROPS")
-  console.log(props)
   return (
     <motion.div
       layout
@@ -278,8 +276,7 @@ async function driverDelete(props) {
 }
 
 function DriverFooter(props) {
-  console.log("Driver PROPS")
-  console.log(props)
+
   return (
     <motion.div
       layout

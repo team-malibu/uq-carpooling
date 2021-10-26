@@ -30,7 +30,7 @@ function SelectDriver(props) {
             'passenger_location': location.state.passenger_location
           })
         };
-        console.log(requestOptions)
+
         await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip-request", requestOptions)
           .then(data => {
             console.log(data)

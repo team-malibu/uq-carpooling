@@ -8,8 +8,8 @@ import { RiContactsBookLine } from 'react-icons/ri';
 
 //Does this need to go to a different file????
 function PassengerTile(props) {
-  console.log("hello")
-  console.log(props)
+
+
   async function handleRejectPassengerRequest(props) {
     //Fetch Calls to update db here
     const rejectionOptions = {
@@ -123,8 +123,7 @@ function PassengerTile(props) {
         'tripDuration': tripDuration
       })
     };
-    console.log("CUNT")
-    console.log(props)
+
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/accept-trip-request", acceptOptions)
         .then(result => result.json())
         .then(data => {
