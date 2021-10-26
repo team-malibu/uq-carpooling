@@ -9,12 +9,10 @@ function SelectDriver(props) {
   const location = useLocation();
   var possible_trips;
   var drivers = [];
-
   if (location.state) {
     possible_trips = location.state.data
 
   }
-  
   for (const trip of Object.values(possible_trips)) {
     
     drivers.push(
@@ -40,9 +38,8 @@ function SelectDriver(props) {
           });
           console.log(trip)
       }}>
-         {/* <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '100%', width: '100%' }} src={'https://randomuser.me/api/portraits/women/56.jpg'} onClick={() => {
-            console.log('Avatar pressed display image picker') }} /> */}
-        <DriverTile rating= {trip.average_rating} passenger_count = {trip.passenger_count} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}/>
+        
+        <DriverTile rating= {trip.average_rating} passenger_count = {trip.passenger_count} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} driver_id={trip.driver_id}/>
       </div>
     )
   }

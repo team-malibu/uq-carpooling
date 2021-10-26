@@ -109,6 +109,7 @@ function Rating(props) {
                 sum = 1;
             }
             const average = sum / num;
+            console.log("average")
             console.log(average)
             // update the driver's average rating
             const requestOptions3 = {
@@ -141,7 +142,7 @@ function Rating(props) {
             <>
                 {/* <BlankDefaultPage currentlySelected={0} name='Rating' previousPage='/Book' hide={true}/> */}
                 <div className="rating-page">
-                    <Avatar variant='circle' className='rating-driver-avatar' style={{ height: '225px', width: '225px' }} src={img} />
+                    <Avatar variant='circular' className='rating-driver-avatar' style={{ height: '225px', width: '225px' }} src={img} />
                     {/* <div className="rating-wrapper"> */}
 
                         <h2 className="header">Leave a rating</h2>
