@@ -113,7 +113,7 @@ function PassengerFooter(props) {
             <PlaceOutlined />
           </div>
           <div class='tt_input_text'>
-            {props.pending ? "Pickup PENDING" : "Pick up location"}
+            {props.pending ? "Pickup PENDING" : "Pick up location: " + props.trip.passenger_location}
           </div>
         </div>
       </div>

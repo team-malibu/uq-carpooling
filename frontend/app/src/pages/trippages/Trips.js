@@ -160,7 +160,8 @@ function Trips(props) {
   if (asPassengerDataFound.foundFlag && !asPassengerDataFound.processedFlag) {
     var passengerUpcomingTripsArray = []
     var passengerPastTripsArray = []
-    var passenger_date_map = new Map()
+    var passenger_date_map = new Map();
+    console.log(asPassengerDataFound.data)
     for (const trip of Object.values(asPassengerDataFound.data)) {
       passenger_date_map.set(trip.trip_id, {
         'trip_id': trip.trip_id,
@@ -168,6 +169,7 @@ function Trips(props) {
         'passenger_count': trip.passenger_count,
         'intermediate_passengers': trip.intermediate_passengers,
         'intermediate_coordinates': trip.intermediate_coordinates,
+        'passenger_location': trip.passenger_location,
         'pending_requests': trip.pending_requests_flag,
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,
@@ -215,6 +217,7 @@ function Trips(props) {
         'passenger_count': trip.passenger_count,
         'intermediate_passengers': trip.intermediate_passengers,
         'intermediate_coordinates': trip.intermediate_coordinates,
+        'passenger_location': trip.passenger_location,
         'pending_requests': trip.pending_requests_flag,
         'route_string': trip.route_string,
         'arrive_time': trip.arrive_time,

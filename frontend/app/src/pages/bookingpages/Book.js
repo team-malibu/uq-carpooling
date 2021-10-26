@@ -96,10 +96,6 @@ function Book(props) {
 
   async function createATrip(tripProps) {
     console.log(endLoc, startLoc, date, arriveTime, route);
-    if ((endLoc == 0 || startLoc == 0) && tProps.setFlag) {
-      endLoc = tProps.end_coords;
-      startLoc = tProps.home_coords
-    }
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
       return
