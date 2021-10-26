@@ -6,6 +6,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Avatar } from '@material-ui/core';
 import BasicPage from '../../components/BasicPage';
 
+
 function Rating(props) {
     
     const history = useHistory();
@@ -13,13 +14,33 @@ function Rating(props) {
     var trip;
     var driver_id;
     var passenger_id;
-    if (location.state) {
-        trip = location.state.trip;
-        driver_id = trip.driver_id;
+    if (location.trip) {
+        trip = location.trip;
+        driver_id = trip.driver_id
         passenger_id = props.student_id;
     }
-    console.log(driver_id)
-    const [driverData, setDriverData] = useState(null)
+   
+    const [driverData, setDriverData] = useState({data: null, foundFlag: false})
+    if (!driverData.foundFlag) {
+      const requestPicture = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          'student_id': driver_id      
+        })
+      };
+  
+      fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-picture", requestPicture)
+        .then(result => result.json())
+        .then(data => {
+          console.log(data);
+          setDriverData({
+            data: data,
+            foundFlag: true,
+          })
+        }); 
+
+    }
     const [ratingValue, setRatingValue] = useState(3)
 
     function handleRatingChange(thisValue) {
@@ -29,35 +50,19 @@ function Rating(props) {
 
     function handleSubmission(event) {
         event.preventDefault();
-
-        const requestPicture = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              'student_id': driver_id      
-            })
-          };
-      
-          fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-picture", requestPicture)
-            .then(result => result.json())
-            .then(data => {
-              console.log(data);
-              //setDriverData(data);
-              
-            }); 
-        
-        // add a new passenger trip to store the new rating
+        // add a new passenger trip to store the new rating (IS THIS NEEDED? Dont we just update the current entry in `cp-passenger-trip`?- Conal)
         const requestOptions1 = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 'trip_id': trip.trip_id,
-                'passenger_id': passenger_id,
-                'rating': ratingValue,
-                'comments': "None"
+                // 'passenger_id': passenger_id,
+                'passenger_provided_rating': ratingValue,
+                // 'comments': "None"
             })
         };
-        fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-passenger-trip", requestOptions1)
+        console.log(requestOptions1)
+        fetch("https://deco3801-teammalibu.uqcloud.net/db/ratings/trip/set-rating", requestOptions1)
         .catch((e) => {
             console.warn(e)
         });
@@ -102,10 +107,10 @@ function Rating(props) {
 
     }
 
-    function createRating() {
+    function createRating(props) {
         var img = null;
-        if (driverData != null) {
-            const { data } = driverData.user_avatar;
+        if (driverData.foundFlag) {
+            const { data } = driverData.data.user_avatar;
             img = new Buffer.from(data).toString("ascii");
         }
             return (
@@ -117,15 +122,15 @@ function Rating(props) {
 
                         <h2 className="header">Leave a rating</h2>
 
-                        <h3 className="driver">Your Driver: {null} </h3>
+                        <h3 className="driver">Your Driver: {trip.driver_first_name} {trip.driver_last_name}</h3>
                         
                         <div className="review-stars">
                             <StarRating
                             value = {ratingValue}
-                            onChange = {null} />
+                            onChange = {handleRatingChange} />
                         </div>
                         <Link to='/Trips'>
-                            <div className="reviewSubmitButton" onClick={null}>
+                            <div className="reviewSubmitButton" onClick={handleSubmission}>
 
                                 <Buttons.MediumConfirmButton name="Submit" />
 
