@@ -4,9 +4,12 @@ import { StarOutlined, PersonOutlined, ScheduleOutlined } from '@material-ui/ico
 import { useLocation } from 'react-router-dom'
 import { Avatar} from '@material-ui/core';
 import './SelectPassenger.css'
+import { RiContactsBookLine } from 'react-icons/ri';
 
 //Does this need to go to a different file????
 function PassengerTile(props) {
+  console.log("hello")
+  console.log(props)
   async function handleRejectPassengerRequest(props) {
     //Fetch Calls to update db here
     const rejectionOptions = {
@@ -100,7 +103,7 @@ function PassengerTile(props) {
             routeString = String(data.routes[0].geometry.coordinates);
             tripDuration = data.routes[0].duration;
       })
-    console.log(props)
+
     //Fetch updated RouteString, 
     const acceptOptions = {
       method: 'POST',
@@ -120,7 +123,8 @@ function PassengerTile(props) {
         'tripDuration': tripDuration
       })
     };
-  
+    console.log("CUNT")
+    console.log(props)
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/accept-trip-request", acceptOptions)
         .then(result => result.json())
         .then(data => {
@@ -178,7 +182,7 @@ function PassengerTile(props) {
             <div className='reject-action' onClick={() => {handleRejectPassengerRequest({update: props.update, passengerId: props.everything.student_id, tripId: props.tripId})}}>
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
             </div>
-            <div className='accept-action' onClick={() => {handleAcceptPassengerRequest({update: props.update, driverId: props.driverId, passengerId: props.everything.student_id, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat})}}> 
+            <div className='accept-action' onClick={() => {handleAcceptPassengerRequest({update: props.update, driverId: props.driverId, passengerId: props.everything.student_id, tripId: props.tripId, passengerLong: props.coords.long, passengerLat: props.coords.lat, passenger_location: props.passenger_location})}}> 
                 <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 24 24" width="50px" fill="#7a599b"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
             </div>
           </>
@@ -198,12 +202,15 @@ function SelectPassengerBody(props) {
     props.confirmed.forEach((passengerProps) => {
 
       confirmedPassengers.push(
-        <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
+        <PassengerTile update={props.update} everything={passengerProps} passenger_location={''} driverId={props.driverId} tripId={props.tripId} pendingPassnger={true}/>
       )
     });
     props.pending.forEach((passengerProps) => {
+
+
+
       confirmedPassengers.push(
-        <PassengerTile update={props.update} everything={passengerProps} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{lat: passengerProps.passenger_lat, long: passengerProps.passenger_long}}/>
+        <PassengerTile update={props.update} everything={passengerProps} passenger_location={passengerProps.passenger_location} driverId={props.driverId} tripId={props.tripId} pendingPassnger={false} coords={{lat: passengerProps.passenger_lat, long: passengerProps.passenger_long}}/>
       )
     });
     return (
@@ -240,6 +247,7 @@ function SelectPassenger(props) {
       .then(data => {
         var list_of_request = [];
         for (let request of data) {
+
           list_of_request.push(request);
         }
         setpassengerIdData({
@@ -257,6 +265,7 @@ function SelectPassenger(props) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-a-trip-confirmed-requests", requestOptions)
       .then(result => result.json())
       .then(data => {
+
         var list_of_request = [];
         for (let request of data) {
           list_of_request.push(request);
