@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
-import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, GroupOutlined, DriveEtaOutlined } from '@material-ui/icons/'
+import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, GroupOutlined, DriveEtaOutlined, PersonPinOutlined } from '@material-ui/icons/'
 import './TripCards.css'
 import { Link, useHistory } from "react-router-dom";
 
@@ -98,6 +98,7 @@ async function passengerDelete(props) {
 }
 
 function PassengerFooter(props) {
+  console.log(props)
   return (
     <motion.div
       layout
@@ -115,16 +116,28 @@ function PassengerFooter(props) {
           </div>
         </div>
       </div>
-      <div class='tt_info_line'> {/*  Arrive Time   */}
+      <div class='tt_info_line'> {/*  Driver Name   */}
         <div class='tt_content'>
           <div >
-            <DriveEtaOutlined />
+            <PersonPinOutlined />
           </div>
           <div class='tt_input_text'>
             {props.trip.driver_first_name} {props.trip.driver_last_name}
           </div>
         </div>
       </div>
+      {props.pending ? null : 
+        <div class='tt_info_line'> {/*  Driver Name   */}
+        <div class='tt_content'>
+          <div >
+            <DriveEtaOutlined />
+          </div>
+          <div class='tt_input_text'>
+            {props.trip.car_type} {props.trip.number_plate}
+          </div>
+        </div>
+      </div>
+      }
       <div className="passenger-trip-actions">
         {props.isUpcoming ?
           <>
@@ -285,7 +298,7 @@ function DriverFooter(props) {
       <div class='tt_info_line'> {/* Driver  */}
         <div class='tt_content'>
           <div >
-            <DriveEtaOutlined />
+            <PersonPinOutlined />
           </div>
           <div class='tt_input_text'>
             You

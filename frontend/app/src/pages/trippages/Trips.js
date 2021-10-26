@@ -181,6 +181,8 @@ function Trips(props) {
         'driver_last_name': trip.driver_last_name,
         'start_location': trip.start_location,
         'end_location': trip.end_location,
+        'number_plate': trip.number_plate,
+        'car_type': trip.car_type,
       })
     }
     for (const value of passenger_date_map.values()) {
