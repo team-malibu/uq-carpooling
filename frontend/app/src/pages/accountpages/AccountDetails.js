@@ -202,9 +202,7 @@ function AccountDetailsChild(props) {
             Driver Rating: {actualRating}
           </div>
 
-          <div onClick={handleDropDowns}>
-            <MediumConfirmButton margin={true} name={'Update Preferences'} />
-          </div>
+        
 
           Gender:
 
@@ -282,9 +280,8 @@ function AccountDetailsChild(props) {
               handleChangeFile(e.target.files[0])} />
           </div>
 
-          <div onClick={handleFile}>
-            <MediumConfirmButton margin={true} name={'SAVE'} />
-
+          <div onClick={handleDropDowns}>
+            <MediumConfirmButton margin={true} name={'Update Preferences'} />
           </div>
 
 

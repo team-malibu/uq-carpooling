@@ -85,7 +85,7 @@ function Book(props) {
   }
 
 
-  function createATrip(tripProps) {
+  async function createATrip(tripProps) {
     console.log(endLoc, startLoc, date, arriveTime)
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
@@ -119,7 +119,7 @@ function Book(props) {
         'end_location': endLocationName
       })
     };
-    fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
+    await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {
         if (data.result) {
@@ -130,6 +130,8 @@ function Book(props) {
       }).catch((e) => {
         console.warn(e)
       });
+
+      history.push('/Trips')
   }
   
   

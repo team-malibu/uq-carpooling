@@ -9,7 +9,7 @@ function InputName(props) {
 
         //characters not allowed within student's name
         // eslint-disable-next-line
-        const reg = /[~`!0123456789@#$%\^&*+=\\[\]\\';,/{}|\\":<>\?]/g
+        const reg = /[~`!0123456789@#$%\^&*+=\\[\]\\;,/{}|\\":<>\?]/g
 
         if(thisName.length >= 2 && !reg.test(String(thisName))) {
             props.onChange(thisName, true) 
