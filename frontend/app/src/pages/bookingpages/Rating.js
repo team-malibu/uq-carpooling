@@ -109,7 +109,7 @@ function Rating(props) {
         console.warn(e)
       });
 
-    //history.push('/Trips');
+    history.push('/Trips');
 
   }
 
