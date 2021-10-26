@@ -34,7 +34,7 @@ function DriverTile(props) {
     }
 
     var img = null;
-    if (driverData.foundFlag) {
+    if (driverData.foundFlag && driverData.data.user_avatar) {
         const { data } = driverData.data.user_avatar;
         img = new Buffer.from(data).toString("ascii");
     }
