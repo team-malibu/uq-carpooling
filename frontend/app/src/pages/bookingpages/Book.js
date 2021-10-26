@@ -58,13 +58,13 @@ function Book(props) {
       setStartLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
       setStartLocationName(bookingProps.value.text);
     } else if (flag.match("endMarker")) {
-      console.log(bookingProps)
       setEndLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
       setEndLocationName(bookingProps.value.text);
     } else if (flag.match("date")) {
       let date = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + bookingProps.getDate();
       let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
-      date = date + time;
+      date = date + " " + time;
+      console.log(bookingProps.toLocaleTimeString())
       setDate(date)
       setStartTime(time);
     } else if (flag.match("duration")) {
@@ -140,6 +140,7 @@ function Book(props) {
       return
     }
 
+    console.log(date)
     let coordinateCutoff = 12
     let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
     let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
