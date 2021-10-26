@@ -103,7 +103,6 @@ function PassengerTile(props) {
             routeString = String(data.routes[0].geometry.coordinates);
             tripDuration = data.routes[0].duration;
       })
-
     //Fetch updated RouteString, 
     const acceptOptions = {
       method: 'POST',
