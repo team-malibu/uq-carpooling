@@ -33,7 +33,10 @@ function Book(props) {
 
   if (location.state && location.state.props && location.state.props.start_date && !tProps.firstClickFlag) {
     var timeTableStart = new Date(location.state.props.start_date.valueOf() - 5 * 60000);
+    console.log(timeTableStart.toString())
     setDate(timeTableStart);
+
+    console.log(date)
     let time = timeTableStart.getHours() + ":" + timeTableStart.getMinutes() + ":" + timeTableStart.getSeconds();
     setStartTime(time);
     setTProps({ arrive: timeTableStart, 
@@ -61,10 +64,10 @@ function Book(props) {
       setEndLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
       setEndLocationName(bookingProps.value.text);
     } else if (flag.match("date")) {
-      let date = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + bookingProps.getDate();
+      let date = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + (bookingProps.getDate()+1);
       let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
       date = date + " " + time;
-      console.log(bookingProps.toLocaleTimeString())
+
       setDate(date)
       setStartTime(time);
     } else if (flag.match("duration")) {
@@ -100,6 +103,8 @@ function Book(props) {
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
     console.log(startLocationName)
     console.log(endLocationName)
+
+    var new_date = new Date(date.valueOf() + 10 * 60 * 60000)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -111,7 +116,7 @@ function Book(props) {
         'center_long': center_long,
         'center_lat': center_lat,
         'duration': duration,
-        'date': date,
+        'date': new_date,
         'arrive_time': arriveTime,
         'driver_id': props.studentId,
         'route': String(route),
@@ -119,6 +124,7 @@ function Book(props) {
         'end_location': endLocationName
       })
     };
+
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {
@@ -142,7 +148,7 @@ function Book(props) {
       return
     }
 
-    console.log(date)
+
     let coordinateCutoff = 12
     let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
     let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
