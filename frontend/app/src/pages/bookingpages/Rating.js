@@ -143,6 +143,7 @@ function Rating(props) {
                 {/* <BlankDefaultPage currentlySelected={0} name='Rating' previousPage='/Book' hide={true}/> */}
                 <div className="rating-page">
                     <Avatar variant='circular' className='rating-driver-avatar' style={{ height: '225px', width: '225px' }} src={img} />
+                  
                     {/* <div className="rating-wrapper"> */}
 
                         <h2 className="header">Leave a rating</h2>
