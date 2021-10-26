@@ -24,7 +24,7 @@ function GetTrips(props) {
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
           //NEED A PASSENGER IP PROPS PASSED THROUGH THERE from the trip
-          <DriverTripEvent trip={value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} />
+          <DriverTripEvent setDriverDataFound={props.setDriverDataFound} trip={value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} />
         ))}
       </motion.ul>
     );
@@ -34,7 +34,7 @@ function GetTrips(props) {
       <motion.ul className='trip-list' layout initial={{ borderRadius: 25 }}>
         {props.trips.map(value => (
           <>
-            <PassengerTripEvent pending={props.pending} trip={value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} />
+            <PassengerTripEvent setPassengerDataFound={props.setPassengerDataFound} setRequestDataFound={props.setRequestDataFound} studentId={props.studentId} pending={props.pending} trip={value} key={value.trip_id} update_direction={props.update_direction} isUpcoming={props.isUpcoming} />
           </>
         ))}
       </motion.ul>
@@ -46,6 +46,7 @@ function Trips(props) {
   const [specificPassengerRequestsFound, setRequestDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, requestTrips: [] });
   const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, passengerPastTrips: [], passengerUpcomingTrips: [] });
   const [asDriverDataFound, setDriverDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, driverPastTrips: [], driverUpcomingTrips: [] });
+
 
   const requestOptionsPassenger = {
     method: 'POST',
@@ -245,7 +246,6 @@ function Trips(props) {
 
   function SearchBody(props) {
 
-
     if (props.studentId == null) {
       props.update_direction(0);
       return (<Redirect to="/" />);
@@ -264,9 +264,9 @@ function Trips(props) {
             </Switch> */}
           {isUpcoming ?
             <>
-              <GetTrips driver={true} trips={asDriverDataFound.driverUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
-              <GetTrips driver={false} pending={false} trips={asPassengerDataFound.passengerUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
-              <GetTrips driver={false} pending={true} trips={specificPassengerRequestsFound.requestTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+              <GetTrips setDriverDataFound={setDriverDataFound} driver={true} trips={asDriverDataFound.driverUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+              <GetTrips setPassengerDataFound={setPassengerDataFound} setRequestDataFound={setRequestDataFound} studentId={props.studentId} driver={false} pending={false} trips={asPassengerDataFound.passengerUpcomingTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
+              <GetTrips setPassengerDataFound={setPassengerDataFound} setRequestDataFound={setRequestDataFound} studentId={props.studentId} driver={false} pending={true} trips={specificPassengerRequestsFound.requestTrips} isUpcoming={isUpcoming} update_direction={props.update_direction} />
             </>
             :
             <>

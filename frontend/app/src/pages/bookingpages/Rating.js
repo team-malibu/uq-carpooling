@@ -89,9 +89,11 @@ function Rating(props) {
           num++;
         }
         if (sum == 0) {
-          sum = 5;
+          average = 5
+        } else {
+          average = sum / num;
         }
-        average = sum / num;
+       
         console.log(average)
         // update the driver's average rating
 
@@ -112,7 +114,7 @@ function Rating(props) {
         console.warn(e)
       });
 
-    //history.push('/Trips');
+    history.push('/Trips');
 
   }
 

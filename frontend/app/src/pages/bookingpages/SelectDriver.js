@@ -1,5 +1,5 @@
 import React from 'react'
-import {  useLocation } from 'react-router-dom'
+import {  useLocation, useHistory } from 'react-router-dom'
 import BasicPage from '../../components/BasicPage'
 import DriverTile from '../../components/DriverTile'
 import { Avatar} from '@material-ui/core';
@@ -7,6 +7,7 @@ import './SelectDriver.css'
 
 function SelectDriver(props) {
   const location = useLocation();
+  const history = useHistory();
   var possible_trips;
   var drivers = [];
   if (location.state) {
@@ -16,7 +17,7 @@ function SelectDriver(props) {
   for (const trip of Object.values(possible_trips)) {
     
     drivers.push(
-      <div onClick={() => {
+      <div onClick={async () => {
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -29,7 +30,7 @@ function SelectDriver(props) {
           })
         };
         console.log(requestOptions)
-        fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip-request", requestOptions)
+        await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip-request", requestOptions)
           .then(data => {
             console.log(data)
       
@@ -37,6 +38,7 @@ function SelectDriver(props) {
             console.warn(e)
           });
           console.log(trip)
+          history.push('/trips')
       }}>
         
         <DriverTile rating= {trip.average_rating} passenger_count = {trip.passenger_count} name={trip.first_name + ' ' + trip.last_name} arrive={trip.arrive_time} driver_id={trip.driver_id}/>
