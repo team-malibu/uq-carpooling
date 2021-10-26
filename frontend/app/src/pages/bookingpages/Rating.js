@@ -82,11 +82,14 @@ function Rating(props) {
         let num = 0;
         console.log(data)
         for (const rating of Object.values(data)) {
+            if (rating.passenger_provided_rating == null) {
+                continue;
+            }
           sum += rating.passenger_provided_rating;
           num++;
         }
         if (sum == 0) {
-          sum = 1;
+          sum = 5;
         }
         average = sum / num;
         console.log(average)

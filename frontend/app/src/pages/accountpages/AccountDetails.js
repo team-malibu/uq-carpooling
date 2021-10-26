@@ -99,7 +99,6 @@ function AccountDetailsChild(props) {
   const handleDropDowns = () => {
 
     let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
-    console.log(home_coords)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -111,8 +110,8 @@ function AccountDetailsChild(props) {
         'arrive_time_preference': userArrivalTime,
         "home_address": input.value,
         "home_location": home_location,
-        "home_lat": home_coords[0],
-        "home_long": home_coords[1],
+        "home_lat": home_coords[1],
+        "home_long": home_coords[0],
         "number_plate": userRego,
         "car_type": carModel,
         "user_avatar" : userImage
