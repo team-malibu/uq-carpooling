@@ -113,8 +113,15 @@ function Book(props) {
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
     console.log(startLocationName)
     console.log(endLocationName)
+    console.log(date)
 
-    var new_date = new Date(date.valueOf() + 10 * 60 * 60000)
+    if (date instanceof Date) {
+      var new_date = new Date(date.valueOf() + 10 * 60 * 60000);
+    } else {
+      new_date = date
+    }
+    
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -134,7 +141,7 @@ function Book(props) {
         'end_location': endLocationName
       })
     };
-
+    console.log(requestOptions)
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip", requestOptions)
       .then(result => result.json())
       .then(data => {

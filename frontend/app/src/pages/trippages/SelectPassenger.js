@@ -133,7 +133,7 @@ function PassengerTile(props) {
           console.warn(e)
         });
   }
-  console.log(props.everything.user_avatar)
+
    var img = null;
    if (props.everything.user_avatar != null) {
         const  { data } = props.everything.user_avatar;
