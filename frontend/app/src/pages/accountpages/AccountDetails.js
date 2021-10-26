@@ -145,8 +145,6 @@ function AccountDetailsChild(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
       .then(result => result.json())
       .then(data => {
-
-        console.log(data);
       });
 
     // Add new timetable events
@@ -180,7 +178,6 @@ function AccountDetailsChild(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/add-event", postOptions)
         .then(result => result.json())
         .then(data => {
-          console.log(data);
         });
     }
   }
