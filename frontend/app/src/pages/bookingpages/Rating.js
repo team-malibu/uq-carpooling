@@ -80,12 +80,16 @@ function Rating(props) {
         .then(data => {
             let sum = 0;
             let num = 0;
+            console.log(data)
             for (const rating of Object.values(data)) {
-                sum += rating.rating;
+                sum += rating.passenger_provided_rating;
                 num++;
             }
+            if (sum == 0) {
+                sum = 1;
+            }
             const average = sum / num;
-
+            console.log(average)
             // update the driver's average rating
             const requestOptions3 = {
                 method: 'POST',
