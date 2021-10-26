@@ -1,5 +1,5 @@
 import React from 'react'
-import {  useLocation } from 'react-router-dom'
+import {  useLocation, useHistory } from 'react-router-dom'
 import BasicPage from '../../components/BasicPage'
 import DriverTile from '../../components/DriverTile'
 import { Avatar} from '@material-ui/core';
@@ -7,6 +7,7 @@ import './SelectDriver.css'
 
 function SelectDriver(props) {
   const location = useLocation();
+  const history = useHistory();
   var possible_trips;
   var drivers = [];
 
@@ -18,7 +19,7 @@ function SelectDriver(props) {
   for (const trip of Object.values(possible_trips)) {
     
     drivers.push(
-      <div onClick={() => {
+      <div onClick={async () => {
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -31,7 +32,7 @@ function SelectDriver(props) {
           })
         };
         console.log(requestOptions)
-        fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip-request", requestOptions)
+        await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/add-trip-request", requestOptions)
           .then(data => {
             console.log(data)
       
@@ -39,6 +40,7 @@ function SelectDriver(props) {
             console.warn(e)
           });
           console.log(trip)
+          history.push('/trips')
       }}>
          {/* <Avatar variant='circular' className='acc-detail-avatar' style={{ height: '100%', width: '100%' }} src={'https://randomuser.me/api/portraits/women/56.jpg'} onClick={() => {
             console.log('Avatar pressed display image picker') }} /> */}

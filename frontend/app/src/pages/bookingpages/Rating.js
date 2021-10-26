@@ -82,13 +82,18 @@ function Rating(props) {
         let num = 0;
         console.log(data)
         for (const rating of Object.values(data)) {
+          if (rating.passenger_provided_rating) {
+            continue;
+          }
           sum += rating.passenger_provided_rating;
           num++;
         }
         if (sum == 0) {
-          sum = 1;
+          average = 5
+        } else {
+          average = sum / num;
         }
-        average = sum / num;
+       
         console.log(average)
         // update the driver's average rating
 
