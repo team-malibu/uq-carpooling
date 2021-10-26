@@ -20,7 +20,13 @@ function TripVisualiser(props) {
         const ref = useRef(null);
         const [map, setMap] = useState(null);
         let route = props.tripProps.route_string;
-        const markerCoords = props.markerCoords;
+        let markerCoords = String(props.tripProps.intermediate_coordinates).split(';');
+        markerCoords.pop();
+        let markerArray = []
+        markerCoords.forEach((element) => {
+            let specificCoords = String(element).split(',');
+            markerArray.push([Number(specificCoords[0]), Number(specificCoords[1])]);
+        })
         let firstCo = [props.tripProps.start_long, props.tripProps.start_lat];
         let endCo = [props.tripProps.end_long, props.tripProps.end_lat];
         let markerFeatures = [];
@@ -33,11 +39,12 @@ function TripVisualiser(props) {
         //Some fun regexing that required serious research onto the javascript docs, basicaly matches the route string which currently doesn't separate lng, lat
         for (let match = re.exec(route); match != null; match = re.exec(route)) {
             let strCoords = match[0].split(',');
+            if (strCoords.length != 2) {
+                continue;
+            }
             let coord = [Number(strCoords[0]), Number(strCoords[1])];
             coordList.push(coord)
         }
-        console.log(props)
-        console.log(route);
         
         if (!map.getSource('route')) {
                 map.addSource('route', {
@@ -83,14 +90,15 @@ function TripVisualiser(props) {
             .setLngLat(firstCo)
             .addTo(map);
 
-            // for (marker of markerCoords) {
-            //   const marker = new mapboxgl.Marker({
-            //     draggable: false,
-            //     color: "blue"
-            //   })
-            //   .setLngLat(marker)
-            //   .addTo(map);
-            // }
+            for (let markerCo of markerArray) {
+              const marker = new mapboxgl.Marker({
+                draggable: false,
+                color: "blue"
+              })
+              .setLngLat(markerCo)
+              .addTo(map);
+              markerFeatures.push(marker);
+            }
             const endMarker = new mapboxgl.Marker({
                 draggable: false,
                 color: "red"

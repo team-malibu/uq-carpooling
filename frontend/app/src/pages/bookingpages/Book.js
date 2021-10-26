@@ -193,6 +193,7 @@ function Book(props) {
               data: data, 
               passenger_long: start_long, 
               passenger_lat: start_lat,
+              passenger_location: startLocationName
             },
           });
         } else {

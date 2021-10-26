@@ -27,6 +27,7 @@ function SelectDriver(props) {
             'passenger_id': props.studentId,
             'passenger_lat': location.state.passenger_lat,
             'passenger_long': location.state.passenger_long,
+            'passenger_location': location.state.passenger_location
           })
         };
         console.log(requestOptions)

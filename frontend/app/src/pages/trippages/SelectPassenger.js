@@ -53,6 +53,7 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-specific-trip", getTripOptions)
         .then(result => result.json())
         .then(data => {
+          console.log("Specific trip data")
           console.log(data)
           passenger_count = data[0].passenger_count;
 
@@ -89,15 +90,17 @@ function PassengerTile(props) {
     coordinateString += intermediate_coordinates;
     coordinateString += lastCoord;
     // eslint-disable-next-line 
-    let updatedRoute = fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + coordinateString
+    await fetch("https://api.mapbox.com/directions/v5/mapbox/driving/" + coordinateString
     // eslint-disable-next-line 
         + "?geometries=geojson&access_token=" + "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q")
         .then(response => response.json())
         .then(data => {
-            
+            console.log("new directions data");
+            console.log(data)
             routeString = String(data.routes[0].geometry.coordinates);
             tripDuration = data.routes[0].duration;
       })
+      console.log(routeString);
     //Fetch updated RouteString, 
     const acceptOptions = {
       method: 'POST',
