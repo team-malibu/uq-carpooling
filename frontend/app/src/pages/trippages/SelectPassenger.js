@@ -100,7 +100,7 @@ function PassengerTile(props) {
             routeString = String(data.routes[0].geometry.coordinates);
             tripDuration = data.routes[0].duration;
       })
-      console.log(routeString);
+    console.log(props)
     //Fetch updated RouteString, 
     const acceptOptions = {
       method: 'POST',
@@ -114,6 +114,7 @@ function PassengerTile(props) {
         'intermediate_coordinates': intermediate_coordinates,
         'passenger_lat': props.passengerLat,
         'passenger_long': props.passengerLong,
+        'passenger_location': props.passenger_location,
         'full_flag': full_flag,
         'route_string': routeString,
         'tripDuration': tripDuration
