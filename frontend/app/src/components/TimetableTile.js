@@ -11,7 +11,6 @@ import { useHistory } from 'react-router-dom'
  */
 function TimetableTile(props) {
   const history = useHistory();
-  console.log(props)
   return (
     <>
       <div class='ttilewrapper' onClick={() => {

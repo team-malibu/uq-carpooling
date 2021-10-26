@@ -48,13 +48,16 @@ function Timetable(props) {
       })
     }
   });
-
+  
+ if (!homeDetails.detailsFoundFlag) {
   fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/get", getOptions)
   .then(result => result.json())
   .then(data => {
       setHomeDetails({detailsFoundFlag: true, homeDetails: {location: data[0].home_address, coords: [Number(data[0].home_long), Number(data[0].home_lat)]}});
     }
   );
+ }
+  
 
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const todaysDate = new Date()

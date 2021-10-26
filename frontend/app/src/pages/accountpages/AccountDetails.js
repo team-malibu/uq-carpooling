@@ -65,7 +65,7 @@ function AccountDetailsChild(props) {
   const [userRego, setUserRego] = useState(props.userItems.data.number_plate? props.userItems.data.number_plate: "" );
   const [carModel, setCarModel] = useState(props.userItems.data.car_type? props.userItems.data.car_type: "" );
   const [home_location, setHomeLocation] = useState("");
-  const [home_coords, setHomeCoords] = useState(0);
+  const [home_coords, setHomeCoords] = useState([153.01050, -27.49747]);
   const [actualRating, setActualRating] = useState(childProps.average_rating <= 1 ? "Poor" : 
   childProps.average_rating <= 2 && childProps.average_rating > 1 ? "Fair" :
   childProps.average_rating <=3 && childProps.average_rating > 2 ? "Good" :

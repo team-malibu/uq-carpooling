@@ -44,6 +44,10 @@ function Book(props) {
       end_coords: [UQLong, UQLat],
       firstClickFlag: true });
   }
+  if ((endLoc == 0 || startLoc == 0) && tProps.setFlag) { 
+    setEndLoc(tProps.end_coords);
+    setStartLoc(tProps.home_coords);
+  }
 
   function togglePopUp() {
     setShowPopUp(false);
@@ -64,7 +68,7 @@ function Book(props) {
       let date = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + bookingProps.getDate();
       let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
       date = date + " " + time;
-      console.log(bookingProps.toLocaleTimeString())
+      
       setDate(date)
       setStartTime(time);
     } else if (flag.match("duration")) {
@@ -86,7 +90,11 @@ function Book(props) {
 
 
   async function createATrip(tripProps) {
-    console.log(endLoc, startLoc, date, arriveTime)
+    console.log(endLoc, startLoc, date, arriveTime);
+    if ((endLoc == 0 || startLoc == 0) && tProps.setFlag) {
+      endLoc = tProps.end_coords;
+      startLoc = tProps.home_coords
+    }
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
       return
@@ -136,13 +144,12 @@ function Book(props) {
   
   
   function findTrips(tripProps) {
-    //console.log(endLoc, startLoc, date, arriveTime)
+    console.log(endLoc, startLoc, date, arriveTime);
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
-      return
+      return;
     }
 
-    console.log(date)
     let coordinateCutoff = 12
     let start_long = String(startLoc[0]).slice(0, coordinateCutoff)
     let start_lat = String(startLoc[1]).slice(0, coordinateCutoff)
@@ -171,7 +178,6 @@ function Book(props) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/" + (filter ? "find-trips-with-preferences" : "find-trips"), requestOptions)
       .then(result => result.json())
       .then(data => {
-        console.log(data)
         if (data.length > 0) {
           history.push({
             pathname: '/select',

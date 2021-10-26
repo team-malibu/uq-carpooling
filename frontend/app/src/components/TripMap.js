@@ -41,11 +41,10 @@ function TripMap(props) {
       
       async function addRoute(map) {
         let des = {}
-
+       
         await fetch(call)
         .then(response => response.json())
         .then(data => {
-        
         des = data
         if (des.routes == null) {
           alert("A trip is not possible between these two locations!");
@@ -86,7 +85,7 @@ function TripMap(props) {
                 'type': 'LineString',
                 'coordinates': des.routes[0].geometry.coordinates
                 }})
-            props.updateBookTrip("route", des.routes[0].geometry.coordinates)
+            props.updateBookTrip("route", des.routes[0].geometry.coordinates);
             props.updateBookTrip("duration", des.routes[0].duration);
             } else {
               alert("A trip is not possible between these two locations!");
