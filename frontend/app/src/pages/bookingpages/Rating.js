@@ -18,24 +18,22 @@ function Rating(props) {
         driver_id = trip.driver_id;
         passenger_id = props.student_id;
     }
-    console.log(driver_id)
+    //console.log(location.trip.driver_id)
     const [driverData, setDriverData] = useState({data: null, foundFlag: false})
     const [ratingValue, setRatingValue] = useState(3)
 
     function handleRatingChange(thisValue) {
         setRatingValue(thisValue);
-        console.log(thisValue);
+        //console.log(thisValue);
     }
 
-    function handleSubmission(event) {
-        event.preventDefault();
-
-        if(!driverData.foundFlag) {
+    
+    if(!driverData.foundFlag) {
         const requestPicture = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                'student_id': driver_id
+                'student_id': location.trip.driver_id
             })
         };
 
@@ -47,6 +45,10 @@ function Rating(props) {
 
             });
         }
+
+    function handleSubmission(event) {
+        event.preventDefault();
+
 
         // add a new passenger trip to store the new rating
         const requestOptions1 = {
@@ -106,11 +108,15 @@ function Rating(props) {
 
     function createRating() {
         var img = null;
+        var driverFirstName = null;
+        var driverLastName = null;
        
-        // if (driverData.data != null) {
-        //     const { data } = driverData.data.user_avatar;
-        //     img = new Buffer.from(data).toString("ascii");
-        // }
+        if (driverData.data != null) {
+            const { data } = driverData.data.user_avatar;
+            img = new Buffer.from(data).toString("ascii");
+            driverFirstName = driverData.data.first_name;
+            driverLastName = driverData.data.last_name;
+        }
             return (
             <>
                 {/* <BlankDefaultPage currentlySelected={0} name='Rating' previousPage='/Book' hide={true}/> */}
@@ -120,12 +126,12 @@ function Rating(props) {
 
                         <h2 className="header">Leave a rating</h2>
 
-                        <h3 className="driver">Your Driver: {null} </h3>
+                        <h3 className="driver">Your Driver: {driverFirstName} {driverLastName}</h3>
                         
                         <div className="review-stars">
                             <StarRating
                             value = {ratingValue}
-                            onChange = {null} />
+                            onChange = {handleRatingChange} />
                         </div>
                         <Link to='/Trips'>
                             <div className="reviewSubmitButton" onClick={null}>
