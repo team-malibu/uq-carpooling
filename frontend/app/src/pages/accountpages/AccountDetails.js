@@ -66,6 +66,10 @@ function AccountDetailsChild(props) {
   const [carModel, setCarModel] = useState(props.userItems.data.car_type? props.userItems.data.car_type: "" );
   const [home_location, setHomeLocation] = useState("");
   const [home_coords, setHomeCoords] = useState(0);
+  const [actualRating, setActualRating] = useState(childProps.average_rating <= 1 ? "Poor" : 
+  childProps.average_rating <= 2 && childProps.average_rating > 1 ? "Fair" :
+  childProps.average_rating <=3 && childProps.average_rating > 2 ? "Good" :
+  childProps.average_rating <=4 && childProps.average_rating > 3 ? "Very Good" : "Excellent"  )
 
   var student_id = props.thisStudentId
 
@@ -199,7 +203,7 @@ function AccountDetailsChild(props) {
         <div className='ad-container'>
 
           <div>
-            Driver Rating: {childProps.average_rating}
+            Driver Rating: {actualRating}
           </div>
 
           <div onClick={handleDropDowns}>
