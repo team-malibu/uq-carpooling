@@ -26,7 +26,7 @@ function TripVisualiser(props) {
         let markerFeatures = [];
     
         useEffect(() => {
-
+    
         function addRoute(map) {
         var re = /-?\d+.{1}\d+,-?\d+.{1}\d+/g;
         var coordList = []
@@ -35,8 +35,9 @@ function TripVisualiser(props) {
             let strCoords = match[0].split(',');
             let coord = [Number(strCoords[0]), Number(strCoords[1])];
             coordList.push(coord)
-
         }
+        console.log(props)
+        console.log(route);
         
         if (!map.getSource('route')) {
                 map.addSource('route', {

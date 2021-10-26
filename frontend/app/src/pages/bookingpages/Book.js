@@ -35,8 +35,6 @@ function Book(props) {
     var timeTableStart = new Date(location.state.props.start_date.valueOf() - 5 * 60000);
     console.log(timeTableStart.toString())
     setDate(timeTableStart);
-
-    console.log(date)
     let time = timeTableStart.getHours() + ":" + timeTableStart.getMinutes() + ":" + timeTableStart.getSeconds();
     setStartTime(time);
     setTProps({ arrive: timeTableStart, 
@@ -50,6 +48,11 @@ function Book(props) {
   if ((endLoc == 0 || startLoc == 0) && tProps.setFlag) { 
     setEndLoc(tProps.end_coords);
     setStartLoc(tProps.home_coords);
+  }
+
+  if ((startLocationName == "" || endLocationName == "") && tProps.setFlag) { 
+    setStartLocationName(tProps.home_location);
+    setEndLocationName(tProps.endLocationName);
   }
 
   function togglePopUp() {
@@ -92,7 +95,7 @@ function Book(props) {
 
 
   async function createATrip(tripProps) {
-    console.log(endLoc, startLoc, date, arriveTime);
+    console.log(endLoc, startLoc, date, arriveTime, route);
     if ((endLoc == 0 || startLoc == 0) && tProps.setFlag) {
       endLoc = tProps.end_coords;
       startLoc = tProps.home_coords

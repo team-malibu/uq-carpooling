@@ -53,6 +53,7 @@ function PassengerTile(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-specific-trip", getTripOptions)
         .then(result => result.json())
         .then(data => {
+          console.log(data)
           passenger_count = data[0].passenger_count;
 
           intermediate_passengers = data[0].intermediate_passengers;
