@@ -103,7 +103,6 @@ function AccountDetailsChild(props) {
   const handleDropDowns = () => {
 
     let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
-    console.log(home_coords)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -115,8 +114,8 @@ function AccountDetailsChild(props) {
         'arrive_time_preference': userArrivalTime,
         "home_address": input.value,
         "home_location": home_location,
-        "home_lat": home_coords[0],
-        "home_long": home_coords[1],
+        "home_lat": home_coords[1],
+        "home_long": home_coords[0],
         "number_plate": userRego,
         "car_type": carModel,
         "user_avatar" : userImage
@@ -150,8 +149,6 @@ function AccountDetailsChild(props) {
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/delete-events", deleteOptions)
       .then(result => result.json())
       .then(data => {
-
-        console.log(data);
       });
 
     // Add new timetable events
@@ -185,7 +182,6 @@ function AccountDetailsChild(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/timetables/add-event", postOptions)
         .then(result => result.json())
         .then(data => {
-          console.log(data);
         });
     }
   }

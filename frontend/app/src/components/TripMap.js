@@ -24,7 +24,6 @@ function TripMap(props) {
     
    
     useEffect(() => {
-      
       if (props.tProps.setFlag) {
         firstCo = props.tProps.home_coords;
         secondCo = props.tProps.end_coords;
@@ -46,6 +45,7 @@ function TripMap(props) {
         await fetch(call)
         .then(response => response.json())
         .then(data => {
+        
         des = data
         if (des.routes == null) {
           alert("A trip is not possible between these two locations!");
