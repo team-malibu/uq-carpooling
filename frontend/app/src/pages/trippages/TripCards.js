@@ -151,8 +151,8 @@ function PassengerFooter(props) {
             }}>
               <div className='review-action'> Rate Trip </div>
             </Link>
-            <Link className='passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
-              <div className='passenger-view-action'> View Trip </div>
+            <Link className='upcoming-passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+              <div className='upcoming-passenger-view-action'> View Trip </div>
             </Link>
           </>
         }
