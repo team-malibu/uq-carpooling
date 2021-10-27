@@ -1,7 +1,6 @@
 import React, { useState, } from 'react';
 import "./InputText.css";
 
-
 /**
  * The InputName component allows for a user to enter text into
  * an input tag. Alongside the text, a boolean is also passed up 
@@ -11,6 +10,10 @@ import "./InputText.css";
  */
 function InputName(props) {
 
+    /**
+    * Passes values back up to parent function updating 
+    * the state in AccountDetails
+    */
     const handleName = (e) => {
 
         const thisName = e.target.value
@@ -51,6 +54,10 @@ function InputName(props) {
  */
 function InputStudentId(props) {
 
+    /**
+    * Passes values back up to parent function updating 
+    * the state in AccountDetails
+    */
     const handleStudentId = (e) => {
 
         const thisStudentId = e.target.value
@@ -88,6 +95,10 @@ function InputStudentId(props) {
  */
 function InputEmail(props) {
 
+    /**
+    * Passes values back up to parent function updating 
+    * the state in AccountDetails
+    */
     const handleEmail = (e) => {
         const thisEmail = e.target.value;
 
@@ -98,10 +109,8 @@ function InputEmail(props) {
         if ((reg.test(String(thisEmail)))) {
             props.onChange(thisEmail, true);
 
-
         } else {
             props.onChange(thisEmail, false);
-
         }
 
     }
@@ -132,6 +141,10 @@ function InputEmail(props) {
  */
 function InputPassword(props) {
 
+    /**
+    * Passes values back up to parent function updating 
+    * the state in AccountDetails
+    */
     const handlePassword = (e) => {
         const thisPassword = e.target.value;
         if (thisPassword.length >= 7) {
@@ -195,6 +208,10 @@ function InputStandardText(props) {
  */
 function InputCarRego(props) {
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in AccountDetails
+    */
     const handleCarRego = (e) => {
         const thisDetail = e.target.value;
         props.onChange(thisDetail);
@@ -223,6 +240,10 @@ function InputCarRego(props) {
  */
 function InputCarDetails(props) {
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in AccountDetails
+    */
     const handleCarDetails = (e) => {
         const thisDetail = e.target.value;
         props.onChange(thisDetail);

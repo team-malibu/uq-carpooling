@@ -47,11 +47,18 @@ function Rating(props) {
   }
   const [ratingValue, setRatingValue] = useState(3)
 
+  /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleRatingChange(thisValue) {
     setRatingValue(thisValue);
     console.log(thisValue);
   }
 
+  /**
+    * Sends updated rating of driver to the backend
+    */
   async function handleSubmission(event) {
     event.preventDefault();
     // add a new passenger trip to store the new rating (IS THIS NEEDED? Dont we just update the current entry in `cp-passenger-trip`?- Conal)
@@ -122,6 +129,9 @@ function Rating(props) {
 
   }
 
+  /**
+    * Displays the driver details and the star rating component 
+    */
   function createRating(props) {
     var img = null;
     if (driverData.foundFlag) {

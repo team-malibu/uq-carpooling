@@ -17,6 +17,10 @@ export default function StarRating(props) {
 
     const [rating, setRating] = useState(3);
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in Rating page
+    */
     function handleRatingChange(e) {
         setRating(e.target.value)
         props.onChange(e.target.value);
@@ -75,8 +79,6 @@ export default function StarRating(props) {
                         transition={{ duration: 0.75 }}>
                         <RiStarLine /> </motion.div>}
 
-               
-
             </div>
             <input className="rating-selector"
                 type="range"
@@ -117,14 +119,9 @@ export default function StarRating(props) {
                     transition={{ duration: 0.5 }}>
                     Excellent </motion.div>}
 
-
             </motion.div>
-
-
-    
 
         </div>
         
-
     )
 };
