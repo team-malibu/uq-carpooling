@@ -39,10 +39,6 @@ function Search(props) {
     // const [requestDataFound, setRequestDataFound] = useState({ data: null, foundFlag: false });
     var request_date_map = new Map()
   
-    var request_passenger_results;
-    var trips_as_passenger_results;
-    var trips_as_driver_results;
-  
     const requestOptionsPassenger = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -62,17 +58,6 @@ function Search(props) {
       fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-trip-requests-passenger", requestOptionsPassenger)
         .then(result => result.json())
         .then(data => {
-          console.log('CUNT' + data)
-  
-          // for (const trip in Object.values(data)) {
-  
-          //   request_date_map.set(trip.date.split('T'[0]), {
-          //     'trip_id' : trip.trip_id,
-          //     'driver_id': trip.driver_id,
-          //     'passenger_count': trip.passenger_count, 
-          //   })
-          // }
-  
           setRequestDataFound({
             data: data,
             foundFlag: true
@@ -84,30 +69,7 @@ function Search(props) {
   
   
     }
-  
-    // fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-passenger-trips", requestOptionsPassenger)
-    // .then(result => result.json())
-    // .then(data => {
-    //   trips_as_passenger_results = data
-    //   console.log(data)
-  
-    // }).catch((e) => {
-    //   console.warn(e)
-    // });
-  
-    // fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/get-driver-trips", requestOptionsDriver)
-    // .then(result => result.json())
-    // .then(data => {
-    //   trips_as_driver_results = data
-    //   console.log(data)
-  
-    // }).catch((e) => {
-    //   console.warn(e)
-    // });
-  
-    // console.log(request_passenger_results)
-    // console.log(trips_as_passenger_results)
-    // console.log(trips_as_driver_results)
+
     if (requestDataFound.foundFlag) {
       for (const trip of Object.values(requestDataFound.data)) {
         request_date_map.set(trip.date.split('T')[0], {
@@ -117,7 +79,6 @@ function Search(props) {
             })
       }
     }
-    console.log(request_date_map)
   
     const [isUpcoming, setIsUpcoming] = useState(false);
     

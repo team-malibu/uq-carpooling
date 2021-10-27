@@ -36,12 +36,8 @@ function App() {
     } else if (page > newPage) {
       setPage([newPage, -1]);
     } else {
-      console.log("Same");
       setPage([newPage, 0]);
     }
-
-    // console.log(isNavbarVisible)
-    console.log("new page" + newPage);
 
   };
 
