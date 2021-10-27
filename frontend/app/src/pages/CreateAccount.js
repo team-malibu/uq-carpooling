@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import BasicPage from '../components/BasicPage'
 import { useHistory } from 'react-router-dom'
 import { LargeConfirmButton } from '../components/Button'
@@ -7,57 +7,75 @@ import { InputPassword, InputEmail, InputName, InputStudentId } from '../compone
 import { MdLockOutline } from 'react-icons/md';
 import { BsExclamationCircle, BsCheckCircle } from "react-icons/bs"
 
+/**
+ * The CreateAccount page allows the user to create an account by entering in their
+ * credentials. If the user's credentials adhere to the input requirements
+ * an account is created and they areredirected to the login page. 
+ * A pop up message will appear otherwise.
+ */
+
 function CreateAccount2(props) {
   const history = useHistory();
 
-  const[firstName, setFirstName] = useState(null);
-  const[validFirstName, setValidFirstName] = useState(false);
+  const [firstName, setFirstName] = useState(null);
+  const [validFirstName, setValidFirstName] = useState(false);
 
-  const[lastName, setLastName] = useState(null);
-  const[validLastName, setValidLastName] = useState(false);
+  const [lastName, setLastName] = useState(null);
+  const [validLastName, setValidLastName] = useState(false);
 
   const [userEmail, setUserEmail] = useState("");
-  const[validEmail, setValidEmail] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
 
   const [studentId, setStudentId] = useState(null);
   const [validStudentId, setValidStudentId] = useState(false);
-  
+
   const [userPassword, setUserPassword] = useState("");
   const [userPassword2, setUserPassword2] = useState("");
-  const[validPassword, setValidPassword] = useState(false);
-  const[validPassword2, setValidPassword2] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validPassword2, setValidPassword2] = useState(false);
 
-  const[firstNameIcon, setFirstNameIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
-  const[lastNameIcon, setLastNameIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
-  const[emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
-  const[studentIdIcon, setStudentIdIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
-  const[passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
-  const[passwordIcon2, setPasswordIcon2] = useState(<BsExclamationCircle style={{color: 'red'}}/>)
+  const [firstNameIcon, setFirstNameIcon] = useState(<BsExclamationCircle style={{ color: 'red' }} />)
+  const [lastNameIcon, setLastNameIcon] = useState(<BsExclamationCircle style={{ color: 'red' }} />)
+  const [emailIcon, setEmailIcon] = useState(<BsExclamationCircle style={{ color: 'red' }} />)
+  const [studentIdIcon, setStudentIdIcon] = useState(<BsExclamationCircle style={{ color: 'red' }} />)
+  const [passwordIcon, setPasswordIcon] = useState(<BsExclamationCircle style={{ color: 'red' }} />)
+  const [passwordIcon2, setPasswordIcon2] = useState(<BsExclamationCircle style={{ color: 'red' }} />)
 
-  const[showPopUp, setShowPopUp] = useState(false);
-  const[popUpMessage, setPopUpMessage] = useState("");
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [popUpMessage, setPopUpMessage] = useState("");
 
+  /**
+    * Adjusts boolean value of pop up hook
+    */
   function togglePopUp() {
     setShowPopUp(false);
   }
 
+/**
+ * Receives values from child function and updates
+ * the state in the relevant hooks
+ */
   function handleFirstName(thisFirstName, firstNameBool) {
     setFirstName(thisFirstName);
     setValidFirstName(firstNameBool);
     if (firstNameBool) {
-      setFirstNameIcon(<BsCheckCircle/>)
+      setFirstNameIcon(<BsCheckCircle />)
     } else {
-      setFirstNameIcon(<BsExclamationCircle style={{color: 'red'}}/>)
+      setFirstNameIcon(<BsExclamationCircle style={{ color: 'red' }} />)
     }
   }
 
+/**
+ * Receives values from child function and updates
+ * the state in the relevant hooks
+ */
   function handleLastName(thisLastName, lastNameBool) {
     setLastName(thisLastName);
     setValidLastName(lastNameBool);
     if (lastNameBool) {
-      setLastNameIcon(<BsCheckCircle/>)
+      setLastNameIcon(<BsCheckCircle />)
     } else {
-      setLastNameIcon(<BsExclamationCircle style={{color: 'red'}}/>)
+      setLastNameIcon(<BsExclamationCircle style={{ color: 'red' }} />)
     }
   }
 
@@ -65,43 +83,58 @@ function CreateAccount2(props) {
     setUserEmail(thisEmail)
     setValidEmail(emailBool)
     if (emailBool) {
-      setEmailIcon(<BsCheckCircle/>)
+      setEmailIcon(<BsCheckCircle />)
     } else {
-      setEmailIcon(<BsExclamationCircle style={{color: 'red'}}/>)
+      setEmailIcon(<BsExclamationCircle style={{ color: 'red' }} />)
     }
   }
 
+/**
+ * Receives values from child function and updates
+ * the state in the relevant hooks
+ */
   function handleStudentId(thisStudentId, studentIdBool) {
     setStudentId(thisStudentId)
     setValidStudentId(studentIdBool)
     if (studentIdBool) {
-      setStudentIdIcon(<BsCheckCircle/>)
+      setStudentIdIcon(<BsCheckCircle />)
     } else {
-      setStudentIdIcon(<BsExclamationCircle style={{color: 'red'}}/>)
+      setStudentIdIcon(<BsExclamationCircle style={{ color: 'red' }} />)
     }
   }
 
+/**
+ * Receives values from child function and updates
+ * the state in the relevant hooks
+ */
   function handlePassword(thisPassword, passwordBool) {
     setUserPassword(thisPassword)
     setValidPassword(passwordBool)
     if (passwordBool) {
-      setPasswordIcon(<BsCheckCircle/>)
+      setPasswordIcon(<BsCheckCircle />)
     } else {
-      setPasswordIcon(<BsExclamationCircle style={{color: 'red'}}/>)
+      setPasswordIcon(<BsExclamationCircle style={{ color: 'red' }} />)
     }
   }
 
+/**
+ * Receives values from child function and updates
+ * the state in the relevant hooks
+ */
   function handlePassword2(thisPassword2) {
     setUserPassword2(thisPassword2)
     if (userPassword === thisPassword2 && validPassword) {
       setValidPassword2(true)
-      setPasswordIcon2(<BsCheckCircle/>)
+      setPasswordIcon2(<BsCheckCircle />)
     } else {
       setValidPassword2(false)
-      setPasswordIcon2(<BsExclamationCircle style={{color: 'red'}}/>)
+      setPasswordIcon2(<BsExclamationCircle style={{ color: 'red' }} />)
     }
   }
 
+/**
+ * If users credentials satisfy the requirements, data is sent to backend
+ */
   function handleSubmission(event) {
     event.preventDefault();
     if (validFirstName && validLastName && validStudentId && validEmail && validPassword && validPassword2) {
@@ -117,15 +150,15 @@ function CreateAccount2(props) {
         })
       };
       fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user/sign-up", requestOptions)
-      .then(result => result.json())
-      .then(data => {
-        if (data.result) {
-          history.push('/Account');
-        } else {
-          setPopUpMessage(data.message);
-          setShowPopUp(true);
-        }
-      });
+        .then(result => result.json())
+        .then(data => {
+          if (data.result) {
+            history.push('/Account');
+          } else {
+            setPopUpMessage(data.message);
+            setShowPopUp(true);
+          }
+        });
     } else {
       var errormsg = "";
       if (!validFirstName) {
@@ -151,6 +184,10 @@ function CreateAccount2(props) {
     }
   }
 
+  /**
+   * Renders the create account components and updates them whenever there 
+   * is a state change. Input Values are passed down to child components. 
+   */
   function createBook2(props) {
     return (
       <>
@@ -223,10 +260,10 @@ function CreateAccount2(props) {
 
   return (
 
-    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)} 
-        previousPage={'/'} currentlySelected={0} hide={false} direction={props.direction} 
-        default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction} 
-        showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage}/>
+    <BasicPage name={"UQ Student Pool Sign Up"} body={createBook2(props)}
+      previousPage={'/'} currentlySelected={0} hide={false} direction={props.direction}
+      default={props.default} key={props.key} custom={props.custom} update_direction={props.update_direction}
+      showPopUp={showPopUp} togglePopUp={togglePopUp} popUpMessage={popUpMessage} />
 
   )
 }

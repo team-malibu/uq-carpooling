@@ -66,7 +66,7 @@ function Timetable(props) {
   for (var i = 0; i < 30; i++) {
     var newDate = new Date()
     newDate.setDate(todaysDate.getDate() + i)
-    dates.push(<TimeTile date={newDate} updateSelected={(date) => setSelectedDate(date)} isSelected={sameDay(selectedDate, newDate)}/>)
+    dates.push(<TimeTile key={newDate} date={newDate} updateSelected={(date) => setSelectedDate(date)} isSelected={sameDay(selectedDate, newDate)}/>)
   }
 
   function createBody() {

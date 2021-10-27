@@ -3,10 +3,22 @@ import { RiStarFill, RiStarLine } from 'react-icons/ri';
 import { motion } from "framer-motion"
 import './StarRating.css';
 
+
+/**
+ * The StarRating component is displayed on the Rating Page and allows 
+ * a user to select up to five stars on the screen. The chosen reating is 
+ * stored within a hook and updated whenever the user selects a different rating.
+ * The accompanying rating text changes depending on the rating selected.
+ */
+
 export default function StarRating(props) {
 
     const [rating, setRating] = useState(3);
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in Rating page
+    */
     function handleRatingChange(e) {
         setRating(e.target.value)
         props.onChange(e.target.value);
@@ -65,8 +77,6 @@ export default function StarRating(props) {
                         transition={{ duration: 0.75 }}>
                         <RiStarLine /> </motion.div>}
 
-               
-
             </div>
             <input className="rating-selector"
                 type="range"
@@ -107,14 +117,9 @@ export default function StarRating(props) {
                     transition={{ duration: 0.5 }}>
                     Excellent </motion.div>}
 
-
             </motion.div>
-
-
-    
 
         </div>
         
-
     )
 };

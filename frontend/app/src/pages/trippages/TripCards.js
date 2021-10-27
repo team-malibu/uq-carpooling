@@ -88,7 +88,6 @@ async function passengerDelete(props) {
   await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/delete-trip-as-passenger", postOptions)
     .then(result => result.json())
     .then(data => {
-      console.log(data);
     });
 
 
@@ -268,7 +267,7 @@ async function driverDelete(props) {
   await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/delete-trip-as-driver", postOptions)
     .then(result => result.json())
     .then(data => {
-      console.log(data);
+      
     });
 
   props.setDriverDataFound({ data: null, foundFlag: false, processedFlag: false, driverPastTrips: [], driverUpcomingTrips: [] })

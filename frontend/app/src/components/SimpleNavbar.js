@@ -55,13 +55,6 @@ function NavbarButton(props) {
     <>
       <div className='navbar-link' onClick={(newPage) => {
 
-        // console.log.apply("redirecting")
-        // if (props.studentId == null) {
-        //     props.update_direction(0);
-        //     console.log.apply("redirecting")
-        //     return (<Redirect to="/" />);
-        // }
-
         if (props.icon.path !== location.pathname) {
           history.push(props.icon.path)
         }
@@ -118,7 +111,6 @@ function SimpleNavbar(props) {
   };
   //console.log(props.location.pathname === '/Login')
   if (props.location.pathname === '/' || props.location.pathname === '/Signup' || props.location.pathname === '/Login') {
-    console.log("returnign null for pathname: " + props.location.pathname)
     return null;
   }
 
@@ -129,8 +121,8 @@ function SimpleNavbar(props) {
       <div className='bottom'>
         <svg class="Rectangle_489_bo">
           <linearGradient id="Rectangle_489_bo" spreadMethod="pad" x1="0.534" x2="0" y1="-4.404" y2="1.373">
-            <stop offset="0" stop-color="#37a7f2" stop-opacity="1"></stop>
-            <stop offset="1" stop-color="#4ce2e2" stop-opacity="1"></stop>
+            <stop offset="0" stopColor="#37a7f2" stopOpacity="1"></stop>
+            <stop offset="1" stopColor="#4ce2e2" stopOpacity="1"></stop>
           </linearGradient>
           <rect id="Rectangle_489_bo" rx="0" ry="0" x="0" y="0" width="100%" height="75">
           </rect>

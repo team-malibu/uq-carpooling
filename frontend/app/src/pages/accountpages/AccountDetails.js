@@ -11,6 +11,11 @@ import "./AccountDetails.css";
 import Geocoder from 'react-mapbox-gl-geocoder';
 const ical = require('node-ical');
 
+/**
+ * AccountDeatils  performs a fetch call when the page is first opened. 
+ * The user's preference are returned from the call and passed down to the 
+ * child function AccoundDetailsChild as props 
+ */
 function AccountDetails(props) {
   
 
@@ -23,8 +28,7 @@ function AccountDetails(props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'student_id': thisStudentId,
-          //'student_id': "s1243456",  
+          'student_id': thisStudentId, 
         })
       };
   
@@ -48,7 +52,12 @@ function AccountDetails(props) {
         )
 }
 
-
+/**
+ * AccountDetailsChild stores the recieved user data as hooks.
+ * If the user makes a change to their preferences this is updated
+ * in the hooks. The data is sent to the backend upon clicking
+ * the confirm button
+ */
 function AccountDetailsChild(props) {
   const childProps = props.userItems.data;
   var img = null;
@@ -76,30 +85,57 @@ function AccountDetailsChild(props) {
   let locationSearchUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/Brisbane.json?access_token=pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q&proximity=153.01182776135374%2C-27.500061086853854&bbox=152.91750879139477%2C-27.670452156811677%2C153.20513988226412%2C-27.33132423232297&limit=5"
   const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHRvNW51MiJ9.6jf8xQLgnzK40TNB6SZH7Q"
 
+  /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleGender(thisGender) {
     setUserGender(thisGender);
   }
 
+ /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleDriverPref(thisDriverPref) {
     setDriverPref(thisDriverPref);
   }
 
+  /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleArrivalTime(thisArrivalTime) {
     setUserArrivalTime(thisArrivalTime);
   }
 
+  /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleSchool(thisSchool) {
     setUserSchool(thisSchool);
   }
 
+ /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleUserRego(thisRego) {
     setUserRego(thisRego)
   }
 
+  /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleCarModel(thisCarModel) {
     setCarModel(thisCarModel)
   }
 
+  /**
+    * Sends updated user preferences to the backend
+    */
   const handleDropDowns = () => {
 
     let input = (document.getElementById("startingGeo").childNodes[1].childNodes[0]);
@@ -218,13 +254,14 @@ function AccountDetailsChild(props) {
                 {<AiFillHome />}
                 </div>
                 <Geocoder
+                  viewport={{width: 0, height: 0}}
                   mapboxApiAccessToken={access_token}
                   onSelected={(markerProps, event) => {
                     setHomeLocation(event.text);
                     setHomeCoords([Number(markerProps.longitude), Number(markerProps.latitude)]);
                   }}
                   hideOnSelect={true}
-                  queryParams={locationSearchUrl}
+                  queryParams={{locationSearchUrl}}
                   initialInputValue={props.userItems.data.home_address}
                   updateInputOnSelect={true}
                   id="startingGeo"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CgGenderFemale, CgGenderMale } from 'react-icons/cg';
 import { IoMdTransgender } from 'react-icons/io';
 import { BsFillCaretDownFill, BsPeopleFill, BsPersonFill } from 'react-icons/bs';
-import {WiTime2, WiTime3, WiTime4 } from 'react-icons/wi';
+import { WiTime2, WiTime3, WiTime4 } from 'react-icons/wi';
 import { TiSpanner } from 'react-icons/ti';
 import { MdBusinessCenter } from 'react-icons/md';
 import { RiMentalHealthFill } from 'react-icons/ri';
@@ -11,17 +11,27 @@ import { AiFillRead } from 'react-icons/ai';
 import { motion } from "framer-motion"
 import './DropDownMenu.css';
 
+/**
+ * The GenderDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their gender. When the component is set to open
+ * a list of options to select from are displayed. Selecting a new value updates
+ * the gender  icon  hook.
+ *
+ */
+
 function GenderDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [gender, setGender] = useState("Male");
-    const [genderIcon, setGenderIcon] = useState(props.genderValue === "Male"? <CgGenderMale /> : props.genderValue === "Female"? <CgGenderFemale /> : <IoMdTransgender/> )
+    const [genderIcon, setGenderIcon] = useState(props.genderValue === "Male" ? <CgGenderMale /> : props.genderValue === "Female" ? <CgGenderFemale /> : <IoMdTransgender />)
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in AccountDetails
+    */
     function handleGender(thisGender) {
         props.handleChange(thisGender);
-      }
+    }
 
-   
+
     if (!isOpen) {
         return (
             <motion.div className="dropdown"
@@ -71,15 +81,24 @@ function GenderDropDownMenu(props) {
     }
 }
 
+/**
+ * The DriverDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their driver preference. When the component is set
+ * to open a list of options to select from are displayed. Selecting a new value updates
+ * the gender  icon  hook.
+ *
+ */
 function DriverDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [driverPref, setDriverPref] = useState("Any Driver");
-    const [driverIcon, setDriverIcon] = useState(props.driverPrefValue==='Any Driver'? <BsPeopleFill /> : <BsPersonFill/>);
+    const [driverIcon, setDriverIcon] = useState(props.driverPrefValue === 'Any Driver' ? <BsPeopleFill /> : <BsPersonFill />);
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in AccountDetails
+    */
     function handleDriverPref(thisDriverPref) {
         props.handleChange(thisDriverPref);
-      }
+    }
 
 
     if (!isOpen) {
@@ -110,7 +129,7 @@ function DriverDropDownMenu(props) {
                 </motion.div>
 
                 <div className="dd-list">
-                    <motion.li className="dd-option" onClick={() => { handleDriverPref("Any Driver"); setIsOpen(!isOpen);  setDriverIcon(<BsPeopleFill />) }}>
+                    <motion.li className="dd-option" onClick={() => { handleDriverPref("Any Driver"); setIsOpen(!isOpen); setDriverIcon(<BsPeopleFill />) }}>
                         <span className="icon-button">{<BsPeopleFill />}</span>
                         Any driver
                     </motion.li>
@@ -125,17 +144,24 @@ function DriverDropDownMenu(props) {
     }
 }
 
+/**
+ * The TimingDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their arrival time. When the component is set to open
+ * a list of options are displayed. Selecting a new value updates the icon  hook.
+ */
 function TimingDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [arrivalTime, setArrivalTime] = useState("30 minutes before class");
-    const [timeIcon, setTimeIcon] = useState(props.arrivalTimeValue ==="30 mins"? <WiTime2 /> : props.arrivalTimeValue ==="1 hour"? <WiTime3/> : <WiTime4/>)
+    const [timeIcon, setTimeIcon] = useState(props.arrivalTimeValue === "30 mins" ? <WiTime2 /> : props.arrivalTimeValue === "1 hour" ? <WiTime3 /> : <WiTime4 />)
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in AccountDetails
+    */
     function handleArrivalTime(thisArrivalTime) {
         props.handleChange(thisArrivalTime)
     }
 
-   
+
     if (!isOpen) {
         return (
             <motion.div className="dropdown"
@@ -172,7 +198,7 @@ function TimingDropDownMenu(props) {
 
                     <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setTimeIcon(<WiTime3 />); handleArrivalTime("1 hour") }}>
                         <span className="icon-button">{<WiTime3 />}</span>
-                        1 hour 
+                        1 hour
                     </motion.li>
 
                     <motion.li className="dd-option" onClick={() => { setIsOpen(!isOpen); setTimeIcon(<WiTime4 />); handleArrivalTime("2 hours") }}>
@@ -185,16 +211,23 @@ function TimingDropDownMenu(props) {
     }
 }
 
+/**
+ * The ScholDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their school. When the component is set to open
+ * a list of options are displayed. Selecting a new value updates the icon hook.
+ */
 function SchoolDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [school, setSchool] = useState("EAIT");
-    const [schoolIcon, setSchoolIcon] = useState(props.schoolValue === "EAIT"? <TiSpanner /> : props.schoolValue ==="Medicine"? <FaClinicMedical/> 
-    : props.schoolValue ==="Science"? <FaFlask/>: props.schoolValue === "Business/Law/Economics"? <MdBusinessCenter/>: props.schoolValue === "Humanities/Social Sciences"? <AiFillRead /> : <RiMentalHealthFill /> );
+    const [schoolIcon, setSchoolIcon] = useState(props.schoolValue === "EAIT" ? <TiSpanner /> : props.schoolValue === "Medicine" ? <FaClinicMedical />
+        : props.schoolValue === "Science" ? <FaFlask /> : props.schoolValue === "Business/Law/Economics" ? <MdBusinessCenter /> : props.schoolValue === "Humanities/Social Sciences" ? <AiFillRead /> : <RiMentalHealthFill />);
 
+    /**
+    * Passes value back up to parent function updating 
+    * the state in AccountDetails
+    */
     function handleSchool(thisSchool) {
         props.handleChange(thisSchool);
-      }
+    }
 
     if (!isOpen) {
         return (

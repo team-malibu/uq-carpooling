@@ -6,7 +6,11 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Avatar } from '@material-ui/core';
 import BasicPage from '../../components/BasicPage';
 
-
+/**
+ * The Rating page allows the user to give a star rating of their driver
+ * on a scale of 1 to 5. Upon submission, the current score of the driver is
+ * fetched and a new average rating is calculated. 
+ */
 function Rating(props) {
 
   const history = useHistory();
@@ -43,11 +47,18 @@ function Rating(props) {
   }
   const [ratingValue, setRatingValue] = useState(3)
 
+  /**
+    * Receives value from child function and updates
+    * the state in the relevant hook
+    */
   function handleRatingChange(thisValue) {
     setRatingValue(thisValue);
     console.log(thisValue);
   }
 
+  /**
+    * Sends updated rating of driver to the backend
+    */
   async function handleSubmission(event) {
     event.preventDefault();
     // add a new passenger trip to store the new rating (IS THIS NEEDED? Dont we just update the current entry in `cp-passenger-trip`?- Conal)
@@ -118,6 +129,9 @@ function Rating(props) {
 
   }
 
+  /**
+    * Displays the driver details and the star rating component 
+    */
   function createRating(props) {
     var img = null;
     if (driverData.foundFlag) {
