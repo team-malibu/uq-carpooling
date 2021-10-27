@@ -83,6 +83,8 @@ li:last-child {
   height: 100px;
   overflow: visible;
   margin-top: 5px;
+  max-width: 350px;
+  margin: auto;
 }
 
 .passenger-trip-actions {
