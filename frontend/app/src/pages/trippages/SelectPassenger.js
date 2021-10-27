@@ -167,8 +167,9 @@ function PassengerTile(props) {
         <div class='pline'>
           <div class='ptest'>
             <PinDropOutlined className='place-outlined' />
-            {props.everything.passenger_location}
-
+            <div class="ptext">
+              {props.everything.passenger_location}
+            </div>
           </div>
         </div>
       </div>
