@@ -124,17 +124,17 @@ function PassengerFooter(props) {
           </div>
         </div>
       </div>
-      {props.pending ? null : 
+      {props.pending ? null :
         <div class='tt_info_line'> {/*  Driver Name   */}
-        <div class='tt_content'>
-          <div >
-            <DriveEtaOutlined />
-          </div>
-          <div class='tt_input_text'>
-            {props.trip.car_type} {props.trip.number_plate}
+          <div class='tt_content'>
+            <div >
+              <DriveEtaOutlined />
+            </div>
+            <div class='tt_input_text'>
+              {props.trip.car_type} {props.trip.number_plate}
+            </div>
           </div>
         </div>
-      </div>
       }
       <div className="passenger-trip-actions">
         {props.isUpcoming ?
@@ -267,7 +267,7 @@ async function driverDelete(props) {
   await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/delete-trip-as-driver", postOptions)
     .then(result => result.json())
     .then(data => {
-      
+
     });
 
   props.setDriverDataFound({ data: null, foundFlag: false, processedFlag: false, driverPastTrips: [], driverUpcomingTrips: [] })
@@ -316,9 +316,9 @@ function DriverFooter(props) {
 
         :
         <div className="past-driver-trip-actions">
-          <Link className='review-passenger-link driver-trip-actions' to={{ pathname: '/Select/Passenger', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+          {/* <Link className='review-passenger-link driver-trip-actions' to={{ pathname: '/Select/Passenger', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
             <div className='review-passengers'> Review Passengers</div>
-          </Link>
+          </Link> */}
           <Link className='past-driver-view-action driver-trip-actions' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
             <div className='past-driver-view-action'> View Trip </div>
           </Link>
