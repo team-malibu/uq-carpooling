@@ -11,6 +11,11 @@ import "./AccountDetails.css";
 import Geocoder from 'react-mapbox-gl-geocoder';
 const ical = require('node-ical');
 
+/**
+ * AccountDeatils  performs a fetch call when the page is first opened. 
+ * The user's preference are returned from the call and passed down to the 
+ * child function AccoundDetailsChild as props 
+ */
 function AccountDetails(props) {
   
 
@@ -23,8 +28,7 @@ function AccountDetails(props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'student_id': thisStudentId,
-          //'student_id': "s1243456",  
+          'student_id': thisStudentId, 
         })
       };
   
@@ -48,7 +52,12 @@ function AccountDetails(props) {
         )
 }
 
-
+/**
+ * AccountDetailsChild stores the recieved user data as hooks.
+ * If the user makes a change to their preferences this is updated
+ * in the hooks and their data is sent to the backend upon clicking
+ * the confirm button
+ */
 function AccountDetailsChild(props) {
   const childProps = props.userItems.data;
   var img = null;

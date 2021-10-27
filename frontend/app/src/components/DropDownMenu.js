@@ -11,10 +11,17 @@ import { AiFillRead } from 'react-icons/ai';
 import { motion } from "framer-motion"
 import './DropDownMenu.css';
 
+/**
+ * The GenderDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their gender. When the component is set to open
+ * a list of options to select from are displayed. Selecting a new value updates
+ * the gender  icon  hook and sends the driver value to the parent function within 
+ * AccountDeatils. 
+ *
+ */
+
 function GenderDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [gender, setGender] = useState("Male");
     const [genderIcon, setGenderIcon] = useState(props.genderValue === "Male"? <CgGenderMale /> : props.genderValue === "Female"? <CgGenderFemale /> : <IoMdTransgender/> )
 
     function handleGender(thisGender) {
@@ -71,10 +78,16 @@ function GenderDropDownMenu(props) {
     }
 }
 
+/**
+ * The DriverDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their driver preference. When the component is set
+ * to open a list of options to select from are displayed. Selecting a new value updates
+ * the gender  icon  hook and sends the driver value to the parent function within 
+ * AccountDeatils. 
+ *
+ */
 function DriverDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [driverPref, setDriverPref] = useState("Any Driver");
     const [driverIcon, setDriverIcon] = useState(props.driverPrefValue==='Any Driver'? <BsPeopleFill /> : <BsPersonFill/>);
 
     function handleDriverPref(thisDriverPref) {
@@ -125,10 +138,14 @@ function DriverDropDownMenu(props) {
     }
 }
 
+/**
+ * The TimingDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their arrival time. When the component is set to open
+ * a list of options are displayed. Selecting a new value updates the icon  hook
+ * and sends the arrival time value to the parent function within AccountDeatils. 
+ */
 function TimingDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [arrivalTime, setArrivalTime] = useState("30 minutes before class");
     const [timeIcon, setTimeIcon] = useState(props.arrivalTimeValue ==="30 mins"? <WiTime2 /> : props.arrivalTimeValue ==="1 hour"? <WiTime3/> : <WiTime4/>)
 
     function handleArrivalTime(thisArrivalTime) {
@@ -185,10 +202,14 @@ function TimingDropDownMenu(props) {
     }
 }
 
+/**
+ * The ScholDropDownMenu component is displayed on the AccountDetails page
+ * and allows a user to select their school. When the component is set to open
+ * a list of options are displayed. Selecting a new value updates the icon  hook
+ * and sends the school value to the parent function within AccountDeatils. 
+ */
 function SchoolDropDownMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
-    // Same here @Toby this is never used
-    // const [school, setSchool] = useState("EAIT");
     const [schoolIcon, setSchoolIcon] = useState(props.schoolValue === "EAIT"? <TiSpanner /> : props.schoolValue ==="Medicine"? <FaClinicMedical/> 
     : props.schoolValue ==="Science"? <FaFlask/>: props.schoolValue === "Business/Law/Economics"? <MdBusinessCenter/>: props.schoolValue === "Humanities/Social Sciences"? <AiFillRead /> : <RiMentalHealthFill /> );
 

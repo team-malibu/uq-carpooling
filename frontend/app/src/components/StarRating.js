@@ -3,6 +3,16 @@ import { RiStarFill, RiStarLine } from 'react-icons/ri';
 import { motion } from "framer-motion"
 import './StarRating.css';
 
+
+/**
+ * The StarRating component is displayed on the Rating Page and allows 
+ * a user to select up to five stars which appear on the screen. The rating 
+ * produced is a tally of the stars selected. This tally is stored within
+ * a hook and updated whenever the user selects a different number of stars.
+ * Alongside the rating value is the rating text which changes depending on 
+ * the rating selected.
+ */
+
 export default function StarRating(props) {
 
     const [rating, setRating] = useState(3);

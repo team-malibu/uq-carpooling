@@ -7,6 +7,12 @@ import {BsExclamationCircle, BsCheckCircle} from "react-icons/bs"
 import { MdLockOutline } from 'react-icons/md';
 import BasicPage from '../components/BasicPage';
 
+/**
+ * The Login page allows the user to enter their student email and password.
+ * If the user's credentials are corrent and adhere to the input requirements
+ * they may login and are redirected to the booking page. A pop up message will
+ * appear otherwise.
+ */
 function Login(props) {
     const history = useHistory();
 

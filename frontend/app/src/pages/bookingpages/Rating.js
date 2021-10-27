@@ -6,7 +6,11 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Avatar } from '@material-ui/core';
 import BasicPage from '../../components/BasicPage';
 
-
+/**
+ * The Rating page allows the user to give a star rating of their driver
+ * on a scale of 1 to 5. Upon submission, the current score of the driver is
+ * fetched and a new average rating is calculated. 
+ */
 function Rating(props) {
 
   const history = useHistory();

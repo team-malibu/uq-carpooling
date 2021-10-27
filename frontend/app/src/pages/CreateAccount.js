@@ -7,6 +7,13 @@ import { InputPassword, InputEmail, InputName, InputStudentId } from '../compone
 import { MdLockOutline } from 'react-icons/md';
 import { BsExclamationCircle, BsCheckCircle } from "react-icons/bs"
 
+/**
+ * The CreateAccount page allows the user to create an account by entering in their
+ * credentials. If the user's credentials adhere to the input requirements
+ * an account is created and the user is redirected to the login page. 
+ * A pop up message will appear otherwise.
+ */
+
 function CreateAccount2(props) {
   const history = useHistory();
 
