@@ -5,6 +5,10 @@ import DriverTile from '../../components/DriverTile'
 import { Avatar} from '@material-ui/core';
 import './SelectDriver.css'
 
+/**
+ * The SelectDriver page allows a user to view drivers in their area
+ * who satisfy their current preference 
+ */
 function SelectDriver(props) {
   const location = useLocation();
   const history = useHistory();
