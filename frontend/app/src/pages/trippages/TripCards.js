@@ -88,7 +88,6 @@ async function passengerDelete(props) {
   await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/delete-trip-as-passenger", postOptions)
     .then(result => result.json())
     .then(data => {
-      console.log(data);
     });
 
 
@@ -152,8 +151,8 @@ function PassengerFooter(props) {
             }}>
               <div className='review-action'> Rate Trip </div>
             </Link>
-            <Link className='passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
-              <div className='passenger-view-action'> View Trip </div>
+            <Link className='upcoming-passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+              <div className='upcoming-passenger-view-action'> View Trip </div>
             </Link>
           </>
         }
@@ -268,7 +267,7 @@ async function driverDelete(props) {
   await fetch("https://deco3801-teammalibu.uqcloud.net/db/trips/delete-trip-as-driver", postOptions)
     .then(result => result.json())
     .then(data => {
-      console.log(data);
+      
     });
 
   props.setDriverDataFound({ data: null, foundFlag: false, processedFlag: false, driverPastTrips: [], driverUpcomingTrips: [] })

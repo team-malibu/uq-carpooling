@@ -100,7 +100,7 @@ function Book(props) {
 
 
   async function createATrip(tripProps) {
-    console.log(endLoc, startLoc, date, arriveTime, route);
+   
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
       return
@@ -112,9 +112,6 @@ function Book(props) {
     let end_lat = String(endLoc[1]).slice(0, coordinateCutoff)
     let center_long = String(centerLoc[0]).slice(0, coordinateCutoff)
     let center_lat = String(centerLoc[1]).slice(0, coordinateCutoff)
-    console.log(startLocationName)
-    console.log(endLocationName)
-    console.log(date)
 
     if (date instanceof Date) {
       var new_date = new Date(date.valueOf() + 10 * 60 * 60000);
@@ -160,7 +157,6 @@ function Book(props) {
   
   
   function findTrips(tripProps) {
-    console.log(endLoc, startLoc, date, arriveTime);
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
       return;

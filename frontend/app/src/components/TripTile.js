@@ -19,7 +19,7 @@ function TripTile(props) {
   function updateBooking(propFlag, bookingProps) {
     props.updateBookTrip(propFlag, bookingProps)
   }
-  const [arriveDate, setArriveDate] = useState(0);
+  const [arriveDate, setArriveDate] = useState(new Date());
   return (
       <div class='trip_wrapper'>
         <div class='trip_info_line'>
@@ -33,7 +33,8 @@ function TripTile(props) {
                     }} 
                     hideOnSelect={true}
                     updateInputOnSelect={true}
-                    queryParams={locationSearchUrl} initialInputValue={props.startName} id="startingGeo"
+                    queryParams={{locationSearchUrl}} initialInputValue={props.tProps.setFlag ? props.startName : ""}  id="startingGeo"
+                    viewport={{width: 0, height: 0}}
                 />
             <div class='trip_edit'>
               <EditOutlined onClick={() => {
@@ -57,7 +58,8 @@ function TripTile(props) {
                   }} 
                   hideOnSelect={true}
                   updateInputOnSelect={true}
-                  queryParams={locationSearchUrl} initialInputValue={props.tProps.setFlag ? props.endName : ""} 
+                  queryParams={{locationSearchUrl}} initialInputValue={props.tProps.setFlag ? props.endName : ""} 
+                  viewport={{width: 0, height: 0}}
                 />
             <div class='trip_edit'>
               <EditOutlined onClick={() => {
@@ -85,7 +87,7 @@ function TripTile(props) {
         </div>
         <div class='trip_info_line'>
           <div class='trip_content'>
-            <label for="filter">Filter by preferences</label>
+            <label htmlFor="filter">Filter by preferences</label>
             <input type="checkbox" id="filter-checkbox" onClick={(ev) => {
               updateBooking("filter", ev.target.checked);
             }} />
