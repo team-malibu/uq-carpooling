@@ -6,11 +6,9 @@ import './StarRating.css';
 
 /**
  * The StarRating component is displayed on the Rating Page and allows 
- * a user to select up to five stars which appear on the screen. The rating 
- * produced is a tally of the stars selected. This tally is stored within
- * a hook and updated whenever the user selects a different number of stars.
- * Alongside the rating value is the rating text which changes depending on 
- * the rating selected.
+ * a user to select up to five stars on the screen. The chosen reating is 
+ * stored within a hook and updated whenever the user selects a different rating.
+ * The accompanying rating text changes depending on the rating selected.
  */
 
 export default function StarRating(props) {

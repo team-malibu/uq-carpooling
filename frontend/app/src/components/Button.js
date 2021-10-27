@@ -84,7 +84,7 @@ function AccountUpdateButton(props) {
 }
 
 /**
- * returns a circruclar shaped button
+ * returns a circular shaped button
  * @param   {string} param1 <props.name>
  * @return  {<button>}      A button with the provided text
  */
