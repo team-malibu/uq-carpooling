@@ -12,6 +12,9 @@ const access_token = "pk.eyJ1IjoiYWptOTkxMTUiLCJhIjoiY2tzd3FoNGpwMjFvbDJ3bzMxNHR
 mapboxgl.accessToken = access_token;
 mapboxgl.workerClass = MapboxWorker;
 
+/**
+  * Adjusts boolean value of pop up hook
+  */
 function TripMap(props) {
     const ref = useRef(null);
     const [map, setMap] = useState(null);

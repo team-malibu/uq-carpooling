@@ -4,7 +4,9 @@ import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, GroupOutlined, DriveEt
 import './TripCards.css'
 import { Link, useHistory } from "react-router-dom";
 
-
+/**
+  * Displays all the details of a trip as a passenger
+  */
 function PassengerTripEvent(props) {
 
   const history = useHistory();
@@ -74,6 +76,9 @@ function PassengerTripEvent(props) {
   );
 }
 
+/**
+  * Allows a passenger to delete a request they have created
+  */
 async function passengerDelete(props) {
 
   const postOptions = {
@@ -96,6 +101,9 @@ async function passengerDelete(props) {
 
 }
 
+/**
+  * Display the information of a trip as a passenger
+  */
 function PassengerFooter(props) {
   return (
     <motion.div
@@ -163,6 +171,9 @@ function PassengerFooter(props) {
   );
 }
 
+/**
+  * Displays the title of the trip as a passenger
+  */
 function PassengerHeader(props) {
   return (
     <motion.div class='passenger-event-title'
@@ -176,6 +187,9 @@ function PassengerHeader(props) {
   );
 }
 
+/**
+  * Displays the title of the trip as a driver
+  */
 function DriverHeader(props) {
   return (
     <motion.div class='driver-event-title'
@@ -189,6 +203,9 @@ function DriverHeader(props) {
   );
 }
 
+/**
+  * Displays all the details of a trip as a driver
+  */
 function DriverTripEvent(props) {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -254,6 +271,9 @@ function DriverTripEvent(props) {
   );
 }
 
+/**
+  * Allows a driver to delete a a trip they are offering
+  */
 async function driverDelete(props) {
 
   const postOptions = {
@@ -274,6 +294,9 @@ async function driverDelete(props) {
 
 }
 
+/**
+  * Display the information of a trip as a driver
+  */
 function DriverFooter(props) {
 
   return (

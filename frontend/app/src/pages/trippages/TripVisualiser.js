@@ -9,6 +9,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '../../components/TripMap.css';
 import { useLocation } from 'react-router';
 
+/**
+  * Displays to the user a map with the start and end destination of their trip
+  */
 function TripVisualiser(props) {
     const location = useLocation();
     var tripProps = location.trip;
@@ -16,6 +19,9 @@ function TripVisualiser(props) {
     mapboxgl.accessToken = access_token;
     mapboxgl.workerClass = MapboxWorker;
 
+    /**
+     * Calculates the coordinates of the start and end destinations for a trip
+     */
     function GetTripVisualiser(props) {
         const ref = useRef(null);
         const [map, setMap] = useState(null);

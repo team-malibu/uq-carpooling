@@ -6,10 +6,16 @@ import { Avatar } from '@material-ui/core';
 import './SelectPassenger.css'
 import { RiContactsBookLine } from 'react-icons/ri';
 
-//Does this need to go to a different file????
+/**
+  * This page allows a driver to accept or reject a passenger request. The passengers are
+  * displayed on passenger tiles which contain their details
+  */
 function PassengerTile(props) {
 
 
+  /**
+  * Rejects a passenger's request to join the trip
+  */
   async function handleRejectPassengerRequest(props) {
     //Fetch Calls to update db here
     const rejectionOptions = {
@@ -36,6 +42,9 @@ function PassengerTile(props) {
       });
   }
 
+  /**
+  * Accepts a passenger's request to join the trip
+  */
   async function handleAcceptPassengerRequest(props) {
     var passenger_count;
     var intermediate_passengers;
@@ -193,6 +202,9 @@ function PassengerTile(props) {
   )
 }
 
+/**
+  * Handles the confirming of a passenger's request to join a trip
+  */
 function SelectPassengerBody(props) {
   let pendingPassengers = [];
   let confirmedPassengers = [];
@@ -219,6 +231,9 @@ function SelectPassengerBody(props) {
   )
 }
 
+/**
+  * Allows for a passenger to be add to the driver's trip
+  */
 function SelectPassenger(props) {
 
   const location = useLocation();

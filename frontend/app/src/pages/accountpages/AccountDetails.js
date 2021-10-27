@@ -12,7 +12,7 @@ import Geocoder from 'react-mapbox-gl-geocoder';
 const ical = require('node-ical');
 
 /**
- * AccountDeatils  performs a fetch call when the page is first opened. 
+ * AccountDetails  performs a fetch call when the page is first opened. 
  * The user's preference are returned from the call and passed down to the 
  * child function AccoundDetailsChild as props 
  */

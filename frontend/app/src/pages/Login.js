@@ -9,7 +9,7 @@ import BasicPage from '../components/BasicPage';
 
 /**
  * The Login page allows the user to enter their student email and password.
- * If the user's credentials are corrent and adhere to the input requirements
+ * If the user's credentials are correct and adhere to the input requirements
  * they may login. A pop up message will appear otherwise.
  */
 function Login(props) {

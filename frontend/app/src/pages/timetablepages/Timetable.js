@@ -13,7 +13,10 @@ function sameDay(d1, d2) {
 
 var classes = new Map();
 
-
+/**
+  * Displays the calendar and timetabled classes of the user when a specific day with a class 
+  * is selected by the user
+  */
 function Timetable(props) {
 
   var student_id = props.studentId;
@@ -69,6 +72,9 @@ function Timetable(props) {
     dates.push(<TimeTile key={newDate} date={newDate} updateSelected={(date) => setSelectedDate(date)} isSelected={sameDay(selectedDate, newDate)}/>)
   }
 
+  /**
+  * Allows a user to select a date so that timetabled classes for that day may be displayed
+  */
   function createBody() {
     var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     var dateString = selectedDate.toLocaleString("en-US", options);

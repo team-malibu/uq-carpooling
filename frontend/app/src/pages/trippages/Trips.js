@@ -5,7 +5,9 @@ import { motion, AnimateSharedLayout } from "framer-motion";
 import { PassengerTripEvent, DriverTripEvent } from './TripCards.js'
 import { Redirect } from 'react-router-dom'
 
-
+/**
+  * Switches the type of trips visible to the user on the page
+  */
 function TripSwitch({ isUpcoming, ...props }) {
   const className = `switch ${isUpcoming ? "on" : "off"}`;
 
@@ -18,6 +20,9 @@ function TripSwitch({ isUpcoming, ...props }) {
   );
 }
 
+/**
+  * Finds the trips for a given driver
+  */
 function GetTrips(props) {
   if (props.driver) {
     return (
@@ -40,8 +45,11 @@ function GetTrips(props) {
       </motion.ul>
     )
   }
-
 }
+
+/**
+  * Gets and displays all upcoming and previous trips where a user was either driver or passenger
+  */
 function Trips(props) {
   const [specificPassengerRequestsFound, setRequestDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, requestTrips: [] });
   const [asPassengerDataFound, setPassengerDataFound] = useState({ data: null, foundFlag: false, processedFlag: false, passengerPastTrips: [], passengerUpcomingTrips: [] });
@@ -249,6 +257,9 @@ function Trips(props) {
 
   const [isUpcoming, setIsUpcoming] = useState(true);
 
+  /**
+  * Displays all the past and upcoming trips of a user 
+  */
   function SearchBody(props) {
 
     if (props.studentId == null) {
