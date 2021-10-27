@@ -72,7 +72,7 @@ function Book(props) {
       setEndLocationName(bookingProps.value.text);
     } else if (flag.match("date")) {
       let today = new Date();
-      if (dateProps >= today) {
+      if (bookingProps >= today) {
         let date = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + (bookingProps.getDate());
         let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
         date = date + " " + time;
