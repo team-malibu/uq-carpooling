@@ -139,9 +139,13 @@ function PassengerFooter(props) {
       <div className="passenger-trip-actions">
         {props.isUpcoming ?
           <>
+            {props.pending ? <Link className='pending-passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
+              <div className='pending-passenger-view-action'> View Trip </div>
+            </Link>
+            : 
             <Link className='upcoming-passenger-view-action' to={{ pathname: '/TripVisualiser', trip: props.trip }} onClick={() => { props.update_direction(1) }}>
               <div className='upcoming-passenger-view-action'> View Trip </div>
-            </Link>
+            </Link>}
             {props.pending ? <div className='cancel-action' onClick={() => passengerDelete(props)}> Cancel </div> : null}
           </>
           :
