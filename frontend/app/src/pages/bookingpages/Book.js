@@ -6,6 +6,11 @@ import { MediumConfirmButton } from '../../components/Button'
 import './Book.css'
 import BasicPage from '../../components/BasicPage'
 
+/**
+ * The Booking page allows a user to enter the details of their journey into
+ * the Trip Tile. If the destination is calculated too far away a pop up message 
+ * is displayed
+ */
 function Book(props) {
   const location = useLocation();
   const history = useHistory();
@@ -55,14 +60,24 @@ function Book(props) {
     setEndLocationName(tProps.endLocationName);
   }
 
+  /**
+    * Adjusts boolean value of pop up hook
+    */
   function togglePopUp() {
     setShowPopUp(false);
   }
 
+  /**
+    * Adjusts boolean value of pop up hook
+    */
   function showHelp() {
     setShowPopUp(true);
   }
 
+  /**
+    * Updates the booking with the users input for the trip.
+    * If inccorrect input is accepted an alert is raised
+    */
   function updateBookTrip(flag, bookingProps) {
     if (flag.match("startMarker")) {
       setStartLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
@@ -99,6 +114,9 @@ function Book(props) {
   }
 
 
+  /**
+    * Creates a trip with the travel details input by the user
+    */
   async function createATrip(tripProps) {
    
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
@@ -120,6 +138,9 @@ function Book(props) {
     }
     
 
+    /**
+    * Adds the user's trip details to the back end
+    */
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -155,7 +176,10 @@ function Book(props) {
       history.push('/Trips')
   }
   
-  
+  /**
+    * Searches for trips within the vicinity of the user that are within the
+    * desired arrival time
+    */
   function findTrips(tripProps) {
     if (endLoc === 0 || startLoc === 0 || date === 0 || arriveTime === 0) {
       alert("Fill all trip fields!")
@@ -209,6 +233,9 @@ function Book(props) {
       });
   }
 
+  /**
+    * Creates trip map and trip tile for user to see and interact with.
+    */
   function createBook(props) {
     if (props.studentId == null) {
       props.update_direction(0);

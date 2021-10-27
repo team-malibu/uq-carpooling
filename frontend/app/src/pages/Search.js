@@ -7,6 +7,10 @@ import TimetableTile from '../components/TimetableTile';
 import TimeTile from '../components/TimeTile'
 import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, TripOrigin } from '@material-ui/icons/'
 
+/**
+    * Switches between upcoming and past trips. On each display the details of each trip are 
+    * shown
+    */
 function Switch({ isUpcoming, ...props }) {
   const className = `switch ${isUpcoming ? "on" : "off"}`;
 
@@ -21,7 +25,9 @@ function Switch({ isUpcoming, ...props }) {
       );
 }
 
-
+/**
+  * Display the details of a trip using the prodivided data 
+  */
 function Trips(props) {
   return(
     <motion.ul layout initial={{ borderRadius: 25 }}>
@@ -31,6 +37,7 @@ function Trips(props) {
     </motion.ul>
       )
 }
+
 function Search(props) {
     // const [selectedId, setSelectedId] = useState(null)
     // const [tripType, setTripType] = useState('Upcoming')
