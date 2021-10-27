@@ -48,7 +48,9 @@ function SelectDriver(props) {
       </div>
     )
   }
-  
+  /**
+    * Creates a driver tile for the specified driver
+    */
   function createTiles(props) {
     return (
       <div class='drivers'>

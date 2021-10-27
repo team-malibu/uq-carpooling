@@ -6,6 +6,10 @@ import './ConfirmDriver.css'
 import {useHistory} from 'react-router-dom'
 import BasicPage from '../../../components/BasicPage'
 
+/**
+ * The ConfirmDriver page allows a user to view the details of the
+ * seleted driver before accepting the trip
+ */
 function ConfirmDriver(props) {
   const history = useHistory();
 
