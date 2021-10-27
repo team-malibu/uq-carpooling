@@ -218,13 +218,14 @@ function AccountDetailsChild(props) {
                 {<AiFillHome />}
                 </div>
                 <Geocoder
+                  viewport={{width: 0, height: 0}}
                   mapboxApiAccessToken={access_token}
                   onSelected={(markerProps, event) => {
                     setHomeLocation(event.text);
                     setHomeCoords([Number(markerProps.longitude), Number(markerProps.latitude)]);
                   }}
                   hideOnSelect={true}
-                  queryParams={locationSearchUrl}
+                  queryParams={{locationSearchUrl}}
                   initialInputValue={props.userItems.data.home_address}
                   updateInputOnSelect={true}
                   id="startingGeo"

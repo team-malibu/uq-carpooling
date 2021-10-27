@@ -110,7 +110,7 @@ function Login(props) {
                     <div className="loginButton" onClick={handleSubmission}>
                           <LoginButton name="Login" />
                       </div>
-                      <div class='loginButton' onClick={() => {
+                      <div className='loginButton' onClick={() => {
                           history.push('/Signup')}}>
                           <CreateAccountButton name="Create Account" />
                       </div>
