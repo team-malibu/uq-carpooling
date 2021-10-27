@@ -71,11 +71,16 @@ function Book(props) {
       setEndLoc([bookingProps.markerProps.longitude, bookingProps.markerProps.latitude]);
       setEndLocationName(bookingProps.value.text);
     } else if (flag.match("date")) {
-      let date = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + (bookingProps.getDate());
-      let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
-      date = date + " " + time;
-      setDate(date)
-      setStartTime(time);
+      let today = new Date();
+      if (dateProps >= today) {
+        let date = bookingProps.getFullYear() + "-" + (bookingProps.getMonth() + 1) + "-" + (bookingProps.getDate());
+        let time = bookingProps.getHours() + ":" + bookingProps.getMinutes() + ":" + bookingProps.getSeconds();
+        date = date + " " + time;
+        setDate(date)
+        setStartTime(time);
+      } else {
+        alert("That's in the past - Please choose a valid date!");
+      }
     } else if (flag.match("duration")) {
       if (String(duration) != String(bookingProps)) {
         setDuration(bookingProps);
