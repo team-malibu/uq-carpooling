@@ -37,7 +37,6 @@ function Rating(props) {
     fetch("https://deco3801-teammalibu.uqcloud.net/db/users/user-picture", requestPicture)
       .then(result => result.json())
       .then(data => {
-        console.log(data);
         setDriverData({
           data: data,
           foundFlag: true,
@@ -53,7 +52,6 @@ function Rating(props) {
     */
   function handleRatingChange(thisValue) {
     setRatingValue(thisValue);
-    console.log(thisValue);
   }
 
   /**
@@ -70,7 +68,6 @@ function Rating(props) {
         'passenger_provided_rating': ratingValue,
       })
     };
-    console.log(requestOptions1)
     await fetch("https://deco3801-teammalibu.uqcloud.net/db/ratings/trip/set-rating", requestOptions1)
       .catch((e) => {
         console.warn(e)
@@ -91,7 +88,6 @@ function Rating(props) {
       .then(data => {
         let sum = 0;
         let num = 0;
-        console.log(data)
         for (const rating of Object.values(data)) {
             if (rating.passenger_provided_rating == null) {
                 continue;
@@ -105,7 +101,6 @@ function Rating(props) {
           average = sum / num;
         }
        
-        console.log(average)
         // update the driver's average rating
 
       }).catch((e) => {
