@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './Login.css'
 import { LoginButton, CreateAccountButton } from '../components/AllButtons';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'; //Utilising the react-router library for navigation assist from https://www.npmjs.com/package/react-router 
 import { InputPassword, InputEmail } from '../components/InputText';
-import { BsExclamationCircle, BsCheckCircle } from "react-icons/bs"
-import { MdLockOutline } from 'react-icons/md';
+import { BsExclamationCircle, BsCheckCircle } from "react-icons/bs"; //Utilising the icon library from https://www.npmjs.com/package/react-icons
+import { MdLockOutline } from 'react-icons/md'; //Utilising the icon library from https://www.npmjs.com/package/react-icons
 import BasicPage from '../components/BasicPage';
 
 /**

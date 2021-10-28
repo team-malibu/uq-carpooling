@@ -1,7 +1,6 @@
 import BasicPage from '../../components/BasicPage';
 import {React, useEffect, useLayoutEffect, useRef, useState} from 'react';
-import mapboxgl, { getRTLTextPluginStatus } from 'mapbox-gl';
-import Geocoder from 'react-mapbox-gl-geocoder'
+import mapboxgl, { getRTLTextPluginStatus } from 'mapbox-gl'; //Utilising mapbox from https://www.npmjs.com/package/react-mapbox-gl as a foundation library for map generation and configuration for trips.
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 

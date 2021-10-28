@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
-import FileBase64 from 'react-file-base64'
+import { Redirect } from 'react-router-dom'// Utilsing the geocoder library to assist in obtaining geo-locations, link : https://www.npmjs.com/package/react-mapbox-gl-geocoder
+import FileBase64 from 'react-file-base64' //Utilising filebase library to handle BLOB's from https://www.npmjs.com/package/react-file-base64
 import { Avatar} from '@material-ui/core';
-import { AiFillHome } from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai'; //Utilising the icon library from https://www.npmjs.com/package/react-icons
 import { MediumConfirmButton } from '../../components/Button'
 import {InputCarDetails, InputCarRego} from '../../components/InputText'
 import { TimingDropDownMenu, DriverDropDownMenu, GenderDropDownMenu, SchoolDropDownMenu } from '../../components/DropDownMenu';
 import BasicPage from '../../components/BasicPage';
 import "./AccountDetails.css";
-import Geocoder from 'react-mapbox-gl-geocoder';
+import Geocoder from 'react-mapbox-gl-geocoder'; // Utilsing the geocoder library to assist in obtaining geo-locations, link : https://www.npmjs.com/package/react-mapbox-gl-geocoder
 const ical = require('node-ical');
 
 /**

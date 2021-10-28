@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import BasicPage from '../../components/BasicPage'
 import './Trips.css'
-import { motion, AnimateSharedLayout } from "framer-motion";
+import { motion, AnimateSharedLayout } from "framer-motion";  //Utilising the framer-motion library from https://www.npmjs.com/package/framer-motion
 import { PassengerTripEvent, DriverTripEvent } from './TripCards.js'
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom' //Utilising the react-router library for navigation assist from https://www.npmjs.com/package/react-router 
 
 /**
   * Switches the type of trips visible to the user on the page

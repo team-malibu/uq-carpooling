@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import BasicPage from '../components/BasicPage'
 import './Search.css'
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
-import { MediumConfirmButton, SquareButton } from '../components/Button'
-import TimetableTile from '../components/TimetableTile';
-import TimeTile from '../components/TimeTile'
+import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion"; //Utilising the react-router library for navigation assist from https://www.npmjs.com/package/react-router 
 import { SchoolOutlined, PlaceOutlined, ScheduleOutlined, TripOrigin } from '@material-ui/icons/'
 
 /**

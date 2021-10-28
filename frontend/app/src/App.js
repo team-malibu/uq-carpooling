@@ -1,6 +1,6 @@
-import { AnimatePresence } from 'framer-motion';
-import React, { useState } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion'; //Utilising the framer-motion library from https://www.npmjs.com/package/framer-motion
+import React, { useState } from 'react'; 
+import { Route, Switch, useLocation } from 'react-router-dom'; //Utilising the react-router library for navigation assist from https://www.npmjs.com/package/react-router 
 import './App.css';
 import SimpleNavbar from './components/SimpleNavbar';
 import TimeTile from "./components/TimeTile";
